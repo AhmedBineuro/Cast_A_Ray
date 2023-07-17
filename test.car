@@ -1,0 +1,26 @@
+# width :
+50
+# height :
+50
+# wall layout :
+14,6
+1,1,1,1,1,1,1,1,1,1,1,1,1
+1,0,0,0,0,0,0,0,0,0,0,0,1,1
+1,0,0,4,0,0,0,0,0,0,0,3,0,1
+1,0,0,0,0,0,0,0,0,4,0,0,0,1
+1,0,0,0,0,0,0,0,0,0,0,0,1,1
+1,1,1,1,1,1,1,1,1,1,1,1,1
+# block types :
+0 ; 255,255,255
+1 ; 0,0,0
+2 ; 0,120,200
+3 ;120,120,70
+4 ;190,20,80
+5 ;255,0,0
+# wall textures :
+1 ; media/textures/cobble.jpg
+2 ; media/textures/granite.jpg
+3 ; media/textures/door.jpg
+4 ; media/textures/door.jpg
+5 ;media/textures/YAAAH.png
+#
