@@ -17,9 +17,10 @@ int main()
         printSegment(segment);
         std::cout << std::endl;
     }
-    if(!icon.loadFromFile("casta.png"))
-        std::cout<<"Fail"<<std::endl;
+    if(!icon.loadFromFile("./casta.png"))
+        std::cout<<"Failed to load window icon"<<std::endl;
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    m.processLayoutInfo();
     while (window.isOpen())
     {
         sf::Event event;

@@ -4,21 +4,49 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <map>
+#include "Map.h"
 /**
-* @brief A struct containing the name and contents of a segment
+* @brief A struct containing the name and contents of a segment.
 * The struct keeps a string for the name and a vector of strings for each line of the segment's contents 
 */
 static struct Segment {
 	std::string name;
 	std::vector<std::string> contents;
 };
+
 /**
-* @brief Function to print a given segment in a formatted form
+* @brief A struct containing the floor, wall, and ceiling values for a given tile.
+* The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
+* @note This will be used internally by the map class
+*/
+static struct TextureInfo {
+	int wall;
+	int floor;
+	int ceiling;
+};
+/**
+* @brief A struct containing processed map data.
+* The struct will contain all the information that can be processed. The resource list will contain
+* all the URLs for all the resources needed to be loaded (sounds, images, videos, etc).
+* The maxWidth attribute is there to help estimate the maximum footprint of drawing the map as a minimap.
+*/
+static struct MapInfo {
+	std::vector< std::vector<int>> floor_layout;
+	std::vector< std::vector<int>> wall_layout;
+	std::vector< std::vector<int>> ceiling_layout;
+	std::vector<std::string> resourceList;
+	int maxWidth;
+	int maxHeight;
+};
+
+/**
+* @brief Function to print a given segment in a formatted form.
 * @param segment 
 */
 void printSegment(Segment segment);
 /**
-* @brief Class to read a level file, parses, and processes it to Segment type objects
+* @brief Class to read a level file, parses, and processes it to Segment type objects.
 * The class contains a vector of Segment type objects that gets filled up with all the segments found in the file.
 * The class does not check for necessary segments like the level layout 
 */
@@ -26,10 +54,8 @@ class Map_Reader {
 public:
 	Map_Reader();
 	/**
-	* @brief Function to process a.car file and extracts the segments inside onto a vector
-	* Function to process a.car file and extracts the segments inside
-	* onto a vector.The vector contains all the information segments
-	* contained in the file inside a Segment object.
+	* @brief Function to process a.car file and extracts the segments inside onto a vector.
+	* Function to process a.car file and extracts the segments inside onto a vector.The vector contains all the information segments contained in the file inside a Segment object.
 	* @param URL Is the url to the level file
 	* @throws invalid argument exception
 	*/
@@ -46,6 +72,47 @@ public:
 	* @return A vector of Segment objects.
 	*/
 	std::vector<Segment> getAllSegments();
+
+	/**
+	* @brief Function to process the segment information into a Map object.
+	* This function will start the processing of the text information in the segment to the actual map.The function then return true if there is no errors during the map processing.A return value of false means that there is some missing necessarry information required to build the map (such as wall and floor layouts).
+	* @param map A CAR map
+	* @return success status.
+	*/
+	/**
+	* @brief Function to process a string of comma seperated numbers to a vector.
+	* @param vect A string of comma seperated integers.
+	* @return a vector of ints.
+	*/
+	static std::vector<int> stringToVector(std::string vect);
+
+	/**
+	* @brief Function to print an integer vector into the console.
+	* @param vect Vector 
+	*/
+	static void printVector(std::vector<int> vect);
+
+	bool linkMap(Map &map);
+	/**
+	* @brief Function to create a Map object from the segment information .
+	* This function will start the processing of the text information in the segment
+	* a map. The function then return the map if everything was successfull and will return null if there is some missing necessarry information 
+	* required to build the map (such as wall and floor layouts).
+	* @return processed map object.
+	*/
+	Map createMap();
+
+	/**
+	* @brief Function to process layout related segments and return it as a map .
+	* This function will start the processing of the text information in the segment
+	* a map. The function then return the map if everything was successfull and will return null if there is some missing necessarry information
+	* required to build the map (such as wall and floor layouts).
+	* @return processed map object.
+	*/
+	MapInfo processLayoutInfo();
+
+
+
 private:
 	std::vector<Segment> m_segments;
 };
