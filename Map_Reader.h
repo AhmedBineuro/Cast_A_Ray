@@ -7,38 +7,67 @@
 #include <map>
 #include "Map.h"
 /**
+* @struct
 * @brief A struct containing the name and contents of a segment.
 * The struct keeps a string for the name and a vector of strings for each line of the segment's contents 
 */
-static struct Segment {
+struct Segment {
 	std::string name;
 	std::vector<std::string> contents;
 };
 
 /**
+* @struct
 * @brief A struct containing the floor, wall, and ceiling values for a given tile.
 * The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
 * @note This will be used internally by the map class
+* @todo move to core header file
 */
-static struct TextureInfo {
+struct TileId {
 	int wall;
 	int floor;
 	int ceiling;
 };
 /**
+* @struct
+* @brief A struct containing the a resource flag name and status
+* @note This will be used internally by the resource manager
+* @todo move to core header file
+*/
+struct ResourceFlag {
+	std::string name;
+	bool status;
+};
+/**
+* @struct
+* @brief A struct containing the name, type, URL and any flags for the resource.
+* The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
+* @note This will be used internally by the resource manager
+* @todo move to core header file
+*/
+struct ResourceInfo {
+	std::string name;
+	std::string type;
+	std::string URL;
+	std::vector<ResourceFlag> flags;
+
+};
+/**
+* @struct
 * @brief A struct containing processed map data.
 * The struct will contain all the information that can be processed. The resource list will contain
 * all the URLs for all the resources needed to be loaded (sounds, images, videos, etc).
 * The maxWidth attribute is there to help estimate the maximum footprint of drawing the map as a minimap.
 */
-static struct MapInfo {
+struct MapInfo {
 	std::vector< std::vector<int>> floor_layout;
 	std::vector< std::vector<int>> wall_layout;
 	std::vector< std::vector<int>> ceiling_layout;
-	std::vector<std::string> resourceList;
+	std::vector<ResourceInfo> resourceList;
 	int maxWidth;
 	int maxHeight;
 };
+
 
 /**
 * @brief Function to print a given segment in a formatted form.
@@ -91,6 +120,14 @@ public:
 	* @param vect Vector 
 	*/
 	static void printVector(std::vector<int> vect);
+	/**
+	* @brief Function to split a string using a specific token
+	* 
+	* @param str The input string
+	* @param token The character to split around
+	* @return a vector containing the divided strings
+	*/
+	static std::vector<std::string> splitString(std::string str,char token);
 
 	bool linkMap(Map &map);
 	/**

@@ -26,13 +26,20 @@
 0,1,1,1,1,1,1,1,1,4,1,1,1,0,0,0
 0,1,1,1,1,1,1,1,1,1,1,1,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0
-# block types :
-0 ; 255,255,255
-1 ; 0,0,0
-2 ; 0,120,200
-3 ;120,120,70
-4 ;190,20,80
-5 ;255,0,0
+# textures :
+cobble:media/textures/cobble.jpg,0
+granite:media/textures/granite.jpg,1
+door:media/textures/door.jpg,0
+door:media/textures/door.jpg,0
+YAAAH:media/textures/YAAAH.png,1
+# sounds :
+sound1:url/url/url
+sound1:url/url/url
+sound1:url/url/url
+# debug colors :
+empty:255,255,255
+wall:0,0,0
+door:0,120,200
 # wall textures :
 1 ; media/textures/cobble.jpg
 2 ; media/textures/granite.jpg

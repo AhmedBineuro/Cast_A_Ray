@@ -1,6 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Map_Reader.h"
+/**
+* @todo create a resource manager so the engine doesn't load the same texture or
+* sound multiple times. The resource manager will be a 3 maps of name and resource. The three
+* maps will be for texture, sound, and debug color.
+* @todo create an entity manager that will just map an entity name to a specific class.
+* An entity is can be an enemy, a sprite, or a billboard.
+*/
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
