@@ -66,7 +66,7 @@ atrribute:value1,value2,value3
 - Name mapping tags are `wall tiles` , `floor tiles`, and `ceiling tiles`
 - The input is the tile index followed by the the name we want to give it
 ```
-\Example
+/Example
 1:door
 ```
 ### Resource tags
@@ -85,7 +85,7 @@ wall:cobble
 ```
 - It is okay for two different resources to have a different name like the following 
 ```
-\Example
+/Example
 # textures :
 name1:some\url\to\a\texure
 # sounds :
@@ -96,13 +96,13 @@ name1:some\url\to\a\sound
 ```
 - This in turn means if you were to assign the floor tiles with tile index 3 to the texture, the assignment will look like this _(given we perform the previous name bindings)_ 
 ```
-\This is perfectly fine since the two are accessed inside different containers
+/This is perfectly fine since the two are accessed inside different containers
 # tile textures :
 name1:name1
 #
 ```
 - The only exception is the `debug colors` tag where we replace the name of the resource to an RGB value
 ```
-\Example
+/Example
 door:0,255,0
 ```
