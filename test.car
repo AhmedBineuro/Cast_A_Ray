@@ -26,12 +26,28 @@
 0,1,1,1,1,1,1,1,1,4,1,1,1,0,0,0
 0,1,1,1,1,1,1,1,1,1,1,1,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0
+# wall tiles :
+0:empty
+1:wall
+3:door
+4:special
+# floor tiles :
+0:empty
+1:floor1
+3:floor2
+4:floor3
+# ceiling tiles :
+0:empty
+1:ceiling1
+3:ceiling2
+4:ceiling3
 # textures :
 cobble:media/textures/cobble.jpg,0
-granite:media/textures/granite.jpg,1
-door:media/textures/door.jpg,0
+granite:media/textures/granite.jpg,0
+wood:media/textures/wood.jpg,0
 door:media/textures/door.jpg,0
 YAAAH:media/textures/YAAAH.png,1
+metal:media/textures/metal.jpg,0
 # sounds :
 sound1:url/url/url
 sound1:url/url/url
@@ -40,10 +56,16 @@ sound1:url/url/url
 empty:255,255,255
 wall:0,0,0
 door:0,120,200
+special:0,255,0
 # wall textures :
-1 ; media/textures/cobble.jpg
-2 ; media/textures/granite.jpg
-3 ; media/textures/door.jpg
-4 ; media/textures/door.jpg
-5 ;media/textures/YAAAH.png
+wall:cobble
+special:granite
+door:door
+# floor textures :
+floor1:metal
+floor2:wood
+# ceiling textures :
+ceiling1:metal
+ceiling2:granite
+ceiling3:YAAAH
 #
