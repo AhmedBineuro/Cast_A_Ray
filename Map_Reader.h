@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include "Map.h"
+#include "Core.h"
 /**
 * @struct
 * @brief A struct containing the name and contents of a segment.
@@ -16,42 +17,7 @@ struct Segment {
 	std::vector<std::string> contents;
 };
 
-/**
-* @struct
-* @brief A struct containing the floor, wall, and ceiling values for a given tile.
-* The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
-* @note This will be used internally by the map class
-* @todo move to core header file
-*/
-struct TileId {
-	int wall;
-	int floor;
-	int ceiling;
-};
-/**
-* @struct
-* @brief A struct containing the a resource flag name and status
-* @note This will be used internally by the resource manager
-* @todo move to core header file
-*/
-struct ResourceFlag {
-	std::string name;
-	bool status;
-};
-/**
-* @struct
-* @brief A struct containing the name, type, URL and any flags for the resource.
-* The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
-* @note This will be used internally by the resource manager
-* @todo move to core header file
-*/
-struct ResourceInfo {
-	std::string name;
-	std::string type;
-	std::string URL;
-	std::vector<ResourceFlag> flags;
 
-};
 /**
 * @struct
 * @brief A struct containing processed map data.
