@@ -47,7 +47,7 @@ void printSegment(Segment segment);
 */
 class Map_Reader {
 public:
-	Map_Reader();
+	static Map_Reader& getReader();
 	/**
 	* @brief Function to process a.car file and extracts the segments inside onto a vector.
 	* Function to process a.car file and extracts the segments inside onto a vector.The vector contains all the information segments contained in the file inside a Segment object.
@@ -117,7 +117,13 @@ public:
 
 
 private:
+	// Private constructor for singleton instance
+	Map_Reader();
+	// Private copy constructor and assignment operator to prevent copy
+	Map_Reader(const Map_Reader&) = delete;
+	Map_Reader& operator=(const Map_Reader&) = delete;
 	std::vector<Segment> m_segments;
+	static Map_Reader singleton;
 };
 	
 	

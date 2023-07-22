@@ -13,7 +13,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-    Map_Reader m;
+    Map_Reader& m=Map_Reader::getReader();
     m.processLevel("test.car");
     /**
     * @todo Change the icon both in the resource and here to your own icon + include the png in the release file after building for sfml icon  

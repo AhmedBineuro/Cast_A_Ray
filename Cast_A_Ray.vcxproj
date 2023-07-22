@@ -143,6 +143,8 @@
     <ClCompile Include="Map_Reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Resource_Manager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Map_Reader.h" />

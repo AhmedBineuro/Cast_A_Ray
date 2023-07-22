@@ -1,9 +1,13 @@
 #include "Map_Reader.h"
+Map_Reader Map_Reader::singleton;
 void printSegment(Segment segment) {
 	std::cout << "Segment: " << segment.name << std::endl;
 	for (const std::string line : segment.contents) {
 		std::cout << line << std::endl;
 	}
+}
+Map_Reader& Map_Reader::getReader() {
+	return singleton;
 }
 Map_Reader::Map_Reader() {
 	m_segments = std::vector<Segment>(0);
