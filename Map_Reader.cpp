@@ -137,30 +137,23 @@ MapInfo Map_Reader::processLayoutInfo() {
 	
 	// Process Resources
 	currentSegment = this->getSegment("textures");
-	ResourceInfo currentResource;
+	ResourceLoadingInfo currentResource;
 	currentResource.type = "texture";
-	currentResource.flags.resize(1);
-	currentResource.flags[0]={"transparent",0};
 	for (std::string row : currentSegment.contents)
 	{
 		std::vector<std::string> NameAndValuePair = splitString(row, ':');
 		std::vector<std::string> values = splitString(NameAndValuePair[1], ',');
 		currentResource.name = NameAndValuePair[0];
 		currentResource.URL = values[0];
-		if (values[1] != "") {
-			currentResource.flags[0].status = stoi(values[1]);
-		}
 		if (currentResource.name != "") {
 			output.resourceList.push_back(currentResource);
 			currentResource.name = "";
 			currentResource.URL = "";
-			currentResource.flags[0].status = 0;
 		}
 	}
 
 	currentSegment = this->getSegment("sounds");
 	currentResource.type = "sound";
-	currentResource.flags.clear();
 	for (std::string row : currentSegment.contents)
 	{
 		std::vector<std::string> NameAndValuePair = splitString(row, ':');

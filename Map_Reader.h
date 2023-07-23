@@ -29,7 +29,7 @@ struct MapInfo {
 	std::vector< std::vector<int>> floor_layout;
 	std::vector< std::vector<int>> wall_layout;
 	std::vector< std::vector<int>> ceiling_layout;
-	std::vector<ResourceInfo> resourceList;
+	std::vector<ResourceLoadingInfo> resourceList;
 	int maxWidth;
 	int maxHeight;
 };
@@ -47,6 +47,9 @@ void printSegment(Segment segment);
 */
 class Map_Reader {
 public:
+	/**
+	* @brief Function to access the singleton instance of the map reader
+	*/
 	static Map_Reader& getReader();
 	/**
 	* @brief Function to process a.car file and extracts the segments inside onto a vector.
@@ -94,8 +97,6 @@ public:
 	* @return a vector containing the divided strings
 	*/
 	static std::vector<std::string> splitString(std::string str,char token);
-
-	bool linkMap(Map &map);
 	/**
 	* @brief Function to create a Map object from the segment information .
 	* This function will start the processing of the text information in the segment

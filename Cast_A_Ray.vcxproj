@@ -141,6 +141,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map_Reader.cpp" />
+    <ClCompile Include="Resource_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />

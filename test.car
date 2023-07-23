@@ -42,12 +42,12 @@
 3:ceiling2
 4:ceiling3
 # textures :
-cobble:media/textures/cobble.jpg,0
-granite:media/textures/granite.jpg,0
-wood:media/textures/wood.jpg,0
-door:media/textures/door.jpg,0
-YAAAH:media/textures/YAAAH.png,1
-metal:media/textures/metal.jpg,0
+cobble:media/textures/cobble.jpg
+granite:media/textures/granite.jpg
+wood:media/textures/wood.jpg
+door:media/textures/door.jpg
+YAAAH:media/textures/YAAAH.png
+metal:media/textures/metal.jpg
 # sounds :
 sound1:url/url/url
 sound1:url/url/url
