@@ -11,9 +11,9 @@
 * @note This will be used internally by the map class
 */
 struct TileId {
-	int wall;
-	int floor;
-	int ceiling;
+    int wall;
+    int floor;
+    int ceiling;
 };
 /**
 * @struct
@@ -22,7 +22,7 @@ struct TileId {
 * @note This will be used internally by the resource manager
 */
 struct ResourceLoadingInfo {
-	std::string name;
-	std::string type;
-	std::string URL;
+    std::string name;
+    std::string type;
+    std::string URL;
 };
