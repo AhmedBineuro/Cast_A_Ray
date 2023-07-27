@@ -6,39 +6,34 @@
 #include <vector>
 #include <map>
 #include "Map.h"
+#include "Core.h"
 /**
+* @struct
 * @brief A struct containing the name and contents of a segment.
 * The struct keeps a string for the name and a vector of strings for each line of the segment's contents 
 */
-static struct Segment {
+struct Segment {
 	std::string name;
 	std::vector<std::string> contents;
 };
 
+
 /**
-* @brief A struct containing the floor, wall, and ceiling values for a given tile.
-* The struct keeps 3 ints representing the tile index. Each value will be used to look up the corresponding texture/ color for the given tile.
-* @note This will be used internally by the map class
-*/
-static struct TextureInfo {
-	int wall;
-	int floor;
-	int ceiling;
-};
-/**
+* @struct
 * @brief A struct containing processed map data.
 * The struct will contain all the information that can be processed. The resource list will contain
 * all the URLs for all the resources needed to be loaded (sounds, images, videos, etc).
 * The maxWidth attribute is there to help estimate the maximum footprint of drawing the map as a minimap.
 */
-static struct MapInfo {
+struct MapInfo {
 	std::vector< std::vector<int>> floor_layout;
 	std::vector< std::vector<int>> wall_layout;
 	std::vector< std::vector<int>> ceiling_layout;
-	std::vector<std::string> resourceList;
+	std::vector<ResourceLoadingInfo> resourceList;
 	int maxWidth;
 	int maxHeight;
 };
+
 
 /**
 * @brief Function to print a given segment in a formatted form.
@@ -52,7 +47,10 @@ void printSegment(Segment segment);
 */
 class Map_Reader {
 public:
-	Map_Reader();
+	/**
+	* @brief Function to access the singleton instance of the map reader
+	*/
+	static Map_Reader& getReader();
 	/**
 	* @brief Function to process a.car file and extracts the segments inside onto a vector.
 	* Function to process a.car file and extracts the segments inside onto a vector.The vector contains all the information segments contained in the file inside a Segment object.
@@ -91,8 +89,14 @@ public:
 	* @param vect Vector 
 	*/
 	static void printVector(std::vector<int> vect);
-
-	bool linkMap(Map &map);
+	/**
+	* @brief Function to split a string using a specific token
+	* 
+	* @param str The input string
+	* @param token The character to split around
+	* @return a vector containing the divided strings
+	*/
+	static std::vector<std::string> splitString(std::string str,char token);
 	/**
 	* @brief Function to create a Map object from the segment information .
 	* This function will start the processing of the text information in the segment
@@ -114,7 +118,13 @@ public:
 
 
 private:
+	// Private constructor for singleton instance
+	Map_Reader();
+	// Private copy constructor and assignment operator to prevent copy
+	Map_Reader(const Map_Reader&) = delete;
+	Map_Reader& operator=(const Map_Reader&) = delete;
 	std::vector<Segment> m_segments;
+	static Map_Reader singleton;
 };
 	
 	

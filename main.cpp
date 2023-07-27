@@ -20,7 +20,7 @@ int main()
 {
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-    Map_Reader m;
+    Map_Reader& m=m.getReader();
     l.setBackgroundColor(sf::Color(255,255,255,150));
     l.setTextColor(sf::Color::Yellow);
     l.setPosition(sf::Vector2f(300, 300));

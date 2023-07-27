@@ -1,9 +1,13 @@
 #include "Map_Reader.h"
+Map_Reader Map_Reader::singleton;
 void printSegment(Segment segment) {
 	std::cout << "Segment: " << segment.name << std::endl;
 	for (const std::string line : segment.contents) {
 		std::cout << line << std::endl;
 	}
+}
+Map_Reader& Map_Reader::getReader() {
+	return singleton;
 }
 Map_Reader::Map_Reader() {
 	m_segments = std::vector<Segment>(0);
@@ -86,6 +90,21 @@ void Map_Reader::printVector(std::vector<int>vect) {
 		}
 	}
 }
+std::vector<std::string> Map_Reader::splitString(std::string str, char token) {
+	std::vector<std::string> output(0);
+	std::string currentString = "";
+	for (int i = 0;i<str.size();i++) {
+		if (str[i] != token)
+			currentString += str[i];
+		else if(str[i] == token) {
+			output.push_back(currentString);
+			currentString = "";
+		}
+	}
+	output.push_back(currentString);
+	return output;
+}
+
 
 /**
 * @todo Implement block to texture mapping and resource list loading
@@ -93,7 +112,12 @@ void Map_Reader::printVector(std::vector<int>vect) {
 */
 MapInfo Map_Reader::processLayoutInfo() {
 	MapInfo output;
+	output.ceiling_layout.clear();
+	output.floor_layout.clear();
+	output.wall_layout.clear();
+	output.resourceList.clear();
 	std::cout << "PROCESSING START\n";
+	// Process Layout
 	Segment currentSegment=this->getSegment("floor layout");
 	output.maxWidth = 0;
 	for (std::string row : currentSegment.contents)
@@ -106,13 +130,56 @@ MapInfo Map_Reader::processLayoutInfo() {
 
 	currentSegment = this->getSegment("wall layout");
 	for (std::string row : currentSegment.contents)
-	{
 		output.wall_layout.push_back(stringToVector(row));
-	}
 	currentSegment = this->getSegment("ceiling layout");
 	for (std::string row : currentSegment.contents)
-	{
 		output.ceiling_layout.push_back(stringToVector(row));
+	
+	// Process Resources
+	currentSegment = this->getSegment("textures");
+	ResourceLoadingInfo currentResource;
+	currentResource.type = "texture";
+	for (std::string row : currentSegment.contents)
+	{
+		std::vector<std::string> NameAndValuePair = splitString(row, ':');
+		std::vector<std::string> values = splitString(NameAndValuePair[1], ',');
+		currentResource.name = NameAndValuePair[0];
+		currentResource.URL = values[0];
+		if (currentResource.name != "") {
+			output.resourceList.push_back(currentResource);
+			currentResource.name = "";
+			currentResource.URL = "";
+		}
+	}
+
+	currentSegment = this->getSegment("sounds");
+	currentResource.type = "sound";
+	for (std::string row : currentSegment.contents)
+	{
+		std::vector<std::string> NameAndValuePair = splitString(row, ':');
+		std::vector<std::string> values = splitString(NameAndValuePair[1], ',');
+		currentResource.name = NameAndValuePair[0];
+		currentResource.URL = values[0];
+		if (currentResource.name != "") {
+			output.resourceList.push_back(currentResource);
+			currentResource.name = "";
+			currentResource.URL = "";
+		}
+	}
+	currentSegment = this->getSegment("debug colors");
+	currentResource.type = "debug colors";
+	for (std::string row : currentSegment.contents)
+	{
+		std::vector<std::string> NameAndValuePair = splitString(row, ':');
+		std::vector<std::string> values = splitString(NameAndValuePair[1], ',');
+		std::cout << NameAndValuePair[0] << " " << NameAndValuePair[1] << std::endl;
+		currentResource.name = NameAndValuePair[0];
+		currentResource.URL = values[0];
+		if (currentResource.name != "") {
+			output.resourceList.push_back(currentResource);
+			currentResource.name = "";
+			currentResource.URL = "";
+		}
 	}
 	std::cout << "Done\n";
 	return output;
