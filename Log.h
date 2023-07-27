@@ -10,35 +10,60 @@
 */
 class Log {
 public:
-	Log();
+public:
+    Log();
+    void draw(sf::RenderTarget& renderTarget, sf::RenderStates states);
+    void setFont(sf::Font& font);
+    void setTextColor(sf::Color new_color);
+    void setBackgroundColor(sf::Color new_color);
+    /**
+    * @@param margin the margin in characters
+    */
+    void setMargin(int margin);
+    void setFontSize(int fontSize);
+    void refreshFontAttributes();
+    void setSize(sf::Vector2f size);
+    void setPosition(sf::Vector2f position);
 
-	/**
-	* @brief Function to get sll the messages in log as a string
-	* @note this is mostly used to debug the Log object and test its behaviour.
-	* @return The full log as a string
-	*/
-	std::string stringifyFull();
-	/**
-	* @brief Function to get the messages log vector
-	* @note this is mostly used to debug the Log object and test its behaviour.
-	* @return A vector of log messages
-	*/
-	std::vector<std::string>getFullLog();
-	/**
-	* @brief Function to set the dimensions of the log
-	* @note The dimensions mentioned here refer to the pixel size and not the character count per line
-	*/
-	void setDimensions(sf::Vector2f dimensions);
-	/**
-	* @brief Function to set the position of the log
-	*/
-	void setPosition(sf::Vector2f dimensions);
-	/**
-	* @brief Function to clear the message log vector
-	*/
-	void clearHistory();
+    /**
+     * @brief Function to submit a message into the text box
+     */
+    void submit_message(std::string message);
+
 private:
-	std::vector<std::string> messageLog;
-	sf::Vector2f dimensions;
-	sf::RectangleShape background;
+    std::vector<std::string> m_message_history;
+    std::vector<std::string> m_formatted_text;
+    sf::RectangleShape m_background;
+    sf::Text m_currentLine;
+    int m_margin, m_fontSize, m_single_char_width;
+    /**
+     * @brief Describes the max count of characters in the text box (horizontal and vertical)
+     */
+    sf::Vector2i m_max_char_count;
+
+    /**
+     * @brief Function to fetch the words in a sentence
+     * @returns Vector of words
+     */
+
+    std::vector<std::string> getWords(std::string str);
+    /**
+     * @brief Function to perform text wrapping according to a specififc character count
+     * @returns String with the wrapping performed using new line characters
+     */
+    std::string wrapText(std::string str);
+
+    /**
+     * @brief Function to perform text wrapping according to a specififc character count
+     * @returns Vector of strings where each line is a string
+     */
+    std::vector<std::string> wrapTextVectorized(std::string str);
+    /**
+     * @brief Function to update the max character count horizontally and vertically in the view
+     */
+    void updateBounds();
+    /**
+    * @brief Function to reformat the text in the log
+    */
+    void refreshFormattedText();
 };
