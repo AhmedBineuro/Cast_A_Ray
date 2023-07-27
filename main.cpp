@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Map_Reader.h"
+
 /**
 * @todo create a resource manager so the engine doesn't load the same texture or
 * sound multiple times. The resource manager will be a 3 maps of name and resource. The three
