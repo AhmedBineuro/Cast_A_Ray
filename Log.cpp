@@ -172,7 +172,7 @@ void Log::updateBounds()
 {
     int width = m_background.getSize().x;
     int height = m_background.getSize().y;
-    m_max_char_count.x = width / (m_single_char_width + m_margin / 2);
+    m_max_char_count.x = width / m_single_char_width - (m_margin * 2);
     m_max_char_count.y = height / (m_fontSize)-(m_margin * 2);
 }
 void Log::refreshFormattedText()
