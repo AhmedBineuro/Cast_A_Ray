@@ -141,6 +141,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map_Reader.cpp" />
+    <ClCompile Include="Resource_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Map_Reader.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resource_Manager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc" />
