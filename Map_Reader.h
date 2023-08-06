@@ -72,12 +72,6 @@ public:
 	std::vector<Segment> getAllSegments();
 
 	/**
-	* @brief Function to process the segment information into a Map object.
-	* This function will start the processing of the text information in the segment to the actual map.The function then return true if there is no errors during the map processing.A return value of false means that there is some missing necessarry information required to build the map (such as wall and floor layouts).
-	* @param map A CAR map
-	* @return success status.
-	*/
-	/**
 	* @brief Function to process a string of comma seperated numbers to a vector.
 	* @param vect A string of comma seperated integers.
 	* @return a vector of ints.
