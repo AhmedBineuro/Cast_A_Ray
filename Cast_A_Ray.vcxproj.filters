@@ -47,6 +47,9 @@
     <ClInclude Include="Resource_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">
@@ -62,6 +65,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="CourierPrime-Regular.ttf" />
+    <Font Include="CourierPrime-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>
