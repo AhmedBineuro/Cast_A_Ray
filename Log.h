@@ -19,7 +19,7 @@ public:
     void setTextColor(sf::Color new_color);
     void setBackgroundColor(sf::Color new_color);
     /**
-    * @@param margin the margin in characters
+    * @param margin the margin in characters
     */
     void setMargin(int margin);
     void setFontSize(int fontSize);
