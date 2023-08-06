@@ -17,7 +17,7 @@ void checkForInput() {
     }
 }
 void windowLoop() {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
     Resource_Manager& r = Resource_Manager::getResourceManager();
     sf::Image icon;
     if (!icon.loadFromFile("./casta.png"))
