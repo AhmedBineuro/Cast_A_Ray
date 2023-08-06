@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Resource_Manager.h"
 /**
 * @brief A class that displays a log of any engine related events to allow in engine debugging.
 * Any engine component will be able to link to a Log object. When linked the component
@@ -12,6 +13,7 @@ class Log {
 public:
 public:
     Log();
+    void draw(sf::RenderTarget& renderTarget);
     void draw(sf::RenderTarget& renderTarget, sf::RenderStates states);
     void setFont(sf::Font& font);
     void setTextColor(sf::Color new_color);

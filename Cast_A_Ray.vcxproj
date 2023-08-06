@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\casta.ico" />
+    <Image Include="no_text.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="CourierPrime-Regular.ttf" />

@@ -1,14 +1,10 @@
 #include"Log.h"
-sf::Font font;
 Log::Log()
 {
     m_message_history = std::vector<std::string>(0);
     m_formatted_text = std::vector<std::string>(0);
-    if (!font.loadFromFile("./CourierPrime-Regular.ttf"))
-    {
-        std::cout << "Couldn't load font" << std::endl;
-    }
-    m_currentLine.setFont(font);
+    Resource_Manager& rm = Resource_Manager::getResourceManager();
+    m_currentLine.setFont(rm.getFont("DEF_LOG"));
     m_background = sf::RectangleShape();
     m_background.setSize(sf::Vector2f(200, 200));
     m_background.setFillColor(sf::Color::Black);
@@ -19,6 +15,21 @@ Log::Log()
     updateBounds();
 }
 void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
+{
+    renderTarget.draw(m_background, states);
+    int cursor_position = m_margin;
+    sf::Vector2f position = m_background.getPosition();
+    for (std::string line : m_formatted_text)
+    {
+        float x = position.x + m_margin * m_single_char_width;
+        float y = position.y + (cursor_position) * (m_fontSize);
+        m_currentLine.setString(line);
+        m_currentLine.setPosition(x, y);
+        renderTarget.draw(m_currentLine,states);
+        cursor_position++;
+    }
+}
+void Log::draw(sf::RenderTarget& renderTarget)
 {
     renderTarget.draw(m_background);
     int cursor_position = m_margin;
