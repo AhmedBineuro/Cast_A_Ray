@@ -97,14 +97,6 @@ public:
 	* @return a vector containing the divided strings
 	*/
 	static std::vector<std::string> splitString(std::string str,char token);
-	/**
-	* @brief Function to create a Map object from the segment information .
-	* This function will start the processing of the text information in the segment
-	* a map. The function then return the map if everything was successfull and will return null if there is some missing necessarry information 
-	* required to build the map (such as wall and floor layouts).
-	* @return processed map object.
-	*/
-	Map createMap();
 
 	/**
 	* @brief Function to process layout related segments and return it as a map .

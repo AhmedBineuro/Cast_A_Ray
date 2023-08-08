@@ -12,6 +12,7 @@ class Log {
 public:
 public:
     Log();
+    void draw(sf::RenderTarget& renderTarget);
     void draw(sf::RenderTarget& renderTarget, sf::RenderStates states);
     void setFont(sf::Font& font);
     void setTextColor(sf::Color new_color);

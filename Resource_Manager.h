@@ -1,4 +1,7 @@
 #pragma once
+/**
+* @todo Rewrite the whole cpp file again :(
+*/
 #include "Core.h"
 #include <vector>
 #include <iostream>
@@ -53,13 +56,13 @@ public:
 
 private:
 	/*Resource maps*/
-	std::map<std::string, Texture_Container> textureMap;
-	std::map<std::string, Sound_Container> soundMap;
-	std::map<std::string, Music_Container> musicMap;
+	std::map<std::string, Texture_Container> m_textureMap;
+	std::map<std::string, Sound_Container> m_soundMap;
+	std::map<std::string, Music_Container> m_musicMap;
 	// Private constructor for singleton instance
 	Resource_Manager();
 	// Private copy constructor and assignment operator to prevent copy
 	Resource_Manager(const Resource_Manager&) = delete;
-	static Resource_Manager singleton;
+	static Resource_Manager m_singleton;
 	Resource_Manager& operator=(const Resource_Manager&) = delete;
 };

@@ -18,7 +18,7 @@ Log::Log()
     refreshFontAttributes();
     updateBounds();
 }
-void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
+void Log::draw(sf::RenderTarget& renderTarget)
 {
     renderTarget.draw(m_background);
     int cursor_position = m_margin;
@@ -30,6 +30,21 @@ void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
         m_currentLine.setString(line);
         m_currentLine.setPosition(x, y);
         renderTarget.draw(m_currentLine);
+        cursor_position++;
+    }
+}
+void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
+{
+    renderTarget.draw(m_background);
+    int cursor_position = m_margin;
+    sf::Vector2f position = m_background.getPosition();
+    for (std::string line : m_formatted_text)
+    {
+        float x = position.x + m_margin * m_single_char_width;
+        float y = position.y + (cursor_position) * (m_fontSize);
+        m_currentLine.setString(line);
+        m_currentLine.setPosition(x, y);
+        renderTarget.draw(m_currentLine,states);
         cursor_position++;
     }
 }
