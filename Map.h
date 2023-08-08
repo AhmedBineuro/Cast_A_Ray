@@ -6,7 +6,7 @@
 class Map {
 public:
 	Map();
-	void load_level(MapInfo);
+	void load_level(MapInfo map_details);
 	void draw(sf::RenderTarget& renderTarget);
 	void draw(sf::RenderTarget& renderTarget,sf::RenderStates);
 	

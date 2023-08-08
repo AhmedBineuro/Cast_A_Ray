@@ -1,5 +1,5 @@
 #include "Resource_Manager.h"
-Resource_Manager Resource_Manager::singleton;
+Resource_Manager Resource_Manager::m_singleton;
 Resource_Manager::Resource_Manager() {
 	std::shared_ptr<sf::Texture> defaultTexture = std::make_shared<sf::Texture>();
 	if (!defaultTexture->loadFromFile("no_text.png")) {
@@ -13,8 +13,8 @@ Resource_Manager::Resource_Manager() {
 	this->fontMap["DEF_LOG"] = Font_Container{ defaultFont};
 }
 Resource_Manager& Resource_Manager::getResourceManager() {
-	static Resource_Manager singleton;
-	return singleton;
+	static Resource_Manager m_singleton;
+	return m_singleton;
 }
 
 sf::Texture& Resource_Manager::getTexture(std::string name) {
