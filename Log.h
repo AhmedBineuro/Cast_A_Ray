@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Resource_Manager.h"
 /**
 * @brief A class that displays a log of any engine related events to allow in engine debugging.
 * Any engine component will be able to link to a Log object. When linked the component
@@ -18,7 +19,7 @@ public:
     void setTextColor(sf::Color new_color);
     void setBackgroundColor(sf::Color new_color);
     /**
-    * @@param margin the margin in characters
+    * @param margin the margin in characters
     */
     void setMargin(int margin);
     void setFontSize(int fontSize);

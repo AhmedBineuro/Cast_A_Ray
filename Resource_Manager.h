@@ -17,35 +17,42 @@ struct Sound_Container {
 struct Music_Container {
 	std::shared_ptr<sf::Music> music;
 };
+struct Font_Container {
+	std::shared_ptr<sf::Font> font;
+};
 class Resource_Manager {
 
 public:
 	/**
 	* @brief Function to access the singleton instance of the resource manager
 	*/
-	Resource_Manager& getResourceManager();
+	static Resource_Manager& getResourceManager();
 	
 	/**
 	* @brief Function to get a texture resource using it's name
 	* @param name the name of the resource
 	* @returns a reference to the texture object
-	* @throws std::out_of_range
 	*/
 	sf::Texture& getTexture(std::string name);
 	/**
 	* @brief Function to get a music resource using it's name
 	* @param name the name of the resource
 	* @returns a reference to the music object
-	* @throws std::out_of_range
 	*/
 	sf::Music& getMusic(std::string name);
 	/**
 	* @brief Function to get a sound resource using it's name
 	* @param name the name of the resource
 	* @returns a copy to the sound object
-	* @throws std::out_of_range
 	*/
-	sf::Sound getSound(std::string name);
+	sf::Sound& getSound(std::string name);
+
+	/**
+	* @brief Function to get a font resource using it's name
+	* @param name the name of the resource
+	* @returns a copy to the font object
+	*/
+	sf::Font& getFont(std::string name);
 	/**
 	* @brief Function to process a resource list for a given map
 	* The function will load all the unloaded resources and save the dependencies for the map
@@ -56,9 +63,10 @@ public:
 
 private:
 	/*Resource maps*/
-	std::map<std::string, Texture_Container> m_textureMap;
-	std::map<std::string, Sound_Container> m_soundMap;
-	std::map<std::string, Music_Container> m_musicMap;
+	std::unordered_map<std::string, Texture_Container> textureMap;
+	std::unordered_map<std::string, Sound_Container> soundMap;
+	std::unordered_map<std::string, Music_Container> musicMap;
+	std::unordered_map<std::string, Font_Container> fontMap;
 	// Private constructor for singleton instance
 	Resource_Manager();
 	// Private copy constructor and assignment operator to prevent copy

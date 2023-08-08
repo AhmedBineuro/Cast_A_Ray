@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include "Map_Reader.h"
 #include "Log.h"
+#include "Resource_Manager.h"
 #include <iostream>
 #include <thread>
 static bool run = true;
@@ -16,7 +17,8 @@ void checkForInput() {
     }
 }
 void windowLoop() {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
+    Resource_Manager& r = Resource_Manager::getResourceManager();
     sf::Image icon;
     if (!icon.loadFromFile("./casta.png"))
     std::cout << "Failed to load window icon" << std::endl;
@@ -47,14 +49,12 @@ int main(){
     l.setSize(sf::Vector2f(600, 200));
     //std::cout << "Success" << std::endl;
     m.processLevel("test.car");
-    /**
-    * @todo Change the icon both in the resource and here to your own icon + include the png in the release file after building for sfml icon  
-    */
-    for(Segment segment: m.getAllSegments())
-    {
-        printSegment(segment);
-        std::cout << std::endl;
-    }
+
+    //for(Segment segment: m.getAllSegments())
+    //{
+    //    printSegment(segment);
+    //    std::cout << std::endl;
+    //}
     m.processLayoutInfo();
     std::thread windowThread(windowLoop);
     std::thread inputThread(checkForInput);
