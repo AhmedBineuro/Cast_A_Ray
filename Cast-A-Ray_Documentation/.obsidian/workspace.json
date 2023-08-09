@@ -38,9 +38,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "5a39936d58f2f9b9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Entity component System Details.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -106,7 +118,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Engine components.md",
+                "file": "Entity component System Details.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +135,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Engine components.md",
+                "file": "Entity component System Details.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Engine components.md"
+                "file": "Entity component System Details.md"
               }
             }
           }
@@ -167,9 +179,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "588a24c3ad623810",
+  "active": "5a39936d58f2f9b9",
   "lastOpenFiles": [
     "Engine components.md",
+    "Entity component System Details.md",
     "Cast-A-Ray Level File.md"
   ]
 }
