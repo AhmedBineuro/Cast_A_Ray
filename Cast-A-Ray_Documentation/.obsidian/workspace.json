@@ -50,9 +50,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "2d6086d271dc744e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Entity component System Details.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -179,7 +191,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5a39936d58f2f9b9",
+  "active": "2d6086d271dc744e",
   "lastOpenFiles": [
     "Engine components.md",
     "Entity component System Details.md",

@@ -1,45 +1,41 @@
-# Components
 ### Movable Component
-- Velocity Vector (size 3)
-- Friction
-- Max Speed
-- Acceleration Vector
+- **Velocity Vector** (size 3): Determines the object's speed and direction.
+- **Friction**: Affects how quickly the object slows down.
+- **Max Speed**: Limits the object's speed.
+- **Acceleration Vector**: Determines the object's rate of change of velocity.
 ### Controller Component
-- Control Type
-- Active State
-- Control System ID (referencing the type of control scheme)
+- **Control Type**: Defines the method of control (e.g., AI, player, etc.).
+- **Active State**: Whether the control is currently active.
+- **Control System ID**: Reference to the specific control scheme used.
 ### Life Component
-- Health
-- Max Health
-- Alive (boolean)
+- **Health**: Current health points.
+- **Max Health**: Maximum health points.
+- **Alive** (boolean): Indicates if the object is alive.
+
 ### Sprite Component
-- Sprite Attribute
-- Drawable (boolean)
+- **Sprite Attribute**: Visual representation.
+- **Drawable** (boolean): Whether the object is currently drawn.
 ### Collider Component (for 2D space)
-- Rect (representing bounds)
+- **Rect**: Represents the object's bounds for collision detection.
 ### Raycasting Component
-- Origin (point from where the raycasting starts)
-- Direction (angle or vector indicating the direction)
-- Range (distance the ray can travel)
-- Raycast Type (e.g., vision, detection, etc.)
+- **Origin**: Point from where the raycasting starts.
+- **Direction**: Angle or vector indicating the direction.
+- **Range**: Distance the ray can travel.
+- **Raycast Type**: The purpose of the raycast (e.g., vision, detection, etc.).
 ### Camera Component
-- FOV (Field of View)
-- Plane
-- Raycast ID (referencing the type of raycasting)
+- **FOV** (Field of View): The viewable area.
+- **Plane**: Used for rendering.
+- **Raycast ID**: Reference to the specific raycasting type.
 ### Logger Component
-- Log Reference (to main log or linked log)
+- **Log Reference**: Link to the main log or specific linked log for error reporting.
 ### Audio Emitter Component
-- Audio Attributes (using SFML Sound classes)
-
+- **Audio Attributes**: Controls audio output using SFML Sound classes.
 ### Audio Listener Component
-- Listener Attributes (using SFML Listener classes)
-
+- **Listener Attributes**: Receives audio using SFML Listener classes.
 ### Music Component
-- Music Attributes (using SFML Music classes)
-
+- **Music Attributes**: Manages music playback using SFML Music classes.
 ### Map Association Component
-- Map ID
-
-### Trigger Component
-- Shape (2D initially, future-proof for 3D)
-- Trigger Type (e.g., collision, proximity)
+- **Map ID**: Associates the object with a specific map.
+### Trigg er Component
+- **Shape**: Defines the shape (2D initially, future-proof for 3D).
+- **Trigger Type**: Determines the trigger's purpose (e.g., collision, proximity).
