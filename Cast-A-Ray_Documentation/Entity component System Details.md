@@ -1,3 +1,4 @@
+# Components
 ### Movable Component
 - **Velocity Vector** (size 3): Determines the object's speed and direction.
 - **Friction**: Affects how quickly the object slows down.
@@ -39,3 +40,35 @@
 ### Trigg er Component
 - **Shape**: Defines the shape (2D initially, future-proof for 3D).
 - **Trigger Type**: Determines the trigger's purpose (e.g., collision, proximity).
+# Game Component Systems
+
+### Movement System
+- Processes the `Movable Component` to handle physics and movement logic.
+- Applies friction, acceleration, and ensures objects stay within max speed.
+### Control System
+- Processes the `Controller Component` to manage input controls and AI behavior.
+- Can switch between different control schemes.
+### Life System
+- Processes the `Life Component` to handle health and alive status.
+- Manages damage, healing, and death events.
+### Rendering System
+- Processes the `Sprite Component` and `Camera Component` to render objects.
+- Handles drawing logic, including visibility checks.
+### Collision System
+- Processes the `Collider Component` to manage collisions between objects.
+- Handles collision responses, such as bouncing or sticking.
+### Raycasting System
+- Processes the `Raycasting Component` to perform raycasting operations.
+- Used for vision, detection, or other line-of-sight calculations.
+### Logging System
+- Processes the `Logger Component` to log messages, warnings, or errors.
+- Formats and displays log entries as needed.
+### Audio System
+- Processes the `Audio Emitter Component`, `Audio Listener Component`, and `Music Component` to manage sound effects and music.
+- Handles audio playback, volume, and positioning.
+### Map Association System
+- Processes the `Map Association Component` to link objects to specific maps.
+- Handles loading and unloading of map-related data.
+### Trigger System
+- Processes the `Trigger Component` to detect and respond to trigger events.
+- Can initiate events like opening doors, starting cutscenes, etc.
