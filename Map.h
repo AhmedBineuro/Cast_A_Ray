@@ -30,6 +30,7 @@ public:
 private:
 	sf::Vector2f m_minimapPosition;
 	sf::Vector2f m_minimapDimensions;
-	sf::RectangleShape m_minimapBackground, m_tileSprite;
+	sf::RectangleShape m_minimapBackground;
+	MapInfo m_layout;
 	Log* m_linkedLog;
 };
