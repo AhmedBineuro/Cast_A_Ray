@@ -5,6 +5,7 @@ Resource_Manager::Resource_Manager() {
 	if (!defaultTexture->loadFromFile("no_text.png")) {
 		throw std::runtime_error("Failed to load default texture.");
 	}
+	this->textureMap["DEF_TEXT"] = Texture_Container{ defaultTexture };
 	std::shared_ptr<sf::Font> defaultFont = std::make_shared<sf::Font>();
 	if (!defaultFont->loadFromFile("./CourierPrime-Regular.ttf")) {
 		throw std::runtime_error("Failed to load default texture.");
