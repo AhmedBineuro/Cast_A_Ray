@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\source\repos\Cast_A_Ray\entt-master\single_include;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;C:\Users\User\source\repos\Cast_A_Ray\SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)entt-master;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,7 +92,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\source\repos\Cast_A_Ray\entt-master\single_include;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;C:\Users\User\source\repos\Cast_A_Ray\SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)entt-master;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -109,7 +109,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\source\repos\Cast_A_Ray\entt-master\single_include;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;C:\Users\User\source\repos\Cast_A_Ray\SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)entt-master;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,7 +125,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\source\repos\Cast_A_Ray\entt-master\single_include;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;C:\Users\User\source\repos\Cast_A_Ray\SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)entt-master;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -144,6 +144,7 @@
     <ClCompile Include="Resource_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
@@ -151,13 +152,13 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\casta.ico" />
-    <Image Include="no_text.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="CourierPrime-Regular.ttf" />

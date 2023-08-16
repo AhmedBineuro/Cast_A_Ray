@@ -123,10 +123,10 @@ MapInfo Map_Reader::processLayoutInfo() {
 	for (std::string row : currentSegment.contents)
 	{
 		output.floor_layout.push_back(stringToVector(row));
-		int width = output.floor_layout.back().size();
+		int width = (int)output.floor_layout.back().size();
 		output.maxWidth = (output.maxWidth >= width) * output.maxWidth + (output.maxWidth < width) * width;
 	}
-	output.maxHeight = output.floor_layout.size();
+	output.maxHeight = (int)output.floor_layout.size();
 
 	currentSegment = this->getSegment("wall layout");
 	for (std::string row : currentSegment.contents)

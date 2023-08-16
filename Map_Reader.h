@@ -5,17 +5,16 @@
 #include <stdexcept>
 #include <vector>
 #include <map>
-#include "Map.h"
 #include "Core.h"
 /**
 * @struct
 * @brief A struct containing the name and contents of a segment.
 * The struct keeps a string for the name and a vector of strings for each line of the segment's contents 
 */
-struct Segment {
+typedef struct  {
 	std::string name;
 	std::vector<std::string> contents;
-};
+}Segment;
 
 
 /**
@@ -25,14 +24,14 @@ struct Segment {
 * all the URLs for all the resources needed to be loaded (sounds, images, videos, etc).
 * The maxWidth attribute is there to help estimate the maximum footprint of drawing the map as a minimap.
 */
-struct MapInfo {
+typedef struct {
 	std::vector< std::vector<int>> floor_layout;
 	std::vector< std::vector<int>> wall_layout;
 	std::vector< std::vector<int>> ceiling_layout;
 	std::vector<ResourceLoadingInfo> resourceList;
 	int maxWidth;
 	int maxHeight;
-};
+}MapInfo;
 
 
 /**
@@ -91,14 +90,6 @@ public:
 	* @return a vector containing the divided strings
 	*/
 	static std::vector<std::string> splitString(std::string str,char token);
-	/**
-	* @brief Function to create a Map object from the segment information .
-	* This function will start the processing of the text information in the segment
-	* a map. The function then return the map if everything was successfull and will return null if there is some missing necessarry information 
-	* required to build the map (such as wall and floor layouts).
-	* @return processed map object.
-	*/
-	Map createMap();
 
 	/**
 	* @brief Function to process layout related segments and return it as a map .

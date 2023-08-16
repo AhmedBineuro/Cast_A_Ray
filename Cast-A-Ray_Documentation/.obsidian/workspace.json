@@ -38,9 +38,45 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "5a39936d58f2f9b9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Entity component System Details.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2d6086d271dc744e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Entity component System Details.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "92851aca17fe5f95",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Raycasting Algorithm steps.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -106,7 +142,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Engine components.md",
+                "file": "Raycasting Algorithm steps.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +159,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Engine components.md",
+                "file": "Raycasting Algorithm steps.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Engine components.md"
+                "file": "Raycasting Algorithm steps.md"
               }
             }
           }
@@ -167,8 +203,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "588a24c3ad623810",
+  "active": "92851aca17fe5f95",
   "lastOpenFiles": [
+    "Entity component System Details.md",
+    "Raycasting Algorithm steps.md",
     "Engine components.md",
     "Cast-A-Ray Level File.md"
   ]

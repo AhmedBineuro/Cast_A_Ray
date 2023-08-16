@@ -44,8 +44,8 @@ int main(){
     l.setBackgroundColor(sf::Color(255,255,255,150));
     l.setTextColor(sf::Color::Yellow);
     l.setPosition(sf::Vector2f(300, 300));
-    l.setFontSize(20);
-    l.setMargin(4);
+    l.setFontSize(15);
+    l.setMargin(1);
     l.setSize(sf::Vector2f(600, 200));
     //std::cout << "Success" << std::endl;
     m.processLevel("test.car");

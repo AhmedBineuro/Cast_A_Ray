@@ -14,21 +14,6 @@ Log::Log()
     refreshFontAttributes();
     updateBounds();
 }
-void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
-{
-    renderTarget.draw(m_background, states);
-    int cursor_position = m_margin;
-    sf::Vector2f position = m_background.getPosition();
-    for (std::string line : m_formatted_text)
-    {
-        float x = position.x + m_margin * m_single_char_width;
-        float y = position.y + (cursor_position) * (m_fontSize);
-        m_currentLine.setString(line);
-        m_currentLine.setPosition(x, y);
-        renderTarget.draw(m_currentLine,states);
-        cursor_position++;
-    }
-}
 void Log::draw(sf::RenderTarget& renderTarget)
 {
     renderTarget.draw(m_background);
@@ -41,6 +26,21 @@ void Log::draw(sf::RenderTarget& renderTarget)
         m_currentLine.setString(line);
         m_currentLine.setPosition(x, y);
         renderTarget.draw(m_currentLine);
+        cursor_position++;
+    }
+}
+void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
+{
+    renderTarget.draw(m_background);
+    int cursor_position = m_margin;
+    sf::Vector2f position = m_background.getPosition();
+    for (std::string line : m_formatted_text)
+    {
+        float x = position.x + m_margin * m_single_char_width;
+        float y = position.y + (cursor_position) * (m_fontSize);
+        m_currentLine.setString(line);
+        m_currentLine.setPosition(x, y);
+        renderTarget.draw(m_currentLine,states);
         cursor_position++;
     }
 }
@@ -72,7 +72,7 @@ void Log::refreshFontAttributes()
 {
     sf::Text singleChar = m_currentLine;
     singleChar.setString("X");
-    int width = singleChar.getGlobalBounds().width;
+    int width = (int)singleChar.getGlobalBounds().width;
     m_single_char_width = width;
     std::cout << "Success" << std::endl;
     updateBounds();
@@ -133,7 +133,7 @@ std::string Log::wrapText(std::string str)
         if (word.length() <= m_max_char_count.x)
         {
             output += word + " ";
-            currentCharCount += word.length() + 1;
+            currentCharCount += (int)word.length() + 1;
         }
         else
         {
@@ -164,7 +164,7 @@ std::vector<std::string> Log::wrapTextVectorized(std::string str)
         if (word.length() <= m_max_char_count.x)
         {
             currentLine += word + " ";
-            currentCharCount += word.length() + 1;
+            currentCharCount += (int)word.length() + 1;
         }
         else
         {
@@ -181,8 +181,8 @@ std::vector<std::string> Log::wrapTextVectorized(std::string str)
 }
 void Log::updateBounds()
 {
-    int width = m_background.getSize().x;
-    int height = m_background.getSize().y;
+    int width = (int)m_background.getSize().x;
+    int height = (int)m_background.getSize().y;
     m_max_char_count.x = width / m_single_char_width - (m_margin * 2);
     m_max_char_count.y = height / (m_fontSize)-(m_margin * 2);
 }

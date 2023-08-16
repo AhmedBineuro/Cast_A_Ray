@@ -1,4 +1,7 @@
 #pragma once
+/**
+* @todo Rewrite the whole cpp file again :(
+*/
 #include "Core.h"
 #include <vector>
 #include <iostream>
@@ -68,6 +71,6 @@ private:
 	Resource_Manager();
 	// Private copy constructor and assignment operator to prevent copy
 	Resource_Manager(const Resource_Manager&) = delete;
-	static Resource_Manager singleton;
+	static Resource_Manager m_singleton;
 	Resource_Manager& operator=(const Resource_Manager&) = delete;
 };
