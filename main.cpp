@@ -13,7 +13,29 @@ void checkForInput() {
     while (run) {
         std::string input;
         std::getline(std::cin, input);
-        l.submit_message(input);
+        if (input.size() > 2)
+        {
+            Priority priority=Low;
+            if (input[1] == ':') 
+            {
+                if (input[0] == '1')
+                    priority = Medium;
+                else if (input[0] == '2')
+                    priority = High;
+                else if (input[0] == '3')
+                    priority = Warning;
+                // Remove the first two characters
+                input.erase(0, 2);
+
+                // If the new first character is a space, remove it as well
+                if (input.front() == ' ') {
+                    input.erase(0, 1);
+                }
+            }
+            l.submit_message(input,priority);
+        }
+        else
+            l.submit_message(input);
     }
 }
 void windowLoop() {

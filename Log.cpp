@@ -1,8 +1,8 @@
 #include"Log.h"
 Log::Log()
 {
-    m_message_history = std::vector<std::string>(0);
-    m_formatted_text = std::vector<std::string>(0);
+    m_message_history = std::vector<Message>(0);
+    m_in_view_messages = std::vector<In_view_message>(0);
     Resource_Manager& rm = Resource_Manager::getResourceManager();
     m_currentLine.setFont(rm.getFont("DEF_LOG"));
     m_background = sf::RectangleShape();
@@ -10,6 +10,10 @@ Log::Log()
     m_background.setFillColor(sf::Color::Black);
     m_fontSize = 12;
     m_currentLine.setCharacterSize(m_fontSize);
+    m_priority_color[0] = sf::Color(0, 128,255);
+    m_priority_color[1] = sf::Color(127, 0, 255);
+    m_priority_color[2] = sf::Color(255, 0, 255);
+    m_priority_color[3] = sf::Color(255, 0, 127);
     m_currentLine.setFillColor(sf::Color::Green);
     refreshFontAttributes();
     updateBounds();
@@ -19,29 +23,31 @@ void Log::draw(sf::RenderTarget& renderTarget)
     renderTarget.draw(m_background);
     int cursor_position = m_margin;
     sf::Vector2f position = m_background.getPosition();
-    for (std::string line : m_formatted_text)
+    for (In_view_message message : m_in_view_messages)
     {
         float x = position.x + m_margin * m_single_char_width;
         float y = position.y + (cursor_position) * (m_fontSize);
-        m_currentLine.setString(line);
+        m_currentLine.setString(message.message_contents);
         m_currentLine.setPosition(x, y);
+        m_currentLine.setFillColor(m_priority_color[message.priority]);
         renderTarget.draw(m_currentLine);
         cursor_position++;
     }
 }
 void Log::draw(sf::RenderTarget& renderTarget, sf::RenderStates states)
 {
-    renderTarget.draw(m_background);
+    renderTarget.draw(m_background,states);
     int cursor_position = m_margin;
     sf::Vector2f position = m_background.getPosition();
-    for (std::string line : m_formatted_text)
+    for (In_view_message message : m_in_view_messages)
     {
-        float x = position.x + m_margin * m_single_char_width;
-        float y = position.y + (cursor_position) * (m_fontSize);
-        m_currentLine.setString(line);
-        m_currentLine.setPosition(x, y);
-        renderTarget.draw(m_currentLine,states);
-        cursor_position++;
+            float x = position.x + m_margin * m_single_char_width;
+            float y = position.y + (cursor_position) * (m_fontSize);
+            m_currentLine.setString(message.message_contents);
+            m_currentLine.setPosition(x, y);
+            m_currentLine.setFillColor(m_priority_color[message.priority]);
+            renderTarget.draw(m_currentLine,states);
+            cursor_position++;
     }
 }
 void Log::setFont(sf::Font& font)
@@ -90,14 +96,51 @@ void Log::setPosition(sf::Vector2f position)
 
 void Log::submit_message(std::string message)
 {
-    m_message_history.push_back(message);
-    for (std::string line : wrapTextVectorized(message))
+    Message new_message;
+    new_message.priority = Low;
+    new_message.message_contents = message;
+    new_message.formatted_message = wrapTextVectorized(message);
+    m_message_history.push_back(new_message);
+    for (std::string line : new_message.formatted_message)
     {
         // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
-        if ((m_formatted_text.size() + 1) > m_max_char_count.y)
-            m_formatted_text.erase(m_formatted_text.begin());
-        m_formatted_text.push_back(line);
+        if ((m_in_view_messages.size() + 1) > m_max_char_count.y)
+            m_in_view_messages.erase(m_in_view_messages.begin());
+        m_in_view_messages.push_back(In_view_message{new_message.priority,line});
     }
+    
+    
+    //for (std::string line : wrapTextVectorized(message))
+    //{
+    //    // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
+    //    if ((m_in_view_messages.size() + 1) > m_max_char_count.y)
+    //        m_in_view_messages.erase(m_in_view_messages.begin());
+    //    m_in_view_messages.push_back();
+    //}
+}
+
+void Log::submit_message(std::string message,enum Priority priority)
+{
+    Message new_message;
+    new_message.priority = priority;
+    new_message.message_contents = message;
+    new_message.formatted_message = wrapTextVectorized(message);
+    m_message_history.push_back(new_message);
+    for (std::string line : new_message.formatted_message)
+    {
+        // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
+        if ((m_in_view_messages.size() + 1) > m_max_char_count.y)
+            m_in_view_messages.erase(m_in_view_messages.begin());
+        m_in_view_messages.push_back(In_view_message{ new_message.priority,line });
+    }
+    //m_message_history.push_back(message);
+    //for (std::string line : wrapTextVectorized(message))
+    //{
+    //    // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
+    //    if ((m_in_view_messages.size() + 1) > m_max_char_count.y)
+    //        m_in_view_messages.erase(m_in_view_messages.begin());
+    //    m_in_view_messages.push_back(line);
+    //}
 }
 
 std::vector<std::string> Log::getWords(std::string str)
@@ -188,16 +231,15 @@ void Log::updateBounds()
 }
 void Log::refreshFormattedText()
 {
-    m_formatted_text.clear();
-
-    for (std::string message : m_message_history)
+    for (Message message : m_message_history)
     {
-        for (std::string line : wrapTextVectorized(message))
-        {
-            // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
-            if ((m_formatted_text.size() + 1) > m_max_char_count.y)
-                m_formatted_text.erase(m_formatted_text.begin());
-            m_formatted_text.push_back(line);
-        }
+        message.formatted_message = wrapTextVectorized(message.message_contents);
+        //for (std::string line : wrapTextVectorized(message))
+        //{
+        //    // Pop the top of the vector to move the view down by one line adding the new line will cause an overflow
+        //    if ((m_in_view_messages.size() + 1) > m_max_char_count.y)
+        //        m_in_view_messages.erase(m_in_view_messages.begin());
+        //    m_in_view_messages.push_back(line);
+        //}
     }
 }

@@ -5,12 +5,32 @@
 #include <iostream>
 #include "Resource_Manager.h"
 /**
+*/
+enum Priority {
+    Low,
+    Medium,
+    High,
+    Warning
+};
+
+typedef struct {
+    enum Priority priority;
+    std::string message_contents;
+    std::vector<std::string>formatted_message;
+}Message;
+
+typedef struct {
+    enum Priority priority;
+    std::string message_contents;
+}In_view_message;
+/**
 * @brief A class that displays a log of any engine related events to allow in engine debugging.
 * Any engine component will be able to link to a Log object. When linked the component
 * will post any errors and messages to the log instead of the console window.  
 */
 class Log {
 public:
+    sf::Color m_priority_color[4];
 public:
     Log();
     void draw(sf::RenderTarget& renderTarget);
@@ -31,10 +51,16 @@ public:
      * @brief Function to submit a message into the text box
      */
     void submit_message(std::string message);
+    /**
+     * @brief Function to submit a message with an importance level into the text box
+     * @param message a string representing the message
+     * @param the importance level (0=Low, 1=Medium, 2=High .3=Warning)
+     */
+    void submit_message(std::string message, enum Priority priority);
 
 private:
-    std::vector<std::string> m_message_history;
-    std::vector<std::string> m_formatted_text;
+    std::vector<Message> m_message_history;
+    std::vector<In_view_message> m_in_view_messages;
     sf::RectangleShape m_background;
     sf::Text m_currentLine;
     int m_margin, m_fontSize, m_single_char_width;
