@@ -27,8 +27,8 @@ void checkForInput() {
                 // Remove the first two characters
                 input.erase(0, 2);
 
-                // If the new first character is a space, remove it as well
-                while(input.front() == '\t') {
+                // If the new first character is a tab, remove it as well
+                if(input.front() == '\t') {
                     input.erase(0, 1);
                 }
             }
