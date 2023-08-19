@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Resource_Manager.h"
 /**
+* @brief enum to specify the importance level of a message
 */
 enum Priority {
     Low,
@@ -13,12 +14,19 @@ enum Priority {
     Warning
 };
 
+/**
+* @brief A struct to hold a message and its priority level
+*/
 typedef struct {
     enum Priority priority;
     std::string message_contents;
     std::vector<std::string>formatted_message;
 }Message;
 
+/**
+* @brief A struct to hold a line from the current 
+* viewable lines along with its priority for the color
+*/
 typedef struct {
     enum Priority priority;
     std::string message_contents;
