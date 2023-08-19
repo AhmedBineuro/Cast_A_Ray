@@ -13,7 +13,7 @@ void checkForInput() {
     while (run) {
         std::string input;
         std::getline(std::cin, input);
-        if (input.size() > 2)
+if (input.size() > 2)
         {
             Priority priority=Low;
             if (input[1] == ':') 
@@ -65,7 +65,7 @@ void windowLoop() {
 int main(){
     l.setBackgroundColor(sf::Color(255,255,255,150));
     l.setTextColor(sf::Color::Yellow);
-    l.setPosition(sf::Vector2f(300, 300));
+    l.setPosition(sf::Vector2f(200, 400));
     l.setFontSize(15);
     l.setMargin(1);
     l.setSize(sf::Vector2f(600, 200));
@@ -80,8 +80,8 @@ int main(){
     m.processLayoutInfo();
     std::thread windowThread(windowLoop);
     std::thread inputThread(checkForInput);
-    inputThread.join();
     windowThread.join();
+    inputThread.join();
 
     return 0;
 }

@@ -172,7 +172,6 @@ MapInfo Map_Reader::processLayoutInfo() {
 	{
 		std::vector<std::string> NameAndValuePair = splitString(row, ':');
 		std::vector<std::string> values = splitString(NameAndValuePair[1], ',');
-		std::cout << NameAndValuePair[0] << " " << NameAndValuePair[1] << std::endl;
 		currentResource.name = NameAndValuePair[0];
 		currentResource.URL = values[0];
 		if (currentResource.name != "") {
@@ -181,6 +180,6 @@ MapInfo Map_Reader::processLayoutInfo() {
 			currentResource.URL = "";
 		}
 	}
-	std::cout << "Done\n";
+	std::cout << "PROCESSING DONE\n";
 	return output;
 }
