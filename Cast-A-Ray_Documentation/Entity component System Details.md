@@ -1,45 +1,42 @@
-# Components
-### Movable Component
-- **Velocity Vector** (size 3): Determines the object's speed and direction.
-- **Friction**: Affects how quickly the object slows down.
-- **Max Speed**: Limits the object's speed.
-- **Acceleration Vector**: Determines the object's rate of change of velocity.
-### Controller Component
-- **Control Type**: Defines the method of control (e.g., AI, player, etc.).
-- **Active State**: Whether the control is currently active.
-- **Control System ID**: Reference to the specific control scheme used.
-### Life Component
-- **Health**: Current health points.
-- **Max Health**: Maximum health points.
-- **Alive** (boolean): Indicates if the object is alive.
+# Entity-Component System (ECS) Components
 
-### Sprite Component
-- **Sprite Attribute**: Visual representation.
-- **Drawable** (boolean): Whether the object is currently drawn.
-### Collider Component (for 2D space)
-- **Rect**: Represents the object's bounds for collision detection.
-### Raycasting Component
-- **Origin**: Point from where the raycasting starts.
-- **Direction**: Angle or vector indicating the direction.
-- **Range**: Distance the ray can travel.
-- **Raycast Type**: The purpose of the raycast (e.g., vision, detection, etc.).
-### Camera Component
-- **FOV** (Field of View): The viewable area.
-- **Plane**: Used for rendering.
-- **Raycast ID**: Reference to the specific raycasting type.
-### Logger Component
-- **Log Reference**: Link to the main log or specific linked log for error reporting.
-### Audio Emitter Component
-- **Audio Attributes**: Controls audio output using SFML Sound classes.
-### Audio Listener Component
-- **Listener Attributes**: Receives audio using SFML Listener classes.
-### Music Component
-- **Music Attributes**: Manages music playback using SFML Music classes.
-### Map Association Component
-- **Map ID**: Associates the object with a specific map.
-### Trigg er Component
-- **Shape**: Defines the shape (2D initially, future-proof for 3D).
-- **Trigger Type**: Determines the trigger's purpose (e.g., collision, proximity).
+## Table of Contents
+1. [animator_component](#animator_component)
+2. [audio_emitter_component](#audio_emitter_component)
+3. [audio_listener_component](#audio_listener_component)
+4. [collider_component](#collider_component)
+5. [controller_component](#controller_component)
+6. [drawable_component](#drawable_component)
+7. [entity_id_component](#entity_id_component)
+8. [input_component](#input_component)
+9. [life_component](#life_component)
+10. [logger_component](#logger_component)
+11. [move_component](#move_component)
+12. [perspective_component](#perspective_component)
+13. [player_id_component](#player_id_component)
+14. [position_component](#position_component)
+15. [sprite_component](#sprite_component)
+## Components Table
+
+| Component Name | Data Stored | Detailed Description |
+|:--------------:|:-----------:|:--------------------:|
+| [animator_component](#animator_component) | `sf::Rect`, `sf::Vector2i`, `sf::Vector2i` | Manages the animation for an entity's sprite. Holds information for sprite sheet dimensions, and the current frame index. |
+| [audio_emitter_component](#audio_emitter_component) | Shared pointer to `sf::Sound`, `bool`, `bool` | Manages audio emission for an entity. Holds information for the sound to be played, and flags to indicate whether it's an active emitter or has spatial audio. |
+| [audio_listener_component](#audio_listener_component) | `sf::Listener` | Holds an `sf::Listener` for an entity to manage audio listening capabilities. |
+| [collider_component](#collider_component) | `sf::Rect`, Shared pointer to `sf::Sprite` | Manages collision for an entity. Holds a rectangle for basic collision and a shared pointer to a sprite for more precise collision detection. |
+| [controller_component](#controller_component) | `ControllerState` | Manages the controller inputs for an entity. |
+| [drawable_component](#drawable_component) | Reference to `sf::RenderTarget`, Reference to `sf::RenderStates` | Holds references to an `sf::RenderTarget` and `sf::RenderStates` for an entity, simplifying the rendering process by specifying where and how to draw the entity. |
+| [entity_id_component](#entity_id_component) | `int` | Holds a unique ID for an entity to uniquely identify it. |
+| [input_component](#input_component) | Function pointers, `sf::Vector2f`, `sf::Vector2f` | Manages input functionalities for an entity, including keyboard and mouse inputs. |
+| [life_component](#life_component) | `int`, `int` | Manages life or health-related information for an entity. Holds information for max and current health. |
+| [logger_component](#logger_component) | `std::vector<Message>`, `int` | Manages logging functionalities for an entity. Holds a log ID and a vector of log messages. |
+| [move_component](#move_component) | `sf::Vector3f`, `sf::Vector3f`, `float` | Manages the movement for an entity. Includes velocity, acceleration, and friction information. |
+| [perspective_component](#perspective_component) | `sf::Vector3f`, `int`, `float`, `sf::Vector2f`, `std::vector<sf::VertexArray>` | Manages the 3D perspective rendering settings for an entity. Includes direction ray, field of view (FOV), maximum view distance, and plane vector for DDA rendering. The plane vector width can be calculated using the formula: planeWidth = tan(FOV / 2). |
+| [player_id_component](#player_id_component) | `int` | Holds a unique ID for a player to uniquely identify them among other players. |
+| [position_component](#position_component) | `sf::Vector3f`, `sf::Vector3i` | Manages the position for an entity. Includes literal position and grid position information. |
+| [sprite_component](#sprite_component) | `sf::Sprite` | Holds an `sf::Sprite` for an entity. |
+
+
 # Game Component Systems
 
 ### Movement System
@@ -72,3 +69,145 @@
 ### Trigger System
 - Processes the `Trigger Component` to detect and respond to trigger events.
 - Can initiate events like opening doors, starting cutscenes, etc.
+---
+## Detailed Descriptions
+
+---
+
+## animator_component
+**Detailed Description**: Manages the animation for an entity's sprite. Holds information for sprite sheet dimensions, and the current frame index.
+
+**Data Stored**: 
+- `sf::Rect` for the source rectangle
+- `sf::Vector2i` for current frame index
+- `sf::Vector2i` for max dimensions (rows and columns)
+
+---
+
+## audio_emitter_component
+**Detailed Description**: Manages audio emission for an entity. Holds information for the sound to be played, and a flag to indicate whether it's an active emitter or not. 
+
+**Data Stored**: 
+- Shared pointer to `sf::Sound`
+- `bool` for active state
+- `bool` for spatial audio
+
+---
+
+## audio_listener_component
+**Detailed Description**: Holds an `sf::Listener` for an entity to manage audio listening capabilities.
+
+**Data Stored**: 
+- `sf::Listener`
+
+---
+
+## collider_component
+**Detailed Description**: Manages collision for an entity. Holds a rectangle for basic collision and a shared pointer to a sprite for more precise collision detection.
+
+**Data Stored**: 
+- `sf::Rect` for collision bounds
+- Shared pointer to `sf::Sprite`
+
+---
+
+## controller_component
+**Detailed Description**: Manages the controller inputs for an entity, including button states and analog stick positions.
+
+**Data Stored**: 
+- `ControllerState` for the current state of various buttons and sticks
+
+---
+
+## drawable_component
+**Detailed Description**: Holds references to an `sf::RenderTarget` and `sf::RenderStates` for an entity, simplifying the rendering process by specifying where and how to draw the entity.
+
+**Data Stored**: 
+- Reference to `sf::RenderTarget`
+- Reference to `sf::RenderStates`
+
+---
+
+## entity_id_component
+**Detailed Description**: Holds a unique ID for an entity to uniquely identify it.
+
+**Data Stored**: 
+- `int` for Entity ID
+
+---
+
+## input_component
+**Detailed Description**: Manages input functionalities for an entity, including keyboard and mouse inputs.
+
+**Data Stored**: 
+- Function pointers to actions
+- `sf::Vector2f` for current mouse position
+- `sf::Vector2f` for previous mouse position
+
+---
+
+## life_component
+**Detailed Description**: Manages life or health-related information for an entity.
+
+**Data Stored**: 
+- `int` for max health
+- `int` for current health
+
+---
+
+## logger_component
+**Detailed Description**: Manages logging functionalities for an entity.
+
+**Data Stored**: 
+- `std::vector<Message>` for log messages
+- `int` for log ID
+
+---
+
+## move_component
+**Detailed Description**: Manages the movement for an entity, includes velocity, acceleration, and friction information. The position of the entity can be updated using the formula:
+\[ \text{New Position} = \text{Old Position} + (\text{Velocity} + 0.5 \times \text{Acceleration} \times \text{Delta Time}^2) \times \text{Delta Time} - \text{Friction} \times \text{Delta Time} \]
+
+**Data Stored**: 
+- `sf::Vector3f` for velocity
+- `sf::Vector3f` for acceleration
+- `float` for friction
+
+---
+
+## perspective_component
+**Detailed Description**: Manages the 3D perspective rendering settings for an entity. Includes direction ray, field of view (FOV), maximum view distance, and plane vector for DDA rendering. The plane vector width can be calculated using the formula: planeWidth = tan(FOV / 2).
+
+**Data Stored**: 
+- `sf::Vector3f` for direction ray
+- `int` for FOV
+- `float` for max view distance
+- `sf::Vector2f` for plane vector
+- `std::vector<sf::VertexArray>` for vertices
+
+---
+
+## player_id_component
+**Detailed Description**: Holds a unique ID for a player to uniquely identify them among other players.
+
+**Data Stored**: 
+- `int` for Player ID
+
+---
+
+## position_component
+**Detailed Description**: Manages the position for an entity, includes literal position and grid position information.
+
+**Data Stored**: 
+- `sf::Vector3f` for literal position
+- `sf::Vector3i` for grid position
+
+---
+
+## sprite_component
+**Detailed Description**: Holds an `sf::Sprite` for an entity.
+
+**Data Stored**: 
+- `sf::Sprite`
+
+---

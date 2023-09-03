@@ -28,55 +28,19 @@
             }
           },
           {
-            "id": "588a24c3ad623810",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Engine components.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5a39936d58f2f9b9",
+            "id": "3ccfe73f87e7dff6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Entity component System Details.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "2d6086d271dc744e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Entity component System Details.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "92851aca17fe5f95",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Raycasting Algorithm steps.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -126,7 +90,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c550ecec0b4ea339",
@@ -142,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Raycasting Algorithm steps.md",
+                "file": "Entity component System Details.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -159,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Raycasting Algorithm steps.md",
+                "file": "Entity component System Details.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Raycasting Algorithm steps.md"
+                "file": "Entity component System Details.md"
               }
             }
           }
@@ -203,11 +168,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "92851aca17fe5f95",
+  "active": "3ccfe73f87e7dff6",
   "lastOpenFiles": [
-    "Entity component System Details.md",
-    "Raycasting Algorithm steps.md",
     "Engine components.md",
+    "Raycasting Algorithm steps.md",
+    "Entity component System Details.md",
     "Cast-A-Ray Level File.md"
   ]
 }
