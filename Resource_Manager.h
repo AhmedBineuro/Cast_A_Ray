@@ -1,7 +1,4 @@
 #pragma once
-/**
-* @todo Rewrite the whole cpp file again :(
-*/
 #include "Core.h"
 #include <vector>
 #include <iostream>

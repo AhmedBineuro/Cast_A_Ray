@@ -138,6 +138,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECS_Manager.cpp" />
+    <ClCompile Include="ECS_Manager.h" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map_Reader.cpp" />
@@ -146,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Map_Reader.h" />
