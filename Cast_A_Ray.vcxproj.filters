@@ -30,10 +30,7 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS_Manager.cpp">
+    <ClCompile Include="Entity_Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

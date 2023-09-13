@@ -1,15 +1,20 @@
 #include "Entity.h"
-template<typename T, typename... Args>
-void Entity::addComponent(Args&&... args) {
-    registry->emplace<T>(handle, std::forward<Args>(args)...);
+Entity::Entity() {
+	Entity_Manager &em = Entity_Manager::getEntityManager();
+	registry=em.getRegistry();
+	handle = registry.create();
+}
+template <typename T>
+void Entity::addComponent(T component) {
+	registry.emplace(handle, component);
 }
 
-template<typename T>
-T& Entity::getComponent() {
-    return registry->get<T>(handle);
-}
-
-template<typename T>
+template <typename T>
 void Entity::removeComponent() {
-    registry->remove<T>(handle);
+	registry.remove_if_exists<T>(handle);
+}
+
+template <typename T>
+inline T* Entity::getComponent() {
+	return registry.try_get<T>(handle);
 }
