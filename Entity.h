@@ -1,5 +1,5 @@
 #pragma once
-#include "entt-master/single_include/entt/entt.hpp"
+#include "entt.hpp"
 #include "Entity_Manager.h"
 class Entity {
 public:
@@ -35,5 +35,5 @@ public:
     T* getComponent();
 private:
     entt::entity handle;
-    entt::registry& registry;
+    entt::registry* registry;
 };

@@ -22,31 +22,3 @@ int main() {
 
     return 0;
 }
-
-```
-# Entity class 
-```c++
-class Entity {
-private:
-    entt::entity handle;
-    entt::registry* registry;
-public:
-    // Constructors, destructors, etc.
-
-    template<typename T, typename... Args>
-    void addComponent(Args&&... args) {
-        registry->emplace<T>(handle, std::forward<Args>(args)...);
-    }
-
-    template<typename T>
-    T& getComponent() {
-        return registry->get<T>(handle);
-    }
-
-    template<typename T>
-    void removeComponent() {
-        registry->remove<T>(handle);
-    }
-};
-
-```

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <unordered_map>
+#include <memory.h>
 struct Texture_Container {
 	std::shared_ptr <sf::Texture> texture;
 };
