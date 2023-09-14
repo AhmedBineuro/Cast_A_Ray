@@ -1,6 +1,7 @@
 #pragma once
 #include "entt.hpp"
 #include "Entity_Manager.h"
+#include "Components.h"
 class Entity {
 public:
     /**
@@ -33,6 +34,12 @@ public:
     */
     template<typename T>
     T* getComponent();
+
+    template<typename T>
+    bool hasComponent();
+
+    template<typename T>
+    void replaceComponent(T component);
 private:
     entt::entity handle;
     entt::registry* registry;

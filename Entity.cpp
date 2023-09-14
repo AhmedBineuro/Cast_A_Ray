@@ -20,3 +20,13 @@ template <typename T>
 inline T* Entity::getComponent() {
 	return registry->try_get<T>(handle);
 }
+
+template <typename T>
+inline bool Entity::hasComponent() {
+	return registry->has<T>(handle);
+}
+
+template <typename T>
+inline void Entity::replaceComponent(T component) {
+	return registry->replace<T>(handle,component);
+}

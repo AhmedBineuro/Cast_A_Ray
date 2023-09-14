@@ -24,7 +24,7 @@
 | [audio_emitter_component](#audio_emitter_component) | Shared pointer to `sf::Sound`, `bool`, `bool` | Manages audio emission for an entity. Holds information for the sound to be played, and flags to indicate whether it's an active emitter or has spatial audio. |
 | [audio_listener_component](#audio_listener_component) | `sf::Listener` | Holds an `sf::Listener` for an entity to manage audio listening capabilities. |
 | [collider_component](#collider_component) | `sf::Rect`, Shared pointer to `sf::Sprite` | Manages collision for an entity. Holds a rectangle for basic collision and a shared pointer to a sprite for more precise collision detection. |
-| [drawable_component](#drawable_component) | Reference to `sf::RenderTarget`, Reference to `sf::RenderStates` | Holds references to an `sf::RenderTarget` and `sf::RenderStates` for an entity, simplifying the rendering process by specifying where and how to draw the entity. |
+| [drawable_component](#drawable_component) | Reference to `sf::RenderTarget`, Reference to `sf::RenderStates`,`bool` | Holds references to an `sf::RenderTarget` and `sf::RenderStates` for an entity, simplifying the rendering process by specifying where and how to draw the entity. Also it hold an active toggle boolean |
 | [entity_id_component](#entity_id_component) | `int` | Holds a unique ID for an entity to uniquely identify it. |
 | [input_component](#input_component) | Reference to `sf::RenderWindow`, `bool` | Manages input functionalities for an entity, including keyboard and mouse inputs. |
 | [life_component](#life_component) | `int`, `int` | Manages life or health-related information for an entity. Holds information for max and current health. |
@@ -33,7 +33,7 @@
 | [move_component](#move_component) | `sf::Vector3f`, `sf::Vector3f`, `float`,`float` | Manages the movement for an entity. Includes velocity, acceleration, and friction information. |
 | [perspective_component](#perspective_component) | `sf::Vector3f`, `int`, `float`, `sf::Vector2f`, `sf::VertexArray` | Manages the 3D perspective rendering settings for an entity. Includes direction ray, field of view (FOV), maximum view distance, and plane vector for DDA rendering. The plane vector width can be calculated using the formula: planeWidth = tan(FOV / 2). |
 | [player_id_component](#player_id_component) | `int` | Holds a unique ID for a player to uniquely identify them among other players. |
-| [position_component](#position_component) | `sf::Vector3f`, `sf::Vector3i` | Manages the position for an entity. Includes literal position and grid position information. |
+| [position_component](#position_component) | `sf::Vector3f` | Manages the position for an entity. |
 | [sprite_component](#sprite_component) | `sf::Sprite` | Holds an `sf::Sprite` for an entity. |
 
 
@@ -117,6 +117,7 @@
 **Data Stored**: 
 - Reference to `sf::RenderTarget`
 - Reference to `sf::RenderStates`
+- boolean to indicate if it's active or not
 
 ---
 
@@ -201,7 +202,6 @@
 
 **Data Stored**: 
 - `sf::Vector3f` for literal position
-- `sf::Vector3i` for grid position
 
 ---
 
