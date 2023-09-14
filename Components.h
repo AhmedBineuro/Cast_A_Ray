@@ -1,18 +1,12 @@
 #pragma once
+#include <math.h>
+#include <memory>
 #include"SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 #include "SFMLMath.hpp"
-#include <math.h>
 #include "Log.h"
-#include "single_include/entt/entt.hpp"
-sf::Vector2f calculatePlane(sf::Vector3f dir,int fov) {
-	sf::Vector2f plane = sf::Vector2f();
-	sf::rotate(plane, fov);
-	float width = (float)tan(fov / 2);
-	sf::normalize(plane);
-	plane *= width;
-	return plane;
-}
+#include "entt.hpp"
+sf::Vector2f calculatePlane(sf::Vector3f dir, int fov);
 struct animator_component {
 	sf::IntRect frame;
 	sf::Vector2i current_frame;
@@ -32,21 +26,21 @@ struct collider_component {
 };
 struct drawable_component {
 	bool active;
-	sf::RenderTarget* target;
-	sf::RenderStates* states;
-	drawable_component(sf::RenderTarget &surface, bool activeState) {
+	sf::RenderTexture *target;
+	std::shared_ptr<sf::RenderStates> states;
+	drawable_component(sf::RenderTexture &surface, bool activeState) {
 		target = &surface;
 		states = nullptr;
 		active = activeState;
 	}
-	drawable_component(sf::RenderTarget& surface, sf::RenderStates& state,bool activeState) {
+	drawable_component(sf::RenderTexture& surface) {
 		target = &surface;
-		states = &state;
-		active = activeState;
+		states = nullptr;
+		active = false;
 	}
-	drawable_component(sf::RenderTarget& surface, sf::RenderStates& state,bool activeState) {
+	drawable_component(sf::RenderTexture& surface, sf::RenderStates& state,bool activeState) {
 		target = &surface;
-		states = &state;
+		states = std::make_shared<sf::RenderStates>(state);
 		active = activeState;
 	}
 };

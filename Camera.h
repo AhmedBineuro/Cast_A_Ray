@@ -12,8 +12,8 @@ public:
 	void setRenderDistance(float renderDistance);
 	void setResolution(sf::Vector2u reslution);
 	
-	sf::Vector2f getPosition();
-	sf::Vector2f getDirection();
+	sf::Vector3f getPosition();
+	sf::Vector3f getDirection();
 	int getFOV();
 	float getRenderDistance();
 	sf::Vector2u getResolution();

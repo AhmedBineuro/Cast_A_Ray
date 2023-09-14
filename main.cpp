@@ -3,10 +3,12 @@
 #include "Map_Reader.h"
 #include "Log.h"
 #include "Resource_Manager.h"
+#include "Camera.h"
 #include <iostream>
 #include <thread>
 static bool run = true;
 Log l;
+Camera c;
 Map_Reader& m=m.getReader();
 void checkForInput() {
     std::cout << "Enter a sentence to parse into words" << std::endl;

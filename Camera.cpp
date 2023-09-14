@@ -49,10 +49,10 @@ void Camera::setResolution(sf::Vector2u reslution) {
 	perspective = std::move(newT);
 }
 
-sf::Vector2f Camera::getPosition() {
+sf::Vector3f Camera::getPosition() {
 	return getComponent<position_component>()->literal_position;
 }
-sf::Vector2f Camera::getDirection() {
+sf::Vector3f Camera::getDirection() {
 	return getComponent<perspective_component>()->direction;
 }
 int Camera::getFOV() {

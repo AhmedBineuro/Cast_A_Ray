@@ -44,3 +44,30 @@ private:
     entt::entity handle;
     entt::registry* registry;
 };
+template <typename T>
+void Entity::addComponent(T component) {
+    registry->emplace<T>(handle, component);
+}
+
+template <typename T>
+void Entity::removeComponent() {
+    if (registry->any_of<T>(handle)) {
+        registry->remove<T>(handle);
+    }
+}
+
+template <typename T>
+inline T* Entity::getComponent() {
+    return registry->try_get<T>(handle);
+}
+
+template <typename T>
+inline bool Entity::hasComponent() {
+    return registry->any_of<T>(handle);
+}
+
+template <typename T>
+inline void Entity::replaceComponent(T component) {
+    registry->replace<T>(handle, component);
+    return;
+}
