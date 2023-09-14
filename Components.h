@@ -47,10 +47,12 @@ struct drawable_component {
 struct entity_id_component {
 	int id;
 };
-struct input_component {
-	sf::RenderWindow& window;
-	bool active;
-};
+// @todo Instead of doing this maybe just use the sfml event loop manually 
+// @note You don't have to cater to literally everyone
+//struct input_component {
+//	sf::RenderWindow& window;
+//	bool active;
+//};
 struct life_component {
 	int current_health;
 	int max_health;
