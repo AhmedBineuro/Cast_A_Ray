@@ -2,6 +2,10 @@
 #include "entt.hpp"
 #include "Entity_Manager.h"
 #include "Components.h"
+/**
+* @brief The core entity class that any custom entity will be built on. The class will serve as the interface to the entity component system.
+* This allows the developer to simply inherit the super basic functions that add, removes, and retrieve components of an entity.
+*/
 class Entity {
 public:
     /**
