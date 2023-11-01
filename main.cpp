@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include <iostream>
 #include <thread>
+#include "imgui.h"
+#include "imgui-SFML.h"
 static bool run = true;
 Log l;
 Camera c;
@@ -42,6 +44,8 @@ if (input.size() > 2)
 }
 void windowLoop() {
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
+    sf::Clock deltaClock;
+    ImGui::SFML::Init(window);
     Resource_Manager& r = Resource_Manager::getResourceManager();
     sf::Image icon;
     if (!icon.loadFromFile("./casta.png"))
@@ -52,16 +56,25 @@ void windowLoop() {
         sf::Event event;
         while (window.pollEvent(event))
         {
+            ImGui::SFML::ProcessEvent(event);
             if (event.type == sf::Event::Closed)
             {
                 window.close();
                 run = false;
             }
         }
+        ImGui::SFML::Update(window, deltaClock.restart());
+        //SFML ImGUI test
+        ImGui::Begin("Window title");
+        ImGui::Text("Some Text");
+        ImGui::End();
         window.clear();
         l.draw(window);
+        ImGui::SFML::Render(window);
+
         window.display();
     }
+    ImGui::SFML::Shutdown();
 }
 
 int main(){
@@ -84,6 +97,5 @@ int main(){
     std::thread inputThread(checkForInput);
     windowThread.join();
     inputThread.join();
-
     return 0;
 }
