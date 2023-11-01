@@ -160,6 +160,7 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Entity_Factory.h" />
     <ClInclude Include="Entity_Manager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
