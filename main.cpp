@@ -74,11 +74,11 @@ int main(){
     //std::cout << "Success" << std::endl;
     m.processLevel("test.car");
 
-    //for(Segment segment: m.getAllSegments())
-    //{
-    //    printSegment(segment);
-    //    std::cout << std::endl;
-    //}
+    for(Segment segment: m.getAllSegments())
+    {
+        printSegment(segment);
+        std::cout << std::endl;
+    }
     m.processLayoutInfo();
     std::thread windowThread(windowLoop);
     std::thread inputThread(checkForInput);

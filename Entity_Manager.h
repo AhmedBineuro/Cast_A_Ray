@@ -1,5 +1,9 @@
 #pragma once
 #include "entt.hpp"
+/*
+* @brief The entity class manager is a basic encapsulation of an Entt registry used for basic registry manipulation.
+* The reason of having an entity manager class instead of directly using the Entt registry is to have it be a singleton instance instead of having multiple registries. 
+*/
 class Entity_Manager {
 
 public:

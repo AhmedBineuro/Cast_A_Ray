@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Done">
+      <UniqueIdentifier>{1e8e08bd-6af2-4cc8-bfbf-201af1f84cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Done">
+      <UniqueIdentifier>{e2921866-1c8f-4ec7-a3a0-e8013423e809}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,23 +27,23 @@
     <ClCompile Include="Map_Reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Done</Filter>
     </ClCompile>
     <ClCompile Include="Components.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Done</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity_Manager.cpp">
+      <Filter>Source Files\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource_Manager.cpp">
+      <Filter>Source Files\Done</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,35 +53,35 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Done</Filter>
     </ClInclude>
     <ClInclude Include="Entity_Manager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Done</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource_Manager.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\Done</Filter>
     </ClInclude>
     <ClInclude Include="Entity_Factory.h">
       <Filter>Header Files</Filter>
