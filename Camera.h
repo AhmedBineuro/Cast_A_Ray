@@ -1,6 +1,10 @@
 #pragma once
 #include "Entity.h"
 #include <memory>
+/**
+* @brief Camera Entity 
+* @note Tester entity to see if the ECS situation is working
+*/
 class Camera :public Entity {
 public:
 	Camera() ;
