@@ -12,36 +12,10 @@ static bool run = true;
 Log l;
 Camera c;
 Map_Reader& m=m.getReader();
-void checkForInput() {
-    std::cout << "Enter a sentence to parse into words" << std::endl;
-    while (run) {
-        std::string input;
-        std::getline(std::cin, input);
-if (input.size() > 2)
-        {
-            Priority priority=Low;
-            if (input[1] == ':') 
-            {
-                if (input[0] == '1')
-                    priority = Medium;
-                else if (input[0] == '2')
-                    priority = High;
-                else if (input[0] == '3')
-                    priority = Warning;
-                // Remove the first two characters
-                input.erase(0, 2);
-
-                // If the new first character is a tab, remove it as well
-                if(input.front() == '\t') {
-                    input.erase(0, 1);
-                }
-            }
-            l.submit_message(input,priority);
-        }
-        else
-            l.submit_message(input);
-    }
-}
+int priority = 0;
+const char* priority_list[] = { "Low", "Medium", "High", "Warning"};
+const int bufferSize = 2048;
+static char buffer[bufferSize] = "";
 void windowLoop() {
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
     sf::Clock deltaClock;
@@ -67,6 +41,11 @@ void windowLoop() {
         //SFML ImGUI test
         ImGui::Begin("Window title");
         ImGui::Text("Some Text");
+        ImGui::Combo("Priority:", &priority, priority_list, IM_ARRAYSIZE(priority_list));
+        ImGui::InputText("Log message", buffer, bufferSize);
+        if (ImGui::Button("Submit Message")) {
+            l.submit_message(std::string(buffer), static_cast<Priority>(priority));
+        }
         ImGui::End();
         window.clear();
         l.draw(window);
@@ -94,8 +73,6 @@ int main(){
     }
     m.processLayoutInfo();
     std::thread windowThread(windowLoop);
-    std::thread inputThread(checkForInput);
     windowThread.join();
-    inputThread.join();
     return 0;
 }
