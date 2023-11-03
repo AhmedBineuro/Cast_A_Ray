@@ -149,7 +149,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Entity_Manager.cpp" />
     <ClCompile Include="imgui\imgui-SFML.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -165,8 +164,6 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Entity_Factory.h" />
-    <ClInclude Include="Entity_Manager.h" />
     <ClInclude Include="imgui\imconfig-SFML.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui-SFML.h" />
@@ -177,7 +174,6 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Log.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="Map_Reader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />

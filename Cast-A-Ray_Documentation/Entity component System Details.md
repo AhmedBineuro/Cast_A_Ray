@@ -14,7 +14,7 @@
 11. [move_component](#move_component)
 12. [perspective_component](#perspective_component)
 13. [player_id_component](#player_id_component)
-14. [position_component](#position_component)
+14. [transform_component](#transform_component)
 15. [sprite_component](#sprite_component)
 ## Components Table
 
@@ -33,7 +33,7 @@
 | [move_component](#move_component) | `sf::Vector3f`, `sf::Vector3f`, `float`,`float` | Manages the movement for an entity. Includes velocity, acceleration, and friction information. |
 | [perspective_component](#perspective_component) | `sf::Vector3f`, `int`, `float`, `sf::Vector2f`, `sf::VertexArray` | Manages the 3D perspective rendering settings for an entity. Includes direction ray, field of view (FOV), maximum view distance, and plane vector for DDA rendering. The plane vector width can be calculated using the formula: planeWidth = tan(FOV / 2). |
 | [player_id_component](#player_id_component) | `int` | Holds a unique ID for a player to uniquely identify them among other players. |
-| [position_component](#position_component) | `sf::Vector3f` | Manages the position for an entity. |
+| [transform_component](#transform_component) | `sf::Vector3f`,`sf::Vector3f` | Manages the position, and rotation for an entity. |
 | [sprite_component](#sprite_component) | `sf::Sprite` | Holds an `sf::Sprite` for an entity. |
 
 
@@ -197,12 +197,12 @@
 
 ---
 
-## position_component
-**Detailed Description**: Manages the position for an entity, includes literal position and grid position information.
+## transform_component
+**Detailed Description**: Manages the position and rotation for an entity, includes literal position and grid position information.
 
 **Data Stored**: 
-- `sf::Vector3f` for literal position
-
+- `sf::Vector3f` for position
+- `sf::Vector3f` for rotation
 ---
 
 ## sprite_component

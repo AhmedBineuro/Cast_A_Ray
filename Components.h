@@ -12,6 +12,12 @@ struct animator_component {
 	sf::Vector2i current_frame;
 	sf::Vector2i dimensions;
 };
+struct transform_component {
+	sf::Vector3f position,rotation;
+	transform_component() : position(sf::Vector3f()),rotation(sf::Vector3f()) {}
+	transform_component(sf::Vector3f position) : position(position) {}
+	transform_component(sf::Vector3f position, sf::Vector3f rotation) : position(position), rotation(rotation) {}
+};
 struct audio_emmiter_component {
 	std::shared_ptr<sf::Sound> sound;
 	bool active;
@@ -79,7 +85,7 @@ struct move_component {
 	float max_speed;
 };
 struct perspective_component {
-	sf::Vector3f direction=sf::Vector3f(0,1,1);
+	sf::Vector3f direction;
 	int FOV=90;
 	float render_distance=50;
 	sf::Vector2f plane=sf::Vector2f(1,0);
@@ -95,11 +101,6 @@ struct player_id_component {
 	int id;
 	player_id_component() :id(1){}
 	player_id_component(int id) :id(id) {}
-};
-struct position_component {
-	sf::Vector3f literal_position;
-	position_component() : literal_position(sf::Vector3f()) {}
-	position_component(sf::Vector3f position) : literal_position(position) {}
 };
 struct sprite_component {
 	sf::Sprite sprite;

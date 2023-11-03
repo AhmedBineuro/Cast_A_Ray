@@ -8,6 +8,8 @@
 #include <thread>
 #include "imgui.h"
 #include "imgui-SFML.h"
+void windowLoop();
+void window2Loop();
 static bool run = true;
 Log l;
 Camera c;
@@ -16,46 +18,6 @@ int priority = 0;
 const char* priority_list[] = { "Low", "Medium", "High", "Warning"};
 const int bufferSize = 2048;
 static char buffer[bufferSize] = "";
-void windowLoop() {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
-    sf::Clock deltaClock;
-    ImGui::SFML::Init(window);
-    Resource_Manager& r = Resource_Manager::getResourceManager();
-    sf::Image icon;
-    if (!icon.loadFromFile("./casta.png"))
-    std::cout << "Failed to load window icon" << std::endl;
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    while (run)
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                run = false;
-            }
-        }
-        ImGui::SFML::Update(window, deltaClock.restart());
-        //SFML ImGUI test
-        ImGui::Begin("Window title");
-        ImGui::Text("Some Text");
-        ImGui::Combo("Priority:", &priority, priority_list, IM_ARRAYSIZE(priority_list));
-        ImGui::InputText("Log message", buffer, bufferSize);
-        if (ImGui::Button("Submit Message")) {
-            l.submit_message(std::string(buffer), static_cast<Priority>(priority));
-        }
-        ImGui::End();
-        window.clear();
-        l.draw(window);
-        ImGui::SFML::Render(window);
-
-        window.display();
-    }
-    ImGui::SFML::Shutdown();
-}
-
 int main(){
     l.setBackgroundColor(sf::Color(255,255,255,150));
     l.setTextColor(sf::Color::Yellow);
@@ -73,6 +35,73 @@ int main(){
     }
     m.processLayoutInfo();
     std::thread windowThread(windowLoop);
+    std::thread window2Thread(window2Loop);
     windowThread.join();
+    window2Thread.join();
     return 0;
+}
+
+void windowLoop() {
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
+    sf::Clock deltaClock;
+    Resource_Manager& r = Resource_Manager::getResourceManager();
+    sf::Image icon;
+    if (!icon.loadFromFile("./casta.png"))
+        std::cout << "Failed to load window icon" << std::endl;
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    while (run)
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+                run = false;
+            }
+        }
+        window.clear();
+        l.draw(window);
+        window.display();
+    }
+}
+void window2Loop() {
+    sf::RenderWindow window(sf::VideoMode(400, 400), "Debug");
+    sf::Clock deltaClock;
+    ImGui::SFML::Init(window);
+    Resource_Manager& r = Resource_Manager::getResourceManager();
+    sf::Image icon;
+    if (!icon.loadFromFile("./casta.png"))
+        std::cout << "Failed to load window icon" << std::endl;
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    while (run)
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            ImGui::SFML::ProcessEvent(event);
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+                run = false;
+            }
+        }
+        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::SetNextWindowSize(ImVec2(400, 400));
+        //SFML ImGUI test
+        ImGui::Begin("Window title");
+        ImGui::Text("Some Text");
+        ImGui::Combo("Priority:", &priority, priority_list, IM_ARRAYSIZE(priority_list));
+        ImGui::InputText("Log message", buffer, bufferSize);
+        if (ImGui::Button("Submit Message")) {
+            l.submit_message(std::string(buffer), static_cast<Priority>(priority));
+        }
+        ImGui::End();
+        window.clear();
+        ImGui::SFML::Render(window);
+
+        window.display();
+    }
+    ImGui::SFML::Shutdown();
 }

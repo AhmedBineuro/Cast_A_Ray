@@ -1,6 +1,6 @@
 #include "Camera.h"
 Camera::Camera() :Entity() {
-	addComponent(position_component());
+	addComponent(transform_component());
 	addComponent(perspective_component(sf::Vector3f(0,1,0),90,100));
 	perspective = std::make_unique<sf::RenderTexture>();
 	if (!perspective->create(800, 800)) {
@@ -9,7 +9,7 @@ Camera::Camera() :Entity() {
 
 }
 Camera::Camera(sf::Vector3f position,sf::Vector3f direction) :Entity() {
-	addComponent(position_component(position));
+	addComponent(transform_component(position));
 	addComponent(perspective_component(direction, 90, 100));
 	perspective = std::make_unique<sf::RenderTexture>();
 	if (!perspective->create(800, 800)) {
@@ -18,8 +18,8 @@ Camera::Camera(sf::Vector3f position,sf::Vector3f direction) :Entity() {
 }
 
 void Camera::setPosition(sf::Vector3f position) {
-	position_component* pos = getComponent<position_component>();
-	pos->literal_position = position;
+	transform_component* pos = getComponent<transform_component>();
+	pos->position = position;
 	return;
 }
 void Camera::setDirection(sf::Vector3f direction) {
@@ -50,7 +50,7 @@ void Camera::setResolution(sf::Vector2u reslution) {
 }
 
 sf::Vector3f Camera::getPosition() {
-	return getComponent<position_component>()->literal_position;
+	return getComponent<transform_component>()->position;
 }
 sf::Vector3f Camera::getDirection() {
 	return getComponent<perspective_component>()->direction;
