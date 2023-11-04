@@ -7,23 +7,18 @@
 */
 class Camera :public Entity {
 public:
-	Camera() ;
-	Camera(sf::Vector3f position, sf::Vector3f direction);
+	Camera(entt::registry* registry) ;
+	Camera(entt::registry* registry,sf::Vector2f position);
 
-	void setPosition(sf::Vector3f position);
-	void setDirection(sf::Vector3f direction);
+	void setPosition(sf::Vector2f position);
 	void setFOV(int FOV);
 	void setRenderDistance(float renderDistance);
 	void setResolution(sf::Vector2u reslution);
 	
-	sf::Vector3f getPosition();
-	sf::Vector3f getDirection();
+	sf::Vector2f getPosition();
 	int getFOV();
 	float getRenderDistance();
 	sf::Vector2u getResolution();
-
-	void linkMap(map_tag_component mapTag);
-	void unlinkMap();
 private:
 	std::unique_ptr<sf::RenderTexture> perspective;
 };

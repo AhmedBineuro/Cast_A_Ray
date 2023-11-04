@@ -12,7 +12,6 @@ void windowLoop();
 void window2Loop();
 static bool run = true;
 Log l;
-Camera c;
 Map_Reader& m=m.getReader();
 int priority = 0;
 const char* priority_list[] = { "Low", "Medium", "High", "Warning"};

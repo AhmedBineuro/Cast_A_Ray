@@ -1,40 +1,39 @@
 #include "Camera.h"
-Camera::Camera() :Entity() {
-	addComponent(transform_component());
-	addComponent(perspective_component(sf::Vector3f(0,1,0),90,100));
+Camera::Camera(entt::registry* registry) :Entity(registry) {
+	TransformComponent transform = TransformComponent();
+	addComponent(transform);
+	CameraComponent camera = CameraComponent(90, 100);
+	addComponent(camera);
 	perspective = std::make_unique<sf::RenderTexture>();
 	if (!perspective->create(800, 800)) {
 		std::cerr << "Could not create camera render texture" << std::endl;
 	}
 
 }
-Camera::Camera(sf::Vector3f position,sf::Vector3f direction) :Entity() {
-	addComponent(transform_component(position));
-	addComponent(perspective_component(direction, 90, 100));
+Camera::Camera(entt::registry* registry,sf::Vector2f position) :Entity(registry) {
+	TransformComponent transform = TransformComponent(position);
+	addComponent(transform);
+	CameraComponent camera = CameraComponent();
+	addComponent(camera);
 	perspective = std::make_unique<sf::RenderTexture>();
 	if (!perspective->create(800, 800)) {
 		std::cerr << "Could not create camera render texture" << std::endl;
 	}
 }
 
-void Camera::setPosition(sf::Vector3f position) {
-	transform_component* pos = getComponent<transform_component>();
+void Camera::setPosition(sf::Vector2f position) {
+	TransformComponent* pos = getComponent<TransformComponent>();
 	pos->position = position;
 	return;
 }
-void Camera::setDirection(sf::Vector3f direction) {
-	perspective_component* perp = getComponent<perspective_component>();
-	perp->direction = direction;
-	return;
-}
 void Camera::setFOV(int FOV) {
-	perspective_component* perp = getComponent<perspective_component>();
+	CameraComponent* perp = getComponent<CameraComponent>();
 	perp->FOV = FOV;
 	return;
 }
 void Camera::setRenderDistance(float renderDistance) {
-	perspective_component* perp = getComponent<perspective_component>();
-	perp->render_distance= renderDistance;
+	CameraComponent* perp = getComponent<CameraComponent>();
+	perp->renderDistance= renderDistance;
 	return;
 }
 void Camera::setResolution(sf::Vector2u reslution) {
@@ -49,33 +48,15 @@ void Camera::setResolution(sf::Vector2u reslution) {
 	perspective = std::move(newT);
 }
 
-sf::Vector3f Camera::getPosition() {
-	return getComponent<transform_component>()->position;
-}
-sf::Vector3f Camera::getDirection() {
-	return getComponent<perspective_component>()->direction;
+sf::Vector2f Camera::getPosition() {
+	return getComponent<TransformComponent>()->position;
 }
 int Camera::getFOV() {
-	return getComponent<perspective_component>()->FOV;
+	return getComponent<CameraComponent>()->FOV;
 }
 float Camera::getRenderDistance() {
-	return getComponent<perspective_component>()->render_distance;
+	return getComponent<CameraComponent>()->renderDistance;
 }
 sf::Vector2u Camera::getResolution() {
 	return perspective->getSize();
-}
-
-void Camera::linkMap(map_tag_component mapTag) {
-	if (hasComponent<map_tag_component>())
-	{
-		replaceComponent(mapTag);
-	}
-	else {
-		addComponent(mapTag);
-	}
-}
-void Camera::unlinkMap() {
-	if (hasComponent<map_tag_component>()) {
-		removeComponent<map_tag_component>();
-	}
 }

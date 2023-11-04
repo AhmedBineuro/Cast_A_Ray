@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Engine components.md",
+                "file": "Entity component System Details.md",
                 "mode": "source",
                 "source": false
               }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Engine components.md",
+                "file": "Entity component System Details.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Engine components.md",
+                "file": "Entity component System Details.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +149,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Engine components.md"
+                "file": "Entity component System Details.md"
               }
             }
           },
@@ -185,8 +185,8 @@
   },
   "active": "3ccfe73f87e7dff6",
   "lastOpenFiles": [
-    "Entity component System Details.md",
     "Engine components.md",
+    "Entity component System Details.md",
     "Useful code to add.md",
     "Classes and Other information.md",
     "Untitled",
