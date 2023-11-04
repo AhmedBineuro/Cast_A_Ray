@@ -65,7 +65,15 @@ struct AudioSourceComponent {
 };
 
 struct AudioListenerComponent {
-    // Listener is typically a static class in SFML, so you might not need to store it in a component
+    sf::Vector3f position;
+    sf::Vector3f direction; // Forward direction
+    sf::Vector3f upVector;  // Upward direction, typically (0, 1, 0)
+
+    void apply() {
+        sf::Listener::setPosition(position);
+        sf::Listener::setDirection(direction);
+        sf::Listener::setUpVector(upVector);
+    }
 };
 
 struct EntityTagComponent {
