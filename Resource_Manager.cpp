@@ -49,34 +49,56 @@ sf::Font& Resource_Manager::getFont(std::string name) {
 		throw* (fontMap.at("DEF_LOG").font);
 }
 
-void Resource_Manager::processResourceList(std::string mapName,std::vector<ResourceLoadingInfo> resourceList) {
+void Resource_Manager::processResourceList(std::string mapName,std::vector<ResourceLoadingInfo> resourceList,  float* progress_percentage) {
+	float totalCount = resourceList.size();
+	float currentCount = 0;
+	*progress_percentage = 0;
 	for (ResourceLoadingInfo currentResource : resourceList) {
-		if(currentResource.type=="texture")
-		{
-				this->textureMap[currentResource.name] = Texture_Container();
-				this->textureMap[currentResource.name].texture = std::make_shared<sf::Texture>();
-				if (!this->textureMap[currentResource.name].texture->loadFromFile(currentResource.URL)) {
-					std::cout << "Failed to load resource: " << currentResource.name << " type:" << currentResource.type << std::endl;
-				}
+		loadResource(currentResource);
+		currentCount++;
+		*progress_percentage = currentCount / totalCount;
+	}
+}
+
+void Resource_Manager::processResourceList(std::string mapName, std::vector<ResourceLoadingInfo> resourceList) {
+	for (ResourceLoadingInfo currentResource : resourceList) {
+		loadResource(currentResource);
+	}
+}
+//@todo make this better, use type based lookup
+void Resource_Manager::loadResource(ResourceLoadingInfo resourceInfo) {
+	if (resourceInfo.type == "texture")
+	{
+		this->textureMap[resourceInfo.name] = Texture_Container();
+		this->textureMap[resourceInfo.name].texture = std::make_shared<sf::Texture>();
+		if (!this->textureMap[resourceInfo.name].texture->loadFromFile(resourceInfo.URL)) {
+			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
 		}
-		else if(currentResource.type == "sound")
-		{
-				this->soundMap[currentResource.name] = Sound_Container();
-				this->soundMap[currentResource.name].sound = std::make_shared<sf::Sound>();
-				if (!this->soundMap[currentResource.name].buffer.loadFromFile(currentResource.URL)) {
-					std::cout << "Failed to load resource: " << currentResource.name << " type:" << currentResource.type << std::endl;
-				}
-				else {
-					this->soundMap[currentResource.name].sound->setBuffer(this->soundMap[currentResource.name].buffer);
-				}
+	}
+	else if (resourceInfo.type == "sound")
+	{
+		this->soundMap[resourceInfo.name] = Sound_Container();
+		this->soundMap[resourceInfo.name].sound = std::make_shared<sf::Sound>();
+		if (!this->soundMap[resourceInfo.name].buffer.loadFromFile(resourceInfo.URL)) {
+			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
 		}
-		else if (currentResource.type == "music")
-		{
-			this->musicMap[currentResource.name].music = std::make_shared<sf::Music>();
-				this->musicMap[currentResource.name]= Music_Container();
-				if (!this->musicMap[currentResource.name].music->openFromFile(currentResource.URL)) {
-					std::cout << "Failed to load resource: " << currentResource.name << " type:" << currentResource.type << std::endl;
-				}
+		else {
+			this->soundMap[resourceInfo.name].sound->setBuffer(this->soundMap[resourceInfo.name].buffer);
+		}
+	}
+	else if (resourceInfo.type == "music")
+	{
+		this->musicMap[resourceInfo.name] = Music_Container();
+		this->musicMap[resourceInfo.name].music = std::make_shared<sf::Music>();
+		if (!this->musicMap[resourceInfo.name].music->openFromFile(resourceInfo.URL)) {
+			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
+		}
+	}
+	else if (resourceInfo.type == "font") {
+		this->fontMap[resourceInfo.name] = Font_Container();
+		this->fontMap[resourceInfo.name].font = std::make_shared<sf::Font>();
+		if (!this->fontMap[resourceInfo.name].font->loadFromFile(resourceInfo.URL)) {
+			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
 		}
 	}
 }

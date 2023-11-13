@@ -119,6 +119,12 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Done</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">

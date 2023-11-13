@@ -55,9 +55,20 @@ public:
 	* @brief Function to process a resource list for a given map
 	* The function will load all the unloaded resources and save the dependencies for the map
 	* @param mapName the name of the map/level
-	* @param resourceList the list of the resource information 
+	* @param resourceList the list of the resource information
+	* @param progress_percentage is meant for multithreaded use and will show the live progress on loading the resources
 	*/
-	void processResourceList(std::string mapName,std::vector<ResourceLoadingInfo> resourceList);
+	void processResourceList(std::string mapName,std::vector<ResourceLoadingInfo> resourceList,float *progress_percentage);
+
+	/**
+	* @brief Function to process a resource list for a given map
+	* The function will load all the unloaded resources and save the dependencies for the map
+	* @param mapName the name of the map/level
+	* @param resourceList the list of the resource information
+	*/
+	void processResourceList(std::string mapName, std::vector<ResourceLoadingInfo> resourceList);
+
+	void loadResource(ResourceLoadingInfo resourceInfo);
 
 private:
 	/*Resource maps*/

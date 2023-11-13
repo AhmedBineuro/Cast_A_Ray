@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include "SFMLMath.hpp"
+#include "Actor.h"
 //#include "Components.h"
 //sf::Vector2f calculatePlane(sf::Vector3f dir, int fov) {
 //	 sf::Vector2f plane = sf::Vector2f();
@@ -56,8 +57,16 @@ struct CameraComponent {
 };
 
 struct ColliderComponent {
-    sf::FloatRect border;
+    sf::FloatRect bounds;
     bool solid;
+    std::string tag;
+    ColliderComponent(){
+        bounds = sf::FloatRect(sf::Vector2f(0, 0), sf::Vector2f(1, 1));
+        solid = false;
+        tag = "";
+    }
+    ColliderComponent(const sf::FloatRect& bounds, bool isSolid, const std::string& tag)
+        : bounds(bounds), solid(isSolid), tag(tag) {}
 };
 
 struct AudioSourceComponent {
@@ -80,15 +89,7 @@ struct EntityTagComponent {
     std::string tag;
 };
 
-class ActorComponent {
-public:
-    virtual void OnCreate() = 0;
-    virtual void OnDestroy() = 0;
-    virtual void OnStart() = 0;
-    virtual void OnUpdate(float deltaTime) = 0;
-    virtual void OnFixedUpdate(float fixedDeltaTime) = 0;
-    virtual void OnEnable() = 0;
-    virtual void OnDisable() = 0;
-
-    virtual ~ActorComponent() {} // Ensure a virtual destructor for derived classes
+struct ScriptComponent {
+    std::shared_ptr<Actor> script;
+    ScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {}
 };

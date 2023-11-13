@@ -159,6 +159,7 @@
     <ClCompile Include="Resource_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Map_Reader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
+    <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
