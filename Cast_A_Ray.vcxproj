@@ -177,8 +177,9 @@
     <ClInclude Include="Map_Reader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
-    <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>

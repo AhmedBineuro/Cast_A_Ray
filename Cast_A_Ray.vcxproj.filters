@@ -119,10 +119,13 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Done</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.hpp">
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
+      <Filter>Header Files\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
       <Filter>Header Files\Done</Filter>
     </ClInclude>
   </ItemGroup>

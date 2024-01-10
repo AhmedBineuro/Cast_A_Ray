@@ -47,6 +47,16 @@ void Camera::setResolution(sf::Vector2u reslution) {
 	newT->display();
 	perspective = std::move(newT);
 }
+void Camera::setAngleRAD(float angle) {
+	TransformComponent* transform = getComponent<TransformComponent>();
+	float magnitude = sf::getLength(transform->rotation);
+	transform->rotation= sf::Vector2f(magnitude * cos(angle), magnitude * sin(angle));
+	return;
+}
+void Camera::setAngleDEG(float angle) {
+	setAngleRAD(sf::degToRad(angle));
+	return;
+}
 
 sf::Vector2f Camera::getPosition() {
 	return getComponent<TransformComponent>()->position;

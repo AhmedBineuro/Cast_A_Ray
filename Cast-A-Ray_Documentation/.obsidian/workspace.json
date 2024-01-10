@@ -20,6 +20,30 @@
             }
           },
           {
+            "id": "8bb81defb5ae5cc9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Scrap Note (For intermediate design).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2c25ceea7e270d14",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Todo.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "5f4e20c838bfedfc",
             "type": "leaf",
             "state": {
@@ -43,7 +67,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -109,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Entity component System Details.md",
+                "file": "Todo.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Entity component System Details.md",
+                "file": "Todo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Entity component System Details.md"
+                "file": "Todo.md"
               }
             }
           },
@@ -159,7 +184,9 @@
             "state": {
               "type": "all-properties",
               "state": {
-                "sortOrder": "frequency"
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
               }
             }
           }
@@ -183,10 +210,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3ccfe73f87e7dff6",
+  "active": "2c25ceea7e270d14",
   "lastOpenFiles": [
-    "Engine components.md",
+    "Scrap Note (For intermediate design).md",
+    "Todo.md",
+    "Untitled 1.md",
     "Entity component System Details.md",
+    "Engine components.md",
     "Useful code to add.md",
     "Classes and Other information.md",
     "Untitled",

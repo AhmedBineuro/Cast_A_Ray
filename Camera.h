@@ -14,7 +14,9 @@ public:
 	void setFOV(int FOV);
 	void setRenderDistance(float renderDistance);
 	void setResolution(sf::Vector2u reslution);
-	
+	void setAngleRAD(float angle);
+	void setAngleDEG(float angle);
+
 	sf::Vector2f getPosition();
 	int getFOV();
 	float getRenderDistance();
