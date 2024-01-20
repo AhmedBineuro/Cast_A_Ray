@@ -10,6 +10,8 @@
 #include "imgui-SFML.h"
 //JSON Testing
 #include"nlohmann/json.hpp"
+#include <fstream>
+//
 void windowLoop();
 void window2Loop();
 static bool run = true;
@@ -21,12 +23,12 @@ const int bufferSize = 2048;
 static char buffer[bufferSize] = "";
 
 // Functions to expirament with storing entities/ scripts
-
 template <typename Any>
 std::string getType(Any& object);
 
 template <typename Any>
 void postType(Any &object, Log& l);
+//
 
 int main(){
     l.setBackgroundColor(sf::Color(255,255,255,150));
@@ -37,8 +39,17 @@ int main(){
     l.setSize(sf::Vector2f(600, 200));
     //std::cout << "Success" << std::endl;
     m.processLevel("test.car");
-    
-    postType(bufferSize, l);
+
+    /*
+    * @brief Holy moly this JSON file reading is fast
+    std::fstream incomingFile("test.json");
+    nlohmann::json tester= nlohmann::json::parse(incomingFile);
+    std::string objects="";
+    for (auto item : tester["Entities"].items()) {
+        objects+=item.key() + "\n";
+    }
+    printf(objects.c_str());
+    */
 
     for(Segment segment: m.getAllSegments())
     {
