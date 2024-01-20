@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -94,7 +94,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>

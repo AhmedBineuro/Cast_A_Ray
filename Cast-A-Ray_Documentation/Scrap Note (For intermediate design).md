@@ -29,3 +29,10 @@ sf::FloatRect border;
 sf::Sprite sprite;
 }
 ```
+# Entity encoding/ creation
+- Store the components into a construction map
+	- Maps $string \rightarrow Anonymous\ function\ to\ add\ a\ component(entity,registry)$
+	- Have a hardcoded *config* file will contain some information to add the components onto an entity
+		- Store the names of the components you want to add sequentially in an array
+		- Store that array sequence into a map with the name of the entity as the key
+		- Add exception to reading each component's
