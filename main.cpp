@@ -22,35 +22,14 @@ const char* priority_list[] = { "Low", "Medium", "High", "Warning"};
 const int bufferSize = 2048;
 static char buffer[bufferSize] = "";
 
-// Functions to expirament with storing entities/ scripts
-template <typename Any>
-std::string getType(Any& object);
-
-template <typename Any>
-void postType(Any &object, Log& l);
-//
-
 int main(){
     l.setBackgroundColor(sf::Color(255,255,255,150));
     l.setTextColor(sf::Color::Yellow);
-    l.setPosition(sf::Vector2f(200, 400));
-    l.setFontSize(15);
+    l.setPosition(sf::Vector2f(100, 100));
+    l.setFontSize(8);
     l.setMargin(1);
-    l.setSize(sf::Vector2f(600, 200));
-    //std::cout << "Success" << std::endl;
+    l.setSize(sf::Vector2f(400, 200));
     m.processLevel("test.car");
-
-    /*
-    * @brief Holy moly this JSON file reading is fast
-    std::fstream incomingFile("test.json");
-    nlohmann::json tester= nlohmann::json::parse(incomingFile);
-    std::string objects="";
-    for (auto item : tester["Entities"].items()) {
-        objects+=item.key() + "\n";
-    }
-    printf(objects.c_str());
-    */
-
     for(Segment segment: m.getAllSegments())
     {
         printSegment(segment);
@@ -129,26 +108,5 @@ void window2Loop() {
     ImGui::SFML::Shutdown();
 }
 
-//Function to post the type of an object to the log
-template <typename Any>
-void postType(Any &object, Log& l) {
-    std::string typeName = typeid(object).name();
-    std::string classStr = "class ";
-    auto classPos = typeName.find(classStr);
-    if (classPos != std::string::npos) {
-        typeName.erase(classPos, classStr.length());
-    }
-    l.submit_message(typeName, Priority::Warning);
-}
+//Testing a Scene
 
-// Function to get the string version of the class type
-template <typename Any>
-std::string getType(Any& object) {
-    std::string typeName = typeid(object).name();
-    std::string classStr = "class ";
-    auto classPos = typeName.find(classStr);
-    if (classPos != std::string::npos) {
-        typeName.erase(classPos, classStr.length());
-    }
-    return typeName;
-}

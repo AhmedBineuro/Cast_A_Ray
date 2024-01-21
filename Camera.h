@@ -22,5 +22,5 @@ public:
 	float getRenderDistance();
 	sf::Vector2u getResolution();
 private:
-	std::unique_ptr<sf::RenderTexture> perspective;
+	std::unique_ptr<sf::RenderTexture> canvas;
 };

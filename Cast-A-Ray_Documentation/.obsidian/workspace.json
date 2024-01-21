@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Scrap Note (For intermediate design).md",
+                "file": "Todo.md",
                 "mode": "source",
                 "source": false
               }
@@ -118,7 +118,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c550ecec0b4ea339",
@@ -134,7 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Scrap Note (For intermediate design).md",
+                "file": "Todo.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +152,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Scrap Note (For intermediate design).md",
+                "file": "Todo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +175,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Scrap Note (For intermediate design).md"
+                "file": "Todo.md"
               }
             }
           },
@@ -212,9 +213,9 @@
   },
   "active": "2c25ceea7e270d14",
   "lastOpenFiles": [
+    "Scrap Note (For intermediate design).md",
     "Useful code to add.md",
     "Todo.md",
-    "Scrap Note (For intermediate design).md",
     "Untitled 1.md",
     "Entity component System Details.md",
     "Engine components.md",

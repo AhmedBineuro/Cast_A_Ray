@@ -1,5 +1,5 @@
 {
-  "Entities": {
+  "Entities":{
     "Player": {
       "Components": [ "Transform", "Render" ]
     },

@@ -36,7 +36,7 @@ public:
     * @note The function is used like this getComponent<type>()
     */
     template<typename T>
-    T* getComponent();
+    T& getComponent();
 
     template<typename T>
     bool hasComponent();
@@ -60,17 +60,17 @@ void Entity::removeComponent() {
 }
 
 template <typename T>
-inline T* Entity::getComponent() {
-    return registry->try_get<T>(handle);
+T& Entity::getComponent() {
+    return *registry->try_get<T>(handle);
 }
 
 template <typename T>
-inline bool Entity::hasComponent() {
+bool Entity::hasComponent() {
     return registry->any_of<T>(handle);
 }
 
 template <typename T>
-inline void Entity::replaceComponent(T component) {
+void Entity::replaceComponent(T component) {
     registry->replace<T>(handle, component);
     return;
 }

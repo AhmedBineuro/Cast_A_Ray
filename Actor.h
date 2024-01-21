@@ -8,7 +8,8 @@
 
 class Actor {
 public:
-    virtual void OnCreate() = 0;
+    Actor() { OnCreate(); }
+    virtual void OnCreate() {};
     virtual void OnStart() = 0;
     virtual void OnUpdate(float deltaTime) = 0;
     virtual void OnFixedUpdate(float fixedDeltaTime) = 0;
