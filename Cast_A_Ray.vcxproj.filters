@@ -60,6 +60,9 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map_Reader.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="System.h">
       <Filter>Header Files\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

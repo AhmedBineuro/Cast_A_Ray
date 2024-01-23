@@ -31,7 +31,7 @@ struct SpriteComponent {
 };
 
 struct RenderComponent {
-    sf::RenderWindow* renderWindow;
+    sf::RenderTexture renderTexture;
 };
 
 struct CameraComponent {
