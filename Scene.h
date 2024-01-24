@@ -11,13 +11,14 @@ class Scene {
 public:
     // Lifecycle methods
     virtual void onCreate()=0;
-    virtual void onStart()=0;
     virtual void onUpdate(float deltaTime)=0;
     virtual void onFixedUpdate(float fixedDeltaTime)=0;
-    virtual void onRender(sf::RenderTexture& canvas)=0;
+    //Should return the canvas result as a sprite and is called every render call
+    virtual sf::Sprite onRender()=0;
     virtual void onDestroy()=0;
-    virtual void render() = 0;
-private:
+protected:
+    sf::RenderTexture canvas;
+    sf::Sprite canvasSprite;
     template <typename T>
     bool isSystemPresent();
 	entt::registry registry;

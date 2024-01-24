@@ -4,6 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
+extern float globalDeltaTime;
+extern void switchScenes(std::string sceneName);
 /**
 * @struct
 * @brief A struct containing the floor, wall, and ceiling values for a given tile.

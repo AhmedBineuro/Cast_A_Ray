@@ -60,8 +60,11 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Source Files\Done</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +134,7 @@
     <ClInclude Include="System.h">
       <Filter>Header Files\Done</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
