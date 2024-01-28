@@ -31,13 +31,14 @@ struct SpriteComponent {
 };
 
 struct RenderComponent {
-    sf::RenderTexture renderTexture;
+    bool enabled;
 };
 
 struct CameraComponent {
     int FOV;
     float renderDistance;
     sf::Vector2f plane;
+    bool enabled;
     CameraComponent() {
         FOV = 90;
         renderDistance = 100;

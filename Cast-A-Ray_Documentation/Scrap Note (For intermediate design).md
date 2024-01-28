@@ -1,22 +1,3 @@
-## Scene Class
-- The scene is basically a screen of the game 
-- Basic Scene
-```C++
-class Scene{
-public:
-Scene();
-void onUpdate(float deltaTime); //For the user defined delta time (parameter called in game class)
-void onFixedUpdate(float deltaTime); //Delta time set at 60 fps
-void onRender(sf::RenderTexture& screen); // TBD whether to implement or not
-void onDestroy(); // TBD whether to implement or not
-private:
-entt::registry registry;
-std::vector<std::vector<int>> levelLayout;
-std::vector<std::shared_ptr<GUI_Element> GUI;
-std::string name;
-int buildOrder;
-}
-```
 ## GUI_Element class
 ```C++
 class GUI_Element{
@@ -32,6 +13,38 @@ sf::Sprite sprite;
 ---
 # DO NOT WORRY ABOUT ENTITY CREATION THROUGH THE MAP FILE!!! JUST READ IN THE MAP FILE AND GENERATE THE REST WITH CODE!!!!!!!!!
 <font style="color: red; font-size: 25px">Change entire map file to JSON</font>
+
+---
+# Engine Files
+---
+- So the hierarchy is as follows
+```mermaid
+flowchart TD
+    A[Application.h] -->|Manages and Controls| B{Scene.h}
+
+    B -->|Calls| C[Systems]
+
+    C -->|Updates| D[Entities]
+
+    C -->|Updates| E[App State]
+```
+---
+
+## AppCore
+- Contains the Cast-A-Ray Application Framework main files
+	- `Core.h`
+	- `Application.h`
+	- `Core.h`
+	- `Scene.h`
+	- `System.h`
+	- `Systems.h`
+## GameEnCore (Game Engine Core)
+- Contains all the necessary files, classes, and structs to start creating games
+	- `Actor.h`
+	- `Components.h`
+	- `Entity.h`
+	- `SFMLMath.hpp`
+
 
 
 

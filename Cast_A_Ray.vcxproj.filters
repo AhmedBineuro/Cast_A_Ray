@@ -13,17 +13,35 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Done">
-      <UniqueIdentifier>{1e8e08bd-6af2-4cc8-bfbf-201af1f84cad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Done">
-      <UniqueIdentifier>{e2921866-1c8f-4ec7-a3a0-e8013423e809}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ImGui">
       <UniqueIdentifier>{dde88ac1-65f5-4875-9b79-bca3da39d210}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ImGui">
       <UniqueIdentifier>{56d4a477-ee3e-417e-b884-73f7ed6fd52c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AppCore">
+      <UniqueIdentifier>{274b1f32-0a2d-4501-a84d-271f3ef062bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameEnCore">
+      <UniqueIdentifier>{1e8e08bd-6af2-4cc8-bfbf-201af1f84cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEnCore">
+      <UniqueIdentifier>{e2921866-1c8f-4ec7-a3a0-e8013423e809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppCore">
+      <UniqueIdentifier>{bffc5861-48f6-4a17-8fd8-fde264973226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editable">
+      <UniqueIdentifier>{7d3c1a81-d9e2-4f47-bc89-b025de346469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editable">
+      <UniqueIdentifier>{1730a68b-45a1-4a5c-9415-8379864d6d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Additional Classes">
+      <UniqueIdentifier>{e34d18cc-46ae-4bda-b097-0f255d88878c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Additional Classes">
+      <UniqueIdentifier>{e13881dd-8f6b-4e32-a40d-d7180c90c665}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,17 +51,14 @@
     <ClCompile Include="Map_Reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Done</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Done</Filter>
+      <Filter>Source Files\GameEnCore</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>Source Files\Done</Filter>
+      <Filter>Source Files\GameEnCore</Filter>
     </ClCompile>
     <ClCompile Include="Resource_Manager.cpp">
-      <Filter>Source Files\Done</Filter>
+      <Filter>Source Files\GameEnCore</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Source Files\ImGui</Filter>
@@ -61,10 +76,22 @@
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\AppCore</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
-      <Filter>Source Files\Done</Filter>
+      <Filter>Source Files\AppCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems.cpp">
+      <Filter>Source Files\Editable</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes.cpp">
+      <Filter>Source Files\Editable</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Additional Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity2D.cpp">
+      <Filter>Source Files\Additional Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,26 +101,17 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\Done</Filter>
+      <Filter>Header Files\GameEnCore</Filter>
     </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>Header Files\Done</Filter>
+      <Filter>Header Files\GameEnCore</Filter>
     </ClInclude>
     <ClInclude Include="Resource_Manager.h">
-      <Filter>Header Files\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="Components.h">
-      <Filter>Header Files\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Header Files\Done</Filter>
+      <Filter>Header Files\GameEnCore</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Header Files\ImGui</Filter>
@@ -122,20 +140,38 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Done</Filter>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\GameEnCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\AppCore</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Header Files\Done</Filter>
+      <Filter>Header Files\AppCore</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\AppCore</Filter>
+    </ClInclude>
+    <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp">
+      <Filter>Header Files\GameEnCore</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files\GameEnCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems.h">
+      <Filter>Header Files\Editable</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files\Editable</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Header Files\Editable</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Additional Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity2D.h">
+      <Filter>Header Files\Additional Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

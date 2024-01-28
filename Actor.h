@@ -8,14 +8,10 @@
 
 class Actor {
 public:
-    Actor() { OnCreate(); }
+    Actor() {OnCreate();}
     virtual void OnCreate() {};
-    virtual void OnStart() = 0;
     virtual void OnUpdate(float deltaTime) = 0;
+    virtual void OnRender() = 0;
     virtual void OnFixedUpdate(float fixedDeltaTime) = 0;
-    virtual void OnEnable() = 0;
-    virtual void OnDisable() = 0;
     virtual void OnDestroy() = 0;
-
-    virtual ~Actor() {} // Ensure a virtual destructor for derived classes
 };

@@ -150,6 +150,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Entity2D.cpp" />
     <ClCompile Include="imgui\imgui-SFML.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -159,6 +160,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map_Reader.cpp" />
     <ClCompile Include="Resource_Manager.cpp" />
+    <ClCompile Include="Scenes.cpp" />
+    <ClCompile Include="Systems.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Entity2D.h" />
     <ClInclude Include="imgui\imconfig-SFML.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui-SFML.h" />
@@ -181,8 +185,10 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scenes.h" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="Systems.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
