@@ -1,51 +1,41 @@
 #include "Systems.h"
 
-/**
-* RenderSystem2D Declarations
-*/
-RenderSystem2D::RenderSystem2D() {
-	this->renderTarget = NULL;
+DVDLogoBehaviour::DVDLogoBehaviour() {
+	spriteComponent = NULL;
+	OnCreate();
 }
-RenderSystem2D::RenderSystem2D(sf::RenderTarget& renderTarget) {
-	this->renderTarget = &renderTarget;
+void DVDLogoBehaviour::OnCreate() {
+	std::cout << "DVDLogoBegavior OnCreate" << std::endl;
+	velocity = sf::Vector2f();
+	velocity.x = ((float)rand() / (float)RAND_MAX) * 100.0f - 5.0f;
+	velocity.y = ((float)rand() / (float)RAND_MAX) * 100.0f - 5.0f;
 }
-void RenderSystem2D::update(entt::registry& registry) {
-	if (renderTarget == NULL)
+void DVDLogoBehaviour::OnUpdate(float deltaTime) {
+	move(deltaTime);
+}
+void DVDLogoBehaviour::OnFixedUpdate(float fixedDeltaTime) {
+}
+void DVDLogoBehaviour::OnRender() {
+}
+void DVDLogoBehaviour::OnDestroy() {
+}
+void DVDLogoBehaviour::move(float deltaTime) {
+	if (spriteComponent == NULL)
 		return;
-	renderTarget->clear(sf::Color::White);
-	//Get the list of entities with this component
-	auto view = registry.view<RenderComponent,SpriteComponent>();
-	for (auto entity : view) {
-		if (registry.get<RenderComponent>(entity).enabled) {
-			SpriteComponent& sprite = registry.get<SpriteComponent>(entity);
-			renderTarget->draw(sprite.sprite);
-		}
-	}
+	sf::FloatRect bounds;
+	bounds = this->spriteComponent->sprite.getGlobalBounds();
+	sf::Vector2f position = this->spriteComponent->sprite.getPosition();
+	sf::Vector2u size = this->spriteComponent->sprite.getTexture()->getSize();
+	sf::Vector2f scale = this->spriteComponent->sprite.getScale();
+	//std::cout << "Position: " <<position.x<<" , "<< position.y << std::endl;
+	if (position.x + ((float)size.x * scale.x) >= WINDOW_WIDTH || position.x <= 0)
+		velocity.x *= -1;
+	if (position.y + ((float)size.y * scale.y) >= WINDOW_HEIGHT || position.y <= 0)
+		velocity.y *= -1;
+	//std::cout << "Velocity: " << velocity.x << " , " << velocity.y << std::endl;
+	position = position + (velocity * deltaTime);
+	this->spriteComponent->sprite.setPosition(position);
 }
-///////////////////////////////////////////////////////
-
-/**
-* ScriptSystem
-*/
-void ScriptSystem::OnUpdate(float deltaTime, entt::registry& registry) {
-	auto view = registry.view<ScriptComponent>();
-	for (auto entity : view) {
-		ScriptComponent& script = registry.get<ScriptComponent>(entity);
-		script.script->OnUpdate(deltaTime);
-	}
+DVDLogoBehaviour::~DVDLogoBehaviour() {
+	OnDestroy();
 }
-void ScriptSystem::OnFixedUpdate(float fixedDeltaTime, entt::registry& registry) {
-	auto view = registry.view<ScriptComponent>();
-	for (auto entity : view) {
-		ScriptComponent& script = registry.get<ScriptComponent>(entity);
-		script.script->OnFixedUpdate(fixedDeltaTime);
-	}
-}
-void ScriptSystem::OnRender(entt::registry& registry) {
-	auto view = registry.view<ScriptComponent>();
-	for (auto entity : view) {
-		ScriptComponent& script = registry.get<ScriptComponent>(entity);
-		script.script->OnRender();
-	}
-}
-///////////////////////////////////////////////////////

@@ -32,6 +32,7 @@ struct SpriteComponent {
 
 struct RenderComponent {
     bool enabled;
+    sf::RenderStates renderStates;
 };
 
 struct CameraComponent {

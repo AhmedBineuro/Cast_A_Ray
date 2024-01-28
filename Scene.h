@@ -19,17 +19,4 @@ public:
 protected:
     sf::RenderTexture canvas;
     sf::Sprite canvasSprite;
- //   template <typename T>
- //   bool isSystemPresent();
-	//std::vector<std::shared_ptr<System>> systems;
 };
-
-//template <typename T>
-//bool Scene::isSystemPresent() {
-//    for (auto& system : systems) {
-//        if (typeid(T) == typeid(system)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//}

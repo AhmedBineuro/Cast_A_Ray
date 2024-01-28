@@ -1,19 +1,19 @@
+#pragma once
 #include "System.h"
 #include "Components.h"
+#include "CoreAdditions.h"
 #include "Core.h"
-
-class RenderSystem2D :public System {
+//Entity2D behavior class
+class DVDLogoBehaviour :public Actor {
 public:
-	RenderSystem2D();
-	RenderSystem2D(sf::RenderTarget& renderTarget);
-	void update(entt::registry& registry);
-private:
-	sf::RenderTarget* renderTarget;
-};
-
-class ScriptSystem{
-public:
-	void OnUpdate(float deltaTime,entt::registry& registry);
-	void OnFixedUpdate(float fixedDeltaTime, entt::registry& registry);
-	void OnRender(entt::registry& registry);
+	DVDLogoBehaviour();
+	void OnCreate()override;
+	void OnUpdate(float deltaTime)override;
+	void OnFixedUpdate(float fixedDeltaTime)override;
+	void OnRender()override;
+	void OnDestroy()override;
+	void move(float deltaTime);
+	~DVDLogoBehaviour();
+	SpriteComponent* spriteComponent;
+	sf::Vector2f velocity;
 };

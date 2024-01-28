@@ -159,8 +159,11 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map_Reader.cpp" />
+    <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="Resource_Manager.cpp" />
+    <ClCompile Include="Scene2D.cpp" />
     <ClCompile Include="Scenes.cpp" />
+    <ClCompile Include="ScriptSystem.cpp" />
     <ClCompile Include="Systems.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +171,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="CoreAdditions.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Entity2D.h" />
@@ -182,10 +186,13 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map_Reader.h" />
+    <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene2D.h" />
     <ClInclude Include="Scenes.h" />
+    <ClInclude Include="ScriptSystem.h" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Systems.h" />

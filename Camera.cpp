@@ -22,18 +22,18 @@ Camera::Camera(entt::registry* registry,sf::Vector2f position) :Entity(registry)
 }
 
 void Camera::setPosition(sf::Vector2f position) {
-	TransformComponent& pos = getComponent<TransformComponent>();
-	pos.position = position;
+	TransformComponent* pos = getComponent<TransformComponent>();
+	pos->position = position;
 	return;
 }
 void Camera::setFOV(int FOV) {
-	CameraComponent& perp = getComponent<CameraComponent>();
-	perp.FOV = FOV;
+	CameraComponent* perp = getComponent<CameraComponent>();
+	perp->FOV = FOV;
 	return;
 }
 void Camera::setRenderDistance(float renderDistance) {
-	CameraComponent& perp = getComponent<CameraComponent>();
-	perp.renderDistance= renderDistance;
+	CameraComponent* perp = getComponent<CameraComponent>();
+	perp->renderDistance= renderDistance;
 	return;
 }
 void Camera::setResolution(sf::Vector2u reslution) {
@@ -48,9 +48,9 @@ void Camera::setResolution(sf::Vector2u reslution) {
 	canvas = std::move(newT);
 }
 void Camera::setAngleRAD(float angle) {
-	TransformComponent& transform = getComponent<TransformComponent>();
-	float magnitude = sf::getLength(transform.rotation);
-	transform.rotation= sf::Vector2f(magnitude * cos(angle), magnitude * sin(angle));
+	TransformComponent* transform = getComponent<TransformComponent>();
+	float magnitude = sf::getLength(transform->rotation);
+	transform->rotation= sf::Vector2f(magnitude * cos(angle), magnitude * sin(angle));
 	return;
 }
 void Camera::setAngleDEG(float angle) {
@@ -59,13 +59,13 @@ void Camera::setAngleDEG(float angle) {
 }
 
 sf::Vector2f Camera::getPosition() {
-	return getComponent<TransformComponent>().position;
+	return getComponent<TransformComponent>()->position;
 }
 int Camera::getFOV() {
-	return getComponent<CameraComponent>().FOV;
+	return getComponent<CameraComponent>()->FOV;
 }
 float Camera::getRenderDistance() {
-	return getComponent<CameraComponent>().renderDistance;
+	return getComponent<CameraComponent>()->renderDistance;
 }
 sf::Vector2u Camera::getResolution() {
 	return canvas->getSize();

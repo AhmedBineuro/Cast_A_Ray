@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Additional Classes">
       <UniqueIdentifier>{e13881dd-8f6b-4e32-a40d-d7180c90c665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameEnCore\Core Additions">
+      <UniqueIdentifier>{e4f7968d-2f22-4e01-94ff-ad3266ab4730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEnCore\Core Additions">
+      <UniqueIdentifier>{84ca2bfa-b9cb-4597-a171-47cc6739b125}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,8 +96,17 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Additional Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Scene2D.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem2D.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptSystem.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
     <ClCompile Include="Entity2D.cpp">
-      <Filter>Source Files\Additional Classes</Filter>
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,8 +185,20 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Additional Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Scene2D.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem2D.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptSystem.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreAdditions.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
     <ClInclude Include="Entity2D.h">
-      <Filter>Header Files\Additional Classes</Filter>
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
