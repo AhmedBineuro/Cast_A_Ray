@@ -1,6 +1,7 @@
 #pragma once
 #include "System.h"
 #include "Components.h"
+#include "CoreComponents.h"
 #include "Core.h"
 class ScriptSystem {
 public:

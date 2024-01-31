@@ -17,3 +17,4 @@ public:
 	SpriteComponent* spriteComponent;
 	sf::Vector2f velocity;
 };
+///////////////////////////////////

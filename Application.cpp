@@ -1,7 +1,7 @@
 #include "Application.h"
 Application::Application() {
-	this->gameName = "Cast-A-Ray Application";
-	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), this->gameName);
+	this->appName = "Cast-A-Ray Application";
+	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), this->appName);
 	fixedDeltaTime = sf::Time(sf::seconds(1.0f / 60.0f));
 	if (!icon.loadFromFile("./casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
@@ -9,9 +9,9 @@ Application::Application() {
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
 }
-Application::Application(std::string gameName) {
-	this->gameName = gameName;
-	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), this->gameName);
+Application::Application(std::string appName) {
+	this->appName = appName;
+	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), this->appName);
 	fixedDeltaTime = sf::Time(sf::seconds(1.0f / 60.0f));
 	if (!icon.loadFromFile("./casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
@@ -79,6 +79,7 @@ void Application::run() {
 		update();
 		render();
 		//std::cout << "FPS: " << FPS << std::endl;
+		window.setTitle(appName +" | FPS: " + std::to_string((int)FPS));
 	}
 	window.close();
 }

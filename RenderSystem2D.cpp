@@ -9,7 +9,7 @@ RenderSystem2D::RenderSystem2D(sf::RenderTarget& renderTarget) {
 void RenderSystem2D::update(entt::registry& registry) {
 	if (renderTarget == NULL)
 		return;
-	renderTarget->clear(sf::Color::White);
+	renderTarget->clear(sf::Color::Black);
 	//Get the list of entities with this component
 	auto view = registry.view<RenderComponent, SpriteComponent>();
 	for (auto entity : view) {

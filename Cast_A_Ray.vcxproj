@@ -172,6 +172,7 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="CoreAdditions.h" />
+    <ClInclude Include="CoreComponents.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Entity2D.h" />

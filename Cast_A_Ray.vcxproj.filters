@@ -200,6 +200,9 @@
     <ClInclude Include="Entity2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
+    <ClInclude Include="CoreComponents.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">

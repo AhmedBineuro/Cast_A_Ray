@@ -7,7 +7,6 @@ Scene2D::Scene2D() {
 	this->onCreate();
 }
 void Scene2D::onCreate() {
-	std::cout << "Scene2D OnCreate Method" << std::endl;
 	/**
 	* Additional Code Here
 	*/
@@ -38,7 +37,6 @@ void Scene2D::onDestroy() {
 	/**
 	* Additional Code Here
 	 */
-	std::cout << "OnDestroy Method" << std::endl;
 }
 
 Entity* Scene2D::createEntity() {

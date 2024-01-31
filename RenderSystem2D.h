@@ -1,5 +1,6 @@
 #pragma once
 #include "System.h"
+#include "CoreComponents.h"
 #include "Components.h"
 #include "Core.h"
 

@@ -27,7 +27,7 @@ private:
 	sf::Time deltaTime,fixedDeltaTime,cumulatedTime;
 	sf::RenderWindow window;
 
-	std::string gameName;
+	std::string appName;
 	sf::Image icon;
 	bool running=false;
 	float FPS;

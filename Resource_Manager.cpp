@@ -22,7 +22,7 @@ sf::Texture& Resource_Manager::getTexture(std::string name) {
 	if(this->textureMap.find(name) !=this->textureMap.end())
 		return *(this->textureMap.at(name).texture);
 	else {
-		return *(this->textureMap.at("NO_TEXT").texture);
+		return *(this->textureMap.at("DEF_TEXT").texture);
 	}
 }
 sf::Music &Resource_Manager::getMusic(std::string name) {

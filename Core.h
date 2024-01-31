@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 1920.0f//800
+#define WINDOW_HEIGHT 1080.0f//800
 extern float globalDeltaTime;
 extern void switchScenes(std::string sceneName);
 /**

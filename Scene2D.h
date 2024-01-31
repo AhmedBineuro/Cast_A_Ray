@@ -16,7 +16,7 @@ public:
 	void onDestroy();
 	Entity* createEntity();
 	~Scene2D();
-private:
+protected:
 	entt::registry registry;
 	std::vector<std::shared_ptr<Entity>>entities;
 	RenderSystem2D renderSystem;
