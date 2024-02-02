@@ -26,18 +26,11 @@ struct TransformComponent {
         : position(pos), rotation(rot) {}
 };
 
-struct SpriteComponent {
-    sf::Sprite sprite;
-};
-
-struct RenderComponent {
-    sf::RenderWindow* renderWindow;
-};
-
 struct CameraComponent {
     int FOV;
     float renderDistance;
     sf::Vector2f plane;
+    bool enabled;
     CameraComponent() {
         FOV = 90;
         renderDistance = 100;
@@ -87,9 +80,4 @@ struct AudioListenerComponent {
 
 struct EntityTagComponent {
     std::string tag;
-};
-
-struct ScriptComponent {
-    std::shared_ptr<Actor> script;
-    ScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {}
 };

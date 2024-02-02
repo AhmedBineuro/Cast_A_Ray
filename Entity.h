@@ -1,6 +1,7 @@
 #pragma once
 #include "entt.hpp"
 #include "Components.h"
+#include "CoreComponents.h"
 /**
 * @brief The core entity class that any custom entity will be built on. The class will serve as the interface to the entity component system.
 * This allows the developer to simply inherit the super basic functions that add, removes, and retrieve components of an entity.
@@ -60,17 +61,17 @@ void Entity::removeComponent() {
 }
 
 template <typename T>
-inline T* Entity::getComponent() {
+T* Entity::getComponent() {
     return registry->try_get<T>(handle);
 }
 
 template <typename T>
-inline bool Entity::hasComponent() {
+bool Entity::hasComponent() {
     return registry->any_of<T>(handle);
 }
 
 template <typename T>
-inline void Entity::replaceComponent(T component) {
+void Entity::replaceComponent(T component) {
     registry->replace<T>(handle, component);
     return;
 }

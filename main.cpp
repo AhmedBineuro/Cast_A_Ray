@@ -1,106 +1,74 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Map_Reader.h"
-#include "Log.h"
-#include "Resource_Manager.h"
-#include "Camera.h"
+#include "Application.h"
+#include "Scenes.h"
+#include "CoreAdditions.h"
 #include <iostream>
-#include <thread>
-#include "imgui.h"
-#include "imgui-SFML.h"
-void windowLoop();
-void window2Loop();
-static bool run = true;
-Log l;
-Map_Reader& m=m.getReader();
-int priority = 0;
-const char* priority_list[] = { "Low", "Medium", "High", "Warning"};
-const int bufferSize = 2048;
-static char buffer[bufferSize] = "";
-int main(){
-    l.setBackgroundColor(sf::Color(255,255,255,150));
-    l.setTextColor(sf::Color::Yellow);
-    l.setPosition(sf::Vector2f(200, 400));
-    l.setFontSize(15);
-    l.setMargin(1);
-    l.setSize(sf::Vector2f(600, 200));
-    //std::cout << "Success" << std::endl;
-    m.processLevel("test.car");
+Application *MainApplication;
+void switchScenes(std::string sceneName) {
+    if (MainApplication != nullptr)
+        MainApplication->setCurrentScene(sceneName);
+}
 
-    for(Segment segment: m.getAllSegments())
-    {
-        printSegment(segment);
-        std::cout << std::endl;
+/* 
+* So I discovered after making this whole design of Scenes, entities, and Game I
+* made a general SFML application framework. So Now onto the to-do's
+* @TODO
+*   - [ ] Make Systems for RayCaster 
+*   - [ ] Make Separate Cast-A-Ray library such that
+*       - [ ] Empty Components file (Special for each project)
+*       - [ ] And just the main function (To add the scenes and other stuff)
+*/
+void DVDFactory(Scene2D& scene, sf::Vector2f location, sf::Vector2f size) {
+    Resource_Manager& rm = Resource_Manager::getResourceManager();
+    Entity* entity = scene.createEntity();
+    entity->addComponent(RenderComponent());
+    entity->addComponent(SpriteComponent());
+    entity->addComponent(ScriptComponent(std::make_shared<DVDLogoBehaviour>()));
+
+    ScriptComponent* script = entity->getComponent<ScriptComponent>();
+    RenderComponent* render = entity->getComponent<RenderComponent>();
+    SpriteComponent* sprite = entity->getComponent<SpriteComponent>();
+
+    sprite->sprite.setTexture(rm.getTexture("DVD Logo"));
+    sf::Vector2u textSize = sprite->sprite.getTexture()->getSize();
+    sf::Vector2f newScale;
+    newScale.x = size.x / (float)textSize.x;
+    newScale.y = -size.y / (float)textSize.y;
+    sprite->sprite.setScale(newScale);
+    sprite->sprite.setPosition(location);
+    DVDLogoBehaviour* behaviour = (DVDLogoBehaviour*)script->script.get();
+    behaviour->spriteComponent = sprite;
+    render->enabled = true;
+}
+int main(){
+    srand(time(NULL));
+    Application mainApp("PlayGround");
+    MainApplication = &mainApp;
+    mainApp.setWindowIcon("./cubelogo.png");
+    Resource_Manager& rm = Resource_Manager::getResourceManager();
+    ResourceLoadingInfo rli;
+    rli.name = "Casta";
+    rli.type = "texture";
+    rli.URL = "./casta.png";
+    rm.loadResource(rli);
+    rli.name = "DVD Logo";
+    rli.URL = "./dvdIcon.png";
+    rm.loadResource(rli);
+    Scene2D p1;
+    ////////////////TESTING AREA/////////////////////
+    for (int i = 0; i < 1; i++) {
+        int xSize = 200;
+        sf::Vector2f size(xSize, xSize/2);
+        sf::Vector2f pos;
+        pos.x = rand() / (float)RAND_MAX * ((float)WINDOW_WIDTH - size.x) + size.x;
+        pos.y = rand() / (float)RAND_MAX * ((float)WINDOW_HEIGHT-size.y) + size.y;
+        DVDFactory(p1, pos,size);
     }
-    m.processLayoutInfo();
-    std::thread windowThread(windowLoop);
-    std::thread window2Thread(window2Loop);
-    windowThread.join();
-    window2Thread.join();
+    ///////////////////////////////////////////
+    mainApp.addScene("Scene 2D", &p1);
+    mainApp.run();
     return 0;
 }
 
-void windowLoop() {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Cast-A-Ray");
-    sf::Clock deltaClock;
-    Resource_Manager& r = Resource_Manager::getResourceManager();
-    sf::Image icon;
-    if (!icon.loadFromFile("./casta.png"))
-        std::cout << "Failed to load window icon" << std::endl;
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    while (run)
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                run = false;
-            }
-        }
-        window.clear();
-        l.draw(window);
-        window.display();
-    }
-}
-void window2Loop() {
-    sf::RenderWindow window(sf::VideoMode(400, 400), "Debug");
-    sf::Clock deltaClock;
-    ImGui::SFML::Init(window);
-    Resource_Manager& r = Resource_Manager::getResourceManager();
-    sf::Image icon;
-    if (!icon.loadFromFile("./casta.png"))
-        std::cout << "Failed to load window icon" << std::endl;
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    while (run)
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                run = false;
-            }
-        }
-        ImGui::SFML::Update(window, deltaClock.restart());
-        ImGui::SetNextWindowPos(ImVec2(0, 0));
-        ImGui::SetNextWindowSize(ImVec2(400, 400));
-        //SFML ImGUI test
-        ImGui::Begin("Window title");
-        ImGui::Text("Some Text");
-        ImGui::Combo("Priority:", &priority, priority_list, IM_ARRAYSIZE(priority_list));
-        ImGui::InputText("Log message", buffer, bufferSize);
-        if (ImGui::Button("Submit Message")) {
-            l.submit_message(std::string(buffer), static_cast<Priority>(priority));
-        }
-        ImGui::End();
-        window.clear();
-        ImGui::SFML::Render(window);
 
-        window.display();
-    }
-    ImGui::SFML::Shutdown();
-}

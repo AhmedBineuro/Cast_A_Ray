@@ -1,0 +1,13 @@
+{
+  "Entities":{
+    "Player": {
+      "Components": [ "Transform", "Render" ]
+    },
+    "Camera": {
+      "Components": [ "Transform", "Render" ]
+    },
+    "Monster 2": {
+      "Components": [ "Transform", "Render" ]
+    }
+  }
+}

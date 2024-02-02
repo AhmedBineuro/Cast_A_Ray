@@ -4,8 +4,8 @@ Camera::Camera(entt::registry* registry) :Entity(registry) {
 	addComponent(transform);
 	CameraComponent camera = CameraComponent(90, 100);
 	addComponent(camera);
-	perspective = std::make_unique<sf::RenderTexture>();
-	if (!perspective->create(800, 800)) {
+	canvas = std::make_unique<sf::RenderTexture>();
+	if (!canvas->create(800, 800)) {
 		std::cerr << "Could not create camera render texture" << std::endl;
 	}
 
@@ -15,8 +15,8 @@ Camera::Camera(entt::registry* registry,sf::Vector2f position) :Entity(registry)
 	addComponent(transform);
 	CameraComponent camera = CameraComponent();
 	addComponent(camera);
-	perspective = std::make_unique<sf::RenderTexture>();
-	if (!perspective->create(800, 800)) {
+	canvas = std::make_unique<sf::RenderTexture>();
+	if (!canvas->create(800, 800)) {
 		std::cerr << "Could not create camera render texture" << std::endl;
 	}
 }
@@ -37,7 +37,7 @@ void Camera::setRenderDistance(float renderDistance) {
 	return;
 }
 void Camera::setResolution(sf::Vector2u reslution) {
-	sf::Sprite temp(perspective->getTexture());
+	sf::Sprite temp(canvas->getTexture());
 	auto newT= std::make_unique<sf::RenderTexture>();;
 	if (!newT->create(reslution.x, reslution.y)) {
 		std::cerr << "Could not create camera render texture" << std::endl;
@@ -45,7 +45,7 @@ void Camera::setResolution(sf::Vector2u reslution) {
 	newT->clear();
 	newT->draw(temp);
 	newT->display();
-	perspective = std::move(newT);
+	canvas = std::move(newT);
 }
 void Camera::setAngleRAD(float angle) {
 	TransformComponent* transform = getComponent<TransformComponent>();
@@ -68,5 +68,5 @@ float Camera::getRenderDistance() {
 	return getComponent<CameraComponent>()->renderDistance;
 }
 sf::Vector2u Camera::getResolution() {
-	return perspective->getSize();
+	return canvas->getSize();
 }
