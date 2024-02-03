@@ -1,6 +1,8 @@
 #include "Scene2D.h"
 Scene2D::Scene2D() {
-	if (!this->canvas.create(WINDOW_WIDTH, WINDOW_HEIGHT)) {
+	Config& config = Config::getConfig();
+	Settings settings = config.getSettings();
+	if (!this->canvas.create(settings.width, settings.height)) {
 		std::cout << "Couldn't Create Scene2D canvas" << std::endl;
 	}
 	renderSystem = RenderSystem2D(this->canvas);
@@ -24,9 +26,13 @@ void Scene2D::onFixedUpdate(float fixedDeltaTime) {
 	*/
 }
 sf::Sprite Scene2D::onRender() {
+	Config& config = Config::getConfig();
+	Settings settings = config.getSettings();
 	scriptSystem.OnRender(registry);
 	renderSystem.update(registry);
 	canvasSprite.setTexture(canvas.getTexture());
+	canvasSprite.setScale(1, -1);
+	canvasSprite.setPosition(0, settings.height);
 	/**
 	* Additional Code Here
 	*/

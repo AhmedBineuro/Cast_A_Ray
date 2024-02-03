@@ -1,5 +1,8 @@
 #include "Scene.h"
 #include "Log.h"
+#include "Config.h"
+#include "imgui.h"
+#include "imgui-SFML.h"
 #include <string>
 #include <unordered_map>
 class Application {
@@ -10,7 +13,7 @@ public:
 	void addScene(std::string name,Scene* scene);
 	void removeScene(std::string name);
 	
-	void setCurrentScene(std::string);
+	bool setCurrentScene(std::string); //Returns true when the sceneName maps to a valid scene
 	void setFixedDeltaTime(float fixedDeltaTime);
 	void setWindowIcon(std::string icon);
 	void setWindowIcon(sf::Image URL);
@@ -26,6 +29,7 @@ private:
 	sf::Clock clock;
 	sf::Time deltaTime,fixedDeltaTime,cumulatedTime;
 	sf::RenderWindow window;
+	Settings settings;
 
 	std::string appName;
 	sf::Image icon;
@@ -34,4 +38,11 @@ private:
 	//Call update every frame and and run update then check if you can run fixed update
 	void update();
 	void render();
+	void renderSettings(float &fixedDeltaTimeGUI, Config& config);//The parameters are for the GUI and settings updates
+	void restartWindow();
+	//For ImGui
+	const char* antiAlias_labels[5] = { "0","2","4","8","15" };
+	const int antiAlias_values[5] = { 0,2,4,8,15 };
+	int currentAntiAlias = 0;
+	bool showFPS;
 };

@@ -5,9 +5,11 @@
 #include "CoreAdditions.h"
 #include <iostream>
 Application *MainApplication;
-void switchScenes(std::string sceneName) {
-    if (MainApplication != nullptr)
-        MainApplication->setCurrentScene(sceneName);
+bool switchScenes(std::string sceneName) {
+    if (MainApplication != nullptr){
+        return MainApplication->setCurrentScene(sceneName);
+    }
+    return false;
 }
 
 /* 
@@ -34,9 +36,10 @@ void DVDFactory(Scene2D& scene, sf::Vector2f location, sf::Vector2f size) {
     sf::Vector2u textSize = sprite->sprite.getTexture()->getSize();
     sf::Vector2f newScale;
     newScale.x = size.x / (float)textSize.x;
-    newScale.y = -size.y / (float)textSize.y;
+    newScale.y = size.y / (float)textSize.y;
     sprite->sprite.setScale(newScale);
     sprite->sprite.setPosition(location);
+    sprite->sprite.setOrigin(0, 0);
     DVDLogoBehaviour* behaviour = (DVDLogoBehaviour*)script->script.get();
     behaviour->spriteComponent = sprite;
     render->enabled = true;
@@ -61,8 +64,10 @@ int main(){
         int xSize = 200;
         sf::Vector2f size(xSize, xSize/2);
         sf::Vector2f pos;
-        pos.x = rand() / (float)RAND_MAX * ((float)WINDOW_WIDTH - size.x) + size.x;
-        pos.y = rand() / (float)RAND_MAX * ((float)WINDOW_HEIGHT-size.y) + size.y;
+       /* pos.x = rand() / (float)RAND_MAX * ((float)WINDOW_WIDTH - size.x) + size.x;
+        pos.y = rand() / (float)RAND_MAX * ((float)WINDOW_HEIGHT-size.y) + size.y;*/
+        pos.x = 200;
+        pos.y = 200;
         DVDFactory(p1, pos,size);
     }
     ///////////////////////////////////////////

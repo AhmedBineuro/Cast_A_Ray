@@ -3,6 +3,7 @@
 #include "Map_Reader.h"
 #include "entt.hpp"
 #include "System.h"
+#include "Config.h"
 
 /*
  * @brief This template Scene class will provide all the methods that will be called by the Game class
