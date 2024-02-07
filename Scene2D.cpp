@@ -6,6 +6,7 @@ Scene2D::Scene2D() {
 		std::cout << "Couldn't Create Scene2D canvas" << std::endl;
 	}
 	renderSystem = RenderSystem2D(this->canvas);
+	canvasSprite.setScale(1, -1);
 	this->onCreate();
 }
 void Scene2D::onCreate() {
@@ -14,6 +15,12 @@ void Scene2D::onCreate() {
 	*/
 }
 void Scene2D::onUpdate(float deltaTime) {
+	Config& config = Config::getConfig();
+	sf::Vector2u window = config.getDimensions();
+	if (canvas.getSize() != window) {
+		this->canvas.create(window.x, window.y);
+		this->renderSystem.setTarget(&this->canvas);
+	}
 	scriptSystem.OnUpdate(deltaTime, registry);
 	/**
 	* Additional Code Here
@@ -31,7 +38,6 @@ sf::Sprite Scene2D::onRender() {
 	scriptSystem.OnRender(registry);
 	renderSystem.update(registry);
 	canvasSprite.setTexture(canvas.getTexture());
-	canvasSprite.setScale(1, -1);
 	canvasSprite.setPosition(0, settings.height);
 	/**
 	* Additional Code Here

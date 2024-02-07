@@ -15,6 +15,7 @@ public:
 	void move(float deltaTime);
 	~DVDLogoBehaviour();
 	SpriteComponent* spriteComponent;
+	sf::Vector2u screenDimensions;
 	sf::Vector2f velocity;
 };
 ///////////////////////////////////

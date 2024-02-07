@@ -20,3 +20,6 @@ void RenderSystem2D::update(entt::registry& registry) {
 		}
 	}
 }
+void RenderSystem2D::setTarget(sf::RenderTarget* target) {
+	this->renderTarget = target;
+}

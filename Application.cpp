@@ -132,11 +132,28 @@ void Application::run() {
 				window.close();
 				running = false;
 			}
+			if (event.type == sf::Event::Resized)
+			{
+				window.setSize(sf::Vector2u(settings.width, settings.height));
+			}
 		}
+		//////// CTRL+F3 FOR SETTINGS
+		bool keysArePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F3) && (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+			|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl));
+		if (keysArePressed && (!keybindPressed))
+		{
+			keybindPressed = true;
+			showSettings = !showSettings;
+		}
+		else if (!keysArePressed) {
+			keybindPressed = false;
+		}
+		////////////////////////////////
 		update();
 		window.clear();
 		render();
-		renderSettings(fixedDeltaTimeGUI,config);
+		if(showSettings)
+			renderSettings(fixedDeltaTimeGUI,config);
 
 		window.display();
 	}
@@ -193,14 +210,18 @@ void Application::update() {
 	config.setDeltaTime(deltaTime.asSeconds());
 	cumulatedTime += deltaTime;
 	while (cumulatedTime >= fixedDeltaTime){
+		//Check if the show FPS flag is on and if it is,show it
 		if (showFPS) {
 			FPS = 1.0f / deltaTime.asSeconds();
 			window.setTitle(appName + " | FPS: " + std::to_string((int)FPS));
 		}
+		else window.setTitle(appName);
 		cumulatedTime -= fixedDeltaTime;
+		//Update scene fixed delta time systems;
 		if (sceneList.find(currentScene) != sceneList.end())
 			sceneList[currentScene]->onFixedUpdate(fixedDeltaTime.asSeconds());
 	}
+	//Update scene delta time systems;
 	if (sceneList.find(currentScene) != sceneList.end())
 		sceneList[currentScene]->onUpdate(deltaTime.asSeconds());
 }

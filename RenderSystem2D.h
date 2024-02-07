@@ -9,6 +9,7 @@ public:
 	RenderSystem2D();
 	RenderSystem2D(sf::RenderTarget& renderTarget);
 	void update(entt::registry& registry);
+	void setTarget(sf::RenderTarget* renderTarget);
 private:
 	sf::RenderTarget* renderTarget;
 };
