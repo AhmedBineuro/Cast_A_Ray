@@ -1,71 +1,28 @@
-# width :
-50
-# height :
-50
-# floor layout :
-0,0,0,0,0,0,0,0,0,0,0,0,0
-0,1,1,1,1,1,1,1,1,1,1,1,0,0
-0,1,1,4,1,1,1,1,1,1,1,3,1,0,0,0
-0,1,1,1,1,1,1,1,1,4,1,1,1,1,0,0
-0,1,1,1,1,1,1,1,1,4,1,1,1,0,0,0
-0,1,1,1,1,1,1,1,1,1,1,1,0,0
-0,0,0,0,0,0,0,0,0,0,0,0,0
 # wall layout :
 1,1,1,1,1,1,1,1,1,1,1,1,1
 1,0,0,0,0,0,0,0,0,0,0,0,1,1
-1,0,0,4,0,0,0,0,0,0,0,3,0,1,1,1
-1,0,0,0,0,0,0,0,0,4,0,0,0,0,0,1
-1,0,0,0,0,0,0,0,0,4,0,0,0,1,1,1
+1,0,0,0,0,0,0,0,0,0,0,0,0,1
+1,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,1,1
 1,1,1,1,1,1,1,1,1,1,1,1,1
-# ceiling layout :
+#floor layout :
 0,0,0,0,0,0,0,0,0,0,0,0,0
 0,1,1,1,1,1,1,1,1,1,1,1,0,0
-0,1,1,4,1,1,1,1,1,1,1,3,1,0,0,0
-0,1,1,1,1,1,1,1,1,4,1,1,1,1,0,0
-0,1,1,1,1,1,1,1,1,4,1,1,1,0,0,0
+0,1,1,1,1,1,1,1,1,1,1,1,1,0
+0,1,1,1,1,1,1,1,1,0,1,1,1,0
 0,1,1,1,1,1,1,1,1,1,1,1,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0
-# wall tiles :
-0:empty
-1:wall
-3:door
-4:special
-# floor tiles :
-0:empty
-1:floor1
-3:floor2
-4:floor3
-# ceiling tiles :
-0:empty
-1:ceiling1
-3:ceiling2
-4:ceiling3
-# textures :
-cobble:media/textures/cobble.jpg
-granite:media/textures/granite.jpg
-wood:media/textures/wood.jpg
-door:media/textures/door.jpg
-YAAAH:media/textures/YAAAH.png
-metal:media/textures/metal.jpg
-# sounds :
-sound1:url/url/url
-sound1:url/url/url
-sound1:url/url/url
-# debug colors :
-empty:255,255,255
-wall:0,0,0
-door:0,120,200
-special:0,255,0
+# block types :
+0 ; 255,255,255
+1 ; 0,0,0
+2 ; 0,120,200
+3 ;120,120,70
+4 ;190,20,80
+5 ;255,0,0
 # wall textures :
-wall:cobble
-special:granite
-door:door
-# floor textures :
-floor1:metal
-floor2:wood
-# ceiling textures :
-ceiling1:metal
-ceiling2:granite
-ceiling3:YAAAH
+1 ; media/textures/cobble.jpg
+2 ; media/textures/granite.jpg
+3 ; media/textures/door.jpg
+4 ; media/textures/door.jpg
+5 ;media/textures/YAAAH.png
 #

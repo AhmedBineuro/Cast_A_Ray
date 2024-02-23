@@ -8,11 +8,6 @@ Scene2D::Scene2D() {
 	renderSystem = RenderSystem2D(this->canvas);
 	///////////////////// Player Test
 	Resource_Manager& rm = Resource_Manager::getResourceManager();
-	ResourceLoadingInfo rli;
-	rli.name = "PlayerSprite";
-	rli.type = "texture";
-	rli.URL = "./Player.png";
-	rm.loadResource(rli);
 	Player player(&registry,sf::Vector2f(rand()/(float)RAND_MAX*settings.width/2, rand() / (float)RAND_MAX * settings.height/2));
 	player.setSpriteTexture(rm.getTexture("PlayerSprite"));
 	controllableComponent = player.getComponent<ControllableComponet>();

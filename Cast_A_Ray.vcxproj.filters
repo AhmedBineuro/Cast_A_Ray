@@ -218,6 +218,12 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
+    <ClInclude Include="RaycastUtils.h">
+      <Filter>Header Files\GameEnCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\GameEnCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">

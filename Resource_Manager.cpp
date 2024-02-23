@@ -5,13 +5,20 @@ Resource_Manager::Resource_Manager() {
 	if (!defaultTexture->loadFromFile("no_text.png")) {
 		throw std::runtime_error("Failed to load default texture.");
 	}
+	// Store the default texture in the textureMap with a key like "default" or "default_texture".
 	this->textureMap["DEF_TEXT"] = Texture_Container{ defaultTexture };
+	// Store the default font in the fontMap with a key like "default" or "default_font".
 	std::shared_ptr<sf::Font> defaultFont = std::make_shared<sf::Font>();
+	//Little easter egg/debug image
 	if (!defaultFont->loadFromFile("./CourierPrime-Regular.ttf")) {
 		throw std::runtime_error("Failed to load default texture.");
 	}
-	// Store the default texture in the textureMap with a key like "default" or "default_texture".
 	this->fontMap["DEF_LOG"] = Font_Container{ defaultFont};
+	ResourceLoadingInfo rli;
+	rli.name = "PlayerSprite";
+	rli.type = "texture";
+	rli.URL = "./Player.png";
+	this->loadResource(rli);
 }
 Resource_Manager& Resource_Manager::getResourceManager() {
 	static Resource_Manager m_singleton;
