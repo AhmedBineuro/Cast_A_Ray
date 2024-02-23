@@ -33,7 +33,7 @@ private:
 
 	std::string appName;
 	sf::Image icon;
-	bool running=false,showSettings=false,keybindPressed=false;
+	bool running = false, showSettings = false, keybindPressed = false, showSceneDebug = false;
 	float FPS;
 	//Call update every frame and and run update then check if you can run fixed update
 	void update();

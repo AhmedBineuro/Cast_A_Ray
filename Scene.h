@@ -4,7 +4,8 @@
 #include "entt.hpp"
 #include "System.h"
 #include "Config.h"
-
+#include "imgui.h"
+#include "imgui-SFML.h"
 /*
  * @brief This template Scene class will provide all the methods that will be called by the Game class
 */
@@ -16,6 +17,7 @@ public:
     virtual void onFixedUpdate(float fixedDeltaTime)=0;
     //Should return the canvas result as a sprite and is called every render call
     virtual sf::Sprite onRender()=0;
+    virtual void renderDebug(){};
     virtual void onDestroy()=0;
 protected:
     sf::RenderTexture canvas;

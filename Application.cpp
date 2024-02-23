@@ -177,11 +177,15 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::Checkbox("Show FPS", &(this->showFPS));
 	if (settings.capFrameRate)
 		ImGui::InputInt("Max frame rate", &settings.maxFrameRate);
-	ImGui::InputInt("Width", &(settings.width), 10);
-	ImGui::InputInt("Height", &(settings.height), 10);
+	int tempArray[2] = { settings.width,settings.height };
+	if (ImGui::InputInt2("Window dimensions", tempArray)) {
+		settings.width = tempArray[0];
+		settings.height = tempArray[1];
+	}
 	ImGui::InputFloat("Fixed delta time", &fixedDeltaTimeGUI, 0.05);
 	ImGui::Combo("Anti-Aliasing level", &currentAntiAlias, antiAlias_labels, sizeof(antiAlias_labels) / sizeof(*antiAlias_labels));
 	settings.antiAliasingLevel = antiAlias_values[currentAntiAlias];
+	ImGui::Checkbox("Show Scene Debug Window", &(showSceneDebug));
 	if (ImGui::Button("Apply settings")) {
 		config.setSettings(settings);
 		config.applyChanges();
@@ -201,6 +205,8 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 		}
 	}
 	ImGui::End();
+	if(showSceneDebug)
+		this->sceneList[currentScene]->renderDebug();
 	ImGui::SFML::Render(window);
 }
 

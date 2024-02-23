@@ -28,5 +28,10 @@ struct SpriteComponent {
 };
 
 struct ControllableComponet {
-    bool enabled;
+    bool enabled=true;
+    float sensitivity = 1.0,
+        maxSpeed = 30.0f,
+        movementMultiplier = 1.0f,
+        sprintMultiplier = 2.0f,
+        turnAngle = 10.0f;
 };

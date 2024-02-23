@@ -15,11 +15,14 @@ public:
 	//Should return the canvas result as a sprite and is called every render call
 	sf::Sprite onRender();
 	void onDestroy();
+	void renderDebug(); // ImGui Debug Stuff
 	Entity* createEntity();
 	~Scene2D();
 protected:
 	entt::registry registry;
 	std::vector<std::shared_ptr<Entity>>entities;
+	ControllableComponet* controllableComponent;
+	TransformComponent* transformComponent;
 	RenderSystem2D renderSystem;
 	ScriptSystem scriptSystem;
 };

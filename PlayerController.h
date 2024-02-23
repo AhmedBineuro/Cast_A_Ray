@@ -19,7 +19,7 @@ enum Keybinds
 class PlayerController :public Actor {
 public:
     PlayerController();
-    PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite);
+    PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent);
     void OnCreate();
     void OnUpdate(float deltaTime);
     void OnRender();
@@ -28,14 +28,14 @@ public:
     
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
     void setSensitivity(float sensitivity);
-    void setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite);
+    void setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent);
     void setMovementMultiplier(float movementMultiplier);
 
     float getSensitivity();
 protected:
     TransformComponent* playerTransform; // This what the script will manipulate
     SpriteComponent* playerSprite; // This what the script will manipulate
-    float sensitivity=1.0, maxSpeed=30.0f,movementMultiplier=1.0f;
+    ControllableComponet* controllableComponent;
     //MODIFY THIS TO INCLUDE NEW CONTROLS
     sf::Keyboard::Key keyBinds[AVAILABLE_KEYS] = {
         sf::Keyboard::W,
