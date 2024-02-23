@@ -18,13 +18,7 @@
 //}
 
 
-struct TransformComponent {
-    sf::Vector2f position;
-    sf::Vector2f rotation;
-    TransformComponent(){}
-    TransformComponent(const sf::Vector2f& pos, const sf::Vector2f& rot = sf::Vector2f(0.f, 0.f))
-        : position(pos), rotation(rot) {}
-};
+
 
 struct CameraComponent {
     int FOV;

@@ -37,9 +37,6 @@
     <Filter Include="Source Files\Editable">
       <UniqueIdentifier>{1730a68b-45a1-4a5c-9415-8379864d6d8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Additional Classes">
-      <UniqueIdentifier>{e34d18cc-46ae-4bda-b097-0f255d88878c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Additional Classes">
       <UniqueIdentifier>{e13881dd-8f6b-4e32-a40d-d7180c90c665}</UniqueIdentifier>
     </Filter>
@@ -93,9 +90,6 @@
     <ClCompile Include="Scenes.cpp">
       <Filter>Source Files\Editable</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Additional Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Scene2D.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
@@ -106,6 +100,18 @@
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
     <ClCompile Include="Entity2D.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,9 +188,6 @@
     <ClInclude Include="Scenes.h">
       <Filter>Header Files\Editable</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Additional Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Scene2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
@@ -203,6 +206,18 @@
     <ClInclude Include="CoreComponents.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">
@@ -218,5 +233,8 @@
     <Font Include="CourierPrime-Regular.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config.json" />
   </ItemGroup>
 </Project>

@@ -186,7 +186,7 @@ namespace sf
      * Returns a vector rotated with a given angle in degrees
      */
     template <typename T>
-    inline void getRotated( const T& vec, double angle )
+    inline T getRotated( const T& vec, double angle )
     {
         const double angleRad = degToRad( -angle );
         const double newX     = vec.x * cos( angleRad ) - vec.y * sin( angleRad );
@@ -202,9 +202,11 @@ namespace sf
     inline T& rotate( T& vec, double angle )
     {
         const double angleRad = degToRad( -angle );
+        float x = vec.x;
+        float y = vec.y;
         
-        vec.x = vec.x * cos( angleRad ) - vec.y * sin( angleRad );
-        vec.y = vec.x * sin( angleRad ) + vec.y * cos( angleRad );
+        vec.x = x * cos( angleRad ) - y * sin( angleRad );
+        vec.y = x * sin( angleRad ) + y * cos( angleRad );
 
         return vec;
     }

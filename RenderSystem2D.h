@@ -7,9 +7,9 @@
 class RenderSystem2D :public System {
 public:
 	RenderSystem2D();
-	RenderSystem2D(sf::RenderTarget& renderTarget);
+	RenderSystem2D(sf::RenderTexture& renderTarget);
 	void update(entt::registry& registry);
-	void setTarget(sf::RenderTarget* renderTarget);
+	void setTarget(sf::RenderTexture* renderTarget);
 private:
-	sf::RenderTarget* renderTarget;
+	sf::RenderTexture* renderTarget;
 };

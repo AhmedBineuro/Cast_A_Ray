@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Components.h"
 #include <memory>
 /**
 * @brief Camera Entity 

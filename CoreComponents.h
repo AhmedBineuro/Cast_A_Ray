@@ -7,6 +7,13 @@
 #include <iostream>
 #include "SFMLMath.hpp"
 #include "Actor.h"
+struct TransformComponent {
+    sf::Vector2f position;
+    sf::Vector2f rotation;
+    TransformComponent() {}
+    TransformComponent(const sf::Vector2f& pos, const sf::Vector2f& rot = sf::Vector2f(1.f, 0.f))
+        : position(pos), rotation(rot) {}
+};
 struct ScriptComponent {
     std::shared_ptr<Actor> script;
     ScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {}
@@ -18,4 +25,8 @@ struct RenderComponent {
 
 struct SpriteComponent {
     sf::Sprite sprite;
+};
+
+struct ControllableComponet {
+    bool enabled;
 };

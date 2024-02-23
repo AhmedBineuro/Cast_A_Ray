@@ -3,13 +3,12 @@
 RenderSystem2D::RenderSystem2D() {
 	this->renderTarget = NULL;
 }
-RenderSystem2D::RenderSystem2D(sf::RenderTarget& renderTarget) {
+RenderSystem2D::RenderSystem2D(sf::RenderTexture& renderTarget) {
 	this->renderTarget = &renderTarget;
 }
 void RenderSystem2D::update(entt::registry& registry) {
 	if (renderTarget == NULL)
 		return;
-	renderTarget->clear(sf::Color::Black);
 	//Get the list of entities with this component
 	auto view = registry.view<RenderComponent, SpriteComponent>();
 	for (auto entity : view) {
@@ -19,7 +18,8 @@ void RenderSystem2D::update(entt::registry& registry) {
 			renderTarget->draw(sprite.sprite, renderComponent.renderStates);
 		}
 	}
+	renderTarget->display();
 }
-void RenderSystem2D::setTarget(sf::RenderTarget* target) {
+void RenderSystem2D::setTarget(sf::RenderTexture* target) {
 	this->renderTarget = target;
 }

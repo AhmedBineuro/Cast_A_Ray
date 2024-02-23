@@ -3,6 +3,7 @@
 #include "RenderSystem2D.h"
 #include "ScriptSystem.h"
 #include "Entity2D.h"
+#include "Player.h"
 
 //Normal 2D Rendering Scene
 class Scene2D :public Scene {

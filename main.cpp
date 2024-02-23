@@ -21,29 +21,6 @@ bool switchScenes(std::string sceneName) {
 *       - [ ] Empty Components file (Special for each project)
 *       - [ ] And just the main function (To add the scenes and other stuff)
 */
-void DVDFactory(Scene2D& scene, sf::Vector2f location, sf::Vector2f size) {
-    Resource_Manager& rm = Resource_Manager::getResourceManager();
-    Entity* entity = scene.createEntity();
-    entity->addComponent(RenderComponent());
-    entity->addComponent(SpriteComponent());
-    entity->addComponent(ScriptComponent(std::make_shared<DVDLogoBehaviour>()));
-
-    ScriptComponent* script = entity->getComponent<ScriptComponent>();
-    RenderComponent* render = entity->getComponent<RenderComponent>();
-    SpriteComponent* sprite = entity->getComponent<SpriteComponent>();
-
-    sprite->sprite.setTexture(rm.getTexture("DVD Logo"));
-    sf::Vector2u textSize = sprite->sprite.getTexture()->getSize();
-    sf::Vector2f newScale;
-    newScale.x = size.x / (float)textSize.x;
-    newScale.y = size.y / (float)textSize.y;
-    sprite->sprite.setScale(newScale);
-    sprite->sprite.setPosition(location);
-    sprite->sprite.setOrigin(0, 0);
-    DVDLogoBehaviour* behaviour = (DVDLogoBehaviour*)script->script.get();
-    behaviour->spriteComponent = sprite;
-    render->enabled = true;
-}
 int main(){
     srand(time(NULL));
     Application mainApp("PlayGround");
@@ -55,22 +32,10 @@ int main(){
     rli.type = "texture";
     rli.URL = "./casta.png";
     rm.loadResource(rli);
-    rli.name = "DVD Logo";
-    rli.URL = "./dvdIcon.png";
+    rli.name = "PlayerSprite";
+    rli.URL = "./Player.png";
     rm.loadResource(rli);
     Scene2D p1;
-    ////////////////TESTING AREA/////////////////////
-    for (int i = 0; i < 1; i++) {
-        int xSize = 200;
-        sf::Vector2f size(xSize, xSize/2);
-        sf::Vector2f pos;
-       /* pos.x = rand() / (float)RAND_MAX * ((float)WINDOW_WIDTH - size.x) + size.x;
-        pos.y = rand() / (float)RAND_MAX * ((float)WINDOW_HEIGHT-size.y) + size.y;*/
-        pos.x = 200;
-        pos.y = 200;
-        DVDFactory(p1, pos,size);
-    }
-    ///////////////////////////////////////////
     mainApp.addScene("Scene 2D", &p1);
     mainApp.run();
     return 0;
