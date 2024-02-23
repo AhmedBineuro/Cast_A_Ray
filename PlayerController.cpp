@@ -3,15 +3,17 @@ PlayerController::PlayerController() {
 	OnCreate();
 	this->playerTransform = nullptr;
 	this->playerSprite = nullptr;
+	this->controllableComponent = nullptr;
+	this->camera = nullptr;
 }
-PlayerController::PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent) {
+PlayerController::PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent, Camera* camera=nullptr) {
 	OnCreate();
 	this->playerTransform = playerTransform;
 	this->playerSprite = playerSprite;
 	this->controllableComponent = controllableComponent;
+	this->camera = camera;
 }
 void PlayerController::OnCreate(){
-	std::cout << "Player Controller on create!" << std::endl;
 }
 void PlayerController::OnUpdate(float deltaTime){
 	if (playerTransform != nullptr && playerSprite != nullptr&& controllableComponent != nullptr)
@@ -56,10 +58,17 @@ void PlayerController::OnUpdate(float deltaTime){
 			else {
 				playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
 			}
+			//Move
 			playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
+			//Update sprite
 			playerSprite->sprite.setPosition(playerTransform->position);
-
 			playerSprite->sprite.setRotation(sf::getRotationAngle(playerTransform->rotation));
+			//Update Camera
+			if(camera!=nullptr)
+			{
+				camera->setPosition(this->playerTransform->position);
+				camera->setAngleDEG(sf::getRotationAngle(this->playerTransform->rotation));
+			}
 		}
 	}
 }
@@ -69,10 +78,11 @@ void PlayerController::OnDestroy(){}
 
 void PlayerController::setKeyBind(Keybinds key, sf::Keyboard::Key key_code){}
 void PlayerController::setSensitivity(float sensitivity){}
-void PlayerController::setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent) {
+void PlayerController::setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent, Camera* camera=nullptr) {
 	this->playerTransform = playerTransform;
 	this->playerSprite = playerSprite;
 	this->controllableComponent = controllableComponent;
+	this->camera = camera;
 }
 void PlayerController::setMovementMultiplier(float movementMultiplier) {
 	this->controllableComponent->movementMultiplier = movementMultiplier;

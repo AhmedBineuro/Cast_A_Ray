@@ -20,28 +20,30 @@
 
 
 
-struct CameraComponent {
-    int FOV;
-    float renderDistance;
-    sf::Vector2f plane;
-    bool enabled;
-    CameraComponent() {
-        FOV = 90;
-        renderDistance = 100;
-        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0,-1)));
-        float width = (float)tan(FOV / 2 * M_PI / 180.0f);
-        sf::normalize(plane);
-        plane *= width;
-    }
-    CameraComponent(int fov, float distance)
-        : FOV(fov), renderDistance(distance) {
-        // Add rays = std::make_unique<sf::VertexArray>(...);
-        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0, -1)));
-        float width = (float)tan(fov / 2 * M_PI / 180.0f);
-	    sf::normalize(plane);
-	    plane *= width;
-    }
-};
+//struct CameraComponent {
+//    int FOV;
+//    float renderDistance;
+//    sf::Vector2f plane;
+//    bool enabled;
+//    CameraComponent() {
+//        enabled = true;
+//        FOV = 90;
+//        renderDistance = 100;
+//        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0,-1)));
+//        float width = (float)tan(FOV / 2 * M_PI / 180.0f);
+//        sf::normalize(plane);
+//        plane *= width;
+//    }
+//    CameraComponent(int fov, float distance)
+//        : FOV(fov), renderDistance(distance) {
+//        enabled = true;
+//        // Add rays = std::make_unique<sf::VertexArray>(...);
+//        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0, -1)));
+//        float width = (float)tan(fov / 2 * M_PI / 180.0f);
+//	    sf::normalize(plane);
+//	    plane *= width;
+//    }
+//};
 
 struct ColliderComponent {
     sf::FloatRect bounds;

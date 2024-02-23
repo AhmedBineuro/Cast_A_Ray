@@ -1,12 +1,12 @@
 #pragma once
-#include "Entity.h"
-#include "Components.h"
+#include "Entity2D.h"
+#include "CoreComponents.h"
 #include <memory>
 /**
 * @brief Camera Entity 
 * @note Tester entity to see if the ECS situation is working
 */
-class Camera :public Entity {
+class Camera :public Entity2D {
 public:
 	Camera(entt::registry* registry) ;
 	Camera(entt::registry* registry,sf::Vector2f position);
@@ -14,14 +14,15 @@ public:
 	void setPosition(sf::Vector2f position);
 	void setFOV(int FOV);
 	void setRenderDistance(float renderDistance);
-	void setResolution(sf::Vector2u reslution);
-	void setAngleRAD(float angle);
+	void setAngleRAD(float angle); //Absolute rotation
 	void setAngleDEG(float angle);
+	void linkRenderTarget(sf::RenderTexture* renderTexture);
+	void setEnabled(bool value);
 
 	sf::Vector2f getPosition();
 	int getFOV();
 	float getRenderDistance();
-	sf::Vector2u getResolution();
-private:
-	std::unique_ptr<sf::RenderTexture> canvas;
+protected:
+	CameraComponent* cameraComponent;
+	TransformComponent* transformComponent;
 };

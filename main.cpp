@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Scenes.h"
 #include "CoreAdditions.h"
+#include "WolfScene.h"
 #include <iostream>
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
@@ -16,7 +17,7 @@ bool switchScenes(std::string sceneName) {
 * So I discovered after making this whole design of Scenes, entities, and Game I
 * made a general SFML application framework. So Now onto the to-do's
 * @TODO
-*   - [ ] Make Systems for RayCaster 
+*   - [X] Make Systems for RayCaster 
 *   - [ ] Make Separate Cast-A-Ray library such that
 *       - [ ] Empty Components file (Special for each project)
 *       - [ ] And just the main function (To add the scenes and other stuff)
@@ -35,8 +36,8 @@ int main(){
     rli.name = "PlayerSprite";
     rli.URL = "./Player.png";
     rm.loadResource(rli);
-    Scene2D p1;
-    mainApp.addScene("Scene 2D", &p1);
+    WolfScene p1({"PlayGround"});
+    mainApp.addScene("WolfScene", &p1);
     mainApp.run();
     return 0;
 }

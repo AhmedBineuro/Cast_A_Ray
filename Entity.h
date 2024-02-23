@@ -43,7 +43,11 @@ public:
 
     template<typename T>
     void replaceComponent(T component);
-private:
+    
+    virtual ~Entity() {
+        this->registry->destroy(this->handle);
+    }
+protected:
     entt::entity handle;
     entt::registry* registry;
 };

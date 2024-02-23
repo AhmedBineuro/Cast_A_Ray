@@ -7,6 +7,7 @@
 #include <iostream>
 #include "SFMLMath.hpp"
 #include "Actor.h"
+#include "Map.h"
 struct TransformComponent {
     sf::Vector2f position;
     sf::Vector2f rotation;
@@ -30,8 +31,33 @@ struct SpriteComponent {
 struct ControllableComponet {
     bool enabled=true;
     float sensitivity = 1.0,
-        maxSpeed = 30.0f,
+        maxSpeed = 2.0f,
         movementMultiplier = 1.0f,
         sprintMultiplier = 2.0f,
-        turnAngle = 10.0f;
+        turnAngle = 50.0f;
+};
+
+struct CameraComponent {
+    int FOV;
+    float renderDistance;
+    sf::Vector2f plane;
+    sf::RenderTexture* target;
+    bool enabled;
+    CameraComponent(int fov=90, float distance=400.0f,sf::RenderTexture* targetTexture=nullptr)
+        : FOV(fov), renderDistance(distance),target(targetTexture) {
+        enabled = true;
+        // Add rays = std::make_unique<sf::VertexArray>(...);
+        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0, -1)));
+        float width = (float)tan((float)fov / 2.0f * M_PI / 180.0f);
+        sf::normalize(plane);
+        plane *= width;
+    }
+};
+
+struct MapTagComponent {
+    std::string mapName;
+};
+
+struct ColliderComponent {
+    sf::FloatRect border;
 };

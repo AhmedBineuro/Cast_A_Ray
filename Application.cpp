@@ -29,8 +29,10 @@ Application::Application() {
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
 	showFPS = false;
+	this->sceneList.clear();
 }
 Application::Application(std::string appName) {
+	this->sceneList.clear();
 	this->appName = appName;
 	Config& config = Config::getConfig();
 	settings = config.getSettings();

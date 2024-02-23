@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraRenderSystem.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -159,18 +160,23 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RaycastUtils.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="Resource_Manager.cpp" />
     <ClCompile Include="Scene2D.cpp" />
     <ClCompile Include="Scenes.cpp" />
     <ClCompile Include="ScriptSystem.cpp" />
+    <ClCompile Include="WolfScene.cpp" />
+    <ClCompile Include="WolfScene.h" />
     <ClCompile Include="Systems.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraRenderSystem.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Core.h" />

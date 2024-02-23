@@ -3,26 +3,23 @@
 #include "RenderSystem2D.h"
 #include "ScriptSystem.h"
 #include "Entity2D.h"
-#include "Player.h"
 
 //Normal 2D Rendering Scene
 class Scene2D :public Scene {
 public:
 	Scene2D();
-	void onCreate();
-	void onUpdate(float deltaTime);
-	void onFixedUpdate(float fixedDeltaTime);
+	virtual void onCreate();
+	virtual void onUpdate(float deltaTime);
+	virtual void onFixedUpdate(float fixedDeltaTime);
 	//Should return the canvas result as a sprite and is called every render call
-	sf::Sprite onRender();
-	void onDestroy();
-	void renderDebug(); // ImGui Debug Stuff
+	virtual sf::Sprite onRender();
+	virtual void onDestroy();
+	virtual void renderDebug(); // ImGui Debug Stuff
 	Entity* createEntity();
-	~Scene2D();
+	virtual ~Scene2D();
 protected:
 	entt::registry registry;
 	std::vector<std::shared_ptr<Entity>>entities;
-	ControllableComponet* controllableComponent;
-	TransformComponent* transformComponent;
 	RenderSystem2D renderSystem;
 	ScriptSystem scriptSystem;
 };

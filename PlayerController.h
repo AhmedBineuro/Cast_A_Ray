@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "Actor.h"
 #include "CoreComponents.h"
+#include "Camera.h"
 #define AVAILABLE_KEYS 7
 
 //Add more controls into the enum
@@ -19,7 +20,7 @@ enum Keybinds
 class PlayerController :public Actor {
 public:
     PlayerController();
-    PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent);
+    PlayerController(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent,Camera* camera);
     void OnCreate();
     void OnUpdate(float deltaTime);
     void OnRender();
@@ -28,7 +29,7 @@ public:
     
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
     void setSensitivity(float sensitivity);
-    void setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent);
+    void setPlayer(TransformComponent* playerTransform, SpriteComponent* playerSprite, ControllableComponet* controllableComponent, Camera* camera);
     void setMovementMultiplier(float movementMultiplier);
 
     float getSensitivity();
@@ -36,6 +37,7 @@ protected:
     TransformComponent* playerTransform; // This what the script will manipulate
     SpriteComponent* playerSprite; // This what the script will manipulate
     ControllableComponet* controllableComponent;
+    Camera* camera;
     //MODIFY THIS TO INCLUDE NEW CONTROLS
     sf::Keyboard::Key keyBinds[AVAILABLE_KEYS] = {
         sf::Keyboard::W,
