@@ -31,7 +31,7 @@ struct SpriteComponent {
 struct ControllableComponet {
     bool enabled=true;
     float sensitivity = 1.0,
-        maxSpeed = 2.0f,
+        maxSpeed = 0.5f,
         movementMultiplier = 1.0f,
         sprintMultiplier = 2.0f,
         turnAngle = 50.0f;
@@ -47,10 +47,10 @@ struct CameraComponent {
         : FOV(fov), renderDistance(distance),target(targetTexture) {
         enabled = true;
         // Add rays = std::make_unique<sf::VertexArray>(...);
-        sf::rotate(plane, sf::getRotationAngle(sf::Vector2f(0, -1)));
-        float width = (float)tan((float)fov / 2.0f * M_PI / 180.0f);
+        plane=sf::Vector2f(0,0.66f);
+        /*float width = (float)tan((float)fov / 2.0f * M_PI / 180.0f);
         sf::normalize(plane);
-        plane *= width;
+        plane *= width;*/
     }
 };
 

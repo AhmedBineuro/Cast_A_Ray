@@ -12,6 +12,7 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			continue;
 		MapTagComponent& mapTagComponent = registry.get<MapTagComponent>(entity);
 		TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
+		//Find map index
 		int index = 0;
 		for (auto& map : this->mapList) {
 			if (map.getMapName() == mapTagComponent.mapName)
@@ -21,15 +22,15 @@ void CameraRenderSystem::update(entt::registry& registry) {
 		if (index >= this->mapList.size()) {
 			return;
 		}
-		//If outside the realbounds position wise then just exit
+		//If outside the real bounds position wise then just exit
 		if (this->mapList[index].walls.size() <= floor(transformComponent.position.y))
 			continue;
 		else if (this->mapList[index].walls[floor(transformComponent.position.y)].size() <= transformComponent.position.x)
 			continue;
-			sf::Vector2u windowSize= cameracomponent.target->getSize();
+		sf::Vector2u windowSize= cameracomponent.target->getSize();
 		for (int x = 0; x < windowSize.x; x++) {
 			//cameraX is the x-coordinate in the screen space/ camera space
-			double cameraX = 2 * x / ((double)windowSize.x) - sf::getLength(cameracomponent.plane) / 2;
+			double cameraX = x / ((double)windowSize.x) - sf::getLength(cameracomponent.plane);
 			
 			sf::Vector2f currentRay = transformComponent.rotation + cameracomponent.plane * (float)cameraX;
 			RaycastUtils::RayCollisionInfo collision;
@@ -38,11 +39,11 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			if (collision.noHit)
 				continue;
 			//Draw the lines
-			int lineHeight = ((windowSize.y * 2.5) / collision.perpindcularDistance);
+			int lineHeight = (windowSize.y) / (collision.perpindcularDistance);
 			int drawStart = (-lineHeight + ((int)windowSize.y)) / 2;
 			int drawEnd = (lineHeight + ((int)windowSize.y)) / 2;
 			int size = drawEnd - drawStart;
-			textureSlice.setSize(sf::Vector2f(1, size));
+			//textureSlice.setSize(sf::Vector2f(1, size));
 			textureSlice.setPosition(x, drawStart);
 			std::string textureName = this->mapList[index].wallMapping[collision.tag];
 			textureSlice.setTexture(&rm.getTexture(textureName));
