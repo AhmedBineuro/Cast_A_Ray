@@ -45,8 +45,7 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			int size = drawEnd - drawStart;
 			//textureSlice.setSize(sf::Vector2f(1, size));
 			textureSlice.setPosition(x, drawStart);
-			std::string textureName = this->mapList[index].wallMapping[collision.tag];
-			textureSlice.setTexture(&rm.getTexture(textureName));
+			textureSlice.setTexture(&rm.getTexture(this->mapList[index].wallMapping[collision.tag]));
 			sf::Vector2u textSize = textureSlice.getTexture()->getSize();
 			int texX = textSize.x * collision.u;
 			if ((collision.side == 0 && currentRay.x > 0) || (collision.side == 1 && currentRay.y < 0))

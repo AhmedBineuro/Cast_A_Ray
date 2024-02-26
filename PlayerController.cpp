@@ -24,7 +24,7 @@ void PlayerController::OnUpdate(float deltaTime){
 		{
 			sf::Vector2f forward = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
 			sf::Vector2f right = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-			right = sf::getRotated(right, -90);
+			right = sf::getRotated(right, 90);
 			sf::Vector2f velocity(0, 0);
 
 			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::FORWARDS]))
@@ -45,14 +45,14 @@ void PlayerController::OnUpdate(float deltaTime){
 			}
 			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_RIGHT]))
 			{
-				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
-				this->cameraTransform->rotation= this->playerTransform->rotation;
-				sf::rotate(this->cameraComponent->plane, -this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraComponent->plane, this->controllableComponent->turnAngle * deltaTime);
 			}
 			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT])) {
-				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-				this->cameraTransform->rotation = this->playerTransform->rotation;
-				sf::rotate(this->cameraComponent->plane, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraComponent->plane, -this->controllableComponent->turnAngle * deltaTime);
 			}
 
 			if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {

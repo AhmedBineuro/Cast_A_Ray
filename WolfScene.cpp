@@ -56,7 +56,7 @@ sf::Sprite WolfScene::onRender() {
 	Settings settings = config.getSettings();
 	canvas.clear();
 	cameraRenderSystem.update(registry);
-	scriptSystem.OnRender(registry);
+	//scriptSystem.OnRender(registry);
 	//renderSystem.update(registry);
 	canvasSprite.setTexture(canvas.getTexture());
 	/**
