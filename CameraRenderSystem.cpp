@@ -30,7 +30,7 @@ void CameraRenderSystem::update(entt::registry& registry) {
 		sf::Vector2u windowSize= cameracomponent.target->getSize();
 		for (int x = 0; x < windowSize.x; x++) {
 			//cameraX is the x-coordinate in the screen space/ camera space
-			double cameraX = x / ((double)windowSize.x) - sf::getLength(cameracomponent.plane);
+			float cameraX = 2 * x / float(windowSize.x) - 1;
 			
 			sf::Vector2f currentRay = transformComponent.rotation + cameracomponent.plane * (float)cameraX;
 			RaycastUtils::RayCollisionInfo collision;
@@ -40,18 +40,19 @@ void CameraRenderSystem::update(entt::registry& registry) {
 				continue;
 			//Draw the lines
 			int lineHeight = (windowSize.y) / (collision.perpindcularDistance);
-			int drawStart = (-lineHeight + ((int)windowSize.y)) / 2;
-			int drawEnd = (lineHeight + ((int)windowSize.y)) / 2;
+			int drawStart = (-lineHeight + windowSize.y) / 2;
+			int drawEnd = (lineHeight + windowSize.y) / 2;
 			int size = drawEnd - drawStart;
-			//textureSlice.setSize(sf::Vector2f(1, size));
-			textureSlice.setPosition(x, drawStart);
+
 			textureSlice.setTexture(&rm.getTexture(this->mapList[index].wallMapping[collision.tag]));
 			sf::Vector2u textSize = textureSlice.getTexture()->getSize();
 			int texX = textSize.x * collision.u;
+			textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
 			if ((collision.side == 0 && currentRay.x > 0) || (collision.side == 1 && currentRay.y < 0))
 				texX = textSize.x - texX - 1;
+			textureSlice.setPosition(x, drawStart);
 			textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
-			textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
+			
 			cameracomponent.target->draw(textureSlice);
 		}
 		cameracomponent.target->display();

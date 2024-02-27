@@ -18,8 +18,9 @@ public:
 	void changeMap(std::string mapName);
 protected:
 	PlayerController* playercontroller;
+	TransformComponent* playerTransform;
 	CameraRenderSystem cameraRenderSystem;
 	std::vector<Map> mapList;
 	int currentMap;
-	Player* player;
+	std::shared_ptr<Player> player;
 };

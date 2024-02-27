@@ -53,22 +53,22 @@ namespace RaycastUtils {
     int yStepDirection = 0;
     if (direction.x > 0)
     {
-        xDist = abs(originalPosition.x + 1 - position.x);
+        xDist =originalPosition.x + 1 - position.x;
         xStepDirection = 1;
     }
     else
     {
-        xDist = abs(position.x - originalPosition.x);
+        xDist = position.x - originalPosition.x;
         xStepDirection = -1;
     }
     if (direction.y > 0)
     {
-        yDist = abs(originalPosition.y + 1 - position.y);
+        yDist = originalPosition.y + 1 - position.y;
         yStepDirection = 1;
     }
     else
     {
-        yDist = abs(position.y - originalPosition.y);
+        yDist = position.y - originalPosition.y;
         yStepDirection = -1;
     }
     xDist *= axisWeightX;
@@ -114,12 +114,12 @@ namespace RaycastUtils {
     if (output.side) {
         output.distance = yDist;
         output.perpindcularDistance = yDist - axisWeightY;
-        output.u = (output.perpindcularDistance * ray.x+ position.x)-tileIndex.y;
+        output.u = (output.perpindcularDistance * ray.x+ position.x)-originalPosition.x;
     }
     else {
         output.distance = xDist;
         output.perpindcularDistance = xDist - axisWeightX;
-        output.u = (output.perpindcularDistance * ray.y + position.y)-tileIndex.x;
+        output.u = (output.perpindcularDistance * ray.y + position.y)- originalPosition.y;
     }
     output.u-=floor(output.u);
     output.u += 1 * (output.u < 0);
