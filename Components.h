@@ -45,18 +45,18 @@
 //    }
 //};
 
-struct ColliderComponent {
-    sf::FloatRect bounds;
-    bool solid;
-    std::string tag;
-    ColliderComponent(){
-        bounds = sf::FloatRect(sf::Vector2f(0, 0), sf::Vector2f(1, 1));
-        solid = false;
-        tag = "";
-    }
-    ColliderComponent(const sf::FloatRect& bounds, bool isSolid, const std::string& tag)
-        : bounds(bounds), solid(isSolid), tag(tag) {}
-};
+//struct ColliderComponent {
+//    sf::FloatRect bounds;
+//    bool solid;
+//    std::string tag;
+//    ColliderComponent(){
+//        bounds = sf::FloatRect(sf::Vector2f(0, 0), sf::Vector2f(1, 1));
+//        solid = false;
+//        tag = "";
+//    }
+//    ColliderComponent(const sf::FloatRect& bounds, bool isSolid, const std::string& tag)
+//        : bounds(bounds), solid(isSolid), tag(tag) {}
+//};
 
 struct AudioSourceComponent {
     std::shared_ptr<sf::Sound> audioClip;
