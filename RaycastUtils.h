@@ -10,7 +10,7 @@ namespace RaycastUtils {
 		double perpindcularDistance; // The perpindicular distance [1/(Ray Direction in X or Y)]
 		float u; // The u coordinate of the collision
 	};
-	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, Map m,float renderDistance=200.0f){
+	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, const Map& m,float renderDistance=200.0f){
     RaycastUtils::RayCollisionInfo output;
     if (position.y > m.walls.size())
     {
@@ -99,8 +99,8 @@ namespace RaycastUtils {
             yIndex = (tileIndex.y >= 0 || tileIndex.y < m.walls[tileIndex.x].size());
         }
         if (xIndex && yIndex) {
-            //if (std::find(m.ignoreRaycast.begin(), m.ignoreRaycast.end(),m.walls[tileIndex.x][tileIndex.y]) == m.ignoreRaycast.end()) {
-            if (m.walls[tileIndex.x][tileIndex.y]!=0) {
+            if (std::find(m.ignoreRaycast.begin(), m.ignoreRaycast.end(),m.walls[tileIndex.x][tileIndex.y]) == m.ignoreRaycast.end()) {
+            //if (m.walls[tileIndex.x][tileIndex.y]!=0) {
                 output.tag = m.walls[tileIndex.x][tileIndex.y];
                 hit = true;
             }
