@@ -163,7 +163,6 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RaycastUtils.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="Resource_Manager.cpp" />
     <ClCompile Include="Scene2D.cpp" />

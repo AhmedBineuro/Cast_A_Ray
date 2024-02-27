@@ -9,7 +9,7 @@
 class Camera :public Entity2D {
 public:
 	Camera(entt::registry* registry) ;
-	Camera(entt::registry* registry,sf::Vector2f position);
+	Camera(entt::registry* registry,sf::Vector2f position,sf::Vector2f rotation=sf::Vector2f(1,0));
 
 	void setPosition(sf::Vector2f position);
 	void setFOV(int FOV);

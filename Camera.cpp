@@ -1,16 +1,18 @@
 #include "Camera.h"
 Camera::Camera(entt::registry* registry) :Entity2D(registry) {
 	transformComponent = getComponent<TransformComponent>();
-	CameraComponent camera = CameraComponent(90, 100);
+	CameraComponent camera = CameraComponent(90, 20);
 	cameraComponent = getComponent<CameraComponent>();
 	addComponent(camera);
 
 }
-Camera::Camera(entt::registry* registry,sf::Vector2f position) :Entity2D(registry) {
+Camera::Camera(entt::registry* registry,sf::Vector2f position, sf::Vector2f rotation) :Entity2D(registry) {
 	transformComponent = getComponent<TransformComponent>();
-	CameraComponent camera = CameraComponent();
+	CameraComponent camera = CameraComponent(90, 20);
 	addComponent(camera);
 	cameraComponent = getComponent<CameraComponent>();
+	transformComponent->position = position;
+	transformComponent->rotation = rotation;
 }
 
 void Camera::setPosition(sf::Vector2f position) {

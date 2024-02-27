@@ -36,7 +36,8 @@ int main(){
     rli.name = "PlayerSprite";
     rli.URL = "./Player.png";
     rm.loadResource(rli);
-    WolfScene p1({"PlayGround"});
+    std::vector<std::string> maps = { "PlayGround" };
+    WolfScene p1(maps);
     mainApp.addScene("WolfScene", &p1);
     mainApp.run();
     return 0;

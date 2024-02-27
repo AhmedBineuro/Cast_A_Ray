@@ -1,6 +1,7 @@
 #include "WolfScene.h"
 WolfScene::WolfScene():Scene2D(){
-	this->player = new Player(&this->registry, sf::Vector2f(3, 5));
+	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(3, 5));
+	this->entities.push_back(player);
 	playercontroller = this->player->getComponent<PlayerController>();
 	this->player->camera->linkRenderTarget(&this->canvas);
 	cameraRenderSystem=CameraRenderSystem();
@@ -9,7 +10,8 @@ WolfScene::WolfScene():Scene2D(){
 }
 WolfScene::WolfScene(std::vector<std::string>mapNames):Scene2D() {
 	this->mapList.resize(0);
-	this->player = new Player(&this->registry, sf::Vector2f(3,5));
+	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(3, 5));
+	this->entities.push_back(player);
 	playercontroller = this->player->getComponent<PlayerController>();
 	this->player->camera->linkRenderTarget(&this->canvas);
 	cameraRenderSystem = CameraRenderSystem();
@@ -57,7 +59,7 @@ sf::Sprite WolfScene::onRender() {
 	canvas.clear();
 	cameraRenderSystem.update(registry);
 	scriptSystem.OnRender(registry);
-	//renderSystem.update(registry);
+	renderSystem.update(registry);
 	canvasSprite.setTexture(canvas.getTexture());
 	/**
 	* Additional Code Here
@@ -94,8 +96,9 @@ void WolfScene::changeMap(std::string mapName) {
 	currentMap = i;
 }
 void WolfScene::renderDebug() {
+	ImGui::Begin("Player settings");
+	ImGui::End();
 }
 WolfScene::~WolfScene() {
-	delete(this->player);
 	this->onDestroy();
 }

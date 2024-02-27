@@ -7,19 +7,20 @@ class WolfScene :public Scene2D {
 public:
 	WolfScene();
 	WolfScene(std::vector<std::string>mapNames);
-	virtual void onCreate();
-	virtual void onUpdate(float deltaTime);
-	virtual void onFixedUpdate(float fixedDeltaTime);
+	void onCreate();
+	void onUpdate(float deltaTime);
+	void onFixedUpdate(float fixedDeltaTime);
 	//Should return the canvas result as a sprite and is called every render call
-	virtual sf::Sprite onRender();
-	virtual void onDestroy();
-	virtual void renderDebug(); // ImGui Debug Stuff
-	virtual ~WolfScene();
+	sf::Sprite onRender();
+	void onDestroy();
+	void renderDebug(); // ImGui Debug Stuff
+	~WolfScene();
 	void changeMap(std::string mapName);
 protected:
 	PlayerController* playercontroller;
+	TransformComponent* playerTransform;
 	CameraRenderSystem cameraRenderSystem;
 	std::vector<Map> mapList;
 	int currentMap;
-	Player* player;
+	std::shared_ptr<Player> player;
 };
