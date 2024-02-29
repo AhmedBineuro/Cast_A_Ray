@@ -38,8 +38,10 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			
 			if (collision.noHit)
 				continue;
+			double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));
+			double perpDist = collision.perpindcularDistance*angleBetween;
 			//Draw the lines
-			int lineHeight = (windowSize.y) / (collision.perpindcularDistance);
+			int lineHeight = (windowSize.y) / (perpDist);
 			int drawStart = (-lineHeight + windowSize.y) / 2;
 			int drawEnd = (lineHeight + windowSize.y) / 2;
 			int size = drawEnd - drawStart;

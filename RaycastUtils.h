@@ -1,12 +1,13 @@
 #pragma once
 #include "Map.h"
+#include <limits>
 #include <SFMLMath.hpp>
 namespace RaycastUtils {
 	struct RayCollisionInfo {
 		bool noHit=false;// True if the ray didn't collide with anything
 		int side; // 0 for East/West or 1 for North/South
 		int tag; // the block tag 
-		double distance; // The raw distance to the collision point
+		//double distance; // The raw distance to the collision point
 		double perpindcularDistance; // The perpindicular distance [1/(Ray Direction in X or Y)]
 		float u; // The u coordinate of the collision
 	};
@@ -27,26 +28,9 @@ namespace RaycastUtils {
     sf::Vector2i originalPosition((int)position.x, (int)position.y);
     sf::Vector2i tileIndex((int)position.y, (int)position.x); // Will be manipulated
 
-    double axisWeightX = 0;
-    double axisWeightY = 0;
-    if (direction.x != 0)
-    {
-        // Given a value of x what is the value of y
-        axisWeightX = abs(1.0f / direction.x);
-    }
-    else
-    {
-        axisWeightX = 1e30;
-    }
-    if (direction.y != 0)
-    {
-        // Given a value of y what is the value of x
-        axisWeightY = abs(1.0f / direction.y);
-    }
-    else
-    {
-        axisWeightY = 1e30;
-    }
+    double axisWeightX = sqrt(1 + (direction.y * direction.y) / (direction.x * direction.x));
+    double axisWeightY = sqrt(1 + (direction.x * direction.x) / (direction.y * direction.y));
+    
     //Get the X and Y axis distances and step directions
     double xDist = 0, yDist = 0;
     int xStepDirection = 0;
@@ -92,11 +76,11 @@ namespace RaycastUtils {
             output.noHit = true;
             break;
         }
-        bool xIndex = tileIndex.x >= 0 || tileIndex.x < m.walls.size();
+        bool xIndex = tileIndex.x >= 0 && tileIndex.x < m.walls.size();
         bool yIndex = false;
         if (xIndex)
         {
-            yIndex = (tileIndex.y >= 0 || tileIndex.y < m.walls[tileIndex.x].size());
+            yIndex = (tileIndex.y >= 0 && tileIndex.y < m.walls[tileIndex.x].size());
         }
         if (xIndex && yIndex) {
             if (std::find(m.ignoreRaycast.begin(), m.ignoreRaycast.end(),m.walls[tileIndex.x][tileIndex.y]) == m.ignoreRaycast.end()) {
@@ -112,18 +96,22 @@ namespace RaycastUtils {
     }
     //Get distances and wall coordinates
     if (output.side) {
-        output.distance = yDist;
+        //output.distance = yDist;
+        if(std::isinf(yDist)|| std::isnan(yDist))
+            std::cout << "yDist " << yDist << std::endl;
         output.perpindcularDistance = yDist - axisWeightY;
         output.u = (output.perpindcularDistance * ray.x+ position.x)-originalPosition.x;
     }
     else {
-        output.distance = xDist;
+        //output.distance = xDist;
+        if (std::isinf(xDist) || std::isnan(xDist))
+            std::cout << "xDist " << xDist << std::endl;
         output.perpindcularDistance = xDist - axisWeightX;
         output.u = (output.perpindcularDistance * ray.y + position.y)- originalPosition.y;
     }
     output.u-=floor(output.u);
     output.u += 1 * (output.u < 0);
-    //std::cout << "Perpindicular Distance " << output.u << std::endl;
+
     return output;
 }
 

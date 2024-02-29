@@ -60,4 +60,5 @@ struct MapTagComponent {
 
 struct ColliderComponent {
     sf::FloatRect border;
+    bool isTrigger;
 };
