@@ -20,7 +20,7 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			index++;
 		}
 		if (index >= this->mapList.size()) {
-			return;
+			continue;
 		}
 		//If outside the real bounds position wise then just exit
 		if (this->mapList[index].walls.size() <= floor(transformComponent.position.y))
@@ -38,9 +38,14 @@ void CameraRenderSystem::update(entt::registry& registry) {
 			
 			if (collision.noHit)
 				continue;
-			double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));
-			double perpDist = collision.perpindcularDistance*angleBetween;
+			double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));;
+			double perpDist;
+			if(angleBetween>0)
+				perpDist = collision.perpindcularDistance*angleBetween;
+			else perpDist = collision.perpindcularDistance;
 			//Draw the lines
+			if (perpDist <= 0)
+				perpDist = 1;
 			int lineHeight = (windowSize.y) / (perpDist);
 			int drawStart = (-lineHeight + windowSize.y) / 2;
 			int drawEnd = (lineHeight + windowSize.y) / 2;

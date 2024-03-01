@@ -48,5 +48,6 @@
             {"1":"cobble"}
         ]
     },
-    "ignore raycast":[0]
+    "ignore raycast":[0],
+    "ignore collision":[0]
 }

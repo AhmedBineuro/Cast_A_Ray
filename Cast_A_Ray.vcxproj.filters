@@ -114,9 +114,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="RaycastUtils.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
     <ClCompile Include="CameraRenderSystem.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
@@ -124,6 +121,9 @@
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
     <ClCompile Include="WolfScene.cpp">
+      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    </ClCompile>
+    <ClCompile Include="MapColliderSystem.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -234,6 +234,9 @@
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
     <ClInclude Include="CameraRenderSystem.h">
+      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="MapColliderSystem.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
   </ItemGroup>

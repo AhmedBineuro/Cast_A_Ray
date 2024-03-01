@@ -38,6 +38,7 @@ protected:
     CameraComponent* cameraComponent;
     SpriteComponent* playerSprite; // This what the script will manipulate
     ControllableComponet* controllableComponent;
+    sf::Vector2i previousMousePosition;
     //MODIFY THIS TO INCLUDE NEW CONTROLS
     sf::Keyboard::Key keyBinds[AVAILABLE_KEYS] = {
         sf::Keyboard::W,

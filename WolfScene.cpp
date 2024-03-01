@@ -5,6 +5,7 @@ WolfScene::WolfScene():Scene2D(){
 	playercontroller = this->player->getComponent<PlayerController>();
 	this->player->camera->linkRenderTarget(&this->canvas);
 	cameraRenderSystem=CameraRenderSystem();
+	mapColliderSystem = MapColliderSystem();
 	this->mapList.resize(0);
 	this->onCreate();
 }
@@ -43,6 +44,7 @@ void WolfScene::onUpdate(float deltaTime) {
 		this->renderSystem.setTarget(&this->canvas);
 	}
 	scriptSystem.OnUpdate(deltaTime, registry);
+	mapColliderSystem.update(registry);
 	/**
 	* Additional Code Here
 	*/
@@ -93,6 +95,8 @@ void WolfScene::changeMap(std::string mapName) {
 	if (this->player->camera->hasComponent< MapTagComponent>())
 		this->player->camera->replaceComponent<MapTagComponent>(newTag);
 	else this->player->camera->addComponent(newTag);
+	cameraRenderSystem.
+	mapColliderSystem.linkMap(mapList[i]);
 	currentMap = i;
 }
 void WolfScene::renderDebug() {
