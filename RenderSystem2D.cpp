@@ -10,11 +10,14 @@ void RenderSystem2D::update(entt::registry& registry) {
 	if (renderTarget == NULL)
 		return;
 	//Get the list of entities with this component
-	auto view = registry.view<RenderComponent, SpriteComponent>();
+	auto view = registry.view<RenderComponent, SpriteComponent,TransformComponent>();
 	for (auto entity : view) {
 		RenderComponent renderComponent = registry.get<RenderComponent>(entity);
 		if (renderComponent.enabled) {
+			TransformComponent transformComponent = registry.get<TransformComponent>(entity);
 			SpriteComponent& sprite = registry.get<SpriteComponent>(entity);
+			sprite.sprite.setPosition(transformComponent.position);
+			sprite.sprite.setRotation(sf::getRotationAngle(transformComponent.rotation));
 			renderTarget->draw(sprite.sprite, renderComponent.renderStates);
 		}
 	}

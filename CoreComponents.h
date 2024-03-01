@@ -60,5 +60,10 @@ struct MapTagComponent {
 
 struct ColliderComponent {
     sf::FloatRect border;
-    bool isTrigger;
+    bool isTrigger,enabled;
+    ColliderComponent(sf::Vector2f position=sf::Vector2f(),sf::Vector2f size= sf::Vector2f(5,5)) {
+        border = sf::FloatRect(position-(size/2.0f), size);
+        isTrigger = false;
+        enabled = true;
+    }
 };

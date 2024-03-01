@@ -28,9 +28,29 @@ namespace RaycastUtils {
     sf::Vector2i originalPosition((int)position.x, (int)position.y);
     sf::Vector2i tileIndex((int)position.y, (int)position.x); // Will be manipulated
 
-    double axisWeightX = sqrt(1 + (direction.y * direction.y) / (direction.x * direction.x));
+    /*double axisWeightX = sqrt(1 + (direction.y * direction.y) / (direction.x * direction.x));
     double axisWeightY = sqrt(1 + (direction.x * direction.x) / (direction.y * direction.y));
-    
+    */
+    double axisWeightX, axisWeightY;
+    if (direction.x != 0)
+    {
+        // Given a value of x what is the value of y
+        axisWeightX = abs(1 / direction.x);
+    }
+    else
+    {
+        axisWeightX = 1e30;
+    }
+    if (direction.y != 0)
+    {
+        // Given a value of y what is the value of x
+        axisWeightY = abs(1 / direction.y);
+    }
+    else
+    {
+        axisWeightY = 1e30;
+    }
+
     //Get the X and Y axis distances and step directions
     double xDist = 0, yDist = 0;
     int xStepDirection = 0;

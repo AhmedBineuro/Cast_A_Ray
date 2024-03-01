@@ -6,6 +6,7 @@ PlayerController::PlayerController() {
 	this->controllableComponent = nullptr;
 	this->cameraTransform = nullptr;
 	this->cameraComponent = nullptr;
+	previousMousePosition = sf::Mouse::getPosition();
 }
 PlayerController::PlayerController(Entity* player, Camera& camera) {
 	OnCreate();
@@ -18,6 +19,9 @@ PlayerController::PlayerController(Entity* player, Camera& camera) {
 void PlayerController::OnCreate(){
 }
 void PlayerController::OnUpdate(float deltaTime){
+	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
+	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
+	previousMousePosition = currentMousePosition;
 	if (playerTransform != nullptr && playerSprite != nullptr&& controllableComponent != nullptr)
 	{
 		if(this->controllableComponent->enabled)

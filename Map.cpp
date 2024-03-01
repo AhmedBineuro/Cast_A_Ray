@@ -4,6 +4,8 @@ Map::Map() {
 	this->floors.resize(0);
 	this->walls.resize(0);
 	this->ceilings.resize(0);
+	this->ignoreCollision.resize(0);
+	this->ignoreRaycast.resize(0);
 	tileSprite = sf::RectangleShape(sf::Vector2f(1,1));
 	this->name = "";
 }
@@ -11,6 +13,8 @@ Map::Map(std::string name) {
 	this->floors.resize(0);
 	this->walls.resize(0);
 	this->ceilings.resize(0);
+	this->ignoreCollision.resize(0);
+	this->ignoreRaycast.resize(0);
 	tileSprite = sf::RectangleShape(sf::Vector2f(1, 1));
 	this->name = name;
 	loadResources();
@@ -143,6 +147,7 @@ void Map::processMapFile() {
 			}
 		}
 		ignoreRaycast = data["ignore raycast"].get<std::vector<int>>();
+		ignoreCollision = data["ignore collision"].get<std::vector<int>>();
 	}
 	catch (const nlohmann::json::parse_error& e) {
 		std::cerr << "Parsing error: " << e.what() << '\n';

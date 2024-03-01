@@ -1,6 +1,7 @@
 #include "Scene2D.h"
 #include "Player.h"
 #include "CameraRenderSystem.h"
+#include "MapColliderSystem.h"
 
 // This is officially the scene for wolfenstien 3D style games!
 class WolfScene :public Scene2D {
@@ -20,6 +21,7 @@ protected:
 	PlayerController* playercontroller;
 	TransformComponent* playerTransform;
 	CameraRenderSystem cameraRenderSystem;
+	MapColliderSystem mapColliderSystem;
 	std::vector<Map> mapList;
 	int currentMap;
 	std::shared_ptr<Player> player;
