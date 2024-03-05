@@ -1,4 +1,4 @@
-#include "./include/Scene2D.h"
+#include "Scene2D.h"
 Scene2D::Scene2D() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();

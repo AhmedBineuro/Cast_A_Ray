@@ -6,17 +6,19 @@ PlayerController::PlayerController() {
 	this->controllableComponent = nullptr;
 	this->cameraTransform = nullptr;
 	this->cameraComponent = nullptr;
-	previousMousePosition = sf::Mouse::getPosition();
+	this->colliderComponent = nullptr;
 }
 PlayerController::PlayerController(Entity* player, Camera& camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->playerSprite = player->getComponent<SpriteComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponet>();
+	this->colliderComponent = player->getComponent<ColliderComponent>();
 	this->cameraTransform = camera.getComponent<TransformComponent>();
 	this->cameraComponent = camera.getComponent<CameraComponent>();
 }
 void PlayerController::OnCreate(){
+	previousMousePosition = sf::Mouse::getPosition();
 }
 void PlayerController::OnUpdate(float deltaTime){
 	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
@@ -71,15 +73,14 @@ void PlayerController::OnUpdate(float deltaTime){
 				playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
 				cameraTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
 			}
+			if (colliderComponent!= nullptr) {
+				colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
+				colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
+			}
+
 			//Update sprite
 			playerSprite->sprite.setPosition(playerTransform->position);
 			playerSprite->sprite.setRotation(sf::getRotationAngle(playerTransform->rotation));
-			//Update Camera
-			//if(camera!=nullptr)
-			//{
-			//	camera->setPosition(this->playerTransform->position);
-			//	camera->setAngleDEG(sf::getRotationAngle(this->playerTransform->rotation));
-			//}
 		}
 	}
 }

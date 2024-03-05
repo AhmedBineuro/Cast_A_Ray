@@ -90,12 +90,6 @@
     <ClCompile Include="Scene2D.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="RenderSystem2D.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="ScriptSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
     <ClCompile Include="Entity2D.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
@@ -114,17 +108,50 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="CameraRenderSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="WolfScene.h">
+    <ClCompile Include="DDAScene.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="WolfScene.cpp">
+    <ClCompile Include="DDAScene.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="MapColliderSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="src\Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DDAScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Resource_Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Systems.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,15 +227,6 @@
     <ClInclude Include="Scene2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem2D.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptSystem.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreAdditions.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
     <ClInclude Include="Entity2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
@@ -233,11 +251,65 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
-    <ClInclude Include="CameraRenderSystem.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="include\Actor.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapColliderSystem.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="include\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DDAScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PlayerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RaycastUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource_Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scenes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Systems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 #pragma once
 #ifndef SCENE2D_H
 #define SCENE2D_H
-#include "./include/Scene.h"
-#include "./include/Entity2D.h"
-#include "./include/Systems.h"
+#include "Scene.h"
+#include "Entity2D.h"
+#include "Systems.h"
 
 //Normal 2D Rendering Scene
 class Scene2D :public Scene {

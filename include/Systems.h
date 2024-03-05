@@ -1,9 +1,9 @@
 #pragma once
-#include "./include/System.h"
-#include "./include/Components.h"
-#include "./include/Config.h"
-#include "./include/Core.h"
-#include "./include/RaycastUtils.h"
+#include "System.h"
+#include "Components.h"
+#include "Config.h"
+#include "Core.h"
+#include "RaycastUtils.h"
 
 
 namespace Systems {

@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 #include "SFMLMath.hpp"
-#include "Actor.h"
-#include "Map.h"
+#include "./include/Actor.h"
+#include "./include/Map.h"
 struct TransformComponent {
     sf::Vector2f position;
     sf::Vector2f rotation;
