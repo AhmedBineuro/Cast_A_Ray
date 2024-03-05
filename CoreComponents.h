@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 #include "SFMLMath.hpp"
-#include "./include/Actor.h"
-#include "./include/Map.h"
+#include "Actor.h"
+#include "Map.h"
 struct TransformComponent {
     sf::Vector2f position;
     sf::Vector2f rotation;
@@ -47,7 +47,7 @@ struct CameraComponent {
         : FOV(fov), renderDistance(distance),target(targetTexture) {
         enabled = true;
         // Add rays = std::make_unique<sf::VertexArray>(...);
-        plane=sf::Vector2f(0,-.66f);
+        plane=sf::Vector2f(0,0.66f);
         /*float width = (float)tan((float)fov * M_PI / 360.0f);
         sf::normalize(plane);
         plane *= width;*/

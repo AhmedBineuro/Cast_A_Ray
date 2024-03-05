@@ -1,5 +1,5 @@
 #pragma once
-#include "./include/Entity2D.h"
+#include "Entity2D.h"
 #include "CoreComponents.h"
 #include <memory>
 /**

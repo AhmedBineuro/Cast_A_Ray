@@ -22,23 +22,29 @@ namespace Systems {
 		}
 		sf::Vector2f size = collider.border.getSize();
 		//Check the borders
-		float LeftRight[2] = { collider.border.left, collider.border.left+size.x };
-		float UpDown[2] = { collider.border.top, collider.border.top + size.y };
-		for (int x = 0; x < 2;x++) {
-			for (int y = 0; y < 2; y++) {
-				//If the tile is not in the ignore list then resolve collision
-				auto iterator=std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[floor(UpDown[y])][floor(LeftRight[x])]);
-				if (iterator == mapList[index].ignoreCollision.end())
-				{
-					std::cout << "Collision!" << std::endl;
-					//If the tile x index is 0 (entity's left edge) it means compare against the tile's right edge
-					float tileX = floor(LeftRight[x]) + (1*x);
-					//If the tile y location is less that means that we have to compare to the bottom edge of the tile
-					float tileY = floor(LeftRight[y]) + (1 * y);
-					sf::Vector2f offSet=sf::Vector2f(tileX-LeftRight[x], tileY - LeftRight[y]);
-					transform.position += offSet;
-				}
+		float LeftRight[2] = { transform.position.x- (size.x/ 2.0f), transform.position.x + (size.x / 2.0f) };
+		float UpDown[2] = { transform.position.y - (size.y / 2.0f), transform.position.y + (size.y / 2.0f) };
+		for (int y = 0; y < 2; y++) {
+			if (UpDown[y] >= 0 && UpDown[y] < mapList[index].walls.size()) {
+				for (int x = 0; x < 2; x++) {
+					if (LeftRight[x] < 0 && LeftRight[x] >= mapList[index].walls[(int)UpDown[y]].size())
+						continue;
+					//If the tile is not in the ignore list then resolve collision
+					auto iterator = std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[floor(UpDown[y])][floor(LeftRight[x])]);
+					if (iterator == mapList[index].ignoreCollision.end())
+					{
+						std::cout << "Collision!" << std::endl;
+						//If the tile x index is 0 (entity's left edge) it means compare against the tile's right edge
+						float tileX = round(LeftRight[x]);
+						//If the tile y location is less that means that we have to compare to the bottom edge of the tile
+						float tileY = round(LeftRight[y]);
+						sf::Vector2f offSet = sf::Vector2f(tileX - LeftRight[x], tileY - LeftRight[y]);
 
+						std::cout << "Offset" << offSet.x<< ',' << offSet.y << std::endl;
+						transform.position += offSet;
+					}
+
+				}
 			}
 		}
 		

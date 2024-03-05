@@ -1,8 +1,8 @@
 #pragma once
 #ifndef DDA_SCENE_H
 #define DDA_SCENE_H
-#include "./include/Scene2D.h"
-#include "./include/Player.h"
+#include "Scene2D.h"
+#include "Player.h"
 
 // This is officially the scene for wolfenstien 3D style games!
 class DDAScene :public Scene2D {

@@ -1,6 +1,6 @@
-#include "./include/DDAScene.h"
+#include "DDAScene.h"
 DDAScene::DDAScene():Scene2D(){
-	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(3, 5));
+	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2,2));
 	this->entities.push_back(player);
 	playercontroller = this->player->getComponent<PlayerController>();
 	this->player->camera->linkRenderTarget(&this->canvas);
@@ -9,7 +9,7 @@ DDAScene::DDAScene():Scene2D(){
 }
 DDAScene::DDAScene(std::vector<std::string>mapNames):Scene2D() {
 	this->mapList.resize(0);
-	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(3, 5));
+	this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
 	this->entities.push_back(player);
 	playercontroller = this->player->getComponent<PlayerController>();
 	this->player->camera->linkRenderTarget(&this->canvas);

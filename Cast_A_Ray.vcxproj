@@ -167,19 +167,6 @@
     <ClCompile Include="Scenes.cpp" />
     <ClCompile Include="DDAScene.cpp" />
     <ClCompile Include="DDAScene.h" />
-    <ClCompile Include="src\Config.cpp" />
-    <ClCompile Include="src\Core.cpp" />
-    <ClCompile Include="src\DDAScene.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
-    <ClCompile Include="src\Entity2D.cpp" />
-    <ClCompile Include="src\Log.cpp" />
-    <ClCompile Include="src\Map.cpp" />
-    <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\PlayerController.cpp" />
-    <ClCompile Include="src\Resource_Manager.cpp" />
-    <ClCompile Include="src\Scene2D.cpp" />
-    <ClCompile Include="src\Scenes.cpp" />
-    <ClCompile Include="src\Systems.cpp" />
     <ClCompile Include="Systems.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,26 +188,6 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="include\Actor.h" />
-    <ClInclude Include="include\Application.h" />
-    <ClInclude Include="include\Camera.h" />
-    <ClInclude Include="include\Components.h" />
-    <ClInclude Include="include\Config.h" />
-    <ClInclude Include="include\Core.h" />
-    <ClInclude Include="include\DDAScene.h" />
-    <ClInclude Include="include\Entity.h" />
-    <ClInclude Include="include\Entity2D.h" />
-    <ClInclude Include="include\Log.h" />
-    <ClInclude Include="include\Map.h" />
-    <ClInclude Include="include\Player.h" />
-    <ClInclude Include="include\PlayerController.h" />
-    <ClInclude Include="include\RaycastUtils.h" />
-    <ClInclude Include="include\Resource_Manager.h" />
-    <ClInclude Include="include\Scene.h" />
-    <ClInclude Include="include\Scene2D.h" />
-    <ClInclude Include="include\Scenes.h" />
-    <ClInclude Include="include\Systems.h" />
-    <ClInclude Include="include\Tile.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />

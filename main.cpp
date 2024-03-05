@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include "./include/Application.h"
+#include "Application.h"
+#include "DDAScene.h"
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
     if (MainApplication != nullptr){

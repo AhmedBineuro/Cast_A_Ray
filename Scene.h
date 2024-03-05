@@ -1,8 +1,8 @@
 #pragma once
-#include "./include/Resource_Manager.h"
+#include "Resource_Manager.h"
 #include "entt.hpp"
-#include "./include/System.h"
-#include "./include/Config.h"
+#include "System.h"
+#include "Config.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
 /*
