@@ -165,7 +165,6 @@
     <ClCompile Include="Resource_Manager.cpp" />
     <ClCompile Include="Scene2D.cpp" />
     <ClCompile Include="Scenes.cpp" />
-    <ClCompile Include="DDAScene.cpp" />
     <ClCompile Include="DDAScene.h" />
     <ClCompile Include="Systems.cpp" />
   </ItemGroup>

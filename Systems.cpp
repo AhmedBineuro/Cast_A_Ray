@@ -33,7 +33,7 @@ namespace Systems {
 					auto iterator = std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[floor(UpDown[y])][floor(LeftRight[x])]);
 					if (iterator == mapList[index].ignoreCollision.end())
 					{
-						std::cout << "Collision!" << std::endl;
+						//std::cout << "Collision!" << std::endl;
 						//If the tile x index is 0 (entity's left edge) it means compare against the tile's right edge
 						float tileX = round(LeftRight[x]);
 						//If the tile y location is less that means that we have to compare to the bottom edge of the tile
@@ -91,16 +91,14 @@ namespace Systems {
 					continue;
 				double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));;
 				double perpDist;
-				if (angleBetween > 0)
+				if (angleBetween > 0&&!cameracomponent.fisheye)
 					perpDist = collision.perpindcularDistance * angleBetween;
 				else perpDist = collision.perpindcularDistance;
 				//Draw the lines
-				if (perpDist <= 0)
-					perpDist = 1;
-				int lineHeight = (windowSize.y) / (perpDist);
-				int drawStart = (-lineHeight + windowSize.y) / 2;
-				int drawEnd = (lineHeight + windowSize.y) / 2;
-				int size = drawEnd - drawStart;
+				float lineHeight = (windowSize.y) / (perpDist);
+				float drawStart = (-lineHeight + windowSize.y) / 2;
+				float drawEnd = (lineHeight + windowSize.y) / 2;
+				float size = drawEnd - drawStart;
 
 				textureSlice.setTexture(&rm.getTexture(mapList[index].wallMapping[collision.tag]));
 				sf::Vector2u textSize = textureSlice.getTexture()->getSize();

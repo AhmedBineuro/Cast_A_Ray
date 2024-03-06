@@ -108,9 +108,6 @@
     <ClCompile Include="DDAScene.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="DDAScene.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

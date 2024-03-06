@@ -42,7 +42,7 @@ struct CameraComponent {
     float renderDistance;
     sf::Vector2f plane;
     sf::RenderTexture* target;
-    bool enabled;
+    bool enabled,fisheye=false;
     CameraComponent(int fov=90, float distance=400.0f,sf::RenderTexture* targetTexture=nullptr)
         : FOV(fov), renderDistance(distance),target(targetTexture) {
         enabled = true;
