@@ -11,4 +11,5 @@ public:
 	~Player();
 protected:
 	ControllableComponet* controllable;
+	ColliderComponent* colliderComponent;
 };

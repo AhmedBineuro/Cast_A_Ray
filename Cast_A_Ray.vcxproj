@@ -76,14 +76,14 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\include\;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\src\;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies);opengl32.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -94,7 +94,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\include\;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -104,7 +104,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\src\;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-s.lib;sfml-graphics-s.lib;sfml-window-s.lib;sfml-main.lib;sfml-audio-s.lib;opengl32.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies);opengl32.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -113,14 +113,14 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\include\;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\src\;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies);opengl32.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)json-develop\single_include;$(ProjectDir)entt-master\src\entt;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)\include\;$(ProjectDir)\imgui\;$(ProjectDir)SFMLMath-master\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -141,14 +141,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\src\;$(ProjectDir)SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-s.lib;sfml-graphics-s.lib;sfml-window-s.lib;sfml-main.lib;sfml-audio-s.lib;opengl32.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies);opengl32.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraRenderSystem.cpp" />
-    <ClCompile Include="MapColliderSystem.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -164,24 +162,18 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RenderSystem2D.cpp" />
     <ClCompile Include="Resource_Manager.cpp" />
     <ClCompile Include="Scene2D.cpp" />
     <ClCompile Include="Scenes.cpp" />
-    <ClCompile Include="ScriptSystem.cpp" />
-    <ClCompile Include="WolfScene.cpp" />
-    <ClCompile Include="WolfScene.h" />
+    <ClCompile Include="DDAScene.h" />
     <ClCompile Include="Systems.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraRenderSystem.h" />
-    <ClInclude Include="MapColliderSystem.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="CoreAdditions.h" />
     <ClInclude Include="CoreComponents.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
@@ -200,13 +192,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RaycastUtils.h" />
-    <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resource_Manager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene2D.h" />
     <ClInclude Include="Scenes.h" />
-    <ClInclude Include="ScriptSystem.h" />
     <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Systems.h" />

@@ -42,12 +42,12 @@ struct CameraComponent {
     float renderDistance;
     sf::Vector2f plane;
     sf::RenderTexture* target;
-    bool enabled;
+    bool enabled,fisheye=false;
     CameraComponent(int fov=90, float distance=400.0f,sf::RenderTexture* targetTexture=nullptr)
         : FOV(fov), renderDistance(distance),target(targetTexture) {
         enabled = true;
         // Add rays = std::make_unique<sf::VertexArray>(...);
-        plane=sf::Vector2f(0,-.66f);
+        plane=sf::Vector2f(0,0.66f);
         /*float width = (float)tan((float)fov * M_PI / 360.0f);
         sf::normalize(plane);
         plane *= width;*/

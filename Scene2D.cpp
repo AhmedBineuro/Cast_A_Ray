@@ -5,7 +5,6 @@ Scene2D::Scene2D() {
 	if (!this->canvas.create(settings.width, settings.height)) {
 		std::cout << "Couldn't Create Scene2D canvas" << std::endl;
 	}
-	renderSystem = RenderSystem2D(this->canvas);
 	this->onCreate();
 }
 void Scene2D::onCreate() {
@@ -20,15 +19,14 @@ void Scene2D::onUpdate(float deltaTime) {
 		std::cout << "Old Dimensions: " << canvas.getSize().x << " , " << canvas.getSize().y << std::endl;
 		std::cout << "New Dimensions: " << window.x << " , " << window.y << std::endl;
 		this->canvas.create(window.x, window.y);
-		this->renderSystem.setTarget(&this->canvas);
 	}
-	scriptSystem.OnUpdate(deltaTime, registry);
+	Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
 	/**
 	* Additional Code Here
 	*/
 }
 void Scene2D::onFixedUpdate(float fixedDeltaTime) {
-	scriptSystem.OnFixedUpdate(fixedDeltaTime, registry);
+	Systems::EntityScriptSystem::OnFixedUpdate(fixedDeltaTime, registry);
 	/**
 	* Additional Code Here
 	*/
@@ -37,8 +35,8 @@ sf::Sprite Scene2D::onRender() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();
 	canvas.clear();
-	scriptSystem.OnRender(registry);
-	renderSystem.update(registry);
+	Systems::EntityScriptSystem::OnRender(registry);
+	Systems::RenderSystem2D(registry, canvas);
 	canvasSprite.setTexture(canvas.getTexture());
 	/**
 	* Additional Code Here

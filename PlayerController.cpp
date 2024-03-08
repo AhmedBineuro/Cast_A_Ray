@@ -6,17 +6,19 @@ PlayerController::PlayerController() {
 	this->controllableComponent = nullptr;
 	this->cameraTransform = nullptr;
 	this->cameraComponent = nullptr;
-	previousMousePosition = sf::Mouse::getPosition();
+	this->colliderComponent = nullptr;
 }
 PlayerController::PlayerController(Entity* player, Camera& camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->playerSprite = player->getComponent<SpriteComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponet>();
+	this->colliderComponent = player->getComponent<ColliderComponent>();
 	this->cameraTransform = camera.getComponent<TransformComponent>();
 	this->cameraComponent = camera.getComponent<CameraComponent>();
 }
 void PlayerController::OnCreate(){
+	previousMousePosition = sf::Mouse::getPosition();
 }
 void PlayerController::OnUpdate(float deltaTime){
 	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
@@ -28,7 +30,7 @@ void PlayerController::OnUpdate(float deltaTime){
 		{
 			sf::Vector2f forward = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
 			sf::Vector2f right = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-			right = sf::getRotated(right, 90);
+			right = sf::getRotated(right, -90);
 			sf::Vector2f velocity(0, 0);
 
 			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::FORWARDS]))
@@ -49,14 +51,14 @@ void PlayerController::OnUpdate(float deltaTime){
 			}
 			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_RIGHT]))
 			{
-				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-				sf::rotate(this->cameraTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-				sf::rotate(this->cameraComponent->plane, this->controllableComponent->turnAngle * deltaTime);
-			}
-			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT])) {
 				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
 				sf::rotate(this->cameraTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
 				sf::rotate(this->cameraComponent->plane, -this->controllableComponent->turnAngle * deltaTime);
+			}
+			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT])) {
+				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(this->cameraComponent->plane, this->controllableComponent->turnAngle * deltaTime);
 			}
 
 			if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
@@ -71,15 +73,12 @@ void PlayerController::OnUpdate(float deltaTime){
 				playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
 				cameraTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
 			}
+			colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
+			colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
+
 			//Update sprite
 			playerSprite->sprite.setPosition(playerTransform->position);
 			playerSprite->sprite.setRotation(sf::getRotationAngle(playerTransform->rotation));
-			//Update Camera
-			//if(camera!=nullptr)
-			//{
-			//	camera->setPosition(this->playerTransform->position);
-			//	camera->setAngleDEG(sf::getRotationAngle(this->playerTransform->rotation));
-			//}
 		}
 	}
 }

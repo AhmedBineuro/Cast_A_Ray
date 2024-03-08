@@ -1,10 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Application.h"
-#include "Scenes.h"
-#include "CoreAdditions.h"
-#include "WolfScene.h"
 #include <iostream>
+#include "Application.h"
+#include "DDAScene.h"
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
     if (MainApplication != nullptr){
@@ -36,8 +34,9 @@ int main(){
     rli.name = "PlayerSprite";
     rli.URL = "./Player.png";
     rm.loadResource(rli);
-    std::vector<std::string> maps = { "PlayGround" };
-    WolfScene p1(maps);
+    std::vector<std::string> maps;
+    maps.push_back("PlayGround");
+    DDAScene p1(maps);
     mainApp.addScene("WolfScene", &p1);
     mainApp.run();
     return 0;

@@ -48,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\GameEnCore</Filter>
     </ClCompile>
@@ -90,12 +87,6 @@
     <ClCompile Include="Scene2D.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="RenderSystem2D.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="ScriptSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
     <ClCompile Include="Entity2D.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
@@ -114,17 +105,11 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="CameraRenderSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="WolfScene.h">
+    <ClCompile Include="DDAScene.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClCompile>
-    <ClCompile Include="WolfScene.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="MapColliderSystem.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,15 +185,6 @@
     <ClInclude Include="Scene2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem2D.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptSystem.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreAdditions.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
     <ClInclude Include="Entity2D.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
@@ -231,12 +207,6 @@
       <Filter>Header Files\GameEnCore</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraRenderSystem.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
-    </ClInclude>
-    <ClInclude Include="MapColliderSystem.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
   </ItemGroup>
