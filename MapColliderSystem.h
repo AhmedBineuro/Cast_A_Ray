@@ -6,7 +6,7 @@
 class MapColliderSystem: public System{
 public:
 	MapColliderSystem();
-	MapColliderSystem(Map& map);
+	MapColliderSystem(std::vector<Map>& mapList);
 	void update(entt::registry& registry);
 	~MapColliderSystem();
 	void setMapList(std::vector<Map>& mapList);

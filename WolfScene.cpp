@@ -95,8 +95,8 @@ void WolfScene::changeMap(std::string mapName) {
 	if (this->player->camera->hasComponent< MapTagComponent>())
 		this->player->camera->replaceComponent<MapTagComponent>(newTag);
 	else this->player->camera->addComponent(newTag);
-	cameraRenderSystem.
-	mapColliderSystem.linkMap(mapList[i]);
+	//cameraRenderSystem.
+	mapColliderSystem.setMapList(this->mapList);
 	currentMap = i;
 }
 void WolfScene::renderDebug() {
