@@ -66,8 +66,9 @@ public:
 		Settings settings = config.getSettings();
 		canvas.clear();
 		Systems::DDARenderSystem(registry, mapList);
-		Systems::EntityScriptSystem::OnRender(registry);
+		this->mapList[currentMap].draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
+		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
 		/**
 		* Additional Code Here

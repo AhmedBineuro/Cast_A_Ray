@@ -38,6 +38,12 @@ void Camera::setAngleDEG(float angle) {
 	return;
 }
 
+void Camera::setRotation(sf::Vector2f rotation) {
+	this->transformComponent->rotation = rotation;
+	float mag = sf::getLength(this->cameraComponent->plane);
+	this->cameraComponent->plane = sf::getNormalized(sf::getRotated(rotation, -90))*mag;
+}
+
 void Camera::linkRenderTarget(sf::RenderTexture* renderTexture) {
 	cameraComponent->target = renderTexture;
 }

@@ -22,29 +22,39 @@ namespace Systems {
 		}
 		sf::Vector2f size = collider.border.getSize();
 		//Check the borders
-		float LeftRight[2] = { transform.position.x- (size.x/ 2.0f), transform.position.x + (size.x / 2.0f) };
-		float UpDown[2] = { transform.position.y - (size.y / 2.0f), transform.position.y + (size.y / 2.0f) };
-		for (int y = 0; y < 2; y++) {
-			if (UpDown[y] >= 0 && UpDown[y] < mapList[index].walls.size()) {
-				for (int x = 0; x < 2; x++) {
-					if (LeftRight[x] < 0 && LeftRight[x] >= mapList[index].walls[(int)UpDown[y]].size())
+		sf::Vector2f corners[4]={
+			sf::Vector2f(transform.position.x , transform.position.y - (size.y / 2.0f)), //Top side
+			sf::Vector2f(transform.position.x , transform.position.y + (size.y / 2.0f)), //Bottom side
+			sf::Vector2f(transform.position.x - (size.y / 2.0f), transform.position.y), //Left side
+			sf::Vector2f(transform.position.x + (size.y / 2.0f), transform.position.y) //Right side
+		};
+		for (int i = 0; i < 4; i++) {
+			if (corners[i].y >= 0 && corners[i].y < mapList[index].walls.size()) {
+					if (corners[i].x < 0 && corners[i].x >= mapList[index].walls[(int)corners[i].y].size())
 						continue;
 					//If the tile is not in the ignore list then resolve collision
-					auto iterator = std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[floor(UpDown[y])][floor(LeftRight[x])]);
+					auto iterator = std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[(int)corners[i].y][(int)corners[i].x]);
 					if (iterator == mapList[index].ignoreCollision.end())
 					{
-						//std::cout << "Collision!" << std::endl;
-						//If the tile x index is 0 (entity's left edge) it means compare against the tile's right edge
-						float tileX = round(LeftRight[x]);
-						//If the tile y location is less that means that we have to compare to the bottom edge of the tile
-						float tileY = round(LeftRight[y]);
-						sf::Vector2f offSet = sf::Vector2f(tileX - LeftRight[x], tileY - LeftRight[y]);
+						sf::Vector2f offSet(0,0);
+						if (i == 0)  //Top Collision
+							offSet.y = round(corners[i].y) - corners[i].y;
+						if (i == 1) //Bottom Collision
+							offSet.y = floor(corners[i].y) - corners[i].y;
+						if (i == 2) //Left Collision
+							offSet.x = round(corners[i].x) - corners[i].x;
+						if (i == 3) //Right Collision
+							offSet.x = floor(corners[i].x) - corners[i].x;
 
-						std::cout << "Offset" << offSet.x<< ',' << offSet.y << std::endl;
 						transform.position += offSet;
-					}
 
-				}
+						//Update the corners to the new position
+						corners[0] +=offSet;
+						corners[1] +=offSet;
+						corners[2] +=offSet;
+						corners[3] +=offSet;
+							
+					}
 			}
 		}
 		
@@ -104,7 +114,7 @@ namespace Systems {
 				sf::Vector2u textSize = textureSlice.getTexture()->getSize();
 				int texX = textSize.x * collision.u;
 				textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
-				if ((collision.side == 0 && currentRay.x > 0) || (collision.side == 1 && currentRay.y < 0))
+				if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
 					texX = textSize.x - texX - 1;
 				textureSlice.setPosition(x, drawStart);
 				textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));

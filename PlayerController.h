@@ -34,11 +34,10 @@ public:
     float getSensitivity();
 protected:
     TransformComponent* playerTransform; // This what the script will manipulate
-    TransformComponent* cameraTransform;
-    CameraComponent* cameraComponent;
     SpriteComponent* playerSprite; // This what the script will manipulate
     ControllableComponet* controllableComponent;
     ColliderComponent* colliderComponent;
+    Camera* camera;
     sf::Vector2i previousMousePosition;
     //MODIFY THIS TO INCLUDE NEW CONTROLS
     sf::Keyboard::Key keyBinds[AVAILABLE_KEYS] = {

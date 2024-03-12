@@ -6,7 +6,7 @@ Map::Map() {
 	this->ceilings.resize(0);
 	this->ignoreCollision.resize(0);
 	this->ignoreRaycast.resize(0);
-	tileSprite = sf::RectangleShape(sf::Vector2f(1,1));
+	tileSprite = sf::RectangleShape(sf::Vector2f(50,50));
 	this->name = "";
 }
 Map::Map(std::string name) {
@@ -15,7 +15,7 @@ Map::Map(std::string name) {
 	this->ceilings.resize(0);
 	this->ignoreCollision.resize(0);
 	this->ignoreRaycast.resize(0);
-	tileSprite = sf::RectangleShape(sf::Vector2f(1, 1));
+	tileSprite = sf::RectangleShape(sf::Vector2f(50, 50));
 	this->name = name;
 	loadResources();
 }

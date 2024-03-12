@@ -16,6 +16,7 @@ public:
 	void setRenderDistance(float renderDistance);
 	void setAngleRAD(float angle); //Absolute rotation
 	void setAngleDEG(float angle);
+	void setRotation(sf::Vector2f rotation);
 	void linkRenderTarget(sf::RenderTexture* renderTexture);
 	void setEnabled(bool value);
 
