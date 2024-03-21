@@ -66,7 +66,7 @@ public:
 		Settings settings = config.getSettings();
 		canvas.clear();
 		Systems::DDARenderSystem(registry, mapList);
-		this->mapList[currentMap].draw(canvas);
+		//this->mapList[currentMap].draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
 		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
@@ -136,6 +136,7 @@ protected:
 	PlayerController* playercontroller;
 	TransformComponent* playerTransform;
 	CameraComponent* cameraComponent;
+	sf::RenderTexture playerScreen;
 	std::vector<Map> mapList;
 	int currentMap;
 	std::shared_ptr<Player> player;

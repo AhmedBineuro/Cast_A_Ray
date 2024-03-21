@@ -89,6 +89,9 @@ namespace Systems {
 			else if (mapList[index].walls[floor(transformComponent.position.y)].size() <= transformComponent.position.x)
 				continue;
 			sf::Vector2u windowSize = cameracomponent.target->getSize();
+			sf::Image bufferImage;
+			bufferImage.create(windowSize.x, windowSize.y);
+			////////////////////Wall Casting////////////////////////////
 			for (int x = 0; x < windowSize.x; x++) {
 				//cameraX is the x-coordinate in the screen space/ camera space
 				float cameraX = 2 * x / float(windowSize.x) - 1;
