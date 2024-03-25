@@ -1,5 +1,4 @@
 #include "Systems.h"
-
 namespace Systems {
 
 	void WolfCollisionSystem(entt::registry& registry, std::vector<Map>& mapList) {
@@ -66,6 +65,11 @@ namespace Systems {
 		Config& config = Config::getConfig();
 		Resource_Manager& rm = Resource_Manager::getResourceManager();
 		sf::RectangleShape textureSlice(sf::Vector2f(1, 10));
+		sf::Texture bufferText;
+		sf::Image bufferImage,floorImage, ceilImage;
+		sf::Image floorText=rm.getTexture("cobble").copyToImage();
+		sf::Sprite bufferSprite;
+		int prevFloorTag=RAND_MAX, prevCeilingTag = RAND_MAX, prevWallTag = RAND_MAX;
 		auto view = registry.view<CameraComponent, MapTagComponent, TransformComponent>();
 		for (auto entity : view) {
 			CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
@@ -89,8 +93,79 @@ namespace Systems {
 			else if (mapList[index].walls[floor(transformComponent.position.y)].size() <= transformComponent.position.x)
 				continue;
 			sf::Vector2u windowSize = cameracomponent.target->getSize();
-			sf::Image bufferImage;
 			bufferImage.create(windowSize.x, windowSize.y);
+			//Floor Casting
+
+			for (int y = (windowSize.y-1); y > (windowSize.y / 2); y--) {
+				sf::Vector2f rayDir0 = transformComponent.rotation - (cameracomponent.plane);
+				sf::Vector2f rayDir1 = transformComponent.rotation + (cameracomponent.plane);
+
+				int p = y - (windowSize.y / 2);
+				float posZ = 0.5f * static_cast<float>(windowSize.y);
+				float rowDistance = posZ / static_cast<float>(p);
+
+				sf::Vector2f floorStep =  (rayDir1 - rayDir0)* rowDistance  / static_cast<float>(windowSize.x);
+				sf::Vector2f floorPos = transformComponent.position + rowDistance * rayDir0;
+
+				for (int x = 0; x < windowSize.x; x++) {
+					sf::Vector2i tileIndex(static_cast<int>(floorPos.x), static_cast<int>(floorPos.y));
+					if (tileIndex.y >= mapList[index].floors.size()) {
+						continue;
+					}
+					else if (tileIndex.x >= mapList[index].floors[tileIndex.y].size()) {
+						continue;
+					}
+					/*if (std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[tileIndex.y][tileIndex.x])== mapList[index].ignoreCollision.end())
+						continue;*/
+					int tileFloorTag = mapList[index].floors[tileIndex.y][tileIndex.x];
+					int tileCeilingTag = mapList[index].floors[tileIndex.y][tileIndex.x];
+					if (tileFloorTag != prevFloorTag) {
+						sf::Texture& currentText = rm.getTexture(mapList[index].floorMapping[tileFloorTag]);
+						floorImage = currentText.copyToImage();
+						prevFloorTag = tileFloorTag;
+					}
+					if (tileCeilingTag != prevCeilingTag) {
+						sf::Texture& currentText = rm.getTexture(mapList[index].ceilingMapping[tileCeilingTag]);
+						ceilImage = currentText.copyToImage();
+						prevCeilingTag = tileCeilingTag;
+					}
+					sf::Vector2u floorTextSize = floorImage.getSize();
+					sf::Vector2i floorTextIndex(
+						static_cast<int>((int)(floorTextSize.x * (floorPos.x - tileIndex.x))),
+						static_cast<int>((int)(floorTextSize.y * (floorPos.y - tileIndex.y)))
+					);
+					if (floorTextIndex.x < 0)
+						floorTextIndex.x = floorTextSize.x + floorTextIndex.x;
+					else if (floorTextIndex.x >= floorTextSize.x)
+						floorTextIndex.x = floorTextIndex.x - floorTextSize.x;
+					if (floorTextIndex.y < 0)
+						floorTextIndex.y = floorTextSize.y + floorTextIndex.y;
+					else if (floorTextIndex.y >= floorTextSize.y)
+						floorTextIndex.y = floorTextIndex.y - floorTextSize.y;
+
+					sf::Vector2u ceilTextSize = ceilImage.getSize();
+					sf::Vector2i ceilTextIndex(
+						static_cast<int>((int)(ceilTextSize.x * (floorPos.x - tileIndex.x))),
+						static_cast<int>((int)(ceilTextSize.y * (floorPos.y - tileIndex.y)))
+					);
+					if (ceilTextIndex.x < 0)
+						ceilTextIndex.x = ceilTextSize.x + ceilTextIndex.x;
+					else if (ceilTextIndex.x >= ceilTextSize.x)
+						ceilTextIndex.x = ceilTextIndex.x - ceilTextSize.x;
+					if (ceilTextIndex.y < 0)
+						ceilTextIndex.y = floorTextSize.y + ceilTextIndex.y;
+					else if (ceilTextIndex.y >= ceilTextSize.y)
+						ceilTextIndex.y = ceilTextIndex.y - ceilTextSize.y;
+
+					floorPos = floorPos + floorStep;
+
+					bufferImage.setPixel(x,y, floorImage.getPixel(floorTextIndex.x, floorTextIndex.y));
+					bufferImage.setPixel(x, windowSize.y-y-1, ceilImage.getPixel(ceilTextIndex.x, ceilTextIndex.y));
+				}
+			}
+			bufferText.loadFromImage(bufferImage);
+			bufferSprite.setTexture(bufferText);
+			cameracomponent.target->draw(bufferSprite);
 			////////////////////Wall Casting////////////////////////////
 			for (int x = 0; x < windowSize.x; x++) {
 				//cameraX is the x-coordinate in the screen space/ camera space
@@ -105,8 +180,8 @@ namespace Systems {
 				double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));;
 				double perpDist;
 				if (angleBetween > 0&&!cameracomponent.fisheye)
-					perpDist = collision.perpindcularDistance * angleBetween;
-				else perpDist = collision.perpindcularDistance;
+					perpDist = collision.distance * angleBetween;
+				else perpDist = collision.distance;
 				//Draw the lines
 				float lineHeight = (windowSize.y) / (perpDist);
 				float drawStart = (-lineHeight + windowSize.y) / 2;
@@ -121,7 +196,6 @@ namespace Systems {
 					texX = textSize.x - texX - 1;
 				textureSlice.setPosition(x, drawStart);
 				textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
-
 				cameracomponent.target->draw(textureSlice);
 			}
 			cameracomponent.target->display();

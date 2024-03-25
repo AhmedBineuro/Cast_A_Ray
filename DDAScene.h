@@ -26,9 +26,6 @@ public:
 		this->onCreate();
 	}
 	virtual void onCreate() override{
-		/**
-		* Additional Code Here
-		*/
 		if (mapList.size() <= 0)
 			return;
 		currentMap = 0;
@@ -39,6 +36,9 @@ public:
 		this->playerTransform = player->getComponent<TransformComponent>();
 		this->cameraComponent = this->player->camera->getComponent<CameraComponent>();
 		playercontroller = this->player->getComponent<PlayerController>();
+		/**
+		* Additional Code Here
+		*/
 	}
 	virtual void onUpdate(float deltaTime) override{
 		Config& config = Config::getConfig();
