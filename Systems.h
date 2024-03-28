@@ -17,3 +17,7 @@ namespace Systems {
 		void OnRender(entt::registry& registry);
 	};
 };
+
+namespace Graphics_Helper {
+
+};

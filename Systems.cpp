@@ -95,15 +95,13 @@ namespace Systems {
 			sf::Vector2u windowSize = cameracomponent.target->getSize();
 			bufferImage.create(windowSize.x, windowSize.y);
 			//Floor Casting
-
-			for (int y = (windowSize.y-1); y > (windowSize.y / 2); y--) {
+			for (int y = (windowSize.y / 2)+1; y < windowSize.y; y++) {
 				sf::Vector2f rayDir0 = transformComponent.rotation - (cameracomponent.plane);
 				sf::Vector2f rayDir1 = transformComponent.rotation + (cameracomponent.plane);
 
 				int p = y - (windowSize.y / 2);
 				float posZ = 0.5f * static_cast<float>(windowSize.y);
 				float rowDistance = posZ / static_cast<float>(p);
-
 				sf::Vector2f floorStep =  (rayDir1 - rayDir0)* rowDistance  / static_cast<float>(windowSize.x);
 				sf::Vector2f floorPos = transformComponent.position + rowDistance * rayDir0;
 
@@ -115,8 +113,8 @@ namespace Systems {
 					else if (tileIndex.x >= mapList[index].floors[tileIndex.y].size()) {
 						continue;
 					}
-					/*if (std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[tileIndex.y][tileIndex.x])== mapList[index].ignoreCollision.end())
-						continue;*/
+					if (std::find(mapList[index].ignoreRaycast.begin(), mapList[index].ignoreRaycast.end(), mapList[index].walls[tileIndex.y][tileIndex.x])== mapList[index].ignoreRaycast.end())
+						continue;
 					int tileFloorTag = mapList[index].floors[tileIndex.y][tileIndex.x];
 					int tileCeilingTag = mapList[index].floors[tileIndex.y][tileIndex.x];
 					if (tileFloorTag != prevFloorTag) {
@@ -187,7 +185,6 @@ namespace Systems {
 				float drawStart = (-lineHeight + windowSize.y) / 2;
 				float drawEnd = (lineHeight + windowSize.y) / 2;
 				float size = drawEnd - drawStart;
-
 				textureSlice.setTexture(&rm.getTexture(mapList[index].wallMapping[collision.tag]));
 				sf::Vector2u textSize = textureSlice.getTexture()->getSize();
 				int texX = textSize.x * collision.u;

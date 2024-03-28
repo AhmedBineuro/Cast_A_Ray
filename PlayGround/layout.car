@@ -42,11 +42,11 @@
         ],
         "floor":
         [
-            {"1":"smallCobble"}
+            {"1":"tinyCobble"}
         ],
         "ceiling":
         [
-            {"1":"smallCobble"}
+            {"1":"tinyCobble"}
         ]
     },
     "ignore raycast":[0],
