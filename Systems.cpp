@@ -1,24 +1,13 @@
 #include "Systems.h"
 namespace Systems {
 
-	void WolfCollisionSystem(entt::registry& registry, std::vector<Map>& mapList) {
-	auto view = registry.view<ColliderComponent, TransformComponent,MapTagComponent>();
+	void WolfCollisionSystem(entt::registry& registry, Map& currentMap) {
+	auto view = registry.view<ColliderComponent, TransformComponent>();
 	//
 	for (auto entity : view) {
 		//Check Collision against map tiles using aabb
 		ColliderComponent& collider = registry.get<ColliderComponent>(entity);
 		TransformComponent& transform = registry.get<TransformComponent>(entity);
-		MapTagComponent& mapTag = registry.get<MapTagComponent>(entity);
-		//Find map index
-		int index = 0;
-		for (auto& map : mapList) {
-			if (map.getMapName() == mapTag.mapName)
-				break;
-			index++;
-		}
-		if (index >= mapList.size()) {
-			continue;
-		}
 		sf::Vector2f size = collider.border.getSize();
 		//Check the borders
 		sf::Vector2f corners[4]={
@@ -28,12 +17,12 @@ namespace Systems {
 			sf::Vector2f(transform.position.x + (size.y / 2.0f), transform.position.y) //Right side
 		};
 		for (int i = 0; i < 4; i++) {
-			if (corners[i].y >= 0 && corners[i].y < mapList[index].walls.size()) {
-					if (corners[i].x < 0 && corners[i].x >= mapList[index].walls[(int)corners[i].y].size())
+			if (corners[i].y >= 0 && corners[i].y < currentMap.walls.size()) {
+					if (corners[i].x < 0 && corners[i].x >= currentMap.walls[(int)corners[i].y].size())
 						continue;
 					//If the tile is not in the ignore list then resolve collision
-					auto iterator = std::find(mapList[index].ignoreCollision.begin(), mapList[index].ignoreCollision.end(), mapList[index].walls[(int)corners[i].y][(int)corners[i].x]);
-					if (iterator == mapList[index].ignoreCollision.end())
+					auto iterator = std::find(currentMap.ignoreCollision.begin(), currentMap.ignoreCollision.end(), currentMap.walls[(int)corners[i].y][(int)corners[i].x]);
+					if (iterator == currentMap.ignoreCollision.end())
 					{
 						sf::Vector2f offSet(0,0);
 						if (i == 0)  //Top Collision
@@ -59,75 +48,48 @@ namespace Systems {
 		
 	}
 	}
-	void DDARenderSystem(entt::registry& registry, std::vector<Map>& mapList) {
-		if (mapList.size() <= 0)
-			return;
+	void DDARenderSystem(entt::registry& registry, Map& currentMap) {
 		Config& config = Config::getConfig();
 		Resource_Manager& rm = Resource_Manager::getResourceManager();
 		sf::RectangleShape textureSlice(sf::Vector2f(1, 10));
-		sf::Texture bufferText;
-		sf::Image bufferImage,floorImage, ceilImage;
-		sf::Image floorText=rm.getTexture("cobble").copyToImage();
-		sf::Sprite bufferSprite;
 		int prevFloorTag=RAND_MAX, prevCeilingTag = RAND_MAX, prevWallTag = RAND_MAX;
-		auto view = registry.view<CameraComponent, MapTagComponent, TransformComponent>();
+		auto view = registry.view<CameraComponent, TransformComponent>();
 		for (auto entity : view) {
 			CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
 			if (!cameracomponent.enabled)
 				continue;
-			MapTagComponent& mapTagComponent = registry.get<MapTagComponent>(entity);
 			TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
-			//Find map index
-			int index = 0;
-			for (auto& map : mapList) {
-				if (map.getMapName() == mapTagComponent.mapName)
-					break;
-				index++;
-			}
-			if (index >= mapList.size()) {
-				continue;
-			}
-			//If outside the real bounds position wise then just exit
-			if (mapList[index].walls.size() <= floor(transformComponent.position.y))
-				continue;
-			else if (mapList[index].walls[floor(transformComponent.position.y)].size() <= transformComponent.position.x)
-				continue;
+			
 			sf::Vector2u windowSize = cameracomponent.target->getSize();
-			bufferImage.create(windowSize.x, windowSize.y);
-			//Floor Casting
+			////Floor Casting
+			/*sf::VertexArray floor(sf::Points);
 			for (int y = (windowSize.y / 2)+1; y < windowSize.y; y++) {
 				sf::Vector2f rayDir0 = transformComponent.rotation - (cameracomponent.plane);
 				sf::Vector2f rayDir1 = transformComponent.rotation + (cameracomponent.plane);
 
 				int p = y - (windowSize.y / 2);
-				float posZ = 0.5f * static_cast<float>(windowSize.y);
+				float posZ = cameracomponent.zHeight * static_cast<float>(windowSize.y);
 				float rowDistance = posZ / static_cast<float>(p);
 				sf::Vector2f floorStep =  (rayDir1 - rayDir0)* rowDistance  / static_cast<float>(windowSize.x);
 				sf::Vector2f floorPos = transformComponent.position + rowDistance * rayDir0;
 
 				for (int x = 0; x < windowSize.x; x++) {
 					sf::Vector2i tileIndex(static_cast<int>(floorPos.x), static_cast<int>(floorPos.y));
-					if (tileIndex.y >= mapList[index].floors.size()) {
+					if (tileIndex.y >= currentMap.floors.size()) {
 						continue;
 					}
-					else if (tileIndex.x >= mapList[index].floors[tileIndex.y].size()) {
+					else if (tileIndex.x >= currentMap.floors[tileIndex.y].size()) {
 						continue;
 					}
-					if (std::find(mapList[index].ignoreRaycast.begin(), mapList[index].ignoreRaycast.end(), mapList[index].walls[tileIndex.y][tileIndex.x])== mapList[index].ignoreRaycast.end())
+					if (std::find(currentMap.ignoreRaycast.begin(), currentMap.ignoreRaycast.end(), currentMap.walls[tileIndex.y][tileIndex.x])== currentMap.ignoreRaycast.end())
 						continue;
-					int tileFloorTag = mapList[index].floors[tileIndex.y][tileIndex.x];
-					int tileCeilingTag = mapList[index].floors[tileIndex.y][tileIndex.x];
-					if (tileFloorTag != prevFloorTag) {
-						sf::Texture& currentText = rm.getTexture(mapList[index].floorMapping[tileFloorTag]);
-						floorImage = currentText.copyToImage();
-						prevFloorTag = tileFloorTag;
-					}
-					if (tileCeilingTag != prevCeilingTag) {
-						sf::Texture& currentText = rm.getTexture(mapList[index].ceilingMapping[tileCeilingTag]);
-						ceilImage = currentText.copyToImage();
-						prevCeilingTag = tileCeilingTag;
-					}
-					sf::Vector2u floorTextSize = floorImage.getSize();
+					int tileFloorTag = currentMap.floors[tileIndex.y][tileIndex.x];
+					int tileCeilingTag = currentMap.floors[tileIndex.y][tileIndex.x];
+					std::string floorTextName = currentMap.floorMapping[tileFloorTag];
+					std::string ceilTextName = currentMap.floorMapping[tileCeilingTag];
+					Graphics_Helper::addImage(ceilTextName);
+					Graphics_Helper::addImage(floorTextName);
+					sf::Vector2u floorTextSize = sf::Vector2u(Graphics_Helper::TextureCache[floorTextName]->getSize().x, Graphics_Helper::TextureCache[floorTextName]->getSize().y);
 					sf::Vector2i floorTextIndex(
 						static_cast<int>((int)(floorTextSize.x * (floorPos.x - tileIndex.x))),
 						static_cast<int>((int)(floorTextSize.y * (floorPos.y - tileIndex.y)))
@@ -141,7 +103,7 @@ namespace Systems {
 					else if (floorTextIndex.y >= floorTextSize.y)
 						floorTextIndex.y = floorTextIndex.y - floorTextSize.y;
 
-					sf::Vector2u ceilTextSize = ceilImage.getSize();
+					sf::Vector2u ceilTextSize = sf::Vector2u(Graphics_Helper::TextureCache[ceilTextName]->getSize());
 					sf::Vector2i ceilTextIndex(
 						static_cast<int>((int)(ceilTextSize.x * (floorPos.x - tileIndex.x))),
 						static_cast<int>((int)(ceilTextSize.y * (floorPos.y - tileIndex.y)))
@@ -156,14 +118,17 @@ namespace Systems {
 						ceilTextIndex.y = ceilTextIndex.y - ceilTextSize.y;
 
 					floorPos = floorPos + floorStep;
+					sf::Vertex vf, vc;
+					vf.position = sf::Vector2f(x, y);
+					vf.color= Graphics_Helper::ImageCache[floorTextName].getPixel(floorTextIndex.x, floorTextIndex.y);
 
-					bufferImage.setPixel(x,y, floorImage.getPixel(floorTextIndex.x, floorTextIndex.y));
-					bufferImage.setPixel(x, windowSize.y-y-1, ceilImage.getPixel(ceilTextIndex.x, ceilTextIndex.y));
+					vc.position = sf::Vector2f(x, windowSize.y - y - 1);
+					vc.color = Graphics_Helper::ImageCache[ceilTextName].getPixel(ceilTextIndex.x, ceilTextIndex.y);
+					floor.append(vf);
+					floor.append(vc);
 				}
 			}
-			bufferText.loadFromImage(bufferImage);
-			bufferSprite.setTexture(bufferText);
-			cameracomponent.target->draw(bufferSprite);
+			cameracomponent.target->draw(floor);*/
 			////////////////////Wall Casting////////////////////////////
 			for (int x = 0; x < windowSize.x; x++) {
 				//cameraX is the x-coordinate in the screen space/ camera space
@@ -171,7 +136,7 @@ namespace Systems {
 
 				sf::Vector2f currentRay = transformComponent.rotation + cameracomponent.plane * (float)cameraX;
 				RaycastUtils::RayCollisionInfo collision;
-				collision = RaycastUtils::castRay(transformComponent.position, sf::getNormalized(currentRay), mapList[index], cameracomponent.renderDistance);
+				collision = RaycastUtils::castRay(transformComponent.position, sf::getNormalized(currentRay), currentMap, cameracomponent.renderDistance);
 
 				if (collision.noHit)
 					continue;
@@ -185,8 +150,12 @@ namespace Systems {
 				float drawStart = (-lineHeight + windowSize.y) / 2;
 				float drawEnd = (lineHeight + windowSize.y) / 2;
 				float size = drawEnd - drawStart;
-				textureSlice.setTexture(&rm.getTexture(mapList[index].wallMapping[collision.tag]));
-				sf::Vector2u textSize = textureSlice.getTexture()->getSize();
+				std::string textName = currentMap.wallMapping[collision.tag];
+				sf::Texture* text=nullptr;
+				Graphics_Helper::addTexture(textName);
+				text = Graphics_Helper::TextureCache[textName];
+				textureSlice.setTexture(text);
+				sf::Vector2u textSize = text->getSize();
 				int texX = textSize.x * collision.u;
 				textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
 				if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
@@ -194,6 +163,7 @@ namespace Systems {
 				textureSlice.setPosition(x, drawStart);
 				textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
 				cameracomponent.target->draw(textureSlice);
+			
 			}
 			cameracomponent.target->display();
 		}
@@ -238,3 +208,28 @@ namespace Systems {
 		}
 	};
 };
+namespace Graphics_Helper {
+	//Returns true if found in cache
+	bool checkImage(std::string name) {
+		return (Graphics_Helper::ImageCache.find(name) != Graphics_Helper::ImageCache.end());
+	}
+
+	//Returns true if found in cache
+	bool checkTexture(std::string name) {
+		return (Graphics_Helper::TextureCache.find(name) != Graphics_Helper::TextureCache.end());
+	}
+
+	void addTexture(std::string name) {
+		Resource_Manager& rm = Resource_Manager::getResourceManager();
+		if (!checkTexture(name))
+			Graphics_Helper::TextureCache[name] = &rm.getTexture(name);
+	}
+	void addImage(std::string name) {
+		Resource_Manager& rm = Resource_Manager::getResourceManager();
+		if (!checkImage(name))
+		{
+			addTexture(name);
+			Graphics_Helper::ImageCache[name] = Graphics_Helper::TextureCache[name]->copyToImage();
+		}
+	}
+}

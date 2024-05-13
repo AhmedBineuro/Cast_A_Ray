@@ -17,12 +17,14 @@ public:
 	void setAngleRAD(float angle); //Absolute rotation
 	void setAngleDEG(float angle);
 	void setRotation(sf::Vector2f rotation);
+	void setZHeight(float zHeight);
 	void linkRenderTarget(sf::RenderTexture* renderTexture);
 	void setEnabled(bool value);
 
 	sf::Vector2f getPosition();
 	int getFOV();
 	float getRenderDistance();
+	float getZHeight();
 protected:
 	CameraComponent* cameraComponent;
 	TransformComponent* transformComponent;

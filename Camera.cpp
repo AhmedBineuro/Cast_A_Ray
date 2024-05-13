@@ -22,6 +22,7 @@ void Camera::setPosition(sf::Vector2f position) {
 }
 void Camera::setFOV(int FOV) {
 	cameraComponent->FOV = FOV;
+	cameraComponent->updatePlane();
 	return;
 }
 void Camera::setRenderDistance(float renderDistance) {
@@ -43,6 +44,9 @@ void Camera::setRotation(sf::Vector2f rotation) {
 	float mag = sf::getLength(this->cameraComponent->plane);
 	this->cameraComponent->plane = sf::getNormalized(sf::getRotated(rotation, -90))*mag;
 }
+void Camera::setZHeight(float zHeight) {
+	cameraComponent->zHeight = zHeight;
+}
 
 void Camera::linkRenderTarget(sf::RenderTexture* renderTexture) {
 	cameraComponent->target = renderTexture;
@@ -59,4 +63,7 @@ int Camera::getFOV() {
 }
 float Camera::getRenderDistance() {
 	return getComponent<CameraComponent>()->renderDistance;
+}
+float Camera::getZHeight() {
+	return cameraComponent->zHeight;
 }

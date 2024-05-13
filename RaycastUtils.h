@@ -128,5 +128,4 @@ namespace RaycastUtils {
 
     return output;
 }
-
 }
