@@ -117,8 +117,8 @@ namespace RaycastUtils {
     //Get distances and wall coordinates
     if (output.side) {
         //output.distance = yDist;
-        if(std::isinf(yDist)|| std::isnan(yDist))
-            std::cout << "yDist " << yDist << std::endl;
+        //if(std::isinf(yDist)|| std::isnan(yDist))
+        //    std::cout << "yDist " << yDist << std::endl;
         output.perpindcularDistance = yDist - axisWeightY;
         output.u = (output.perpindcularDistance * ray.x+ position.x)-originalPosition.x;
     }

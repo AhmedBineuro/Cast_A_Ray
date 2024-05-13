@@ -124,6 +124,9 @@ public:
 				ImGui::InputFloat("Render Distance", &this->cameraComponent->renderDistance);
 				ImGui::EndTabItem();
 			}
+			if (ImGui::SliderFloat("FOV", &this->cameraComponent->FOV, 10.0f, 150.0f,"%.1f")) {
+				this->cameraComponent->updatePlane();
+			}
 			ImGui::EndTabBar();
 		}
 		ImGui::End();
