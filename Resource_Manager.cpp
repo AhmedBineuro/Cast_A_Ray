@@ -2,7 +2,7 @@
 Resource_Manager Resource_Manager::m_singleton;
 Resource_Manager::Resource_Manager() {
 	std::shared_ptr<sf::Texture> defaultTexture = std::make_shared<sf::Texture>();
-	if (!defaultTexture->loadFromFile("no_text.png")) {
+	if (!defaultTexture->loadFromFile("./no_text.png")) {
 		throw std::runtime_error("Failed to load default texture.");
 	}
 	// Store the default texture in the textureMap with a key like "default" or "default_texture".
@@ -11,9 +11,14 @@ Resource_Manager::Resource_Manager() {
 	std::shared_ptr<sf::Font> defaultFont = std::make_shared<sf::Font>();
 	//Little easter egg/debug image
 	if (!defaultFont->loadFromFile("./CourierPrime-Regular.ttf")) {
-		throw std::runtime_error("Failed to load default texture.");
+		throw std::runtime_error("Failed to load default font.");
 	}
-	this->fontMap["DEF_LOG"] = Font_Container{ defaultFont};
+	this->fontMap["DEF_LOG"] = Font_Container{defaultFont};
+	std::shared_ptr<sf::Image> defaultImage= std::make_shared<sf::Image>();
+	if (!defaultImage->loadFromFile("./no_text.png")) {
+		throw std::runtime_error("Failed to load default image.");
+	}
+	this->imageMap["DEF_IMG"] = Image_Container{ defaultImage };
 	ResourceLoadingInfo rli;
 	rli.name = "PlayerSprite";
 	rli.type = "texture";
@@ -53,7 +58,14 @@ sf::Font& Resource_Manager::getFont(std::string name) {
 	if (this->fontMap.find(name) != this->fontMap.end())
 		return *(fontMap.at(name).font);
 	else
-		throw* (fontMap.at("DEF_LOG").font);
+		return * (fontMap.at("DEF_LOG").font);
+}
+sf::Image& Resource_Manager::getImage(std::string name) {
+
+	if (this->imageMap.find(name) != this->imageMap.end())
+		return *(imageMap.at(name).image);
+	else
+		return *(imageMap.at("DEF_IMG").image);
 }
 
 void Resource_Manager::processResourceList(std::string mapName,std::vector<ResourceLoadingInfo> resourceList,  float* progress_percentage) {
@@ -105,6 +117,13 @@ void Resource_Manager::loadResource(ResourceLoadingInfo resourceInfo) {
 		this->fontMap[resourceInfo.name] = Font_Container();
 		this->fontMap[resourceInfo.name].font = std::make_shared<sf::Font>();
 		if (!this->fontMap[resourceInfo.name].font->loadFromFile(resourceInfo.URL)) {
+			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
+		}
+	}
+	else if (resourceInfo.type == "image") {
+		this->imageMap[resourceInfo.name] = Image_Container();
+		this->imageMap[resourceInfo.name].image = std::make_shared<sf::Image>();
+		if (!this->imageMap[resourceInfo.name].image->loadFromFile(resourceInfo.URL)) {
 			std::cout << "Failed to load resource: " << resourceInfo.name << " type:" << resourceInfo.type << std::endl;
 		}
 	}

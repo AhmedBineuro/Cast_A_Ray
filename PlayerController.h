@@ -3,7 +3,7 @@
 #include "Actor.h"
 #include "CoreComponents.h"
 #include "Camera.h"
-#define AVAILABLE_KEYS 7
+#define AVAILABLE_KEYS 9
 //Add more controls into the enum
 enum Keybinds
 {
@@ -13,6 +13,8 @@ enum Keybinds
     RIGHT,
     LOOK_RIGHT,
     LOOK_LEFT,
+    LOOK_UP,
+    LOOK_DOWN,
     SPRINT
 };
 
@@ -47,6 +49,8 @@ protected:
         sf::Keyboard::D,
         sf::Keyboard::Right,
         sf::Keyboard::Left,
+        sf::Keyboard::Up,
+        sf::Keyboard::Down,
         sf::Keyboard::LShift
     };
 };

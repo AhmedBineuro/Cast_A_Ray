@@ -32,6 +32,7 @@ public:
 	std::unordered_map<int, std::string> ceilingMapping;
 	std::vector<int> ignoreRaycast;
 	std::vector<int> ignoreCollision;
+	std::vector<int> transparent;
 	sf::RectangleShape tileSprite;
 private:
 	void loadResources();

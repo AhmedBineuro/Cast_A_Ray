@@ -8,7 +8,7 @@ namespace RaycastUtils {
 		int side; // 0 for East/West or 1 for North/South
 		int tag; // the block tag 
 		//double distance; // The raw distance to the collision point
-		double perpindcularDistance; // The perpindicular distance [1/(Ray Direction in X or Y)]
+		double distance; // The distance to the collision point
 		float u; // The u coordinate of the collision
 	};
 	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, const Map& m,float renderDistance=200.0f){
@@ -116,23 +116,16 @@ namespace RaycastUtils {
     }
     //Get distances and wall coordinates
     if (output.side) {
-        //output.distance = yDist;
-        //if(std::isinf(yDist)|| std::isnan(yDist))
-        //    std::cout << "yDist " << yDist << std::endl;
-        output.perpindcularDistance = yDist - axisWeightY;
-        output.u = (output.perpindcularDistance * ray.x+ position.x)-originalPosition.x;
+        output.distance = yDist-axisWeightY ;
+        output.u = (output.distance * ray.x+ position.x)-originalPosition.x;
     }
     else {
-        //output.distance = xDist;
-        if (std::isinf(xDist) || std::isnan(xDist))
-            std::cout << "xDist " << xDist << std::endl;
-        output.perpindcularDistance = xDist - axisWeightX;
-        output.u = (output.perpindcularDistance * ray.y + position.y)- originalPosition.y;
+        output.distance = xDist - axisWeightX;
+        output.u = (output.distance * ray.y + position.y)- originalPosition.y;
     }
     output.u-=floor(output.u);
     output.u += 1 * (output.u < 0);
 
     return output;
 }
-
 }

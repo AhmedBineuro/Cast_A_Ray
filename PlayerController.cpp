@@ -46,6 +46,11 @@ void PlayerController::OnUpdate(float deltaTime){
 			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT]))
 				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
 
+			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_UP]))
+				this->camera->setZHeight(this->camera->getZHeight() - 0.01f);
+			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
+				this->camera->setZHeight(this->camera->getZHeight() + 0.01f);
+
 			if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
 				velocity = sf::getNormalized(velocity) * this->controllableComponent->maxSpeed;
 			}

@@ -56,6 +56,9 @@ std::string Map::getMapName() {
 }
 
 
+/*
+* @TODO Have to change this to allow for multiple maps to share same resource files
+*/
 void Map::loadResources() {
 	if (name == "")
 		return;
@@ -148,6 +151,7 @@ void Map::processMapFile() {
 		}
 		ignoreRaycast = data["ignore raycast"].get<std::vector<int>>();
 		ignoreCollision = data["ignore collision"].get<std::vector<int>>();
+		transparent = data["transparent"].get<std::vector<int>>(); // TODO USE FOR TRANSPARENCY
 	}
 	catch (const nlohmann::json::parse_error& e) {
 		std::cerr << "Parsing error: " << e.what() << '\n';

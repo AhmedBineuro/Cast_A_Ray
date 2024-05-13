@@ -12,33 +12,24 @@ public:
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
 		this->player->camera->linkRenderTarget(&this->canvas);
-		this->mapList.resize(0);
+		this->map = Map();
 		this->onCreate();
 	}
-	DDAScene(std::vector<std::string>mapNames) :Scene2D() {
-		this->mapList.resize(0);
+	DDAScene(std::string mapName) :Scene2D() {
+		this->map = Map(mapName);
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
 		this->player->camera->linkRenderTarget(&this->canvas);
-		for (auto& name : mapNames) {
-			mapList.push_back(Map(name));
-		}
 		this->onCreate();
 	}
 	virtual void onCreate() override{
-		/**
-		* Additional Code Here
-		*/
-		if (mapList.size() <= 0)
-			return;
 		currentMap = 0;
-		MapTagComponent tag;
-		tag.mapName = mapList[currentMap].getMapName();
-		this->player->addComponent(tag);
-		this->player->camera->addComponent(tag);
 		this->playerTransform = player->getComponent<TransformComponent>();
 		this->cameraComponent = this->player->camera->getComponent<CameraComponent>();
 		playercontroller = this->player->getComponent<PlayerController>();
+		/**
+		* Additional Code Here
+		*/
 	}
 	virtual void onUpdate(float deltaTime) override{
 		Config& config = Config::getConfig();
@@ -49,7 +40,7 @@ public:
 			this->canvas.create(window.x, window.y);
 		}
 		Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
-		Systems::WolfCollisionSystem(registry, mapList);
+		Systems::WolfCollisionSystem(registry, map);
 		/**
 		* Additional Code Here
 		*/
@@ -65,7 +56,7 @@ public:
 		Config& config = Config::getConfig();
 		Settings settings = config.getSettings();
 		canvas.clear();
-		Systems::DDARenderSystem(registry, mapList);
+		Systems::DDARenderSystem(registry, map);
 		//this->mapList[currentMap].draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
 		Systems::EntityScriptSystem::OnRender(registry);
@@ -80,29 +71,6 @@ public:
 		/**
 		* Additional Code Here
 		 */
-	}
-	// @ TODO Basically the maps don't bind and I want to switch 
-	// from using an unordered map in the system, to using a reference to 
-	// the vector of maps
-	void changeMap(std::string mapName) {
-		int i = 0;
-		for (auto& map : this->mapList) {
-			if (map.getMapName() == mapName)
-				break;
-			i++;
-		}
-		if (i >= this->mapList.size()) {
-			return;
-		}
-		MapTagComponent newTag;
-		newTag.mapName = mapName;
-		if (this->player->hasComponent< MapTagComponent>())
-			this->player->replaceComponent<MapTagComponent>(newTag);
-		else this->player->addComponent(newTag);
-		if (this->player->camera->hasComponent< MapTagComponent>())
-			this->player->camera->replaceComponent<MapTagComponent>(newTag);
-		else this->player->camera->addComponent(newTag);
-		currentMap = i;
 	}
 	virtual void renderDebug() override{
 		ImGui::Begin("Player settings");
@@ -140,7 +108,7 @@ protected:
 	TransformComponent* playerTransform;
 	CameraComponent* cameraComponent;
 	sf::RenderTexture playerScreen;
-	std::vector<Map> mapList;
+	Map map;
 	int currentMap;
 	std::shared_ptr<Player> player;
 };

@@ -18,6 +18,9 @@ struct Music_Container {
 struct Font_Container {
 	std::shared_ptr<sf::Font> font;
 };
+struct Image_Container {
+	std::shared_ptr<sf::Image> image;
+};
 class Resource_Manager {
 
 public:
@@ -41,16 +44,24 @@ public:
 	/**
 	* @brief Function to get a sound resource using it's name
 	* @param name the name of the resource
-	* @returns a copy to the sound object
+	* @returns a reference to the sound object
 	*/
 	sf::Sound& getSound(std::string name);
 
 	/**
 	* @brief Function to get a font resource using it's name
 	* @param name the name of the resource
-	* @returns a copy to the font object
+	* @returns a reference to the font object
 	*/
 	sf::Font& getFont(std::string name);
+
+	/**
+	* @brief Function to get a font resource using it's name
+	* @param name the name of the resource
+	* @returns a reference to the font object
+	*/
+	sf::Image& getImage(std::string name);
+
 	/**
 	* @brief Function to process a resource list for a given map
 	* The function will load all the unloaded resources and save the dependencies for the map
@@ -76,6 +87,7 @@ private:
 	std::unordered_map<std::string, Sound_Container> soundMap;
 	std::unordered_map<std::string, Music_Container> musicMap;
 	std::unordered_map<std::string, Font_Container> fontMap;
+	std::unordered_map<std::string, Image_Container> imageMap;
 	// Private constructor for singleton instance
 	Resource_Manager();
 	// Private copy constructor and assignment operator to prevent copy

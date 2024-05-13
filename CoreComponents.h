@@ -44,16 +44,17 @@ struct CameraComponent {
     sf::RenderTexture* target;
     float zHeight;
     bool enabled,fisheye=false;
-    CameraComponent(float fov=90.0f, float distance=400.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
-        : FOV(fov), renderDistance(distance),target(targetTexture), zHeight(zHeight){
+
+    CameraComponent(float fov=90.0f, float renderDistance=400.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
+        : FOV(fov), renderDistance(renderDistance),target(targetTexture), zHeight(zHeight){
         enabled = true;
         // Add rays = std::make_unique<sf::VertexArray>(...);
-        //plane=sf::Vector2f(0,0.66f);
         updatePlane();
     }
     void updatePlane() {
-        plane = sf::Vector2f(1, 0);
-        float width = (float)tan(FOV * ((float)M_PI) / 360.0f);
+        plane = sf::Vector2f(1, 1);
+        float width = (float)tan((float)FOV * M_PI / 360.0f);
+        sf::normalize(plane);
         plane *= width;
     }
 };
