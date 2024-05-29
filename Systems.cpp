@@ -63,13 +63,13 @@ namespace Systems {
 			sf::Vector2u windowSize = cameracomponent.target->getSize();
 			////Floor Casting
 			/*sf::VertexArray floor(sf::Points);
-			for (int y = (windowSize.y / 2)+1; y < windowSize.y; y++) {
+			for (int y = (windowSize.y / 2); y < windowSize.y; y++) {
 				sf::Vector2f rayDir0 = transformComponent.rotation - (cameracomponent.plane);
 				sf::Vector2f rayDir1 = transformComponent.rotation + (cameracomponent.plane);
 
-				int p = y - (windowSize.y / 2);
+				float p = static_cast<float>(y) - (static_cast<float>(windowSize.y) * cameracomponent.zHeight);
 				float posZ = cameracomponent.zHeight * static_cast<float>(windowSize.y);
-				float rowDistance = posZ / static_cast<float>(p);
+				float rowDistance = posZ / p;
 				sf::Vector2f floorStep =  (rayDir1 - rayDir0)* rowDistance  / static_cast<float>(windowSize.x);
 				sf::Vector2f floorPos = transformComponent.position + rowDistance * rayDir0;
 
@@ -130,6 +130,7 @@ namespace Systems {
 			}
 			cameracomponent.target->draw(floor);*/
 			////////////////////Wall Casting////////////////////////////
+			sf::VertexArray floor(sf::Points);
 			for (int x = 0; x < windowSize.x; x++) {
 				//cameraX is the x-coordinate in the screen space/ camera space
 				float cameraX = 2 * x / float(windowSize.x) - 1;
@@ -147,8 +148,8 @@ namespace Systems {
 				else perpDist = collision.distance;
 				//Draw the lines
 				float lineHeight = (windowSize.y) / (perpDist);
-				float drawStart = (-lineHeight + windowSize.y) / 2;
-				float drawEnd = (lineHeight + windowSize.y) / 2;
+				float drawStart = (-lineHeight + windowSize.y) *cameracomponent.zHeight;
+				float drawEnd = (lineHeight + windowSize.y) *cameracomponent.zHeight;
 				float size = drawEnd - drawStart;
 				std::string textName = currentMap.wallMapping[collision.tag];
 				sf::Texture* text=nullptr;
@@ -163,11 +164,51 @@ namespace Systems {
 				textureSlice.setPosition(x, drawStart);
 				textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
 				cameracomponent.target->draw(textureSlice);
-			
+				
+				float floorXWall, floorYWall;
+				if (collision.side == 0 && currentRay.x > 0)
+				{
+					floorXWall = transformComponent.position.x;
+					floorYWall = transformComponent.position.y + static_cast<float>(collision.wallPosition.y);
+				}
+				else if (collision.side == 0 && currentRay.x < 0)
+				{
+					floorXWall = transformComponent.position.x+1.0f;
+					floorYWall = transformComponent.position.y + static_cast<float>(collision.wallPosition.y);
+				}
+				else if (collision.side == 1 && currentRay.x > 0)
+				{
+					floorXWall = transformComponent.position.x + static_cast<float>(collision.wallPosition.x);
+					floorYWall = transformComponent.position.y;
+				}
+				else
+				{
+					floorXWall = transformComponent.position.x + static_cast<float>(collision.wallPosition.x);
+					floorYWall = transformComponent.position.y +1.0f;
+				}
+				float distWall, distPlayer, currentDist;
+				distWall = perpDist;
+				distPlayer = 0.0f;
+				if (drawEnd < 0) drawEnd = windowSize.y;
+
+				for (int y = drawEnd + 1; y < windowSize.y; y++) {
+					currentDist = windowSize.y / (2.0f * y - static_cast<float>(windowSize.y));
+					float weight = (currentDist - distPlayer) / (distWall - distPlayer);
+					float currentFloorX = weight * floorXWall + (1.0 - weight) * transformComponent.position.x;
+					float currentFloorY = weight * floorYWall + (1.0 - weight) * transformComponent.position.y;
+					int floorTexX, floorTexY;
+					floorTexX = int(currentFloorX * textSize.x) % textSize.x;
+					floorTexY = int(currentFloorY * textSize.y) % textSize.y;
+					//ADD FLOOR DRAWING USING floor VERTEXARRAY
+				}
 			}
 			cameracomponent.target->display();
 		}
 	}
+
+
+
+
 	void RenderSystem2D(entt::registry& registry,sf::RenderTexture& renderTarget) {
 		//Get the list of entities with this component
 		auto view = registry.view<RenderComponent, SpriteComponent, TransformComponent>();
@@ -229,7 +270,7 @@ namespace Graphics_Helper {
 		if (!checkImage(name))
 		{
 			addTexture(name);
-			Graphics_Helper::ImageCache[name] = Graphics_Helper::TextureCache[name]->copyToImage();
+			Graphics_Helper::ImageCache[name] = rm.getImage(name);
 		}
 	}
 }

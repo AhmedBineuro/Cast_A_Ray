@@ -45,10 +45,9 @@ struct CameraComponent {
     float zHeight;
     bool enabled,fisheye=false;
 
-    CameraComponent(float fov=90.0f, float renderDistance=400.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
+    CameraComponent(float fov=35.0f, float renderDistance=400.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
         : FOV(fov), renderDistance(renderDistance),target(targetTexture), zHeight(zHeight){
         enabled = true;
-        // Add rays = std::make_unique<sf::VertexArray>(...);
         updatePlane();
     }
     void updatePlane() {

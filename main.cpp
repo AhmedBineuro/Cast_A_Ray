@@ -3,6 +3,8 @@
 #include <iostream>
 #include "Application.h"
 #include "DDAScene.h"
+//For Release
+//#include <windows.h>
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
     if (MainApplication != nullptr){
@@ -20,6 +22,7 @@ bool switchScenes(std::string sceneName) {
 *       - [ ] Empty Components file (Special for each project)
 *       - [ ] And just the main function (To add the scenes and other stuff)
 */
+//For Debug
 int main(){
     srand(time(NULL));
     Application mainApp("PlayGround");
@@ -39,5 +42,25 @@ int main(){
     mainApp.run();
     return 0;
 }
+//For Release
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+//    srand(time(NULL));
+//    Application mainApp("PlayGround");
+//    MainApplication = &mainApp;
+//    mainApp.setWindowIcon("./cubelogo.png");
+//    Resource_Manager& rm = Resource_Manager::getResourceManager();
+//    ResourceLoadingInfo rli;
+//    rli.name = "Casta";
+//    rli.type = "texture";
+//    rli.URL = "./casta.png";
+//    rm.loadResource(rli);
+//    rli.name = "PlayerSprite";
+//    rli.URL = "./Player.png";
+//    rm.loadResource(rli);
+//    DDAScene p1("PlayGround");
+//    mainApp.addScene("WolfScene", &p1);
+//    mainApp.run();
+//    return 0;
+//}
 
 

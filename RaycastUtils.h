@@ -10,6 +10,7 @@ namespace RaycastUtils {
 		//double distance; // The raw distance to the collision point
 		double distance; // The distance to the collision point
 		float u; // The u coordinate of the collision
+        sf::Vector2i wallPosition;
 	};
 	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, const Map& m,float renderDistance=200.0f){
     RaycastUtils::RayCollisionInfo output;
@@ -27,10 +28,6 @@ namespace RaycastUtils {
     //Reversed because the array is divided into rows of elements in a 2D matrix 
     sf::Vector2i originalPosition((int)position.x, (int)position.y);
     sf::Vector2i tileIndex((int)position.y, (int)position.x); // Will be manipulated
-
-    /*double axisWeightX = sqrt(1 + (direction.y * direction.y) / (direction.x * direction.x));
-    double axisWeightY = sqrt(1 + (direction.x * direction.x) / (direction.y * direction.y));
-    */
     double axisWeightX, axisWeightY;
     if (direction.x != 0)
     {
@@ -114,6 +111,7 @@ namespace RaycastUtils {
             hit = true;
         }
     }
+    output.wallPosition = tileIndex;
     //Get distances and wall coordinates
     if (output.side) {
         output.distance = yDist-axisWeightY ;
