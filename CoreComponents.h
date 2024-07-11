@@ -45,7 +45,7 @@ struct CameraComponent {
     float zHeight;
     bool enabled,fisheye=false;
 
-    CameraComponent(float fov=35.0f, float renderDistance=400.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
+    CameraComponent(float fov=35.0f, float renderDistance=10.0f,sf::RenderTexture* targetTexture=nullptr, float zHeight= 0.5f)
         : FOV(fov), renderDistance(renderDistance),target(targetTexture), zHeight(zHeight){
         enabled = true;
         updatePlane();
@@ -65,7 +65,7 @@ struct MapTagComponent {
 struct ColliderComponent {
     sf::FloatRect border;
     bool isTrigger,enabled;
-    ColliderComponent(sf::Vector2f position=sf::Vector2f(),sf::Vector2f size= sf::Vector2f(5,5)) {
+    ColliderComponent(sf::Vector2f position=sf::Vector2f(),sf::Vector2f size= sf::Vector2f(2,2)) {
         border = sf::FloatRect(position-(size/2.0f), size);
         isTrigger = false;
         enabled = true;

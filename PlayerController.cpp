@@ -10,7 +10,6 @@ PlayerController::PlayerController() {
 PlayerController::PlayerController(Entity* player, Camera& camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
-	this->playerSprite = player->getComponent<SpriteComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponet>();
 	this->colliderComponent = player->getComponent<ColliderComponent>();
 	this->camera = &camera;
@@ -47,9 +46,9 @@ void PlayerController::OnUpdate(float deltaTime){
 				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
 
 			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_UP]))
-				this->camera->setZHeight(this->camera->getZHeight() - 0.01f);
-			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
 				this->camera->setZHeight(this->camera->getZHeight() + 0.01f);
+			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
+				this->camera->setZHeight(this->camera->getZHeight() - 0.01f);
 
 			if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
 				velocity = sf::getNormalized(velocity) * this->controllableComponent->maxSpeed;
@@ -62,9 +61,6 @@ void PlayerController::OnUpdate(float deltaTime){
 			colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
 			colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
 
-			//Update sprite
-			playerSprite->sprite.setPosition(playerTransform->position);
-			playerSprite->sprite.setRotation(sf::getRotationAngle(playerTransform->rotation));
 			camera->setPosition(playerTransform->position);
 			camera->setRotation(playerTransform->rotation);
 		}

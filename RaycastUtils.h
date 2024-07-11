@@ -5,6 +5,7 @@
 namespace RaycastUtils {
 	struct RayCollisionInfo {
 		bool noHit=false;// True if the ray didn't collide with anything
+        bool outOfBounds = false;
 		int side; // 0 for East/West or 1 for North/South
 		int tag; // the block tag 
 		//double distance; // The raw distance to the collision point
@@ -109,6 +110,7 @@ namespace RaycastUtils {
         else {
             output.noHit = true;
             hit = true;
+            output.outOfBounds = true;
         }
     }
     output.wallPosition = tileIndex;

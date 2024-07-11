@@ -33,7 +33,7 @@ void Map::draw(sf::RenderTarget& renderTarget,sf::Vector2f topleftPosition) {
 		for (int j = 0; j < walls[i].size(); j++) {
 			std::string textureName;
 			bool floor = false;
-			//If it is not in the ignore list, draw it
+			//If it is not in the ignore list, draw it as a floor tile
 			if (std::find(this->ignoreRaycast.begin(), this->ignoreRaycast.end(), walls[i][j]) != this->ignoreRaycast.end()) 
 			{
 				floor = true;
@@ -44,9 +44,10 @@ void Map::draw(sf::RenderTarget& renderTarget,sf::Vector2f topleftPosition) {
 			}
 			rm.getTexture(textureName).setRepeated(true);
 			tileSprite.setTexture(&(rm.getTexture(textureName)));
-			if (floor) tileSprite.setFillColor(sf::Color(255, 255, 255, 50));
-			else tileSprite.setFillColor(sf::Color(255, 255, 255, 255));
+			if (floor) tileSprite.setFillColor(sf::Color(150, 150, 150));
+			else tileSprite.setFillColor(sf::Color(255, 255, 255));
 			tileSprite.setPosition(topleftPosition.x+(j*tileSprite.getSize().x), topleftPosition.y + (i * tileSprite.getSize().y));
+
 			renderTarget.draw(tileSprite);
 		}
 	}

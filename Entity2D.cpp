@@ -17,7 +17,6 @@ Entity2D::Entity2D(entt::registry* registry):Entity(registry){
 	rli.URL = "./casta.png";
 	rm.loadResource(rli);
 	this->setSpriteTexture(rm.getTexture("Casta"));
-	this->size = sf::Vector2f(1, 1);
 	setSize(size);
 	this->spriteComponent->sprite.setPosition(400, 400);
 	sf::Vector2u textSize = this->spriteComponent->sprite.getTexture()->getSize();
