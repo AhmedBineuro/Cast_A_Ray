@@ -66,11 +66,28 @@ void Player::draw(sf::RenderTarget &canvas, sf::Vector2f tileSize) {
 	sf::VertexArray line = sf::VertexArray(sf::Lines, 2);
 	line[0] = sf::Vertex();
 	line[1] = sf::Vertex();
-	line[0].position =sf::Vector2f(this->transformComponent->position.x* tileSize.x, this->transformComponent->position.y * tileSize.y);
-	line[1].position = sf::Vector2f((this->transformComponent->position.x+ this->transformComponent->rotation.x) * tileSize.x, (this->transformComponent->position.y + this->transformComponent->rotation.y) * tileSize.y );
+	line[0].position =sf::Vector2f(
+		this->transformComponent->position.x* tileSize.x,
+		this->transformComponent->position.y * tileSize.y
+	);
+	line[1].position = sf::Vector2f(
+		(this->transformComponent->position.x+ this->transformComponent->rotation.x) * tileSize.x,
+		(this->transformComponent->position.y + this->transformComponent->rotation.y) * tileSize.y 
+	);
 	line[0].color = sf::Color::Yellow;
 	line[1].color = sf::Color::Yellow;
 	canvas.draw(this->spriteComponent->sprite);
+	canvas.draw(line);
+	CameraComponent* cam = this->camera->getComponent<CameraComponent>();
+	line[1].position = sf::Vector2f(
+		(this->transformComponent->position.x + this->transformComponent->rotation.x+cam->plane.x) * tileSize.x,
+		(this->transformComponent->position.y + this->transformComponent->rotation.y + cam->plane.y) * tileSize.y
+	);
+	canvas.draw(line);
+	line[1].position = sf::Vector2f(
+		(this->transformComponent->position.x + this->transformComponent->rotation.x - cam->plane.x) * tileSize.x,
+		(this->transformComponent->position.y + this->transformComponent->rotation.y - cam->plane.y) * tileSize.y
+	);
 	canvas.draw(line);
 }
 void Player::setSpriteTexture(sf::Texture& texture) {

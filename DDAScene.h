@@ -57,11 +57,10 @@ public:
 		Settings settings = config.getSettings();
 		canvas.clear();
 		Systems::DDARenderSystem::renderWalls(registry, map);
-		//this->mapList[currentMap].draw(canvas);
 		this->map.draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
 		this->player->draw(canvas,sf::Vector2f(50,50));
-		//Systems::EntityScriptSystem::OnRender(registry);
+		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
 		/**
 		* Additional Code Here
