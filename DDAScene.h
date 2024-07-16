@@ -74,6 +74,10 @@ public:
 		 */
 	}
 	virtual void renderDebug() override{
+		for (auto entity: this->entities)
+		{
+
+		}
 		ImGui::Begin("Player settings");
 		if (ImGui::BeginTabBar("Player Properties"))
 		{

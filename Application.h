@@ -29,6 +29,7 @@ private:
 	sf::Clock clock;
 	sf::Time deltaTime,fixedDeltaTime,cumulatedTime;
 	sf::RenderWindow window;
+	sf::RenderTexture canvas;
 	Settings settings;
 
 	std::string appName;

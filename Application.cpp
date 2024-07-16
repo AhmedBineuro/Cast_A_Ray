@@ -137,6 +137,8 @@ void Application::run() {
 			if (event.type == sf::Event::Resized)
 			{
 				window.setSize(sf::Vector2u(settings.width, settings.height));
+
+				canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
 		//////// CTRL+F3 FOR SETTINGS
@@ -153,6 +155,7 @@ void Application::run() {
 		////////////////////////////////
 		update();
 		window.clear();
+		canvas.clear();
 		render();
 		if(showSettings)
 			renderSettings(fixedDeltaTimeGUI,config);
@@ -165,6 +168,7 @@ void Application::run() {
 void Application::render() {
 	if (sceneList.find(currentScene) != sceneList.end())
 		window.draw(sceneList[currentScene]->onRender());
+	canvas.draw(sceneList[currentScene]->onRender());
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::SFML::Update(window, deltaTime);
