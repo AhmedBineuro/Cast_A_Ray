@@ -10,7 +10,7 @@ PlayerController::PlayerController() {
 PlayerController::PlayerController(Entity* player, Camera& camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
-	this->controllableComponent = player->getComponent<ControllableComponet>();
+	this->controllableComponent = player->getComponent<ControllableComponent>();
 	this->colliderComponent = player->getComponent<ColliderComponent>();
 	this->camera = &camera;
 }
@@ -75,7 +75,7 @@ void PlayerController::setSensitivity(float sensitivity){}
 void PlayerController::setPlayer(Entity* player, Camera& camera) {
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->playerSprite = player->getComponent<SpriteComponent>();
-	this->controllableComponent = player->getComponent<ControllableComponet>();
+	this->controllableComponent = player->getComponent<ControllableComponent>();
 	this->camera = &camera;
 }
 void PlayerController::setMovementMultiplier(float movementMultiplier) {

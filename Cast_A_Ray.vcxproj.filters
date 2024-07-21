@@ -209,8 +209,8 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
-    <ClInclude Include="Component_ImGUI.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="CSet.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@ namespace Systems {
 			ColliderComponent& collider = registry.get<ColliderComponent>(entity);
 			TransformComponent& transform = registry.get<TransformComponent>(entity);
 			sf::Vector2f size = collider.border.getSize();
+			if (!collider.enabled)
+				continue;
 			//Check the borders
 			sf::Vector2f corners[4]={
 				sf::Vector2f(transform.position.x , transform.position.y - (size.y / 2.0f)), //Top side

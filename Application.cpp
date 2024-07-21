@@ -158,7 +158,10 @@ void Application::run() {
 		canvas.clear();
 		render();
 		if(showSettings)
-			renderSettings(fixedDeltaTimeGUI,config);
+		{
+			ImGui::SFML::Update(window, deltaTime);
+			renderSettings(fixedDeltaTimeGUI, config);
+		}
 
 		window.display();
 	}
@@ -171,8 +174,8 @@ void Application::render() {
 	canvas.draw(sceneList[currentScene]->onRender());
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
-	ImGui::SFML::Update(window, deltaTime);
 	// This is all just to render the settings widget//
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
@@ -210,9 +213,14 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
 		}
 	}
-	ImGui::End();
 	if(showSceneDebug)
-		this->sceneList[currentScene]->renderDebug();
+	{
+		if (ImGui::BeginTabBar("Settings")) {
+			this->sceneList[currentScene]->renderDebug();
+			ImGui::EndTabBar();
+		}
+	}
+	ImGui::End();
 	ImGui::SFML::Render(window);
 }
 

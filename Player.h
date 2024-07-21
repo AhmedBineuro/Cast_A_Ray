@@ -13,7 +13,7 @@ public:
 	Camera* camera;
 	~Player();
 protected:
-	ControllableComponet* controllable;
+	ControllableComponent* controllable;
 	ColliderComponent* colliderComponent;
 	SpriteComponent* spriteComponent;
 	TransformComponent* transformComponent;

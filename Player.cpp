@@ -14,9 +14,9 @@ Player::Player(entt::registry* registry) :Entity(registry){
 	sf::Vector2f spriteSize = sf::Vector2f(25, 25);
 	setSpriteSize(spriteSize);
 
-	this->addComponent(ControllableComponet());
+	this->addComponent(ControllableComponent());
 	this->transformComponent->rotation = sf::Vector2f(1, 0);
-	this->controllable = this->getComponent<ControllableComponet>();
+	this->controllable = this->getComponent<ControllableComponent>();
 	this->camera = new Camera(registry, this->transformComponent->position, this->transformComponent->rotation);
 	this->addComponent(ColliderComponent(transformComponent->position, sf::Vector2f(0.5f, 0.5f)));
 	colliderComponent = this->getComponent<ColliderComponent>();
@@ -38,9 +38,9 @@ Player::Player(entt::registry* registry, sf::Vector2f position) :Entity(registry
 	sf::Vector2f spriteSize = sf::Vector2f(25, 25);
 	setSpriteSize(spriteSize);
 
-	this->addComponent(ControllableComponet());
+	this->addComponent(ControllableComponent());
 	this->transformComponent->rotation = sf::Vector2f(1, 0);
-	this->controllable = this->getComponent<ControllableComponet>();
+	this->controllable = this->getComponent<ControllableComponent>();
 	this->camera = new Camera(registry, this->transformComponent->position, this->transformComponent->rotation);
 	this->addComponent(ColliderComponent(transformComponent->position, sf::Vector2f(0.5f, 0.5f)));
 	colliderComponent = this->getComponent<ColliderComponent>();
