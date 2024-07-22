@@ -56,9 +56,10 @@ public:
 		Config& config = Config::getConfig();
 		Settings settings = config.getSettings();
 		canvas.clear();
-		Systems::DDARenderSystem(registry, map);
-		//this->mapList[currentMap].draw(canvas);
+		Systems::DDARenderSystem::renderWalls(registry, map);
+		this->map.draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
+		this->player->draw(canvas,sf::Vector2f(50,50));
 		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
 		/**
@@ -72,29 +73,36 @@ public:
 		* Additional Code Here
 		 */
 	}
-	virtual void renderDebug() override{
-		ImGui::Begin("Player settings");
-		if (ImGui::BeginTabBar("Player Properties"))
-		{
-			if (ImGui::BeginTabItem("Transform")) {
-				ImGui::Text("Position:");
-				ImGui::InputFloat("X:", &this->playerTransform->position.x);
-				ImGui::InputFloat("Y:", &this->playerTransform->position.y);
-
-				ImGui::Text("Rotation:");
-				ImGui::InputFloat("X:", &this->playerTransform->rotation.x);
-				ImGui::InputFloat("Y:", &this->playerTransform->rotation.y);
-				ImGui::EndTabItem();
-			}
-			if (ImGui::BeginTabItem("Camera Component")) {
-				ImGui::Checkbox("Enabled", &this->cameraComponent->enabled);
-				ImGui::Checkbox("Fisheye", &this->cameraComponent->fisheye);
-				ImGui::InputFloat("Render Distance", &this->cameraComponent->renderDistance);
-				ImGui::EndTabItem();
-			}
-			ImGui::EndTabBar();
+	virtual void renderDebug() override {
+		//if(ImGui::BeginTabBar("Entity Settings"))
+		//{
+		//	int i = 0;
+		//	for (auto entity: this->entities)
+		//	{
+		//		/*std::string title = "Entity number" + std::to_string(i);
+		//		if(ImGui::CollapsingHeader(title.c_str()))
+		//		{
+		//			entity->drawDebug();
+		//		}*/
+		//	}
+		//	ImGui::EndTabBar;
+		//}
+		if(ImGui::BeginTabItem("Player Settings: ")) {
+			ImGui::PushID((uint32_t)(player->getHandle()));
+			player->getComponent<TransformComponent>()->draw();
+			player->getComponent<ColliderComponent>()->draw();
+			player->getComponent<ControllableComponent>()->draw();
+			ImGui::PopID();
+			ImGui::EndTabItem();
 		}
-		ImGui::End();
+		if (ImGui::BeginTabItem("Camera Settings: ") && player->camera!=nullptr) {
+			ImGui::PushID((uint32_t)(player->camera->getHandle()));
+			player->camera->getComponent<TransformComponent>()->draw();
+			player->camera->getComponent<CameraComponent>()->draw();
+			ImGui::PopID();
+			ImGui::EndTabItem();
+		}
+		
 	}
 
 	~DDAScene(void) {

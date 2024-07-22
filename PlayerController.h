@@ -37,7 +37,7 @@ public:
 protected:
     TransformComponent* playerTransform; // This what the script will manipulate
     SpriteComponent* playerSprite; // This what the script will manipulate
-    ControllableComponet* controllableComponent;
+    ControllableComponent* controllableComponent;
     ColliderComponent* colliderComponent;
     Camera* camera;
     sf::Vector2i previousMousePosition;

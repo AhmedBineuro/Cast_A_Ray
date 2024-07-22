@@ -24,13 +24,6 @@ public:
     void addComponent(T component);
     
     /**
-    * @brief Function to remove component 
-    * @note The function is used like this removeComponent<type>()
-    */
-    template<typename T>
-    void removeComponent();
-    
-    /**
     * @brief Function to get a pointer component
     * @returns a pointer to the component and nullptr if it doesn't exist
     * @note The function is used like this getComponent<type>()
@@ -44,23 +37,19 @@ public:
     template<typename T>
     void replaceComponent(T component);
     
+    entt::entity getHandle();
+    
     virtual ~Entity() {
         this->registry->destroy(this->handle);
     }
 protected:
     entt::entity handle;
     entt::registry* registry;
+    Entity* child;
 };
 template <typename T>
 void Entity::addComponent(T component) {
     registry->emplace<T>(handle, component);
-}
-
-template <typename T>
-void Entity::removeComponent() {
-    if (registry->any_of<T>(handle)) {
-        registry->remove<T>(handle);
-    }
 }
 
 template <typename T>
@@ -78,3 +67,5 @@ void Entity::replaceComponent(T component) {
     registry->replace<T>(handle, component);
     return;
 }
+
+
