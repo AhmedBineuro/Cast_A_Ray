@@ -160,10 +160,30 @@ namespace Systems {
 				textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
 				if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
 					texX = textSize.x - texX - 1;
+				float shadeRatio = collision.distance/cameracomponent.renderDistance;
 				textureSlice.setPosition(x, drawStart);
 				textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
+				textureSlice.setFillColor(sf::Color(255, 255, 255, 255.0f * (1.0f - shadeRatio)));
 				cameracomponent.target->draw(textureSlice);
-			
+
+				// Floor casting
+				/*for (int y=drawEnd+1;y < windowSize.y; y++) {
+					sf::VertexArray floorSlice;
+					double cam2Plane = collision.distance;
+					double staightDistance = sf::getLength(
+						sf::Vector2f(int(transformComponent.position.x) - collision.location.x,
+							int(transformComponent.position.y) - collision.location.y
+						)
+					);
+					double distanceToPlane = 1;
+					double centerOffset = sf::getLength(
+						sf::Vector2f(
+							x - (windowSize.x * 0.5f),
+							y - (windowSize.y * 0.5f)
+						)
+					);
+
+				}*/
 			}
 			cameracomponent.target->display();
 		}

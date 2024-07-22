@@ -4,12 +4,12 @@
 #include <SFMLMath.hpp>
 namespace RaycastUtils {
 	struct RayCollisionInfo {
-		bool noHit=false;// True if the ray didn't collide with anything
-		int side; // 0 for East/West or 1 for North/South
-		int tag; // the block tag 
-		//double distance; // The raw distance to the collision point
+        sf::Vector2f location;
 		double distance; // The distance to the collision point
 		float u; // The u coordinate of the collision
+		int side; // 0 for East/West or 1 for North/South
+		int tag; // the block tag 
+		bool noHit=false;// True if the ray didn't collide with anything
 	};
 	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, const Map& m,float renderDistance=200.0f){
     RaycastUtils::RayCollisionInfo output;
@@ -104,7 +104,6 @@ namespace RaycastUtils {
         }
         if (xIndex && yIndex) {
             if (std::find(m.ignoreRaycast.begin(), m.ignoreRaycast.end(),m.walls[tileIndex.x][tileIndex.y]) == m.ignoreRaycast.end()) {
-            //if (m.walls[tileIndex.x][tileIndex.y]!=0) {
                 output.tag = m.walls[tileIndex.x][tileIndex.y];
                 hit = true;
             }
@@ -112,8 +111,10 @@ namespace RaycastUtils {
         else {
             output.noHit = true;
             hit = true;
+            output.location = sf::Vector2f(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
         }
     }
+    output.location = (static_cast<float>(output.distance) * ray) + position;
     //Get distances and wall coordinates
     if (output.side) {
         output.distance = yDist-axisWeightY ;
