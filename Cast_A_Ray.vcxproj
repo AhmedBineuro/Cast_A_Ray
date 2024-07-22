@@ -175,7 +175,6 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="CoreComponents.h" />
-    <ClInclude Include="CSet.hpp" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Entity2D.h" />

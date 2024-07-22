@@ -8,7 +8,6 @@
 #include "SFMLMath.hpp"
 #include "Actor.h"
 #include "Map.h"
-#include "CSet.hpp"
 #include "imgui.h"
 #include "imgui-SFML.h"
 
@@ -195,7 +194,7 @@ public:
             ImGui::InputFloat("Y##top", &border.top);
 
             ImGui::Checkbox("Is Trigger", &isTrigger);
-            ImGui::Checkbox("Solid", &enabled);
+            ImGui::Checkbox("Enabled##Collider", &enabled);
         }
     };
 };

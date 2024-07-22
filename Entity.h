@@ -45,13 +45,11 @@ public:
 protected:
     entt::entity handle;
     entt::registry* registry;
-    CSet<std::string> componentList;
     Entity* child;
 };
 template <typename T>
 void Entity::addComponent(T component) {
     registry->emplace<T>(handle, component);
-    //componentList.add(component.componentName);
 }
 
 template <typename T>
