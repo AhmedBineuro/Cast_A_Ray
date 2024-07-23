@@ -29,6 +29,7 @@ public:
     }
     void draw() {
         if (ImGui::CollapsingHeader("Transform Component")) {
+            ImGui::Indent();
             ImGui::Text("Position: ");
             ImGui::InputFloat("X##Pos", &position.x);
             ImGui::InputFloat("Y##Pos", &position.y);
@@ -36,6 +37,7 @@ public:
             ImGui::Text("Rotation: ");
             ImGui::InputFloat("X##Rot", &rotation.x);
             ImGui::InputFloat("Y##Rot", &rotation.y);
+            ImGui::Unindent();
         }
     };
 };
@@ -49,8 +51,10 @@ public:
     }
     void draw() {
         if (ImGui::CollapsingHeader("Script Component")) {
+            ImGui::Indent();
             script->renderImGui();
             ImGui::Checkbox("Enabled##script",&enabled);
+            ImGui::Unindent();
         }
     };
 };
@@ -64,7 +68,9 @@ public:
     }
     void draw() {
         if (ImGui::CollapsingHeader("Render Component")) {
+            ImGui::Indent();
             ImGui::Checkbox("Enabled##Render", &enabled);
+            ImGui::Unindent();
         }
     };
 };
@@ -78,7 +84,8 @@ public:
     }
     void draw() {
         if (ImGui::CollapsingHeader("Sprite Component")) {
-            
+            ImGui::Indent();
+            ImGui::Unindent();
         }
     };
 };
@@ -97,7 +104,7 @@ public:
     }
     void draw() {
         if (ImGui::CollapsingHeader("Controllable Component")) {
-            
+            ImGui::Indent();
             ImGui::Checkbox("Enabled##Controllable", &enabled);
 
             ImGui::InputFloat("Max Speed", &maxSpeed);
@@ -109,6 +116,7 @@ public:
             ImGui::InputFloat("Turn angle", &turnAngle);
             
             ImGui::InputFloat("Sensitivity", &sensitivity);
+            ImGui::Unindent();
         }
     };
 };
@@ -138,6 +146,7 @@ public:
 
     void draw() {
         if (ImGui::CollapsingHeader("Camera Component")) {
+            ImGui::Indent();
             ImGui::Text("Plane: ");
             ImGui::InputFloat("X##Plane", &plane.x);
             ImGui::InputFloat("Y##Plane", &plane.y);
@@ -152,7 +161,7 @@ public:
             ImGui::Checkbox("Fisheye", &fisheye);
 
             ImGui::Checkbox("Enable##Camera", &enabled);
-
+            ImGui::Unindent();
         }
     };
 };
@@ -186,6 +195,7 @@ public:
 
     void draw() {
         if (ImGui::CollapsingHeader("Collider Component")) {
+            ImGui::Indent();
             ImGui::Text("Collider Dimensions:");
             ImGui::InputFloat("X##width", &border.width);
             ImGui::InputFloat("Y##height", &border.height);
@@ -196,6 +206,7 @@ public:
 
             ImGui::Checkbox("Is Trigger", &isTrigger);
             ImGui::Checkbox("Enabled##Collider", &enabled);
+            ImGui::Unindent();
         }
     };
 };

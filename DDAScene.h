@@ -67,8 +67,6 @@ public:
 		canvas.clear();
 		Systems::DDARenderSystem::renderWalls(registry, map);
 		Systems::RenderSystem2D(registry, canvas);
-		//DONT REMOVE OR IT WILL BREAK LITERALLY EVERYTHING FOR SOME REASON
-		this->player->draw(canvas,sf::Vector2f(50,50));
 		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
 		/**

@@ -66,11 +66,6 @@ void Player::setCamera(Camera* cam)
 	camera = cam;
 	((PlayerController*)(getComponent<ScriptComponent>()->script).get())->setCamera(cam);
 }
-void Player::draw(sf::RenderTarget &canvas, sf::Vector2f tileSize) {
-	sf::VertexArray line = sf::VertexArray(sf::Points, 1);
-	line[0] = sf::Vertex();
-	canvas.draw(line);
-}
 void Player::setSpriteTexture(sf::Texture& texture) {
 	this->spriteComponent->sprite.setTexture(texture);
 	sf::Vector2u textSize = texture.getSize();
