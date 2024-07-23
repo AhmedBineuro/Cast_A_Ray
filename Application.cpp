@@ -30,6 +30,7 @@ Application::Application() {
 	FPS = 0;
 	showFPS = false;
 	this->sceneList.clear();
+	this->canvasSprite.setPosition(0, 0);
 }
 Application::Application(std::string appName) {
 	this->sceneList.clear();
@@ -62,6 +63,7 @@ Application::Application(std::string appName) {
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
 	showFPS = false;
+	this->canvasSprite.setPosition(0, 0);
 }
 void Application::addScene(std::string name, Scene* scene) {
 	if (currentScene == "")
@@ -141,8 +143,8 @@ void Application::run() {
 				canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
-		//////// CTRL+F3 FOR SETTINGS
-		bool keysArePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F3) && (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+		//////// CTRL+\ FOR SETTINGS
+		bool keysArePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Backslash) && (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
 			|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl));
 		if (keysArePressed && (!keybindPressed))
 		{
@@ -157,12 +159,18 @@ void Application::run() {
 		window.clear();
 		canvas.clear();
 		render();
+		//window.draw(canvasSprite);
+		ImGui::SFML::Update(window, deltaTime);
+		ImGui::SetNextWindowPos(ImVec2(-5, -5));
+		ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
+		ImGui::Begin("viewport", nullptr, ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoScrollbar| ImGuiWindowFlags_NoScrollWithMouse);
+		ImGui::Image(canvasSprite);
+		ImGui::End();
 		if(showSettings)
 		{
-			ImGui::SFML::Update(window, deltaTime);
 			renderSettings(fixedDeltaTimeGUI, config);
 		}
-
+		ImGui::SFML::Render(window);
 		window.display();
 	}
 	ImGui::SFML::Shutdown();
@@ -170,12 +178,14 @@ void Application::run() {
 }
 void Application::render() {
 	if (sceneList.find(currentScene) != sceneList.end())
-		window.draw(sceneList[currentScene]->onRender());
-	canvas.draw(sceneList[currentScene]->onRender());
+	{
+		canvasSprite=sceneList[currentScene]->onRender();
+		canvas.draw(canvasSprite);
+		//canvasSprite.setTexture(canvas.getTexture());
+	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
@@ -215,13 +225,14 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	}
 	if(showSceneDebug)
 	{
-		if (ImGui::BeginTabBar("Settings")) {
-			this->sceneList[currentScene]->renderDebug();
-			ImGui::EndTabBar();
+		//this->sceneList[currentScene]->renderImGui();
+		if(ImGui::CollapsingHeader("Entity Settings")) {
+			ImGui::Indent();
+			this->sceneList[currentScene]->renderEntitiesImGui();
+			ImGui::Unindent();
 		}
 	}
 	ImGui::End();
-	ImGui::SFML::Render(window);
 }
 
 void Application::update() {

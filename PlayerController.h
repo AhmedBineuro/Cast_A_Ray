@@ -21,7 +21,7 @@ enum Keybinds
 class PlayerController :public Actor {
 public:
     PlayerController();
-    PlayerController(Entity* player,Camera& camera);
+    PlayerController(Entity* player,Camera* camera);
     void OnCreate();
     void OnUpdate(float deltaTime);
     void OnRender();
@@ -30,7 +30,8 @@ public:
     
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
     void setSensitivity(float sensitivity);
-    void setPlayer(Entity* player, Camera& camera);
+    void setPlayer(Entity* player, Camera* camera);
+    void setCamera(Camera* camera);
     void setMovementMultiplier(float movementMultiplier);
 
     float getSensitivity();

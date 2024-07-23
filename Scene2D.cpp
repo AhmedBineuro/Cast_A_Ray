@@ -50,7 +50,24 @@ void Scene2D::onDestroy() {
 	 */
 }
 
-void Scene2D::renderDebug() {
+void Scene2D::renderImGui()
+{
+}
+
+void Scene2D::renderEntitiesImGui()
+{
+	for (auto entity : this->entities)
+	{
+		std::string title = entity->getName();
+		if (ImGui::CollapsingHeader(title.c_str()))
+		{
+			ImGui::PushID((unsigned int)entity->getHandle());
+			ImGui::Indent();
+			entity->drawImGui();
+			ImGui::Unindent();
+			ImGui::PopID();
+		}
+	}
 }
 
 Entity* Scene2D::createEntity() {

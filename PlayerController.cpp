@@ -7,12 +7,12 @@ PlayerController::PlayerController() {
 	this->colliderComponent = nullptr;
 	this->camera = nullptr;
 }
-PlayerController::PlayerController(Entity* player, Camera& camera) {
+PlayerController::PlayerController(Entity* player, Camera* camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponent>();
 	this->colliderComponent = player->getComponent<ColliderComponent>();
-	this->camera = &camera;
+	this->camera = camera;
 }
 void PlayerController::OnCreate(){
 	previousMousePosition = sf::Mouse::getPosition();
@@ -45,9 +45,9 @@ void PlayerController::OnUpdate(float deltaTime){
 			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT]))
 				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
 
-			if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_UP]))
+			if (this->camera != nullptr  && sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_UP]))
 				this->camera->setZHeight(this->camera->getZHeight() + 0.01f);
-			else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
+			else if (this->camera != nullptr  && sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
 				this->camera->setZHeight(this->camera->getZHeight() - 0.01f);
 
 			if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
@@ -61,8 +61,11 @@ void PlayerController::OnUpdate(float deltaTime){
 			colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
 			colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
 
-			camera->setPosition(playerTransform->position);
-			camera->setRotation(playerTransform->rotation);
+			if(this->camera != nullptr)
+			{
+				camera->setPosition(playerTransform->position);
+				camera->setRotation(playerTransform->rotation);
+			}
 		}
 	}
 }
@@ -72,11 +75,14 @@ void PlayerController::OnDestroy(){}
 
 void PlayerController::setKeyBind(Keybinds key, sf::Keyboard::Key key_code){}
 void PlayerController::setSensitivity(float sensitivity){}
-void PlayerController::setPlayer(Entity* player, Camera& camera) {
+void PlayerController::setPlayer(Entity* player, Camera* camera) {
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->playerSprite = player->getComponent<SpriteComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponent>();
-	this->camera = &camera;
+	this->camera = camera;
+}
+void PlayerController::setCamera(Camera* cam) {
+	this->camera = cam;
 }
 void PlayerController::setMovementMultiplier(float movementMultiplier) {
 	this->controllableComponent->movementMultiplier = movementMultiplier;

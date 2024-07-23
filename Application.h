@@ -2,7 +2,7 @@
 #include "Log.h"
 #include "Config.h"
 #include "imgui.h"
-#include "imgui-SFML.h"
+#include "imgui-SFML.h"	
 #include <string>
 #include <unordered_map>
 class Application {
@@ -30,6 +30,7 @@ private:
 	sf::Time deltaTime,fixedDeltaTime,cumulatedTime;
 	sf::RenderWindow window;
 	sf::RenderTexture canvas;
+	sf::Sprite canvasSprite;
 	Settings settings;
 
 	std::string appName;

@@ -13,7 +13,7 @@
 
 class Component {
 public:
-    virtual void draw() = 0;
+    virtual void draw() {};
     std::string componentName;
 };
 
@@ -42,14 +42,15 @@ public:
 
 class ScriptComponent: public Component {
 public:
-
+    bool enabled = true;
     std::shared_ptr<Actor> script;
     ScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {
         componentName = "Script";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Script Component")) {
-            
+            script->renderImGui();
+            ImGui::Checkbox("Enabled##script",&enabled);
         }
     };
 };
@@ -164,11 +165,11 @@ public:
         mapName = "";
     }
 
-    void draw() {
-        if (ImGui::CollapsingHeader("Map Tag Component")) {
-            ImGui::InputText("Map Name", mapName.begin()._Unwrapped(),50);
-        }
-    };
+    //void draw() {
+    //    if (ImGui::CollapsingHeader("Map Tag Component")) {
+    //        ImGui::InputText("Map Name", mapName.begin()._Unwrapped(),50);
+    //    }
+    //};
 };
 
 class ColliderComponent : public Component {

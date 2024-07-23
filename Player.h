@@ -10,6 +10,7 @@ public:
 	void setSpriteTexture(sf::Texture& texture);
 	void setPosition(sf::Vector2f position);
 	void setSpriteSize(sf::Vector2f newSize);
+	void setCamera(Camera* cam);
 	Camera* camera;
 	~Player();
 protected:

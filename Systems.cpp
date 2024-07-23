@@ -131,21 +131,24 @@ namespace Systems {
 			auto view = registry.view<ScriptComponent>();
 			for (auto entity : view) {
 				ScriptComponent& script = registry.get<ScriptComponent>(entity);
-				script.script->OnUpdate(deltaTime);
+				if(script.enabled)
+					script.script->OnUpdate(deltaTime);
 			}
 		}
 		void OnFixedUpdate(float fixedDeltaTime, entt::registry& registry) {
 			auto view = registry.view<ScriptComponent>();
 			for (auto entity : view) {
 				ScriptComponent& script = registry.get<ScriptComponent>(entity);
-				script.script->OnFixedUpdate(fixedDeltaTime);
+				if (script.enabled)
+					script.script->OnFixedUpdate(fixedDeltaTime);
 			}
 		}
 		void OnRender(entt::registry& registry) {
 			auto view = registry.view<ScriptComponent>();
 			for (auto entity : view) {
 				ScriptComponent& script = registry.get<ScriptComponent>(entity);
-				script.script->OnRender();
+				if (script.enabled)
+					script.script->OnRender();
 			}
 		}
 	};

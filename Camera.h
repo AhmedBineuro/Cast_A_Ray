@@ -1,12 +1,12 @@
 #pragma once
-#include "Entity2D.h"
+#include "Entity.h"
 #include "CoreComponents.h"
 #include <memory>
 /**
 * @brief Camera Entity 
 * @note Tester entity to see if the ECS situation is working
 */
-class Camera :public Entity2D {
+class Camera :public Entity {
 public:
 	Camera(entt::registry* registry) ;
 	Camera(entt::registry* registry,sf::Vector2f position,sf::Vector2f rotation=sf::Vector2f(1,0));

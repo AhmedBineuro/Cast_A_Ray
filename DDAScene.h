@@ -10,15 +10,24 @@ public:
 
 	DDAScene() :Scene2D() {
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
+		std::shared_ptr<Camera> cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
+		this->player->setName("Player");
+		this->entities.push_back(cam);
+		player->setCamera(cam.get());
+		this->player->camera->setName("Player Camera");
 		this->player->camera->linkRenderTarget(&this->canvas);
 		this->map = Map();
 		this->onCreate();
 	}
 	DDAScene(std::string mapName) :Scene2D() {
 		this->map = Map(mapName);
+		std::shared_ptr<Camera> cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
+		this->entities.push_back(cam);
+		player->setCamera(cam.get());
+		
 		this->player->camera->linkRenderTarget(&this->canvas);
 		this->onCreate();
 	}
@@ -57,8 +66,8 @@ public:
 		Settings settings = config.getSettings();
 		canvas.clear();
 		Systems::DDARenderSystem::renderWalls(registry, map);
-		this->map.draw(canvas);
 		Systems::RenderSystem2D(registry, canvas);
+		//DONT REMOVE OR IT WILL BREAK LITERALLY EVERYTHING FOR SOME REASON
 		this->player->draw(canvas,sf::Vector2f(50,50));
 		Systems::EntityScriptSystem::OnRender(registry);
 		canvasSprite.setTexture(canvas.getTexture());
@@ -73,36 +82,23 @@ public:
 		* Additional Code Here
 		 */
 	}
-	virtual void renderDebug() override {
-		//if(ImGui::BeginTabBar("Entity Settings"))
-		//{
-		//	int i = 0;
-		//	for (auto entity: this->entities)
-		//	{
-		//		/*std::string title = "Entity number" + std::to_string(i);
-		//		if(ImGui::CollapsingHeader(title.c_str()))
-		//		{
-		//			entity->drawDebug();
-		//		}*/
-		//	}
-		//	ImGui::EndTabBar;
-		//}
-		if(ImGui::BeginTabItem("Player Settings: ")) {
-			ImGui::PushID((uint32_t)(player->getHandle()));
-			player->getComponent<TransformComponent>()->draw();
-			player->getComponent<ColliderComponent>()->draw();
-			player->getComponent<ControllableComponent>()->draw();
-			ImGui::PopID();
-			ImGui::EndTabItem();
+	virtual void renderImGui() override {
+
+	}
+	virtual void renderEntitiesImGui() override
+	{
+		for (auto entity : this->entities)
+		{
+			std::string title = entity->getName();
+			if (ImGui::CollapsingHeader(title.c_str()))
+			{
+				ImGui::PushID((unsigned int)entity->getHandle());
+				ImGui::Indent();
+				entity->drawImGui();
+				ImGui::Unindent();
+				ImGui::PopID();
+			}
 		}
-		if (ImGui::BeginTabItem("Camera Settings: ") && player->camera!=nullptr) {
-			ImGui::PushID((uint32_t)(player->camera->getHandle()));
-			player->camera->getComponent<TransformComponent>()->draw();
-			player->camera->getComponent<CameraComponent>()->draw();
-			ImGui::PopID();
-			ImGui::EndTabItem();
-		}
-		
 	}
 
 	~DDAScene(void) {

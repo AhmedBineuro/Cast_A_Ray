@@ -1,6 +1,7 @@
 #pragma once
 #include "entt.hpp"
 #include "CoreComponents.h"
+#include <set>
 /**
 * @brief The core entity class that any custom entity will be built on. The class will serve as the interface to the entity component system.
 * This allows the developer to simply inherit the super basic functions that add, removes, and retrieve components of an entity.
@@ -36,8 +37,18 @@ public:
 
     template<typename T>
     void replaceComponent(T component);
+
+    template<typename T>
+    void removeComponent(T component);
+
+    void setChild(Entity* entity);
+
     
     entt::entity getHandle();
+    std::string getName();
+    
+    void setName(std::string);
+    void drawImGui();
     
     virtual ~Entity() {
         this->registry->destroy(this->handle);
@@ -46,10 +57,12 @@ protected:
     entt::entity handle;
     entt::registry* registry;
     Entity* child;
+    std::string name,buffer;
+    std::set<Component*> components;
 };
 template <typename T>
 void Entity::addComponent(T component) {
-    registry->emplace<T>(handle, component);
+    components.insert(&(registry->emplace<T>(handle, component)));
 }
 
 template <typename T>
@@ -64,8 +77,14 @@ bool Entity::hasComponent() {
 
 template <typename T>
 void Entity::replaceComponent(T component) {
-    registry->replace<T>(handle, component);
+    this->components.erase(getComponent<T>());
+    this->components.insert(registry->replace<T>(handle, component));
     return;
 }
-
-
+template <typename T>
+void Entity::removeComponent(T component) {
+    if (hasComponent<T>()) {
+        this->components.erase(getComponent<T>());
+        registry->remove<T>(handle);
+    }
+}
