@@ -29,6 +29,8 @@ public:
 		player->setCamera(cam.get());
 		
 		this->player->camera->linkRenderTarget(&this->canvas);
+		this->player->setName("Player");
+		this->player->camera->setName("Player Camera");
 		this->onCreate();
 	}
 	virtual void onCreate() override{
@@ -85,18 +87,33 @@ public:
 	}
 	virtual void renderEntitiesImGui() override
 	{
-		for (auto entity : this->entities)
-		{
-			std::string title = entity->getName();
-			if (ImGui::CollapsingHeader(title.c_str()))
+		if (ImGui::Begin("Entity Settings")) {
+			if (ImGui::Button("Add Entity")) {
+				std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
+				this->entities.push_back((newEnt));
+			}
+			ImGui::Separator();
+			int i = 0;
+			for (auto entity : this->entities)
 			{
-				ImGui::PushID((unsigned int)entity->getHandle());
-				ImGui::Indent();
-				entity->drawImGui();
-				ImGui::Unindent();
-				ImGui::PopID();
+				if (entity == NULL)
+					continue;
+				std::string title = entity->getName();
+				if (ImGui::CollapsingHeader(title.c_str()))
+				{
+					ImGui::PushID((unsigned int)entity->getHandle());
+					ImGui::Indent();
+					entity->drawImGui();
+					ImGui::Unindent();
+					if (ImGui::Button("Delete Entity")) {
+						this->entities.erase(this->entities.begin() + i);
+						i--;
+					}else i++;
+					ImGui::PopID();
+				}
 			}
 		}
+		ImGui::End();
 	}
 
 	~DDAScene(void) {

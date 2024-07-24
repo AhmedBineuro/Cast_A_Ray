@@ -223,16 +223,11 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
 		}
 	}
+	ImGui::End();
 	if(showSceneDebug)
 	{
-		//this->sceneList[currentScene]->renderImGui();
-		if(ImGui::CollapsingHeader("Entity Settings")) {
-			ImGui::Indent();
 			this->sceneList[currentScene]->renderEntitiesImGui();
-			ImGui::Unindent();
-		}
 	}
-	ImGui::End();
 }
 
 void Application::update() {

@@ -14,5 +14,5 @@ public:
     virtual void OnRender() = 0;
     virtual void OnFixedUpdate(float fixedDeltaTime) = 0;
     virtual void OnDestroy() = 0;
-    virtual void renderImGui() {};
+    virtual void renderImGui()=0;
 };

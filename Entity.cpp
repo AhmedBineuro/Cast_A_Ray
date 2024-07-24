@@ -10,6 +10,38 @@ entt::entity Entity::getHandle() {
     return this->handle;
 }
 void Entity::drawImGui() {
+    if(ImGui::Button("Add Component##addComponent")){
+        ImGui::OpenPopup("Component_List");
+    }
+    //Menu to add the components on the fly
+    if(ImGui::BeginPopup("Component_List")){
+        if (ImGui::MenuItem("Transform Component")) {
+            this->addComponent(TransformComponent());
+        }
+        //if (ImGui::MenuItem("Script Component")) {
+        //    this->addComponent(ScriptComponent());
+        //}
+        if (ImGui::MenuItem("Render Component")) {
+            this->addComponent(RenderComponent());
+        }
+        if (ImGui::MenuItem("Sprite Component")) {
+            this->addComponent(SpriteComponent());
+        }
+        if (ImGui::MenuItem("Controllable Component")) {
+            this->addComponent(ControllableComponent());
+        }
+        if (ImGui::MenuItem("Camera Component")) {
+            this->addComponent(CameraComponent());
+        }
+        if (ImGui::MenuItem("Map Tag Component")) {
+            this->addComponent(MapTagComponent());
+        }
+        if (ImGui::MenuItem("Collider Component")) {
+            this->addComponent(ColliderComponent());
+        }
+        ImGui::EndPopup();
+    }
+
     ImGui::Text("Name:");
     ImGui::SameLine();
     ImGui::InputText("##input", buffer.begin()._Unwrapped(), buffer.size());

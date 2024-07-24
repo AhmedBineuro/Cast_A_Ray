@@ -88,3 +88,11 @@ void PlayerController::setMovementMultiplier(float movementMultiplier) {
 	this->controllableComponent->movementMultiplier = movementMultiplier;
 }
 float PlayerController::getSensitivity() { return this->controllableComponent->sensitivity; };
+
+void PlayerController::renderImGui(){
+	if (ImGui::CollapsingHeader("Player Controller Script")) {
+		if (ImGui::Button("Unbind Camera")) {
+			camera = nullptr;
+		}
+	}
+}

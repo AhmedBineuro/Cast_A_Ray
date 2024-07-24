@@ -33,6 +33,7 @@ public:
     void setPlayer(Entity* player, Camera* camera);
     void setCamera(Camera* camera);
     void setMovementMultiplier(float movementMultiplier);
+    virtual void renderImGui() override;
 
     float getSensitivity();
 protected:
