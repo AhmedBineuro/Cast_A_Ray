@@ -169,11 +169,49 @@ void Application::run() {
 		ImGui::SFML::Update(window, deltaTime);
 		//ImGui::SetNextWindowPos(ImVec2(0, 0));
 		//ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
-		ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove);
-		update();
-		render(scene_available);
-		ImGui::Image(canvasSprite);
+		if(ImGui::BeginMainMenuBar()){
+			if (ImGui::BeginMenu("File")) {
+				ImGui::MenuItem("Item1");
+				ImGui::MenuItem("Item2");
+				ImGui::MenuItem("Item3");
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Edit")) {
+				ImGui::MenuItem("Item1");
+				ImGui::MenuItem("Item2");
+				ImGui::MenuItem("Item3");
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("View")) {
+				ImGui::MenuItem("Item1");
+				ImGui::MenuItem("Item2");
+				ImGui::MenuItem("Item3");
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Preferences")) {
+				ImGui::MenuItem("Item1");
+				ImGui::MenuItem("Item2");
+				ImGui::MenuItem("Item3");
+				ImGui::EndMenu();
+			}
+			ImGui::EndMainMenuBar();
+		}
+		ImGui::Begin("##main_window", nullptr,ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove);
+		{
+			if(ImGui::BeginTabBar("Views")) {
+				if (ImGui::BeginTabItem("Viewport")){
+					update();
+					render(scene_available);
+					ImGui::Image(canvasSprite);
+					ImGui::EndTabItem();
+				}
+				if (ImGui::BeginTabItem("Editor")) {
+					ImGui::EndTabItem();
+				}
+				ImGui::EndTabBar();
+			}
 		ImGui::End();
+		}
 		if(showSettings)
 		{
 			renderSettings(fixedDeltaTimeGUI, config);
@@ -196,7 +234,7 @@ void Application::render(bool scene_available) {
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoResize |  ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Settings", nullptr , ImGuiWindowFlags_NoResize |  ImGuiWindowFlags_NoMove);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
