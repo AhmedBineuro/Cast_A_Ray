@@ -129,8 +129,14 @@ void Application::run() {
 			ImGui::SFML::Init(window);
 		}
 		sf::Event event;
+		bool scene_available = sceneList.find(currentScene) != sceneList.end();
 		while (window.pollEvent(event)) {
+
 			ImGui::SFML::ProcessEvent(event);
+			if (scene_available)
+			{
+				sceneList[currentScene]->onEventLoop(event);
+			}
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
@@ -158,7 +164,7 @@ void Application::run() {
 		update();
 		window.clear();
 		canvas.clear();
-		render();
+		render(scene_available);
 		//window.draw(canvasSprite);
 		ImGui::SFML::Update(window, deltaTime);
 		ImGui::SetNextWindowPos(ImVec2(-5, -5));
@@ -176,8 +182,8 @@ void Application::run() {
 	ImGui::SFML::Shutdown();
 	window.close();
 }
-void Application::render() {
-	if (sceneList.find(currentScene) != sceneList.end())
+void Application::render(bool scene_available) {
+	if (scene_available)
 	{
 		canvasSprite=sceneList[currentScene]->onRender();
 		canvas.draw(canvasSprite);
@@ -265,5 +271,5 @@ void Application::restartWindow() {
 		window.setFramerateLimit(0);
 	window.clear();
 	window.draw(sceneList[currentScene]->onRender());
-	render();
+	render(sceneList.find(currentScene) != sceneList.end());
 }

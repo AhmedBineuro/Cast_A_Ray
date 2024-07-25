@@ -20,6 +20,7 @@ public:
     virtual void renderImGui()=0;
     virtual void renderEntitiesImGui()=0;
     virtual void onDestroy()=0;
+    virtual void onEventLoop(sf::Event event) {}
 protected:
     sf::RenderTexture canvas;
     sf::Sprite canvasSprite;

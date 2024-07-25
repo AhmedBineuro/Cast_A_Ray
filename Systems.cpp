@@ -151,6 +151,14 @@ namespace Systems {
 					script.script->OnRender();
 			}
 		}
+		void OnEventLoop(entt::registry& registry, sf::Event event) {
+			auto view = registry.view<ScriptComponent>();
+			for (auto entity : view) {
+				ScriptComponent& script = registry.get<ScriptComponent>(entity);
+				if (script.enabled)
+					script.script->OnEventLoop(event);
+			}
+		}
 	};
 };
 namespace Graphics_Helper {

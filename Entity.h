@@ -41,7 +41,7 @@ public:
     template<typename T>
     void removeComponent(T component);
 
-    void setChild(Entity* entity);
+    void setChild(std::shared_ptr<Entity> entity);
 
     
     entt::entity getHandle();
@@ -56,7 +56,7 @@ public:
 protected:
     entt::entity handle;
     entt::registry* registry;
-    Entity* child;
+    std::weak_ptr<Entity> child; // Weak pointer to handle random deletes and stuff
     std::string name,buffer;
     std::set<Component*> components;
 };

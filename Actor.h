@@ -1,4 +1,5 @@
 #pragma once
+#include "Config.h"
 /**
 * The Actor class will be used to implement scriptiable behaviour for entities.
 * Similar to the MonoBehaviour class in unity and Agent class in Unreal, the actor class
@@ -15,4 +16,5 @@ public:
     virtual void OnFixedUpdate(float fixedDeltaTime) = 0;
     virtual void OnDestroy() = 0;
     virtual void renderImGui()=0;
+    virtual void OnEventLoop(sf::Event event){};// Will be called during the event loop (to prevent input out of focus) 
 };

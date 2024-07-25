@@ -9,8 +9,8 @@ public:
 	void setSpriteTexture(sf::Texture& texture);
 	void setPosition(sf::Vector2f position);
 	void setSpriteSize(sf::Vector2f newSize);
-	void setCamera(Camera* cam);
-	Camera* camera;
+	void setCamera(std::shared_ptr<Camera> cam);
+	std::weak_ptr<Camera> camera;
 	~Player();
 protected:
 	ControllableComponent* controllable;

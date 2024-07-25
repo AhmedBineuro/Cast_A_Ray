@@ -10,33 +10,35 @@ public:
 
 	DDAScene() :Scene2D() {
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
-		std::shared_ptr<Camera> cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
+		std::shared_ptr<Camera> cam;
+		cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
-		this->player->setName("Player");
 		this->entities.push_back(cam);
-		player->setCamera(cam.get());
-		this->player->camera->setName("Player Camera");
-		this->player->camera->linkRenderTarget(&this->canvas);
+		player->setCamera(cam);
+		this->player->setName("Player");
+		this->player->camera.lock()->setName("Player Camera");
+		this->player->camera.lock()->linkRenderTarget(&this->canvas);
 		this->map = Map();
 		this->onCreate();
 	}
 	DDAScene(std::string mapName) :Scene2D() {
 		this->map = Map(mapName);
-		std::shared_ptr<Camera> cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
+		std::shared_ptr<Camera> cam;
+		cam = std::make_shared<Camera>(&this->registry, sf::Vector2f(2, 2));
 		this->player = std::make_shared<Player>(&this->registry, sf::Vector2f(2, 2));
 		this->entities.push_back(player);
 		this->entities.push_back(cam);
-		player->setCamera(cam.get());
+		player->setCamera(cam);
 		
-		this->player->camera->linkRenderTarget(&this->canvas);
+		this->player->camera.lock()->linkRenderTarget(&this->canvas);
 		this->player->setName("Player");
-		this->player->camera->setName("Player Camera");
+		this->player->camera.lock()->setName("Player Camera");
 		this->onCreate();
 	}
 	virtual void onCreate() override{
 		currentMap = 0;
 		this->playerTransform = player->getComponent<TransformComponent>();
-		this->cameraComponent = this->player->camera->getComponent<CameraComponent>();
+		this->cameraComponent = this->player->camera.lock()->getComponent<CameraComponent>();
 		playercontroller = this->player->getComponent<PlayerController>();
 		/**
 		* Additional Code Here
@@ -99,21 +101,26 @@ public:
 				if (entity == NULL)
 					continue;
 				std::string title = entity->getName();
+				ImGui::PushID((unsigned int)entity->getHandle());
 				if (ImGui::CollapsingHeader(title.c_str()))
 				{
-					ImGui::PushID((unsigned int)entity->getHandle());
 					ImGui::Indent();
 					entity->drawImGui();
 					ImGui::Unindent();
 					if (ImGui::Button("Delete Entity")) {
+						printf("Current Index and Handle %d, %u\n", i, (unsigned int)entity->getHandle());
 						this->entities.erase(this->entities.begin() + i);
-						i--;
-					}else i++;
-					ImGui::PopID();
+						i-=2;
+					}
 				}
+				ImGui::PopID();
+				i++;
 			}
 		}
 		ImGui::End();
+	}
+	void onEventLoop(sf::Event event) override{
+		Systems::EntityScriptSystem::OnEventLoop(registry,event);
 	}
 
 	~DDAScene(void) {

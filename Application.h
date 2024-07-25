@@ -39,7 +39,7 @@ private:
 	float FPS;
 	//Call update every frame and and run update then check if you can run fixed update
 	void update();
-	void render();
+	void render(bool scene_available);
 	void renderSettings(float &fixedDeltaTimeGUI, Config& config);//The parameters are for the GUI and settings updates
 	void restartWindow();
 	//For ImGui

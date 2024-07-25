@@ -62,6 +62,6 @@ void Entity::setName(std::string name) {
     buffer = name;
 }
 
-void Entity::setChild(Entity* entity) {
-    this->child = entity;
+void Entity::setChild(std::shared_ptr<Entity> entity) {
+    this->child = std::weak_ptr(entity);
 }
