@@ -4,6 +4,7 @@ Entity::Entity(entt::registry* registry) {
     handle = registry->create();
     name = "Entity " + std::to_string((unsigned int)handle);
     buffer = name;
+    buffer.resize(20);
 }
 
 entt::entity Entity::getHandle() {
@@ -44,7 +45,12 @@ void Entity::drawImGui() {
 
     ImGui::Text("Name:");
     ImGui::SameLine();
-    ImGui::InputText("##input", buffer.begin()._Unwrapped(), buffer.size());
+    if (!ImGui::InputText("##input", buffer.begin()._Unwrapped(), 20));
+    if (!ImGui::IsWindowFocused())
+    {
+        buffer = name;
+        buffer.resize(20);
+    }
     ImGui::SameLine();
     if (ImGui::Button("apply##name")) {
         this->name = buffer;

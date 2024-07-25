@@ -7,6 +7,7 @@ struct Settings {
 	sf::ContextSettings videoSettings;
 	bool fullscreen, capFrameRate, vsync, requiresRestart;
 	int width, height, maxFrameRate, antiAliasingLevel;
+	sf::Vector2u renderResolution;
 };
 /**The configs class will hold all the application settings 
 * and will read and write to a Config.json file. That way
@@ -23,12 +24,14 @@ public:
 	void setFixedDeltaTime(float);
 	void setSettings(Settings);
 	void setDimensions(int, int);
+	void setRenderResolution(int, int);
 	void setRestartRequiredFlag(bool);
 	
 	Settings getSettings();
 	float getFixedDeltaTime();
 	float getDeltaTime();
 	sf::Vector2u getDimensions();
+	sf::Vector2u getRenderResolution();
 	bool isFrameRateCapped();
 	bool isVysnc();
 	bool RestartRequired();

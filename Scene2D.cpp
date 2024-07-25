@@ -2,7 +2,7 @@
 Scene2D::Scene2D() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();
-	if (!this->canvas.create(settings.width, settings.height)) {
+	if (!this->canvas.create(settings.renderResolution.x, settings.renderResolution.y)) {
 		std::cout << "Couldn't Create Scene2D canvas" << std::endl;
 	}
 	this->onCreate();
@@ -14,11 +14,9 @@ void Scene2D::onCreate() {
 }
 void Scene2D::onUpdate(float deltaTime) {
 	Config& config = Config::getConfig();
-	sf::Vector2u window = config.getDimensions();
-	if (canvas.getSize() != window) {
-		std::cout << "Old Dimensions: " << canvas.getSize().x << " , " << canvas.getSize().y << std::endl;
-		std::cout << "New Dimensions: " << window.x << " , " << window.y << std::endl;
-		this->canvas.create(window.x, window.y);
+	sf::Vector2u canvSize = config.getRenderResolution();
+	if (canvas.getSize() != canvSize) {
+		this->canvas.create(canvSize.x, canvSize.y);
 	}
 	Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
 	/**

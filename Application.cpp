@@ -14,6 +14,7 @@ Application::Application() {
 		}
 	}
 	this->window.create(sf::VideoMode(settings.width, settings.height),this->appName, settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default,settings.videoSettings);
+	this->canvas.create(400, 400);
 	fixedDeltaTime = sf::seconds(0.5f);
 	config.setFixedDeltaTime(0.5f);
 	if (settings.capFrameRate) {
@@ -48,6 +49,7 @@ Application::Application(std::string appName) {
 		}
 	}
 	this->window.create(sf::VideoMode(settings.width, settings.height), this->appName, settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default, settings.videoSettings);
+	this->canvas.create(400, 400);
 	fixedDeltaTime = sf::seconds(0.5f);
 	config.setFixedDeltaTime(0.5f);
 	if (settings.capFrameRate) {
@@ -146,7 +148,7 @@ void Application::run() {
 			{
 				window.setSize(sf::Vector2u(settings.width, settings.height));
 
-				canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
+				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
 		//////// CTRL+\ FOR SETTINGS
@@ -161,15 +163,15 @@ void Application::run() {
 			keybindPressed = false;
 		}
 		////////////////////////////////
-		update();
 		window.clear();
 		canvas.clear();
-		render(scene_available);
 		//window.draw(canvasSprite);
 		ImGui::SFML::Update(window, deltaTime);
-		ImGui::SetNextWindowPos(ImVec2(-5, -5));
-		ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
-		ImGui::Begin("viewport", nullptr, ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_AlwaysAutoResize|ImGuiWindowFlags_NoScrollbar| ImGuiWindowFlags_NoScrollWithMouse);
+		//ImGui::SetNextWindowPos(ImVec2(0, 0));
+		//ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
+		ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove);
+		update();
+		render(scene_available);
 		ImGui::Image(canvasSprite);
 		ImGui::End();
 		if(showSettings)
@@ -186,13 +188,15 @@ void Application::render(bool scene_available) {
 	if (scene_available)
 	{
 		canvasSprite=sceneList[currentScene]->onRender();
+		const sf::Texture* t = canvasSprite.getTexture();
+		canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
 		canvas.draw(canvasSprite);
 		//canvasSprite.setTexture(canvas.getTexture());
 	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoResize |  ImGuiWindowFlags_NoMove);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
@@ -206,6 +210,11 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	if (ImGui::InputInt2("Window dimensions", tempArray)) {
 		settings.width = tempArray[0];
 		settings.height = tempArray[1];
+	}
+	int tempArray2[2] = { settings.renderResolution.x,settings.renderResolution.y};
+	if (ImGui::InputInt2("Render Resolution", tempArray2)) {
+		settings.renderResolution.x = tempArray2[0];
+		settings.renderResolution.y = tempArray2[1];
 	}
 	ImGui::InputFloat("Fixed delta time", &fixedDeltaTimeGUI, 0.05);
 	ImGui::Combo("Anti-Aliasing level", &currentAntiAlias, antiAlias_labels, sizeof(antiAlias_labels) / sizeof(*antiAlias_labels));
@@ -228,6 +237,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 			config.setDeltaTime(fixedDeltaTimeGUI);
 			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
 		}
+		this->canvas.create(settings.renderResolution.x, settings.renderResolution.y);
 	}
 	ImGui::End();
 	if(showSceneDebug)
@@ -251,11 +261,13 @@ void Application::update() {
 		cumulatedTime -= fixedDeltaTime;
 		//Update scene fixed delta time systems;
 		if (sceneList.find(currentScene) != sceneList.end())
-			sceneList[currentScene]->onFixedUpdate(fixedDeltaTime.asSeconds());
+			if (ImGui::IsWindowFocused())
+				sceneList[currentScene]->onFixedUpdate(fixedDeltaTime.asSeconds());
 	}
 	//Update scene delta time systems;
 	if (sceneList.find(currentScene) != sceneList.end())
-		sceneList[currentScene]->onUpdate(deltaTime.asSeconds());
+		if (ImGui::IsWindowFocused())
+			sceneList[currentScene]->onUpdate(deltaTime.asSeconds());
 }
 
 //Function will restart the window to apply the necessary settings changes

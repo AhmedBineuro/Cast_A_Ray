@@ -1,1 +1,1 @@
-{"Config":{"antiAliasingLevel":15,"capFrameRate":false,"fixedDeltaTime":0.5,"fullscreen":false,"maxFrameRate":10,"vsync":false,"windowDimensions":[800,800]}}
+{"Config":{"antiAliasingLevel":15,"capFrameRate":false,"fixedDeltaTime":0.5,"fullscreen":false,"maxFrameRate":10,"renderResolution":[600,600],"vsync":false,"windowDimensions":[1075,650]}}

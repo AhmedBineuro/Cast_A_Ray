@@ -18,6 +18,8 @@ Config::Config() {
 		fixedDeltaTime = parsedSettings["fixedDeltaTime"];
 		settings.antiAliasingLevel = parsedSettings["antiAliasingLevel"];
 		settings.videoSettings.antialiasingLevel = parsedSettings["antiAliasingLevel"];
+		settings.renderResolution.x = parsedSettings["renderResolution"][0];
+		settings.renderResolution.y = parsedSettings["renderResolution"][1];
 	}
 	else {
 		std::cout << "Error getting config file" << std::endl;
@@ -30,6 +32,7 @@ Config::Config() {
 		settings.maxFrameRate = 60;
 		fixedDeltaTime = 0.3f;
 		settings.videoSettings.antialiasingLevel = 4;
+		settings.renderResolution = sf::Vector2u(400,400);
 	}
 	deltaTime = 0.0f;
 	
@@ -64,6 +67,11 @@ void Config::setDimensions(int width, int height) {
 	settings.width = width;
 	settings.height = height;
 }
+void Config::setRenderResolution(int width, int height)
+{
+	settings.renderResolution.x = width;
+	settings.renderResolution.y = height;
+}
 void Config::setRestartRequiredFlag(bool value) {
 	settings.requiresRestart = value;
 }
@@ -80,6 +88,10 @@ float Config::getDeltaTime() {
 }
 sf::Vector2u Config::getDimensions(){
 	return sf::Vector2u(settings.width, settings.height);
+}
+
+sf::Vector2u Config::getRenderResolution() {
+	return settings.renderResolution;
 }
 bool Config::isFrameRateCapped(){
 	return settings.capFrameRate;
@@ -108,6 +120,7 @@ bool Config::applyChanges() {
 		newSettings["Config"]["maxFrameRate"] = settings.maxFrameRate;
 		newSettings["Config"]["antiAliasingLevel"] = settings.antiAliasingLevel;
 		newSettings["Config"]["fixedDeltaTime"] = fixedDeltaTime;
+		newSettings["Config"]["renderResolution"] = {settings.renderResolution.x,settings.renderResolution.y};
 		file << newSettings.dump();
 		file.close();
 	}

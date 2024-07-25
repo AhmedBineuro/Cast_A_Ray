@@ -46,11 +46,9 @@ public:
 	}
 	virtual void onUpdate(float deltaTime) override{
 		Config& config = Config::getConfig();
-		sf::Vector2u window = config.getDimensions();
-		if (canvas.getSize() != window) {
-			std::cout << "Old Dimensions: " << canvas.getSize().x << " , " << canvas.getSize().y << std::endl;
-			std::cout << "New Dimensions: " << window.x << " , " << window.y << std::endl;
-			this->canvas.create(window.x, window.y);
+		sf::Vector2u canvSize = config.getRenderResolution();
+		if (canvas.getSize() != canvSize) {
+			this->canvas.create(canvSize.x, canvSize.y);
 		}
 		Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
 		Systems::WolfCollisionSystem(registry, map);
@@ -89,7 +87,8 @@ public:
 	}
 	virtual void renderEntitiesImGui() override
 	{
-		if (ImGui::Begin("Entity Settings")) {
+
+		if (ImGui::Begin("Entity Settings",nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
 			if (ImGui::Button("Add Entity")) {
 				std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
 				this->entities.push_back((newEnt));
@@ -100,7 +99,9 @@ public:
 			{
 				if (entity == NULL)
 					continue;
-				std::string title = entity->getName();
+				std::string title;
+				title.resize(20);
+				title= entity->getName();
 				ImGui::PushID((unsigned int)entity->getHandle());
 				if (ImGui::CollapsingHeader(title.c_str()))
 				{
