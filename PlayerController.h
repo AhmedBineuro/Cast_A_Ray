@@ -44,7 +44,6 @@ protected:
     ColliderComponent* colliderComponent;
     std::weak_ptr<Camera> camera;
     sf::Vector2i previousMousePosition;
-    sf::Vector2f velocity;
     bool keyStates[AVAILABLE_KEYS] = {false};
     //MODIFY THIS TO INCLUDE NEW CONTROLS
     sf::Keyboard::Key keyBinds[AVAILABLE_KEYS] = {
