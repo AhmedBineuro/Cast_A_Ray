@@ -147,12 +147,12 @@ public:
     void draw() {
         if (ImGui::CollapsingHeader("Camera Component")) {
             ImGui::Indent();
-            ImGui::Text("Plane: ");
-            ImGui::InputFloat("X##Plane", &plane.x);
-            ImGui::InputFloat("Y##Plane", &plane.y);
+            ImGui::Text("Plane: x:%f , y:%f", plane.x, plane.y);
 
 
-            ImGui::InputFloat("FOV", &FOV);
+            if (ImGui::InputFloat("FOV", &FOV)) {
+                updatePlane();
+            }
 
             ImGui::InputFloat("Render Distance", &renderDistance);
 
@@ -165,7 +165,8 @@ public:
         }
     };
     void setPlaneNormalDirection(sf::Vector2f rotation) {
-        plane = sf::getNormalized(sf::getRotated(rotation,-90));
+        float mag = sf::getLength(plane);
+        plane = sf::getNormalized(sf::getRotated(rotation,-90))*mag;
     }
 };
 
