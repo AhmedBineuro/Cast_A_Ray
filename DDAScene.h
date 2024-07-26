@@ -83,12 +83,19 @@ public:
 		 */
 	}
 	virtual void renderImGui() override {
-
+		ImGui::Begin("Scene Information##window");
+		if(ImGui::BeginTabBar("Scene Information")) {
+			renderEntitiesImGui();
+			if (ImGui::BeginTabItem("Scene Properites")) {
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+		ImGui::End();
 	}
 	virtual void renderEntitiesImGui() override
 	{
-
-		if (ImGui::Begin("Entity Settings",nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
+		if (ImGui::BeginTabItem("Entity Settings")){
 			if (ImGui::Button("Add Entity")) {
 				std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
 				this->entities.push_back((newEnt));
@@ -105,6 +112,11 @@ public:
 				ImGui::PushID((unsigned int)entity->getHandle());
 				if (ImGui::CollapsingHeader(title.c_str()))
 				{
+					if (ImGui::BeginDragDropSource()) {
+						ImGui::SetDragDropPayload("_ENTITY_PTR_", &entity, sizeof(entity));
+						ImGui::Text("Dragging %s", entity->getName().c_str());
+						ImGui::EndDragDropSource();
+					}
 					ImGui::Indent();
 					entity->drawImGui();
 					ImGui::Unindent();
@@ -117,8 +129,8 @@ public:
 				ImGui::PopID();
 				i++;
 			}
+			ImGui::EndTabItem();
 		}
-		ImGui::End();
 	}
 	void onEventLoop(sf::Event event) override{
 		Systems::EntityScriptSystem::OnEventLoop(registry,event);

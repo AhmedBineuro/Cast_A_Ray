@@ -21,7 +21,7 @@ enum Keybinds
 class PlayerController :public Actor {
 public:
     PlayerController();
-    PlayerController(Entity* player, Camera* camera);
+    PlayerController(Entity* player, Entity* camera);
     void OnCreate();
     void OnUpdate(float deltaTime);
     void OnRender();
@@ -31,8 +31,8 @@ public:
 
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
     void setSensitivity(float sensitivity);
-    void setPlayer(Entity* player, std::shared_ptr<Camera> camera);
-    void setCamera(std::shared_ptr<Camera> cam);
+    void setPlayer(Entity* player, std::shared_ptr<Entity> camera);
+    void setCamera(std::shared_ptr<Entity> cam);
     void setMovementMultiplier(float movementMultiplier);
     virtual void renderImGui() override;
 
@@ -42,7 +42,7 @@ protected:
     SpriteComponent* playerSprite; // This what the script will manipulate
     ControllableComponent* controllableComponent;
     ColliderComponent* colliderComponent;
-    std::weak_ptr<Camera> camera;
+    std::weak_ptr<Entity> camera;
     sf::Vector2i previousMousePosition;
     bool keyStates[AVAILABLE_KEYS] = {false};
     //MODIFY THIS TO INCLUDE NEW CONTROLS

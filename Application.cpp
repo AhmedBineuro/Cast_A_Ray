@@ -196,7 +196,7 @@ void Application::run() {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		ImGui::Begin("##main_window", nullptr,ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove);
+		ImGui::Begin("##main_window");
 		{
 			if(ImGui::BeginTabBar("Views")) {
 				if (ImGui::BeginTabItem("Viewport")){
@@ -234,7 +234,7 @@ void Application::render(bool scene_available) {
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings", nullptr , ImGuiWindowFlags_NoResize |  ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Settings");
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
@@ -280,7 +280,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::End();
 	if(showSceneDebug)
 	{
-			this->sceneList[currentScene]->renderEntitiesImGui();
+		this->sceneList[currentScene]->renderImGui();
 	}
 }
 

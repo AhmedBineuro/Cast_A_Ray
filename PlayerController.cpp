@@ -5,14 +5,14 @@ PlayerController::PlayerController() {
 	this->playerSprite = nullptr;
 	this->controllableComponent = nullptr;
 	this->colliderComponent = nullptr;
-	this->camera = std::weak_ptr<Camera>();
+	this->camera = std::weak_ptr<Entity>();
 }
-PlayerController::PlayerController(Entity* player, Camera* camera) {
+PlayerController::PlayerController(Entity* player, Entity* camera) {
 	OnCreate();
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponent>();
 	this->colliderComponent = player->getComponent<ColliderComponent>();
-	this->camera = std::weak_ptr(std::shared_ptr<Camera>(camera));
+	this->camera = std::weak_ptr(std::shared_ptr<Entity>(camera));
 }
 void PlayerController::OnCreate(){
 	previousMousePosition = sf::Mouse::getPosition();
@@ -22,7 +22,13 @@ void PlayerController::OnUpdate(float deltaTime){
 	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
 	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
 	previousMousePosition = currentMousePosition;
-	std::shared_ptr<Camera> cam = this->camera.lock();
+	std::shared_ptr<Entity> cam = this->camera.lock();
+	CameraComponent* camComp = nullptr;
+	TransformComponent* camTran= nullptr;
+	if (cam!=nullptr) {
+		camComp = cam->getComponent<CameraComponent>();
+		camTran = cam->getComponent<TransformComponent>();
+	}
 	if (playerTransform != nullptr && playerSprite != nullptr && controllableComponent != nullptr)
 	{
 		if (this->controllableComponent->enabled)
@@ -39,6 +45,8 @@ void PlayerController::OnUpdate(float deltaTime){
 				velocity += right;
 			else if (keyStates[Keybinds::LEFT])
 				velocity += (right * -1.0f);
+
+			// TODO: fix running not working
 			if(sf::Keyboard::isKeyPressed(keyBinds[Keybinds::SPRINT]))
 				velocity = velocity * (this->controllableComponent->sprintMultiplier);
 			else
@@ -48,10 +56,10 @@ void PlayerController::OnUpdate(float deltaTime){
 				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
 			else if (keyStates[Keybinds::LOOK_LEFT])
 				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-			if (cam != nullptr && keyStates[Keybinds::LOOK_UP])
-				cam->setZHeight(cam->getZHeight() + 0.01f);
-			else if (cam != nullptr && keyStates[Keybinds::LOOK_DOWN])
-				cam->setZHeight(cam->getZHeight() - 0.01f);
+			if (camComp!=nullptr && keyStates[Keybinds::LOOK_UP])
+				camComp->zHeight += 0.01f;
+			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
+				camComp->zHeight -= 0.01f;
 		}
 
 		if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
@@ -61,62 +69,13 @@ void PlayerController::OnUpdate(float deltaTime){
 		colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
 		colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
 
-		if (!cam)
+		if (camTran==nullptr)
 			return;
-		cam->setPosition(playerTransform->position);
-		cam->setRotation(playerTransform->rotation);
+		camTran->position =playerTransform->position;
+		camTran->rotation = playerTransform->rotation;
+		camComp->setPlaneNormalDirection(camTran->rotation);
 	}
 }
-	//sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
-	//sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
-	//previousMousePosition = currentMousePosition;
-	//std::shared_ptr<Camera> cam = this->camera.lock();
-	//if (playerTransform != nullptr && playerSprite != nullptr&& controllableComponent != nullptr)
-	//{
-	//	if(this->controllableComponent->enabled)
-	//	{
-	//		sf::Vector2f forward = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-	//		sf::Vector2f right = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-	//		right = sf::getRotated(right, -90);
-	//		sf::Vector2f velocity(0, 0);
-
-	//		if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::FORWARDS]))
-	//			velocity += forward;
-	//		else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::BACKWARDS]))
-	//			velocity += (forward * -1.0f);
-	//		
-	//		if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::RIGHT]))
-	//			velocity += right;
-	//		else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LEFT]))
-	//			velocity += (right * -1.0f);
-	//		
-	//		if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_RIGHT]))
-	//			sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
-	//		else if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_LEFT]))
-	//			sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-
-	//		if (cam!= nullptr  && sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_UP]))
-	//			cam->setZHeight(cam->getZHeight() + 0.01f);
-	//		else if (cam != nullptr  && sf::Keyboard::isKeyPressed(keyBinds[Keybinds::LOOK_DOWN]))
-	//			cam->setZHeight(cam->getZHeight() - 0.01f);
-
-	//		if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
-	//			velocity = sf::getNormalized(velocity) * this->controllableComponent->maxSpeed;
-	//		}
-	//		//Move
-	//		if (sf::Keyboard::isKeyPressed(keyBinds[Keybinds::SPRINT]))
-	//			playerTransform->position += velocity * (this->controllableComponent->sprintMultiplier * deltaTime);
-	//		else
-	//			playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
-	//		colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
-	//		colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
-
-	//		if (!cam)
-	//			return;
-	//		cam->setPosition(playerTransform->position);
-	//		cam->setRotation(playerTransform->rotation);
-	//	}
-	//}
 void PlayerController::OnRender(){ }
 void PlayerController::OnFixedUpdate(float fixedDeltaTime){}
 
@@ -125,7 +84,7 @@ void PlayerController::OnEventLoop(sf::Event event) {
 	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
 	float deltaTime = (Config::getConfig()).getDeltaTime();
 	previousMousePosition = currentMousePosition;
-	std::shared_ptr<Camera> cam = this->camera.lock();
+	std::shared_ptr<Entity> cam = this->camera.lock();
 	if (playerTransform != nullptr && playerSprite != nullptr && controllableComponent != nullptr)
 	{
 		if (this->controllableComponent->enabled)
@@ -175,7 +134,6 @@ void PlayerController::OnEventLoop(sf::Event event) {
 				else if (cam != nullptr && event.key.code == keyBinds[Keybinds::LOOK_DOWN])
 					keyStates[Keybinds::LOOK_DOWN] = false;
 			}
-			//printf("\tVelocity at the End of Event Loop %f,%f\n", velocity.x, velocity.y);
 		}
 	}
 }
@@ -184,14 +142,14 @@ void PlayerController::OnDestroy(){}
 
 void PlayerController::setKeyBind(Keybinds key, sf::Keyboard::Key key_code){}
 void PlayerController::setSensitivity(float sensitivity){}
-void PlayerController::setPlayer(Entity* player, std::shared_ptr<Camera> camera) {
+void PlayerController::setPlayer(Entity* player, std::shared_ptr<Entity> camera) {
 	this->playerTransform = player->getComponent<TransformComponent>();
 	this->playerSprite = player->getComponent<SpriteComponent>();
 	this->controllableComponent = player->getComponent<ControllableComponent>();
-	this->camera = std::weak_ptr<Camera>(camera);
+	this->camera = std::weak_ptr<Entity>(camera);
 }
-void PlayerController::setCamera(std::shared_ptr<Camera> cam) {
-	this->camera = std::weak_ptr<Camera>(cam);
+void PlayerController::setCamera(std::shared_ptr<Entity> cam) {
+	this->camera = std::weak_ptr<Entity>(cam);
 }
 void PlayerController::setMovementMultiplier(float movementMultiplier) {
 	this->controllableComponent->movementMultiplier = movementMultiplier;
@@ -200,6 +158,25 @@ float PlayerController::getSensitivity() { return this->controllableComponent->s
 
 void PlayerController::renderImGui(){
 	if (ImGui::CollapsingHeader("Player Controller Script")) {
+		std::string cameraName = "";
+		if (this->camera.lock()) {
+			cameraName = this->camera.lock()->getName();
+		}
+		else {
+			cameraName = "None";
+		}
+		ImGui::Text("Target Camera: %s", cameraName.c_str());
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_ENTITY_PTR_")) {
+				std::shared_ptr<Entity> cam = *static_cast<std::shared_ptr<Entity>*>(payload->Data);
+				if (cam->hasComponent<CameraComponent>()) {
+					this->camera = std::weak_ptr<Entity>(cam);
+					ImGui::Text("Selected %s as camera",cam->getName().c_str());
+				}
+				else printf("Entity is not a Camera Entity\n");
+			}
+			ImGui::EndDragDropTarget();
+		}
 		if (ImGui::Button("Unbind Camera")) {
 			setCamera(nullptr);
 		}

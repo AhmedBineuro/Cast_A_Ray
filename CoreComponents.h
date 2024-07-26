@@ -164,6 +164,9 @@ public:
             ImGui::Unindent();
         }
     };
+    void setPlaneNormalDirection(sf::Vector2f rotation) {
+        plane = sf::getNormalized(sf::getRotated(rotation,-90));
+    }
 };
 
 class MapTagComponent : public Component {

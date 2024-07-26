@@ -17,8 +17,8 @@ public:
     virtual void onFixedUpdate(float fixedDeltaTime)=0;
     //Should return the canvas result as a sprite and is called every render call
     virtual sf::Sprite onRender()=0;
-    virtual void renderImGui()=0;
-    virtual void renderEntitiesImGui()=0;
+    virtual void renderImGui() {};
+    virtual void renderEntitiesImGui() {};
     virtual void onDestroy()=0;
     virtual void onEventLoop(sf::Event event) {}
 protected:
