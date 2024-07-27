@@ -1,8 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "Actor.h"
-#include "CoreComponents.h"
-#include "Camera.h"
+#include "Entity.h"
 #define AVAILABLE_KEYS 9
 //Add more controls into the enum
 enum Keybinds

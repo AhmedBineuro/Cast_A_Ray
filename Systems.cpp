@@ -56,10 +56,9 @@ namespace Systems {
 				auto view = registry.view<CameraComponent, TransformComponent>();
 				for (auto entity : view) {
 					CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
-					if (!cameracomponent.enabled)
+					if (!cameracomponent.enabled || cameracomponent.target==nullptr)
 						continue;
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
-
 					sf::Vector2u windowSize = cameracomponent.target->getSize();
 					////////////////////Wall Casting////////////////////////////
 					for (int x = 0; x < windowSize.x; x++) {

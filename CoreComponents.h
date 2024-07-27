@@ -22,8 +22,7 @@ class TransformComponent:public Component {
 public:
     sf::Vector2f position;
     sf::Vector2f rotation;
-    TransformComponent() {}
-    TransformComponent(const sf::Vector2f& pos, const sf::Vector2f& rot = sf::Vector2f(1.f, 0.f))
+    TransformComponent(const sf::Vector2f& pos=sf::Vector2f(0,0), const sf::Vector2f& rot = sf::Vector2f(1.f, 0.f))
         : position(pos), rotation(rot) {
         componentName = "Transform";
     }
@@ -146,6 +145,23 @@ public:
 
     void draw() {
         if (ImGui::CollapsingHeader("Camera Component")) {
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_RNDR_TRGT_PTR_")) {
+                    std::weak_ptr<sf::RenderTexture> wptr = std::weak_ptr<sf::RenderTexture>(*static_cast<std::shared_ptr<sf::RenderTexture>*>(payload->Data));
+                    if (!wptr.lock())
+                    {
+                        printf("Bad Texture\n");
+                    }
+                    else {
+                        target = wptr.lock().get();
+                    }
+                    printf("Valid text: %d\n", target->getSize().x);
+                    ImGui::Text("Target Assigned");
+                    ImGui::EndDragDropTarget();
+                }
+                ImGui::Text("Target Assigned: %s", (target == nullptr) ? "No" : "Yes");
+                ImGui::Unindent();
+            }
             ImGui::Indent();
             ImGui::Text("Plane: x:%f , y:%f", plane.x, plane.y);
 
@@ -161,56 +177,55 @@ public:
             ImGui::Checkbox("Fisheye", &fisheye);
 
             ImGui::Checkbox("Enable##Camera", &enabled);
-            ImGui::Unindent();
         }
-    };
-    void setPlaneNormalDirection(sf::Vector2f rotation) {
-        float mag = sf::getLength(plane);
-        plane = sf::getNormalized(sf::getRotated(rotation,-90))*mag;
     }
+        void setPlaneNormalDirection(sf::Vector2f rotation){
+            float mag = sf::getLength(plane);
+            plane = sf::getNormalized(sf::getRotated(rotation, -90)) * mag;
+        }
 };
 
 class MapTagComponent : public Component {
-public:
-    std::string mapName;
-    MapTagComponent() {
-        componentName = "Map Tag";
-        mapName = "";
-    }
+    public:
+        std::string mapName;
+        MapTagComponent() {
+            componentName = "Map Tag";
+            mapName = "";
+        }
 
-    //void draw() {
-    //    if (ImGui::CollapsingHeader("Map Tag Component")) {
-    //        ImGui::InputText("Map Name", mapName.begin()._Unwrapped(),50);
-    //    }
-    //};
-};
+        //void draw() {
+        //    if (ImGui::CollapsingHeader("Map Tag Component")) {
+        //        ImGui::InputText("Map Name", mapName.begin()._Unwrapped(),50);
+        //    }
+        //};
+    };
 
 class ColliderComponent : public Component {
-public:
+    public:
 
-    sf::FloatRect border;
-    bool isTrigger, enabled;
-    ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(2, 2)) {
-        border = sf::FloatRect(position - (size / 2.0f), size);
-        isTrigger = false;
-        enabled = true;
-        componentName = "Collider";
-    }
-
-    void draw() {
-        if (ImGui::CollapsingHeader("Collider Component")) {
-            ImGui::Indent();
-            ImGui::Text("Collider Dimensions:");
-            ImGui::InputFloat("X##width", &border.width);
-            ImGui::InputFloat("Y##height", &border.height);
-
-            ImGui::Text("Collider Position:");
-            ImGui::InputFloat("X##left", &border.left);
-            ImGui::InputFloat("Y##top", &border.top);
-
-            ImGui::Checkbox("Is Trigger", &isTrigger);
-            ImGui::Checkbox("Enabled##Collider", &enabled);
-            ImGui::Unindent();
+        sf::FloatRect border;
+        bool isTrigger, enabled;
+        ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(2, 2)) {
+            border = sf::FloatRect(position - (size / 2.0f), size);
+            isTrigger = false;
+            enabled = true;
+            componentName = "Collider";
         }
-    };
+
+        void draw() {
+            if (ImGui::CollapsingHeader("Collider Component")) {
+                ImGui::Indent();
+                ImGui::Text("Collider Dimensions:");
+                ImGui::InputFloat("X##width", &border.width);
+                ImGui::InputFloat("Y##height", &border.height);
+
+                ImGui::Text("Collider Position:");
+                ImGui::InputFloat("X##left", &border.left);
+                ImGui::InputFloat("Y##top", &border.top);
+
+                ImGui::Checkbox("Is Trigger", &isTrigger);
+                ImGui::Checkbox("Enabled##Collider", &enabled);
+                ImGui::Unindent();
+            }
+        }
 };

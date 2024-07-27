@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Application.h"
 #include "DDAScene.h"
-//For Release
+//For Release WINDOWS
 //#include <windows.h>
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
@@ -13,15 +13,6 @@ bool switchScenes(std::string sceneName) {
     return false;
 }
 
-/* 
-* So I discovered after making this whole design of Scenes, entities, and Game I
-* made a general SFML application framework. So Now onto the to-do's
-* @TODO
-*   - [X] Make Systems for RayCaster 
-*   - [ ] Make Separate Cast-A-Ray library such that
-*       - [ ] Empty Components file (Special for each project)
-*       - [ ] And just the main function (To add the scenes and other stuff)
-*/
 //For Debug
 int main(){
     srand(time(NULL));
@@ -42,7 +33,8 @@ int main(){
     mainApp.run();
     return 0;
 }
-//For Release
+//For Release WINDOWS
+
 //int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 //    srand(time(NULL));
 //    Application mainApp("PlayGround");

@@ -2,7 +2,7 @@
 Scene2D::Scene2D() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();
-	if (!this->canvas.create(settings.renderResolution.x, settings.renderResolution.y)) {
+	if (!this->canvas->create(settings.renderResolution.x, settings.renderResolution.y)) {
 		std::cout << "Couldn't Create Scene2D canvas" << std::endl;
 	}
 	this->onCreate();
@@ -15,8 +15,8 @@ void Scene2D::onCreate() {
 void Scene2D::onUpdate(float deltaTime) {
 	Config& config = Config::getConfig();
 	sf::Vector2u canvSize = config.getRenderResolution();
-	if (canvas.getSize() != canvSize) {
-		this->canvas.create(canvSize.x, canvSize.y);
+	if (canvas->getSize() != canvSize) {
+		this->canvas->create(canvSize.x, canvSize.y);
 	}
 	Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
 	/**
@@ -32,10 +32,10 @@ void Scene2D::onFixedUpdate(float fixedDeltaTime) {
 sf::Sprite Scene2D::onRender() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();
-	canvas.clear();
+	canvas->clear();
 	Systems::EntityScriptSystem::OnRender(registry);
-	Systems::RenderSystem2D(registry, canvas);
-	canvasSprite.setTexture(canvas.getTexture());
+	Systems::RenderSystem2D(registry, *canvas);
+	canvasSprite.setTexture(canvas->getTexture());
 	/**
 	* Additional Code Here
 	*/
@@ -46,26 +46,6 @@ void Scene2D::onDestroy() {
 	/**
 	* Additional Code Here
 	 */
-}
-
-void Scene2D::renderImGui()
-{
-}
-
-void Scene2D::renderEntitiesImGui()
-{
-	for (auto entity : this->entities)
-	{
-		std::string title = entity->getName();
-		if (ImGui::CollapsingHeader(title.c_str()))
-		{
-			ImGui::PushID((unsigned int)entity->getHandle());
-			ImGui::Indent();
-			entity->drawImGui();
-			ImGui::Unindent();
-			ImGui::PopID();
-		}
-	}
 }
 
 Entity* Scene2D::createEntity() {

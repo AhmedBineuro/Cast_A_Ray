@@ -2549,7 +2549,7 @@ static bool ImFontAtlasBuildWithStbTruetype(ImFontAtlas* atlas)
     memset(buf_rects.Data, 0, (size_t)buf_rects.size_in_bytes());
     memset(buf_packedchars.Data, 0, (size_t)buf_packedchars.size_in_bytes());
 
-    // 4. Gather glyphs sizes so we can pack them in our virtual canvas.
+    // 4. Gather glyphs sizes so we can pack them in our virtual canvas->
     int total_surface = 0;
     int buf_rects_out_n = 0;
     int buf_packedchars_out_n = 0;

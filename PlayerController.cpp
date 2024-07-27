@@ -17,15 +17,15 @@ PlayerController::PlayerController(Entity* player, Entity* camera) {
 void PlayerController::OnCreate(){
 	previousMousePosition = sf::Mouse::getPosition();
 }
-void PlayerController::OnUpdate(float deltaTime){
+void PlayerController::OnUpdate(float deltaTime) {
 	sf::Vector2f velocity = sf::Vector2f(0, 0);
 	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
 	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
 	previousMousePosition = currentMousePosition;
 	std::shared_ptr<Entity> cam = this->camera.lock();
 	CameraComponent* camComp = nullptr;
-	TransformComponent* camTran= nullptr;
-	if (cam!=nullptr) {
+	TransformComponent* camTran = nullptr;
+	if (cam != nullptr) {
 		camComp = cam->getComponent<CameraComponent>();
 		camTran = cam->getComponent<TransformComponent>();
 	}
@@ -47,19 +47,21 @@ void PlayerController::OnUpdate(float deltaTime){
 				velocity += (right * -1.0f);
 
 			// TODO: fix running not working
-			if(sf::Keyboard::isKeyPressed(keyBinds[Keybinds::SPRINT]))
-				velocity = velocity * (this->controllableComponent->sprintMultiplier);
+			if (keyStates[Keybinds::SPRINT])
+			{
+				velocity *= (this->controllableComponent->sprintMultiplier)*4;
+			}
 			else
-				velocity = velocity * (this->controllableComponent->movementMultiplier);
+				velocity *= (this->controllableComponent->movementMultiplier);
 
 			if (keyStates[Keybinds::LOOK_RIGHT])
 				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
 			else if (keyStates[Keybinds::LOOK_LEFT])
 				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
-			if (camComp!=nullptr && keyStates[Keybinds::LOOK_UP])
-				camComp->zHeight += 0.01f;
-			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
+			if (camComp != nullptr && keyStates[Keybinds::LOOK_UP])
 				camComp->zHeight -= 0.01f;
+			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
+				camComp->zHeight += 0.01f;
 		}
 
 		if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
@@ -69,21 +71,17 @@ void PlayerController::OnUpdate(float deltaTime){
 		colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
 		colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
 
-		if (camTran==nullptr)
+		if (camTran == nullptr)
 			return;
-		camTran->position =playerTransform->position;
+		camTran->position = playerTransform->position;
 		camTran->rotation = playerTransform->rotation;
 		camComp->setPlaneNormalDirection(camTran->rotation);
 	}
 }
-void PlayerController::OnRender(){ }
-void PlayerController::OnFixedUpdate(float fixedDeltaTime){}
+void PlayerController::OnRender() { }
+void PlayerController::OnFixedUpdate(float fixedDeltaTime) {}
 
 void PlayerController::OnEventLoop(sf::Event event) {
-	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
-	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
-	float deltaTime = (Config::getConfig()).getDeltaTime();
-	previousMousePosition = currentMousePosition;
 	std::shared_ptr<Entity> cam = this->camera.lock();
 	if (playerTransform != nullptr && playerSprite != nullptr && controllableComponent != nullptr)
 	{
@@ -94,8 +92,8 @@ void PlayerController::OnEventLoop(sf::Event event) {
 			right = sf::getRotated(right, -90);
 			if (event.type == sf::Event::KeyPressed)
 			{
-				if (event.key.code== keyBinds[Keybinds::FORWARDS])
-					keyStates[Keybinds::FORWARDS]=true;
+				if (event.key.code == keyBinds[Keybinds::FORWARDS])
+					keyStates[Keybinds::FORWARDS] = true;
 				else if (event.key.code == keyBinds[Keybinds::BACKWARDS])
 					keyStates[Keybinds::BACKWARDS] = true;
 
@@ -103,15 +101,22 @@ void PlayerController::OnEventLoop(sf::Event event) {
 					keyStates[Keybinds::RIGHT] = true;
 				else if (event.key.code == keyBinds[Keybinds::LEFT])
 					keyStates[Keybinds::LEFT] = true;
-			
+
 				if (event.key.code == keyBinds[Keybinds::LOOK_RIGHT])
 					keyStates[Keybinds::LOOK_RIGHT] = true;
 				else if (event.key.code == keyBinds[Keybinds::LOOK_LEFT])
 					keyStates[Keybinds::LOOK_LEFT] = true;
-				if (cam != nullptr && event.key.code == Keybinds::LOOK_UP)
+				if (event.key.code == keyBinds[Keybinds::LOOK_UP])
+				{
 					keyStates[Keybinds::LOOK_UP] = true;
-				else if (cam != nullptr && event.key.code == Keybinds::LOOK_DOWN)
+				}
+				else if (event.key.code == keyBinds[Keybinds::LOOK_DOWN])
+				{
 					keyStates[Keybinds::LOOK_DOWN] = true;
+				}
+				if (event.key.code == keyBinds[Keybinds::SPRINT]){
+					keyStates[Keybinds::SPRINT] = true;
+				}
 			}
 			else if (event.type == sf::Event::KeyReleased)
 			{
@@ -133,6 +138,8 @@ void PlayerController::OnEventLoop(sf::Event event) {
 					keyStates[Keybinds::LOOK_UP] = false;
 				else if (cam != nullptr && event.key.code == keyBinds[Keybinds::LOOK_DOWN])
 					keyStates[Keybinds::LOOK_DOWN] = false;
+				else if (event.key.code == keyBinds[Keybinds::SPRINT])
+					keyStates[Keybinds::SPRINT] = false;
 			}
 		}
 	}

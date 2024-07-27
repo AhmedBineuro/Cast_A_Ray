@@ -15,8 +15,6 @@ public:
 	virtual //Should return the canvas result as a sprite and is called every render cal overridel
 	virtual sf::Sprite onRender() override;
 	virtual void onDestroy() override;
-	virtual void renderImGui() override;
-	virtual void renderEntitiesImGui() override;
 	Entity* createEntity();
 	~Scene2D();
 protected:

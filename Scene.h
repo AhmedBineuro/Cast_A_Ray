@@ -17,12 +17,13 @@ public:
     virtual void onFixedUpdate(float fixedDeltaTime)=0;
     //Should return the canvas result as a sprite and is called every render call
     virtual sf::Sprite onRender()=0;
-    virtual void renderImGui() {};
-    virtual void renderEntitiesImGui() {};
+    virtual void renderImGui();
+    void renderEntitiesImGui();
     virtual void onDestroy()=0;
+    virtual void refresh() = 0;
     virtual void onEventLoop(sf::Event event) {}
 protected:
-    sf::RenderTexture canvas;
+    std::shared_ptr<sf::RenderTexture> canvas;
     sf::Sprite canvasSprite;
     entt::registry registry;
     std::vector<std::shared_ptr<Entity>>entities;
