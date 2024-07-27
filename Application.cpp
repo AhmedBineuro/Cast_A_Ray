@@ -123,6 +123,9 @@ void Application::run() {
 	Config& config = Config::getConfig();
 	ImGui::SFML::Init(window);
 	float fixedDeltaTimeGUI = config.getFixedDeltaTime(); //For ImGui
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+	io.ConfigDockingWithShift = true;
 	while (running) {
 		if (config.RestartRequired()) {
 			config.setRestartRequiredFlag(false);
@@ -171,9 +174,10 @@ void Application::run() {
 		//ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
 		if(ImGui::BeginMainMenuBar()){
 			if (ImGui::BeginMenu("File")) {
-				ImGui::MenuItem("Item1");
-				ImGui::MenuItem("Item2");
-				ImGui::MenuItem("Item3");
+				ImGui::MenuItem("New Project");
+				ImGui::MenuItem("Open Project");
+				ImGui::MenuItem("Save Project");
+				ImGui::MenuItem("Export");
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Edit")) {
@@ -183,35 +187,32 @@ void Application::run() {
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("View")) {
-				ImGui::MenuItem("Item1");
-				ImGui::MenuItem("Item2");
-				ImGui::MenuItem("Item3");
+				ImGui::MenuItem("Entity Properties");
+				ImGui::MenuItem("Scene Properties");
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Preferences")) {
-				ImGui::MenuItem("Item1");
-				ImGui::MenuItem("Item2");
-				ImGui::MenuItem("Item3");
+				ImGui::MenuItem("Show FPS");
+				ImGui::MenuItem("Adjust window size");
 				ImGui::EndMenu();
 			}
 			ImGui::EndMainMenuBar();
 		}
 		ImGui::Begin("##main_window");
-		{
-			if(ImGui::BeginTabBar("Views")) {
-				if (ImGui::BeginTabItem("Viewport")){
-					update();
-					render(scene_available);
-					ImGui::Image(canvasSprite);
-					ImGui::EndTabItem();
-				}
-				if (ImGui::BeginTabItem("Editor")) {
-					ImGui::EndTabItem();
-				}
-				ImGui::EndTabBar();
+
+		if(ImGui::BeginTabBar("Views##tab")) {
+			if (ImGui::BeginTabItem("Viewport")){
+				update();
+				render(scene_available);
+				ImGui::Image(canvasSprite);
+				ImGui::EndTabItem();
 			}
-		ImGui::End();
+			if (ImGui::BeginTabItem("Editor")) {
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
 		}
+		ImGui::End();
 		if(showSettings)
 		{
 			renderSettings(fixedDeltaTimeGUI, config);
@@ -259,23 +260,23 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	settings.antiAliasingLevel = antiAlias_values[currentAntiAlias];
 	ImGui::Checkbox("Show Scene Debug Window", &(showSceneDebug));
 	if (ImGui::Button("Apply settings")) {
-		config.setSettings(settings);
-		config.applyChanges();
-		//Detect Resize Update
-		sf::Vector2u internalDimensions = config.getDimensions();
-		if (internalDimensions != window.getSize())
-		{
-			window.setSize(internalDimensions);
-		}
-		if (settings.capFrameRate)
-			window.setFramerateLimit(settings.maxFrameRate);
-		else
-			window.setFramerateLimit(0);
-		if (config.getDeltaTime() != fixedDeltaTimeGUI) {
-			config.setDeltaTime(fixedDeltaTimeGUI);
-			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
-		}
-		this->canvas.create(settings.renderResolution.x, settings.renderResolution.y);
+	config.setSettings(settings);
+	config.applyChanges();
+	//Detect Resize Update
+	sf::Vector2u internalDimensions = config.getDimensions();
+	if (internalDimensions != window.getSize())
+	{
+		window.setSize(internalDimensions);
+	}
+	if (settings.capFrameRate)
+		window.setFramerateLimit(settings.maxFrameRate);
+	else
+		window.setFramerateLimit(0);
+	if (config.getDeltaTime() != fixedDeltaTimeGUI) {
+		config.setDeltaTime(fixedDeltaTimeGUI);
+		this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
+	}
+	this->canvas.create(settings.renderResolution.x, settings.renderResolution.y);
 	}
 	ImGui::End();
 	if(showSceneDebug)

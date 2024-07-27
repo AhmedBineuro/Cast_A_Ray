@@ -179,6 +179,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Entity2D.h" />
+    <ClInclude Include="imguiDock-master\imgui_dock.h" />
     <ClInclude Include="imgui\imconfig-SFML.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui-SFML.h" />

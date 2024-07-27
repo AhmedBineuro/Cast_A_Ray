@@ -3,6 +3,7 @@
 #define DDA_SCENE_H
 #include "Scene2D.h"
 #include "Player.h"
+#include "imgui.h"
 
 // This is officially the scene for wolfenstien 3D style games!
 class DDAScene :public Scene {
@@ -95,6 +96,7 @@ public:
 
 	void renderImGui() override{
 		ImGui::Begin("Scene Information##window");
+
 		if (ImGui::BeginTabBar("Scene Information")) {
 			if (ImGui::BeginTabItem("Scene Properites")) {
 				ImGui::Text("Current Map: %s", map.getMapName().c_str());

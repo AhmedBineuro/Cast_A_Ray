@@ -212,6 +212,9 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\GameEnCore\Core Additions</Filter>
     </ClInclude>
+    <ClInclude Include="imguiDock-master\imgui_dock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cast_A_Ray.rc">
