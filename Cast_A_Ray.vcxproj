@@ -213,6 +213,7 @@
     <Font Include="CourierPrime-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
     <None Include="Config.json" />
     <None Include="Core\src\Config.json" />
   </ItemGroup>

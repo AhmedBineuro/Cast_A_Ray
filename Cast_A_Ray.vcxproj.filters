@@ -201,5 +201,6 @@
   <ItemGroup>
     <None Include="Config.json" />
     <None Include="Core\src\Config.json" />
+    <None Include=".gitattributes" />
   </ItemGroup>
 </Project>
