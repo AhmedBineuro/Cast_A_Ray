@@ -44,7 +44,7 @@ Player::Player(entt::registry* registry, sf::Vector2f position) :Entity(registry
 	this->camera = std::weak_ptr<Camera>();
 	this->addComponent(ColliderComponent(transformComponent->position, sf::Vector2f(0.5f, 0.5f)));
 	colliderComponent = this->getComponent<ColliderComponent>();
-	this->addComponent(ScriptComponent(std::make_shared <PlayerController>(this,this->camera.lock().get())));
+	this->addComponent(ScriptComponent(std::make_shared <PlayerController>()));
 }
 void Player::setPosition(sf::Vector2f position){
 	this->transformComponent->position = position;

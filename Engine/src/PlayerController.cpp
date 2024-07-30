@@ -1,18 +1,15 @@
 #include "Engine\include\PlayerController.h"
 PlayerController::PlayerController() {
 	OnCreate();
-	this->playerTransform = nullptr;
-	this->playerSprite = nullptr;
-	this->controllableComponent = nullptr;
-	this->colliderComponent = nullptr;
 	this->camera = std::weak_ptr<Entity>();
+	this->player = std::weak_ptr<Entity>();
 }
-PlayerController::PlayerController(Entity* player, Entity* camera) {
+PlayerController::PlayerController(Entity* player, Entity* camera):PlayerController() {
 	OnCreate();
-	this->playerTransform = player->getComponent<TransformComponent>();
-	this->controllableComponent = player->getComponent<ControllableComponent>();
-	this->colliderComponent = player->getComponent<ColliderComponent>();
-	this->camera = std::weak_ptr(std::shared_ptr<Entity>(camera));
+	if(camera!=nullptr)
+		this->camera = std::weak_ptr(std::shared_ptr<Entity>(camera));
+	if (player != nullptr)
+		this->player= std::weak_ptr(std::shared_ptr<Entity>(player));
 }
 void PlayerController::OnCreate(){
 	previousMousePosition = sf::Mouse::getPosition();
@@ -23,18 +20,29 @@ void PlayerController::OnUpdate(float deltaTime) {
 	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
 	previousMousePosition = currentMousePosition;
 	std::shared_ptr<Entity> cam = this->camera.lock();
+	std::shared_ptr<Entity> player = this->player.lock();
+	
+	ControllableComponent* plyrCtrl = nullptr;
+	TransformComponent* plyrTran = nullptr;
+	
 	CameraComponent* camComp = nullptr;
 	TransformComponent* camTran = nullptr;
+	
+	if (player != nullptr) {
+		plyrCtrl = player->getComponent<ControllableComponent>();
+		plyrTran = cam->getComponent<TransformComponent>();
+	}
 	if (cam != nullptr) {
 		camComp = cam->getComponent<CameraComponent>();
 		camTran = cam->getComponent<TransformComponent>();
 	}
-	if (playerTransform != nullptr && playerSprite != nullptr && controllableComponent != nullptr)
+
+	if (plyrTran != nullptr&& plyrCtrl != nullptr)
 	{
-		if (this->controllableComponent->enabled)
+		if (plyrCtrl->enabled)
 		{
-			sf::Vector2f forward = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-			sf::Vector2f right = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
+			sf::Vector2f forward = plyrTran->rotation * plyrCtrl->maxSpeed;
+			sf::Vector2f right = plyrTran->rotation * plyrCtrl->maxSpeed;
 			right = sf::getRotated(right, -90);
 			if (keyStates[Keybinds::FORWARDS])
 				velocity += forward;
@@ -49,32 +57,36 @@ void PlayerController::OnUpdate(float deltaTime) {
 			// TODO: fix running not working
 			if (keyStates[Keybinds::SPRINT])
 			{
-				velocity *= (this->controllableComponent->sprintMultiplier)*4;
+				velocity *= (plyrCtrl->sprintMultiplier)*4;
 			}
 			else
-				velocity *= (this->controllableComponent->movementMultiplier);
+				velocity *= (plyrCtrl->movementMultiplier);
 
 			if (keyStates[Keybinds::LOOK_RIGHT])
-				sf::rotate(this->playerTransform->rotation, -this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(plyrTran->rotation, -plyrCtrl->turnAngle * deltaTime);
 			else if (keyStates[Keybinds::LOOK_LEFT])
-				sf::rotate(this->playerTransform->rotation, this->controllableComponent->turnAngle * deltaTime);
+				sf::rotate(plyrTran->rotation, plyrCtrl->turnAngle * deltaTime);
 			if (camComp != nullptr && keyStates[Keybinds::LOOK_UP])
 				camComp->zHeight -= 0.01f;
 			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
 				camComp->zHeight += 0.01f;
 		}
 
-		if (sf::getLength(velocity) > this->controllableComponent->maxSpeed) {
-			velocity = sf::getNormalized(velocity) * this->controllableComponent->maxSpeed;
+		if (sf::getLength(velocity) > plyrCtrl->maxSpeed) {
+			velocity = sf::getNormalized(velocity) * plyrCtrl->maxSpeed;
 		}
-		playerTransform->position += velocity * (this->controllableComponent->movementMultiplier * deltaTime);
-		colliderComponent->border.top = this->playerTransform->position.y - (colliderComponent->border.height / 2);
-		colliderComponent->border.left = this->playerTransform->position.x - (colliderComponent->border.width / 2);
+		plyrTran->position += velocity * (plyrCtrl->movementMultiplier * deltaTime);
+		if (player->hasComponent<ColliderComponent>())
+		{
+			ColliderComponent* colComp = player->getComponent<ColliderComponent>();
+			colComp->border.top = plyrTran->position.y - (colComp->border.height / 2);
+			colComp->border.left = plyrTran->position.x - (colComp->border.width / 2);
+		}
 
 		if (camTran == nullptr)
 			return;
-		camTran->position = playerTransform->position;
-		camTran->rotation = playerTransform->rotation;
+		camTran->position = plyrTran->position;
+		camTran->rotation = plyrTran->rotation;
 		camComp->setPlaneNormalDirection(camTran->rotation);
 	}
 }
@@ -83,12 +95,14 @@ void PlayerController::OnFixedUpdate(float fixedDeltaTime) {}
 
 void PlayerController::OnEventLoop(sf::Event event) {
 	std::shared_ptr<Entity> cam = this->camera.lock();
-	if (playerTransform != nullptr && playerSprite != nullptr && controllableComponent != nullptr)
+	if (player.lock()!=nullptr)
 	{
-		if (this->controllableComponent->enabled)
+		ControllableComponent* plyrCtrl = player.lock()->getComponent<ControllableComponent>();
+		TransformComponent* plyrTran = player.lock()->getComponent<TransformComponent>();
+		if (plyrCtrl->enabled)
 		{
-			sf::Vector2f forward = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
-			sf::Vector2f right = this->playerTransform->rotation * this->controllableComponent->maxSpeed;
+			sf::Vector2f forward = plyrTran->rotation * plyrCtrl->maxSpeed;
+			sf::Vector2f right = plyrTran->rotation * plyrCtrl->maxSpeed;
 			right = sf::getRotated(right, -90);
 			if (event.type == sf::Event::KeyPressed)
 			{
@@ -148,29 +162,42 @@ void PlayerController::OnEventLoop(sf::Event event) {
 void PlayerController::OnDestroy(){}
 
 void PlayerController::setKeyBind(Keybinds key, sf::Keyboard::Key key_code){}
-void PlayerController::setSensitivity(float sensitivity){}
 void PlayerController::setPlayer(Entity* player, std::shared_ptr<Entity> camera) {
-	this->playerTransform = player->getComponent<TransformComponent>();
-	this->playerSprite = player->getComponent<SpriteComponent>();
-	this->controllableComponent = player->getComponent<ControllableComponent>();
-	this->camera = std::weak_ptr<Entity>(camera);
+	this->player = std::weak_ptr<Entity>(std::shared_ptr<Entity>(player));
+	this->camera = std::weak_ptr<Entity>(std::shared_ptr<Entity>(camera));
 }
 void PlayerController::setCamera(std::shared_ptr<Entity> cam) {
 	this->camera = std::weak_ptr<Entity>(cam);
 }
-void PlayerController::setMovementMultiplier(float movementMultiplier) {
-	this->controllableComponent->movementMultiplier = movementMultiplier;
-}
-float PlayerController::getSensitivity() { return this->controllableComponent->sensitivity; };
 
 void PlayerController::renderImGui(){
 	if (ImGui::CollapsingHeader("Player Controller Script")) {
+		std::string playerName = "";
+		if (this->player.lock()) {
+			playerName = this->player.lock()->getName();
+		}
+		else {
+			playerName = "None";
+		}
 		std::string cameraName = "";
 		if (this->camera.lock()) {
 			cameraName = this->camera.lock()->getName();
 		}
 		else {
 			cameraName = "None";
+		}
+
+		ImGui::Text("Player Bound: %s", playerName.c_str());
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_ENTITY_PTR_")) {
+				std::shared_ptr<Entity> player = *static_cast<std::shared_ptr<Entity>*>(payload->Data);
+				if (player->hasComponent<TransformComponent>()&& player->hasComponent<ControllableComponent>()) {
+					this->player = std::weak_ptr<Entity>(player);
+					ImGui::Text("Selected %s as player", player->getName().c_str());
+				}
+				else printf("Entity doesn't have transform or controllable component\n");
+			}
+			ImGui::EndDragDropTarget();
 		}
 		ImGui::Text("Target Camera: %s", cameraName.c_str());
 		if (ImGui::BeginDragDropTarget()) {
@@ -180,7 +207,7 @@ void PlayerController::renderImGui(){
 					this->camera = std::weak_ptr<Entity>(cam);
 					ImGui::Text("Selected %s as camera",cam->getName().c_str());
 				}
-				else printf("Entity is not a Camera Entity\n");
+				else printf("Entity does not have camera component\n");
 			}
 			ImGui::EndDragDropTarget();
 		}

@@ -1,6 +1,6 @@
 #pragma once
 #include "entt.hpp"
-#include "CoreComponents.h"
+#include "Core/include/CoreComponents.h"
 #include <set>
 /**
 * @brief The core entity class that any custom entity will be built on. The class will serve as the interface to the entity component system.
@@ -42,22 +42,23 @@ public:
     void removeComponent(T component);
 
     void setChild(std::shared_ptr<Entity> entity);
+    std::set<Component*>* getComponentList();
 
     
     entt::entity getHandle();
     std::string getName();
     
     void setName(std::string);
-    void drawImGui();
     
     virtual ~Entity() {
         this->registry->destroy(this->handle);
     }
+    std::string buffer;
 protected:
+    std::string name;
     entt::entity handle;
     entt::registry* registry;
     std::weak_ptr<Entity> child; // Weak pointer to handle random deletes and stuff
-    std::string name,buffer;
     std::set<Component*> components;
 };
 template <typename T>

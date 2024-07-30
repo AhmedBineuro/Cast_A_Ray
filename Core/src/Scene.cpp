@@ -46,7 +46,56 @@ void Scene::renderEntitiesImGui()
 					ImGui::EndDragDropSource();
 				}
 				ImGui::Indent();
-				entity->drawImGui();
+
+				if (ImGui::Button("Add Component##addComponent")) {
+					ImGui::OpenPopup("Component_List");
+				}
+				
+				//Menu to add the components on the fly
+				if (ImGui::BeginPopup("Component_List")) {
+					if (ImGui::MenuItem("Transform Component")) {
+						entity->addComponent(TransformComponent());
+					}
+					if (ImGui::MenuItem("Player Controller Script Component")) {
+					    entity->addComponent(ScriptComponent(std::make_shared<PlayerController>()));
+					}
+					if (ImGui::MenuItem("Render Component")) {
+						entity->addComponent(RenderComponent());
+					}
+					if (ImGui::MenuItem("Sprite Component")) {
+						entity->addComponent(SpriteComponent());
+					}
+					if (ImGui::MenuItem("Controllable Component")) {
+						entity->addComponent(ControllableComponent());
+					}
+					if (ImGui::MenuItem("Camera Component")) {
+						entity->addComponent(CameraComponent());
+					}
+					if (ImGui::MenuItem("Map Tag Component")) {
+						entity->addComponent(MapTagComponent());
+					}
+					if (ImGui::MenuItem("Collider Component")) {
+						entity->addComponent(ColliderComponent());
+					}
+					ImGui::EndPopup();
+				}
+
+				//Draw 
+				ImGui::Text("Name:");
+				ImGui::SameLine();
+				if (!ImGui::InputText("##input", entity->buffer.begin()._Unwrapped(), 20));
+				if (!ImGui::IsWindowFocused())
+				{
+					entity->buffer = entity->getName();
+					entity->buffer.resize(20);
+				}
+				ImGui::SameLine();
+				if (ImGui::Button("apply##name")) {
+					entity->setName(entity->buffer);
+				}
+				//entity->drawImGui();
+				for (auto component : *(entity->getComponentList()))
+					component->draw();
 				if (ImGui::Button("Delete Entity")) {
 					this->entities.erase(this->entities.begin() + i);
 					i -= 2;

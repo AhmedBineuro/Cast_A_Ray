@@ -10,12 +10,9 @@
 #include "Core\include\Map.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "Core\include\Component.h"
 
-class Component {
-public:
-    virtual void draw() {};
-    std::string componentName;
-};
+
 
 class TransformComponent:public Component {
     
@@ -205,7 +202,7 @@ class ColliderComponent : public Component {
 
         sf::FloatRect border;
         bool isTrigger, enabled;
-        ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(2, 2)) {
+        ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(1, 1)) {
             border = sf::FloatRect(position - (size / 2.0f), size);
             isTrigger = false;
             enabled = true;

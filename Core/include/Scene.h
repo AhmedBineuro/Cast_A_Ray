@@ -6,6 +6,8 @@
 #include "Config.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "Core/include/CoreComponents.h"
+#include "Core/include/Actors.h"
 /*
  * @brief This template Scene class will provide all the methods that will be called by the Game class
 */

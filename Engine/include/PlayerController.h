@@ -29,18 +29,11 @@ public:
     virtual void OnEventLoop(sf::Event event) override;
 
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
-    void setSensitivity(float sensitivity);
     void setPlayer(Entity* player, std::shared_ptr<Entity> camera);
     void setCamera(std::shared_ptr<Entity> cam);
-    void setMovementMultiplier(float movementMultiplier);
     virtual void renderImGui() override;
-
-    float getSensitivity();
 protected:
-    TransformComponent* playerTransform; // This what the script will manipulate
-    SpriteComponent* playerSprite; // This what the script will manipulate
-    ControllableComponent* controllableComponent;
-    ColliderComponent* colliderComponent;
+    std::weak_ptr<Entity> player;
     std::weak_ptr<Entity> camera;
     sf::Vector2i previousMousePosition;
     bool keyStates[AVAILABLE_KEYS] = {false};
