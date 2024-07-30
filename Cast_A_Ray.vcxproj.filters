@@ -19,44 +19,20 @@
     <Filter Include="Source Files\ImGui">
       <UniqueIdentifier>{56d4a477-ee3e-417e-b884-73f7ed6fd52c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\AppCore">
-      <UniqueIdentifier>{274b1f32-0a2d-4501-a84d-271f3ef062bb}</UniqueIdentifier>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{44705fa7-e05b-4e99-97ad-91f1a4cc3d19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameEnCore">
-      <UniqueIdentifier>{1e8e08bd-6af2-4cc8-bfbf-201af1f84cad}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{c305b18c-b30a-4fd5-8b55-9f0480eb479e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameEnCore">
-      <UniqueIdentifier>{e2921866-1c8f-4ec7-a3a0-e8013423e809}</UniqueIdentifier>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{16cca203-2fc8-48df-b1a4-919de54feffa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\AppCore">
-      <UniqueIdentifier>{bffc5861-48f6-4a17-8fd8-fde264973226}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Editable">
-      <UniqueIdentifier>{7d3c1a81-d9e2-4f47-bc89-b025de346469}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Editable">
-      <UniqueIdentifier>{1730a68b-45a1-4a5c-9415-8379864d6d8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Additional Classes">
-      <UniqueIdentifier>{e13881dd-8f6b-4e32-a40d-d7180c90c665}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameEnCore\Core Additions">
-      <UniqueIdentifier>{e4f7968d-2f22-4e01-94ff-ad3266ab4730}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameEnCore\Core Additions">
-      <UniqueIdentifier>{84ca2bfa-b9cb-4597-a171-47cc6739b125}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{c4671e8d-d68c-4532-a909-7e410ec9ae77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\GameEnCore</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Source Files\GameEnCore</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource_Manager.cpp">
-      <Filter>Source Files\GameEnCore</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
@@ -72,65 +48,56 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files\AppCore</Filter>
+    <ClCompile Include="Core\src\Application.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>Source Files\AppCore</Filter>
+    <ClCompile Include="Core\src\Config.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Systems.cpp">
-      <Filter>Source Files\Editable</Filter>
+    <ClCompile Include="Core\src\Core.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes.cpp">
-      <Filter>Source Files\Editable</Filter>
+    <ClCompile Include="Core\src\Entity.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scene2D.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Core\src\Map.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Entity2D.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Core\src\Resource_Manager.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Core\src\Scene.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Engine\src\Camera.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Engine\src\Entity2D.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Engine\src\Log.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Engine\src\Player.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="DDAScene.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClCompile Include="Engine\src\PlayerController.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Scene2D.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Scenes.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Systems.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\AppCore</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\GameEnCore</Filter>
-    </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Header Files\GameEnCore</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource_Manager.h">
-      <Filter>Header Files\GameEnCore</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
@@ -158,62 +125,71 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\GameEnCore</Filter>
+    <ClInclude Include="Core\include\System.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Header Files\AppCore</Filter>
+    <ClInclude Include="Core\include\Map.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\AppCore</Filter>
+    <ClInclude Include="Core\include\Resource_Manager.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Header Files\AppCore</Filter>
+    <ClInclude Include="Core\include\Scene.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="SFMLMath-master\src\SFMLMath.hpp">
-      <Filter>Header Files\GameEnCore</Filter>
+    <ClInclude Include="Core\include\Entity.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Header Files\GameEnCore</Filter>
+    <ClInclude Include="Core\include\CoreComponents.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Systems.h">
-      <Filter>Header Files\Editable</Filter>
+    <ClInclude Include="Core\include\Core.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Components.h">
-      <Filter>Header Files\Editable</Filter>
+    <ClInclude Include="Core\include\Config.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes.h">
-      <Filter>Header Files\Editable</Filter>
+    <ClInclude Include="Core\include\Components.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scene2D.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Core\include\Application.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Entity2D.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\Actor.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="CoreComponents.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\Camera.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\include\DDAScene.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\Entity2D.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\Log.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\Player.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="RaycastUtils.h">
-      <Filter>Header Files\GameEnCore</Filter>
+    <ClInclude Include="Engine\include\PlayerController.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\GameEnCore\Core Additions</Filter>
+    <ClInclude Include="Engine\include\RaycastUtils.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="imguiDock-master\imgui_dock.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\include\Scene2D.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\Scenes.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\Systems.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\Tile.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,5 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json" />
+    <None Include="Core\src\Config.json" />
   </ItemGroup>
 </Project>

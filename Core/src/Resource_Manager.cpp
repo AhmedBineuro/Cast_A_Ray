@@ -1,4 +1,4 @@
-#include "Resource_Manager.h"
+#include "Core\include\Resource_Manager.h"
 Resource_Manager Resource_Manager::m_singleton;
 Resource_Manager::Resource_Manager() {
 	std::shared_ptr<sf::Texture> defaultTexture = std::make_shared<sf::Texture>();

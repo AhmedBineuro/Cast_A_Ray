@@ -1,5 +1,5 @@
 #pragma once
-#include "Config.h"
+#include "Core\include\Config.h"
 /**
 * The Actor class will be used to implement scriptiable behaviour for entities.
 * Similar to the MonoBehaviour class in unity and Agent class in Unreal, the actor class

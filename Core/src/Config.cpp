@@ -1,4 +1,4 @@
-#include "Config.h"
+#include "Core/include/Config.h"
 Config Config::config;
 Config::Config() {
 	nlohmann::json data;

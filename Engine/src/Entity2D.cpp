@@ -1,5 +1,5 @@
-#include "Entity2D.h"
-#include "Resource_Manager.h"
+#include "Engine\include\Entity2D.h"
+#include "Core\include\Resource_Manager.h"
 Entity2D::Entity2D(entt::registry* registry):Entity(registry){
 	this->addComponent(RenderComponent());
 	this->addComponent(SpriteComponent());

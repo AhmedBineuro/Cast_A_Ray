@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Resource_Manager.h"
+#include "Core\include\Resource_Manager.h"
 /**
 * @brief enum to specify the importance level of a message
 */

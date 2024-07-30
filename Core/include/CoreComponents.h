@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 #include "SFMLMath.hpp"
-#include "Actor.h"
-#include "Map.h"
+#include "Engine\include\Actor.h"
+#include "Core\include\Map.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
 

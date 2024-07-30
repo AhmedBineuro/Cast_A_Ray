@@ -1,8 +1,8 @@
 #pragma once
-#include "System.h"
-#include "Components.h"
-#include "Config.h"
-#include "Core.h"
+#include "Core\include\System.h"
+#include "Core\include\Components.h"
+#include "Core\include\Config.h"
+#include "Core\include\Core.h"
 #include "RaycastUtils.h"
 
 

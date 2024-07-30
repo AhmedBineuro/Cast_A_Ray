@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Engine\include\Player.h"
 Player::Player(entt::registry* registry) :Entity(registry){
 	this->addComponent(TransformComponent());
 	this->transformComponent = (this->getComponent<TransformComponent>());

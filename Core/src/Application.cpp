@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "Core\include\Application.h"
 Application::Application() {
 	this->appName = "Cast-A-Ray Application";
 	Config& config = Config::getConfig();

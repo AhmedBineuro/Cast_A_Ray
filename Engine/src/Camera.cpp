@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "Engine\include\Camera.h"
 Camera::Camera(entt::registry* registry) :Entity(registry) {
 	addComponent(TransformComponent());
 	this->transformComponent = getComponent<TransformComponent>();

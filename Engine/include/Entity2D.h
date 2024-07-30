@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.h"
-#include "Core.h"
-#include "Actor.h"
+#include "Core\include\Entity.h"
+#include "Core\include\Core.h"
+#include "Engine\include\Actor.h"
 class Entity2D:public Entity {
 public:
 	Entity2D(entt::registry* registry);
