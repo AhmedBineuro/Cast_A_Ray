@@ -2,7 +2,6 @@
 #ifndef SCENE2D_H
 #define SCENE2D_H
 #include "Core\include\Scene.h"
-#include "Engine\include\Entity2D.h"
 #include "Systems.h"
 
 //Normal 2D Rendering Scene

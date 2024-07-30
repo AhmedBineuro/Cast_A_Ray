@@ -153,10 +153,7 @@
     <ClCompile Include="Core\src\Map.cpp" />
     <ClCompile Include="Core\src\Resource_Manager.cpp" />
     <ClCompile Include="Core\src\Scene.cpp" />
-    <ClCompile Include="Engine\src\Camera.cpp" />
-    <ClCompile Include="Engine\src\Entity2D.cpp" />
     <ClCompile Include="Engine\src\Log.cpp" />
-    <ClCompile Include="Engine\src\Player.cpp" />
     <ClCompile Include="Engine\src\PlayerController.cpp" />
     <ClCompile Include="Engine\src\Scene2D.cpp" />
     <ClCompile Include="Engine\src\Scenes.cpp" />
@@ -188,11 +185,8 @@
     <ClInclude Include="Core\include\System.h" />
     <ClInclude Include="Core\include\Component.h" />
     <ClInclude Include="Engine\include\Actor.h" />
-    <ClInclude Include="Engine\include\Camera.h" />
     <ClInclude Include="Engine\include\DDAScene.h" />
-    <ClInclude Include="Engine\include\Entity2D.h" />
     <ClInclude Include="Engine\include\Log.h" />
-    <ClInclude Include="Engine\include\Player.h" />
     <ClInclude Include="Engine\include\PlayerController.h" />
     <ClInclude Include="Engine\include\RaycastUtils.h" />
     <ClInclude Include="Engine\include\Scene2D.h" />
