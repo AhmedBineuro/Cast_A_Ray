@@ -228,7 +228,8 @@ void Application::render(bool scene_available) {
 	{
 		canvasSprite=sceneList[currentScene]->onRender();
 		const sf::Texture* t = canvasSprite.getTexture();
-		canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
+		if(t!=nullptr)
+			canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
 		canvas.draw(canvasSprite);
 		//canvasSprite.setTexture(canvas.getTexture());
 	}

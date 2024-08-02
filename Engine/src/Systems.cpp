@@ -53,13 +53,15 @@ namespace Systems {
 				Resource_Manager& rm = Resource_Manager::getResourceManager();
 				sf::RectangleShape textureSlice(sf::Vector2f(1, 10));
 				int prevFloorTag = RAND_MAX, prevCeilingTag = RAND_MAX, prevWallTag = RAND_MAX;
-				auto view = registry.view<CameraComponent, TransformComponent>();
+				auto view = registry.view<CameraComponent, TransformComponent,CanvasComponent>();
 				for (auto entity : view) {
 					CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
-					if (!cameracomponent.enabled || cameracomponent.target==nullptr)
+					CanvasComponent& canvascomponent = registry.get<CanvasComponent>(entity);
+					if (!cameracomponent.enabled || !canvascomponent.canvas.lock())
 						continue;
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
-					sf::Vector2u windowSize = cameracomponent.target->getSize();
+
+					sf::Vector2u windowSize = canvascomponent.canvas.lock()->getSize();
 					////////////////////Wall Casting////////////////////////////
 					for (int x = 0; x < windowSize.x; x++) {
 						//cameraX is the x-coordinate in the screen space/ camera space
@@ -96,9 +98,9 @@ namespace Systems {
 						float amount = perpDist / cameracomponent.renderDistance;
 						sf::Color shade = sf::Color(255 * (1 - amount), 255 * (1 - amount), 255 * (1 - amount));
 						textureSlice.setFillColor(shade);
-						cameracomponent.target->draw(textureSlice);
+						canvascomponent.canvas.lock()->draw(textureSlice);
 					}
-					cameracomponent.target->display();
+					canvascomponent.canvas.lock()->display();
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {
@@ -111,15 +113,15 @@ namespace Systems {
 
 	void RenderSystem2D(entt::registry& registry,sf::RenderTexture& renderTarget) {
 		//Get the list of entities with this component
-		auto view = registry.view<RenderComponent, SpriteComponent, TransformComponent>();
+		auto view = registry.view<RenderStatesComponent, SpriteComponent, TransformComponent>();
 		for (auto entity : view) {
-			RenderComponent renderComponent = registry.get<RenderComponent>(entity);
-			if (renderComponent.enabled) {
-				TransformComponent transformComponent = registry.get<TransformComponent>(entity);
+			RenderStatesComponent& renderStatesComponent = registry.get<RenderStatesComponent>(entity);
+			if (renderStatesComponent.enabled) {
+				TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
 				SpriteComponent& sprite = registry.get<SpriteComponent>(entity);
 				sprite.sprite.setPosition(transformComponent.position*50.0f);
 				sprite.sprite.setRotation(sf::getRotationAngle(transformComponent.rotation));
-				renderTarget.draw(sprite.sprite, renderComponent.renderStates);
+				renderTarget.draw(sprite.sprite, renderStatesComponent.renderStates);
 			}
 		}
 		renderTarget.display();

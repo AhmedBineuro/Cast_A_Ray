@@ -14,6 +14,15 @@
 
 
 
+/*
+* @brief Canvas helper struct to assist drag and drop behaviours for assigning canvases
+*/
+struct Canvas {
+    Canvas(std::shared_ptr<sf::RenderTexture> target = nullptr, std::string name = "") :target(target), name(name){}
+    std::shared_ptr<sf::RenderTexture> target;
+    std::string name;
+};
+
 class TransformComponent:public Component {
     
 public:
@@ -54,16 +63,16 @@ public:
         }
     };
 };
-class RenderComponent : public Component {
+class RenderStatesComponent : public Component {
 public:
 
     bool enabled;
     sf::RenderStates renderStates;
-    RenderComponent() {
-        componentName = "Render";
+    RenderStatesComponent() {
+        componentName = "Render States";
     }
     void draw() {
-        if (ImGui::CollapsingHeader("Render Component")) {
+        if (ImGui::CollapsingHeader("Render States Component")) {
             ImGui::Indent();
             ImGui::Checkbox("Enabled##Render", &enabled);
             ImGui::Unindent();
@@ -123,12 +132,11 @@ public:
     float FOV;
     float renderDistance;
     sf::Vector2f plane;
-    sf::RenderTexture* target;
     float zHeight;
     bool enabled, fisheye = false;
 
-    CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, sf::RenderTexture* targetTexture = nullptr, float zHeight = 0.5f)
-        : FOV(fov), renderDistance(renderDistance), target(targetTexture), zHeight(zHeight) {
+    CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float zHeight = 0.5f)
+        : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
         enabled = true;
         updatePlane();
         componentName = "Camera";
@@ -142,27 +150,8 @@ public:
 
     void draw() {
         if (ImGui::CollapsingHeader("Camera Component")) {
-            if (ImGui::BeginDragDropTarget()) {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_RNDR_TRGT_PTR_")) {
-                    std::weak_ptr<sf::RenderTexture> wptr = std::weak_ptr<sf::RenderTexture>(*static_cast<std::shared_ptr<sf::RenderTexture>*>(payload->Data));
-                    if (!wptr.lock())
-                    {
-                        printf("Bad Texture\n");
-                    }
-                    else {
-                        target = wptr.lock().get();
-                    }
-                    printf("Valid text: %d\n", target->getSize().x);
-                    ImGui::Text("Target Assigned");
-                    ImGui::EndDragDropTarget();
-                }
-                ImGui::Text("Target Assigned: %s", (target == nullptr) ? "No" : "Yes");
-                ImGui::Unindent();
-            }
             ImGui::Indent();
             ImGui::Text("Plane: x:%f , y:%f", plane.x, plane.y);
-
-
             if (ImGui::InputFloat("FOV", &FOV)) {
                 updatePlane();
             }
@@ -225,4 +214,39 @@ class ColliderComponent : public Component {
                 ImGui::Unindent();
             }
         }
+};
+
+class CanvasComponent :public Component {
+public:
+    std::string canvasName;
+    std::weak_ptr<sf::RenderTexture> canvas;
+
+    CanvasComponent(std::string name = "", std::shared_ptr<sf::RenderTexture> canvas = nullptr) :canvasName(name), canvas(std::weak_ptr(canvas)) {
+        this->componentName = "Canvas";
+    }
+    void draw() {
+        if (ImGui::CollapsingHeader("Canvas Component")) {
+            ImGui::Indent();
+            ImGui::Text("Current canvas: %s", 
+                ((this->canvas.lock()) ? this->canvasName.c_str() : "None"));
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_CANVAS_TRGT_PTR_")) {
+                    Canvas can = *static_cast<const Canvas*>(payload->Data);
+                    std::weak_ptr<sf::RenderTexture> wptr = std::weak_ptr(can.target);
+                    if (!wptr.lock())
+                    {
+                        printf("Bad Texture\n");
+                    }
+                    else {
+                        this->canvas= wptr.lock();
+                        this->canvasName = can.name;
+                    }
+                    ImGui::Text("Target Assigned");
+                    ImGui::EndDragDropTarget();
+                }
+                ImGui::Unindent();
+            }
+            ImGui::Unindent();
+        }
+    }
 };

@@ -8,6 +8,7 @@
 #include "imgui-SFML.h"
 #include "Core/include/CoreComponents.h"
 #include "Core/include/Actors.h"
+
 /*
  * @brief This template Scene class will provide all the methods that will be called by the Game class
 */
@@ -26,8 +27,8 @@ public:
     virtual void onEventLoop(sf::Event event) {}
 protected:
     std::shared_ptr<sf::RenderTexture> canvas;
-    std::unordered_map<std::string,std::shared_ptr<sf::RenderTexture>> canvas_map;
-    std::string current_canvas;
+    std::unordered_map<std::string,std::shared_ptr<sf::RenderTexture>> canvasMap;
+    std::string currentCanvas;
     sf::Sprite canvasSprite;
     entt::registry registry;
     std::vector<std::shared_ptr<Entity>>entities;
