@@ -6,6 +6,8 @@
 #include "imgui.h"
 //For Release WINDOWS
 //#include <windows.h>
+
+
 Application *MainApplication;
 bool switchScenes(std::string sceneName) {
     if (MainApplication != nullptr){
@@ -34,8 +36,9 @@ int main(){
     mainApp.run();
     return 0;
 }
-//For Release WINDOWS
 
+
+//For Release WINDOWS
 //int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 //    srand(time(NULL));
 //    Application mainApp("PlayGround");

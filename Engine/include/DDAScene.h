@@ -25,6 +25,8 @@ public:
 		Settings s = config.getSettings();
 		this->canvas->create(s.renderResolution.x, s.renderResolution.y);
 		currentMap = 0;
+		canvas_map["Main"] = this->canvas;
+		canvas_map["Wat"] = nullptr;
 
 		/**
 		* Additional Code Here
@@ -73,29 +75,29 @@ public:
 		this->map.refreshMap();
 	}
 
-	void renderImGui() override{
-		ImGui::Begin("Scene Information##window");
+	//virtual void renderImGui() override{
+	//	ImGui::Begin("Scene Information##window");
 
-		if (ImGui::BeginTabBar("Scene Information")) {
-			if (ImGui::BeginTabItem("Scene Properites")) {
-				ImGui::Text("Current Map: %s", map.getMapName().c_str());
-				ImGui::Separator();
-				if (ImGui::Button("Refresh Scene")) {
-					refresh();
-				}
-				ImGui::SameLine();
-				if (ImGui::Button("Select New Map")) {
-				
-				}
-				ImGui::Separator();
+	//	if (ImGui::BeginTabBar("Scene Information")) {
+	//		if (ImGui::BeginTabItem("Scene Properites")) {
+	//			ImGui::Text("Current Map: %s", map.getMapName().c_str());
+	//			ImGui::Separator();
+	//			if (ImGui::Button("Refresh Scene")) {
+	//				refresh();
+	//			}
+	//			ImGui::SameLine();
+	//			if (ImGui::Button("Select New Map")) {
+	//			
+	//			}
+	//			ImGui::Separator();
 
-				ImGui::EndTabItem();
-			}
-			renderEntitiesImGui();
-			ImGui::EndTabBar();
-		}
-		ImGui::End();
-	}
+	//			ImGui::EndTabItem();
+	//		}
+	//		renderEntitiesImGui();
+	//		ImGui::EndTabBar();
+	//	}
+	//	ImGui::End();
+	//}
 
 	void onEventLoop(sf::Event event) override{
 		Systems::EntityScriptSystem::OnEventLoop(registry,event);

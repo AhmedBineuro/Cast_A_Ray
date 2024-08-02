@@ -38,15 +38,15 @@ public:
     };
 };
 
-class ScriptComponent: public Component {
+class IntegratedScriptComponent: public Component {
 public:
     bool enabled = true;
     std::shared_ptr<Actor> script;
-    ScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {
-        componentName = "Script";
+    IntegratedScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {
+        componentName = "IntScript";
     }
     void draw() {
-        if (ImGui::CollapsingHeader("Script Component")) {
+        if (ImGui::CollapsingHeader("Integrated Script Component")) {
             ImGui::Indent();
             script->renderImGui();
             ImGui::Checkbox("Enabled##script",&enabled);

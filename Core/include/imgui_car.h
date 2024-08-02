@@ -4,7 +4,7 @@
 namespace ImGui {
 	void draw(Component*);
 	void draw(TransformComponent*);
-	void draw(ScriptComponent*);
+	void draw(IntegratedScriptComponent*);
 	void draw(RenderComponent*);
 	void draw(SpriteComponent*);
 	void draw(ControllableComponent*);
