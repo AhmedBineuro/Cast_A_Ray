@@ -17,4 +17,5 @@ public:
     virtual void OnDestroy() = 0;
     virtual void renderImGui()=0;
     virtual void OnEventLoop(sf::Event event){};// Will be called during the event loop (to prevent input out of focus) 
+    bool enabled = false;
 };

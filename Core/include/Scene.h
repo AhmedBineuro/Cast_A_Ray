@@ -8,6 +8,7 @@
 #include "imgui-SFML.h"
 #include "Core/include/CoreComponents.h"
 #include "Core/include/Actors.h"
+#include "Engine/include/PlayerController.h"
 
 /*
  * @brief This template Scene class will provide all the methods that will be called by the Game class

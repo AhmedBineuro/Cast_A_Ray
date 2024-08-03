@@ -30,7 +30,7 @@ public:
     sf::Vector2f rotation;
     TransformComponent(const sf::Vector2f& pos=sf::Vector2f(0,0), const sf::Vector2f& rot = sf::Vector2f(1.f, 0.f))
         : position(pos), rotation(rot) {
-        componentName = "Transform";
+        componentName = "Transform Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Transform Component")) {
@@ -50,14 +50,27 @@ public:
 class IntegratedScriptComponent: public Component {
 public:
     bool enabled = true;
-    std::shared_ptr<Actor> script;
-    IntegratedScriptComponent(std::shared_ptr<Actor> script) : script(std::move(script)) {
-        componentName = "IntScript";
+    std::vector<std::shared_ptr<Actor>> scripts;
+    IntegratedScriptComponent(std::shared_ptr<Actor> script=nullptr){
+        if (script != nullptr)
+            this->scripts.push_back(std::move(script));
+        else scripts.clear();
+        componentName = "IntScript Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Integrated Script Component")) {
             ImGui::Indent();
-            script->renderImGui();
+            int i = 0;
+            for(auto script:scripts)
+            {
+                if (ImGui::Button("X")) {
+                    scripts.erase(scripts.begin()+i);
+                    i -= 2;
+                }
+                ImGui::SameLine();
+                script->renderImGui();
+                i++;
+            }
             ImGui::Checkbox("Enabled##script",&enabled);
             ImGui::Unindent();
         }
@@ -69,7 +82,7 @@ public:
     bool enabled;
     sf::RenderStates renderStates;
     RenderStatesComponent() {
-        componentName = "Render States";
+        componentName = "Render States Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Render States Component")) {
@@ -85,7 +98,7 @@ public:
 
     sf::Sprite sprite;
     SpriteComponent() {
-        componentName = "Sprite";
+        componentName = "Sprite Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Sprite Component")) {
@@ -105,7 +118,7 @@ public:
         sprintMultiplier = 2.0f,
         turnAngle = 50.0f;
     ControllableComponent() {
-        componentName = "Controllable";
+        componentName = "Controllable Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Controllable Component")) {
@@ -139,7 +152,7 @@ public:
         : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
         enabled = true;
         updatePlane();
-        componentName = "Camera";
+        componentName = "Camera Component";
     }
     void updatePlane() {
         plane = sf::Vector2f(1, 1);
@@ -175,7 +188,7 @@ class MapTagComponent : public Component {
     public:
         std::string mapName;
         MapTagComponent() {
-            componentName = "Map Tag";
+            componentName = "Map Tag Component";
             mapName = "";
         }
 
@@ -195,7 +208,7 @@ class ColliderComponent : public Component {
             border = sf::FloatRect(position - (size / 2.0f), size);
             isTrigger = false;
             enabled = true;
-            componentName = "Collider";
+            componentName = "Collider Component";
         }
 
         void draw() {
@@ -222,7 +235,7 @@ public:
     std::weak_ptr<sf::RenderTexture> canvas;
 
     CanvasComponent(std::string name = "", std::shared_ptr<sf::RenderTexture> canvas = nullptr) :canvasName(name), canvas(std::weak_ptr(canvas)) {
-        this->componentName = "Canvas";
+        this->componentName = "Canvas Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Canvas Component")) {

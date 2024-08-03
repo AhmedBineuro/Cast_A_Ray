@@ -12,7 +12,7 @@ void Scene::renderImGui()
 		ImGui::OpenPopup("Create Canvas##popup");
 	}
 
-
+	//Create canvas popup
 	if (ImGui::BeginPopupModal("Create Canvas##popup", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
 		ImGui::Text("Name");
 		ImGui::SameLine();
@@ -20,6 +20,9 @@ void Scene::renderImGui()
 		ImGui::InputText("##canvas_name", canvSel_name, sizeof(canvSel_name));
 		if (this->canvasMap.find(canvSel_name) != this->canvasMap.end()) {
 			ImGui::Text("Error: the name already exists");
+		}
+		else if (strcmp(canvSel_name ,"")==0) {
+			ImGui::Text("Name is required to create canvas");
 		}
 		ImGui::Spacing();
 		ImGui::Text("Dimensions");
@@ -30,7 +33,7 @@ void Scene::renderImGui()
 		if (ImGui::Button("Create##final_create"))
 		{
 
-			if(this->canvasMap.find(canvSel_name) == this->canvasMap.end()){
+			if(this->canvasMap.find(canvSel_name) == this->canvasMap.end()&& strcmp(canvSel_name, "") != 0) {
 
 				this->canvasMap[canvSel_name] = std::make_shared<sf::RenderTexture>();
 				this->canvasMap[canvSel_name]->create(dimensions[0], dimensions[1]);
@@ -57,15 +60,18 @@ void Scene::renderImGui()
 
 	ImGui::Text("Main canvas:");
 	ImGui::SameLine();
-	if (ImGui::BeginCombo("##sceneSelector", this->currentCanvas.c_str())) {
+	//Canvas list combo
+	if (ImGui::BeginCombo("##canvasSelector", this->currentCanvas.c_str())) {
 		for (auto name : names) {
 			if (ImGui::Button(("X##del" + name).c_str())) {
 				ImGui::OpenPopup(("Remove Canvas##popup"+name).c_str());
 			}
+			//Remove canvas popup
 			if (ImGui::BeginPopupModal(("Remove Canvas##popup" + name).c_str(),nullptr,ImGuiWindowFlags_AlwaysAutoResize| ImGuiWindowFlags_NoResize)) {
 				ImGui::Text("Are you sure you want to delete %s", name.c_str());
 				if (ImGui::Button(("Remove##final_remove_" + name).c_str())) {
 					canvasMap.erase(name);
+					if (name == this->currentCanvas) this->currentCanvas = "";
 					ImGui::CloseCurrentPopup();
 				}
 				ImGui::SameLine();
@@ -88,6 +94,7 @@ void Scene::renderImGui()
 				newName[name.size()] = '\0';
 				ImGui::OpenPopup(("Edit Canvas##Ed" + name).c_str());
 			}
+			//Edit canvas popup
 			if (ImGui::BeginPopupModal(("Edit Canvas##Ed" + name).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize)) {
 				ImGui::InputText("##canvas_name", newName, sizeof(newName));
 				if (this->canvasMap.find(newName) != this->canvasMap.end()) {
@@ -140,9 +147,12 @@ void Scene::renderImGui()
 void Scene::renderEntitiesImGui()
 {
 	ImGui::Begin("Entity Settings");
+	static unsigned int entity_counter = 0;
 	if (ImGui::Button("Add Entity")) {
 		std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
 		this->entities.push_back((newEnt));
+		newEnt->setName("Entity " + std::to_string(entity_counter));
+		entity_counter++;
 	}
 	ImGui::Separator();
 	int i = 0;
@@ -154,6 +164,11 @@ void Scene::renderEntitiesImGui()
 		title.resize(20);
 		title = entity->getName();
 		ImGui::PushID((unsigned int)entity->getHandle());
+		if (ImGui::Button("X##delEntity")) {
+			this->entities.erase(this->entities.begin() + i);
+			i -= 2;
+		}
+		ImGui::SameLine();
 		if (ImGui::CollapsingHeader(title.c_str()))
 		{
 			if (ImGui::BeginDragDropSource()) {
@@ -170,31 +185,46 @@ void Scene::renderEntitiesImGui()
 			//Menu to add the components on the fly
 			if (ImGui::BeginPopup("Component_List")) {
 				if (ImGui::MenuItem("Transform Component")) {
-					entity->addComponent(TransformComponent());
+					if(!entity->hasComponent<TransformComponent>())
+						entity->addComponent(TransformComponent());
 				}
-				if (ImGui::MenuItem("Player Controller Script Component")) {
-					entity->addComponent(IntegratedScriptComponent(std::make_shared<PlayerController>()));
+				if (ImGui::MenuItem("Integrated Script Component")) {
+					if (!entity->hasComponent<IntegratedScriptComponent>())
+						entity->addComponent(IntegratedScriptComponent());
+				}
+				if (ImGui::MenuItem("Player Controller Script")) {
+					if (!entity->hasComponent<IntegratedScriptComponent>())
+						entity->addComponent(IntegratedScriptComponent());
+					auto scrptComp = entity->getComponent<IntegratedScriptComponent>();
+					scrptComp->scripts.push_back(std::make_shared<PlayerController>());
 				}
 				if (ImGui::MenuItem("Sprite Component")) {
-					entity->addComponent(SpriteComponent());
+					if (!entity->hasComponent<SpriteComponent>())
+						entity->addComponent(SpriteComponent());
 				}
 				if (ImGui::MenuItem("Controllable Component")) {
-					entity->addComponent(ControllableComponent());
+					if (!entity->hasComponent<ControllableComponent>())
+						entity->addComponent(ControllableComponent());
 				}
 				if (ImGui::MenuItem("Render States Component")) {
-					entity->addComponent(RenderStatesComponent());
+					if (!entity->hasComponent<RenderStatesComponent>())
+						entity->addComponent(RenderStatesComponent());
 				}
 				if (ImGui::MenuItem("Camera Component")) {
-					entity->addComponent(CameraComponent());
+					if (!entity->hasComponent<CameraComponent>())
+						entity->addComponent(CameraComponent());
 				}
 				if (ImGui::MenuItem("Canvas Component")) {
-					entity->addComponent(CanvasComponent());
+					if (!entity->hasComponent<CanvasComponent>())
+						entity->addComponent(CanvasComponent());
 				}
 				if (ImGui::MenuItem("Map Tag Component")) {
-					entity->addComponent(MapTagComponent());
+					if (!entity->hasComponent<MapTagComponent>())
+						entity->addComponent(MapTagComponent());
 				}
 				if (ImGui::MenuItem("Collider Component")) {
-					entity->addComponent(ColliderComponent());
+					if (!entity->hasComponent<ColliderComponent>())
+						entity->addComponent(ColliderComponent());
 				}
 				ImGui::EndPopup();
 			}
@@ -212,13 +242,8 @@ void Scene::renderEntitiesImGui()
 			if (ImGui::Button("apply##name")) {
 				entity->setName(entity->buffer);
 			}
-			//entity->drawImGui();
 			for (auto component : *(entity->getComponentList()))
 				component->draw();
-			if (ImGui::Button("Delete Entity")) {
-				this->entities.erase(this->entities.begin() + i);
-				i -= 2;
-			}
 			ImGui::Unindent();
 		}
 		ImGui::PopID();

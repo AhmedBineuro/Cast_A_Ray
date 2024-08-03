@@ -150,7 +150,6 @@ void Application::run() {
 			if (event.type == sf::Event::Resized)
 			{
 				window.setSize(sf::Vector2u(settings.width, settings.height));
-
 				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
@@ -172,6 +171,9 @@ void Application::run() {
 		ImGui::SFML::Update(window, deltaTime);
 		//ImGui::SetNextWindowPos(ImVec2(0, 0));
 		//ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
+		ImGui::SetNextWindowSize(ImVec2(config.getDimensions().x, config.getDimensions().y-20)); //The 20 is the size of the main menu bar
+		ImGui::SetNextWindowPos(ImVec2(0, 20));
+		ImGui::Begin("##BASE_WINDOW",nullptr,ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|ImGuiWindowFlags_NoResize);
 		if(ImGui::BeginMainMenuBar()){
 			if (ImGui::BeginMenu("File")) {
 				ImGui::MenuItem("New Project");
@@ -198,20 +200,12 @@ void Application::run() {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		ImGui::Begin("##main_window");
-
-		if(ImGui::BeginTabBar("Views##tab")) {
-			if (ImGui::BeginTabItem("Viewport")){
-				update();
-				render(scene_available);
-				ImGui::Image(canvasSprite);
-				ImGui::EndTabItem();
-			}
-			if (ImGui::BeginTabItem("Editor")) {
-				ImGui::EndTabItem();
-			}
-			ImGui::EndTabBar();
+		if (ImGui::Begin("Viewport")){
+			update();
+			render(scene_available);
+			ImGui::Image(canvasSprite);
 		}
+		ImGui::End();
 		ImGui::End();
 		if(showSettings)
 		{
@@ -231,7 +225,6 @@ void Application::render(bool scene_available) {
 		if(t!=nullptr)
 			canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
 		canvas.draw(canvasSprite);
-		//canvasSprite.setTexture(canvas.getTexture());
 	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {

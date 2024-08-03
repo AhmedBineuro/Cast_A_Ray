@@ -15,6 +15,7 @@ void PlayerController::OnCreate(){
 	previousMousePosition = sf::Mouse::getPosition();
 }
 void PlayerController::OnUpdate(float deltaTime) {
+	if (!enabled)return;
 	sf::Vector2f velocity = sf::Vector2f(0, 0);
 	sf::Vector2i currentMousePosition = sf::Mouse::getPosition();
 	sf::Vector2i deltaMousePosition = currentMousePosition - previousMousePosition;
@@ -94,6 +95,7 @@ void PlayerController::OnRender() { }
 void PlayerController::OnFixedUpdate(float fixedDeltaTime) {}
 
 void PlayerController::OnEventLoop(sf::Event event) {
+	if (!enabled)return;
 	std::shared_ptr<Entity> cam = this->camera.lock();
 	if (player.lock()!=nullptr)
 	{
@@ -172,6 +174,7 @@ void PlayerController::setCamera(std::shared_ptr<Entity> cam) {
 
 void PlayerController::renderImGui(){
 	if (ImGui::CollapsingHeader("Player Controller Script")) {
+		ImGui::Indent();
 		std::string playerName = "";
 		if (this->player.lock()) {
 			playerName = this->player.lock()->getName();
@@ -187,7 +190,7 @@ void PlayerController::renderImGui(){
 			cameraName = "None";
 		}
 
-		ImGui::Text("Player Bound: %s", playerName.c_str());
+		ImGui::Text("Player Bound: %s", ((this->player.lock()) ? playerName.c_str() : "None"));
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_ENTITY_PTR_")) {
 				std::shared_ptr<Entity> player = *static_cast<std::shared_ptr<Entity>*>(payload->Data);
@@ -199,7 +202,7 @@ void PlayerController::renderImGui(){
 			}
 			ImGui::EndDragDropTarget();
 		}
-		ImGui::Text("Target Camera: %s", cameraName.c_str());
+		ImGui::Text("Target Camera: %s", ((this->camera.lock())?cameraName.c_str():"None"));
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_ENTITY_PTR_")) {
 				std::shared_ptr<Entity> cam = *static_cast<std::shared_ptr<Entity>*>(payload->Data);
@@ -211,8 +214,7 @@ void PlayerController::renderImGui(){
 			}
 			ImGui::EndDragDropTarget();
 		}
-		if (ImGui::Button("Unbind Camera")) {
-			setCamera(nullptr);
-		}
+		ImGui::Checkbox("Enabled##plyrScrpt", &this->enabled);
+		ImGui::Unindent();
 	}
 }

@@ -131,33 +131,37 @@ namespace Systems {
 		void OnUpdate(float deltaTime, entt::registry& registry) {
 			auto view = registry.view<IntegratedScriptComponent>();
 			for (auto entity : view) {
-				IntegratedScriptComponent& script = registry.get<IntegratedScriptComponent>(entity);
-				if(script.enabled)
-					script.script->OnUpdate(deltaTime);
+				IntegratedScriptComponent& scripts = registry.get<IntegratedScriptComponent>(entity);
+				for (auto script : scripts.scripts)
+					if (script->enabled)
+						script->OnUpdate(deltaTime);
 			}
 		}
 		void OnFixedUpdate(float fixedDeltaTime, entt::registry& registry) {
 			auto view = registry.view<IntegratedScriptComponent>();
 			for (auto entity : view) {
-				IntegratedScriptComponent& script = registry.get<IntegratedScriptComponent>(entity);
-				if (script.enabled)
-					script.script->OnFixedUpdate(fixedDeltaTime);
+				IntegratedScriptComponent& scripts = registry.get<IntegratedScriptComponent>(entity);
+				for (auto script : scripts.scripts)
+					if (script->enabled)
+						script->OnFixedUpdate(fixedDeltaTime);
 			}
 		}
 		void OnRender(entt::registry& registry) {
 			auto view = registry.view<IntegratedScriptComponent>();
 			for (auto entity : view) {
-				IntegratedScriptComponent& script = registry.get<IntegratedScriptComponent>(entity);
-				if (script.enabled)
-					script.script->OnRender();
+				IntegratedScriptComponent& scripts = registry.get<IntegratedScriptComponent>(entity);
+				for(auto script:scripts.scripts)
+					if (script->enabled)
+						script->OnRender();
 			}
 		}
 		void OnEventLoop(entt::registry& registry, sf::Event event) {
 			auto view = registry.view<IntegratedScriptComponent>();
 			for (auto entity : view) {
-				IntegratedScriptComponent& script = registry.get<IntegratedScriptComponent>(entity);
-				if (script.enabled)
-					script.script->OnEventLoop(event);
+				IntegratedScriptComponent& scripts = registry.get<IntegratedScriptComponent>(entity);
+				for (auto script : scripts.scripts)
+					if (script->enabled)
+						script->OnEventLoop(event);
 			}
 		}
 	};
