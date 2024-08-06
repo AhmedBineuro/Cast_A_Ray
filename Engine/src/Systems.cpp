@@ -99,8 +99,8 @@ namespace Systems {
 						sf::Color shade = sf::Color(255 * (1 - amount), 255 * (1 - amount), 255 * (1 - amount));
 						textureSlice.setFillColor(shade);
 						canvascomponent.canvas.lock()->draw(textureSlice);
-						canvascomponent.canvas.lock()->display();
 					}
+					//canvascomponent.canvas.lock()->display();
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {

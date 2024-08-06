@@ -86,7 +86,7 @@ sf::Sprite& DDAScene::onRender() {
 	if (canvas_valid)
 	{
 		this->canvasMap[this->currentCanvas]->draw(canvasSprite);
-		this->canvasMap[this->currentCanvas]->display();
+		//this->canvasMap[this->currentCanvas]->display();
 		canvasSprite.setTexture(this->canvasMap[this->currentCanvas]->getTexture());
 	} 
 	/**

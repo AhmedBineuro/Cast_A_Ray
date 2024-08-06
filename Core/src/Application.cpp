@@ -194,13 +194,15 @@ void Application::run() {
 		if (ImGui::Begin("Viewport")){
 			update();
 			render(scene_available);
-			if (scene_available)
-				if(this->sceneList[this->currentScene]->canvasMap.find(this->sceneList[this->currentScene]->currentCanvas)!= this->sceneList[this->currentScene]
-					->canvasMap.end())
-					ImGui::Image(*(this->sceneList[this->currentScene]
-						->canvasMap[this->sceneList[this->currentScene]
-						->currentCanvas].get())
+			if (this->sceneList[this->currentScene]->canvasMap.find(this->sceneList[this->currentScene]->currentCanvas) != this->sceneList[this->currentScene]
+				->canvasMap.end())
+			{
+				this->sceneList[this->currentScene]->canvasMap[this->sceneList[this->currentScene]->currentCanvas]->display();
+				ImGui::Image(*(this->sceneList[this->currentScene]
+					->canvasMap[this->sceneList[this->currentScene]
+					->currentCanvas].get())
 				);
+			}
 			ImGui::End();
 		}
 		ImGui::End();
