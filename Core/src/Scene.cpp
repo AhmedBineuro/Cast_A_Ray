@@ -1,5 +1,4 @@
 ﻿#include "Core\include\Scene.h"
-
 void Scene::renderImGui()
 {
 	ImGui::Begin("Scene Properites");
@@ -35,8 +34,7 @@ void Scene::renderImGui()
 
 			if(this->canvasMap.find(canvSel_name) == this->canvasMap.end()&& strcmp(canvSel_name, "") != 0) {
 
-				this->canvasMap[canvSel_name] = std::make_shared<sf::RenderTexture>();
-				this->canvasMap[canvSel_name]->create(dimensions[0], dimensions[1]);
+				createCanvas(canvSel_name, dimensions[0], dimensions[1]);
 					
 				canvSel_name[0] = '\0';
 				dimensions[0] = 100;
@@ -70,8 +68,7 @@ void Scene::renderImGui()
 			if (ImGui::BeginPopupModal(("Remove Canvas##popup" + name).c_str(),nullptr,ImGuiWindowFlags_AlwaysAutoResize| ImGuiWindowFlags_NoResize)) {
 				ImGui::Text("Are you sure you want to delete %s", name.c_str());
 				if (ImGui::Button(("Remove##final_remove_" + name).c_str())) {
-					canvasMap.erase(name);
-					if (name == this->currentCanvas) this->currentCanvas = "";
+					deleteCanvas(name);
 					ImGui::CloseCurrentPopup();
 				}
 				ImGui::SameLine();
@@ -147,12 +144,8 @@ void Scene::renderImGui()
 void Scene::renderEntitiesImGui()
 {
 	ImGui::Begin("Entity Settings");
-	static unsigned int entity_counter = 0;
 	if (ImGui::Button("Add Entity")) {
-		std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
-		this->entities.push_back((newEnt));
-		newEnt->setName("Entity " + std::to_string(entity_counter));
-		entity_counter++;
+		addEntity();
 	}
 	ImGui::Separator();
 	int i = 0;
@@ -165,7 +158,7 @@ void Scene::renderEntitiesImGui()
 		title = entity->getName();
 		ImGui::PushID((unsigned int)entity->getHandle());
 		if (ImGui::Button("X##delEntity")) {
-			this->entities.erase(this->entities.begin() + i);
+			removeEntity(entity->getHandle());
 			i -= 2;
 		}
 		ImGui::SameLine();
@@ -251,3 +244,47 @@ void Scene::renderEntitiesImGui()
 	}
 	ImGui::End();
 }
+
+entt::entity Scene::addEntity() {
+	std::shared_ptr<Entity> newEnt = std::make_shared<Entity>(&this->registry);
+	this->entities.push_back((newEnt));
+	newEnt->setName("Entity " + std::to_string(entity_counter));
+	entity_counter++;
+	return newEnt->getHandle();
+	
+}
+void Scene::removeEntity(entt::entity entity) {
+	int i = 0;
+	for (auto ent : this->entities) {
+		if (ent->getHandle() == entity)
+			break;
+		i++;
+	}
+	if (i == this->entities.size())
+		return;
+	this->entities.erase(this->entities.begin() + i);
+}
+void Scene::createCanvas(std::string name, int width, int height) {
+	this->canvasMap[name] = std::make_shared<sf::RenderTexture>();
+	this->canvasMap[name]->create(width, height);
+}
+void Scene::deleteCanvas(std::string name) {
+	canvasMap.erase(name);
+	if (name == this->currentCanvas) this->currentCanvas = "";
+}
+std::unordered_map<std::string, std::shared_ptr<sf::RenderTexture>>& Scene::getCanvasMap(){
+	return canvasMap;
+}
+
+std::string&  Scene::getcurrenCanvas() {
+	return currentCanvas;
+}
+
+std::vector<std::shared_ptr<Entity>>& Scene::getEntityList(){
+	return entities;
+}
+
+
+
+
+

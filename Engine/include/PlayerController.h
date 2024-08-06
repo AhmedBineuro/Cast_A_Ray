@@ -30,7 +30,8 @@ public:
 
     void setKeyBind(Keybinds key, sf::Keyboard::Key key_code);
     void setPlayer(Entity* player, std::shared_ptr<Entity> camera);
-    void setCamera(std::shared_ptr<Entity> cam);
+    void setPlayer(std::shared_ptr<Entity>);
+    void setCamera(std::shared_ptr<Entity>);
     virtual void renderImGui() override;
 protected:
     std::weak_ptr<Entity> player;

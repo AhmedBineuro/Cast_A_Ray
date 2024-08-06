@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include "Application.h"
-#include "DDAScene.h"
+#include "Engine/include/DDAScene.h"
+#include "Core/include/Application.h"
 #include "imgui.h"
 //For Release WINDOWS
 //#include <windows.h>

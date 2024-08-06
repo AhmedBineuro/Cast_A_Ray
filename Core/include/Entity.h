@@ -41,6 +41,7 @@ public:
     template<typename T>
     void removeComponent(T component);
 
+    //Still don't know what to do with this
     void setChild(std::shared_ptr<Entity> entity);
     std::set<Component*>* getComponentList();
 

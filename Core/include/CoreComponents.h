@@ -82,7 +82,7 @@ public:
     bool enabled;
     sf::RenderStates renderStates;
     RenderStatesComponent() {
-        componentName = "Render States Component";
+        componentName = "RendStates Component";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Render States Component")) {
@@ -152,10 +152,10 @@ public:
         : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
         enabled = true;
         updatePlane();
-        componentName = "Camera Component";
+        componentName = "CamComponent";
     }
     void updatePlane() {
-        plane = sf::Vector2f(1, 1);
+        plane = sf::Vector2f(0, -1);
         float width = (float)tan((float)FOV * M_PI / 360.0f);
         sf::normalize(plane);
         plane *= width;
@@ -188,7 +188,7 @@ class MapTagComponent : public Component {
     public:
         std::string mapName;
         MapTagComponent() {
-            componentName = "Map Tag Component";
+            componentName = "MapTag Component";
             mapName = "";
         }
 
@@ -235,7 +235,7 @@ public:
     std::weak_ptr<sf::RenderTexture> canvas;
 
     CanvasComponent(std::string name = "", std::shared_ptr<sf::RenderTexture> canvas = nullptr) :canvasName(name), canvas(std::weak_ptr(canvas)) {
-        this->componentName = "Canvas Component";
+        this->componentName = "CanvasComponent";
     }
     void draw() {
         if (ImGui::CollapsingHeader("Canvas Component")) {

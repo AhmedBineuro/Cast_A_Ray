@@ -184,8 +184,8 @@
     <ClInclude Include="Core\include\Scene.h" />
     <ClInclude Include="Core\include\System.h" />
     <ClInclude Include="Core\include\Component.h" />
-    <ClInclude Include="Engine\include\Actor.h" />
     <ClInclude Include="Engine\include\DDAScene.h" />
+    <ClInclude Include="Engine\include\Actor.h" />
     <ClInclude Include="Engine\include\Log.h" />
     <ClInclude Include="Engine\include\PlayerController.h" />
     <ClInclude Include="Engine\include\RaycastUtils.h" />

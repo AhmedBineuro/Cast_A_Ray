@@ -29,7 +29,7 @@ void Scene2D::onFixedUpdate(float fixedDeltaTime) {
 	* Additional Code Here
 	*/
 }
-sf::Sprite Scene2D::onRender() {
+sf::Sprite& Scene2D::onRender() {
 	Config& config = Config::getConfig();
 	Settings settings = config.getSettings();
 	canvas->clear();

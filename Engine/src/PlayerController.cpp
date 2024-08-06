@@ -64,13 +64,13 @@ void PlayerController::OnUpdate(float deltaTime) {
 				velocity *= (plyrCtrl->movementMultiplier);
 
 			if (keyStates[Keybinds::LOOK_RIGHT])
-				sf::rotate(plyrTran->rotation, -plyrCtrl->turnAngle * deltaTime);
-			else if (keyStates[Keybinds::LOOK_LEFT])
 				sf::rotate(plyrTran->rotation, plyrCtrl->turnAngle * deltaTime);
+			else if (keyStates[Keybinds::LOOK_LEFT])
+				sf::rotate(plyrTran->rotation, -plyrCtrl->turnAngle * deltaTime);
 			if (camComp != nullptr && keyStates[Keybinds::LOOK_UP])
-				camComp->zHeight -= 0.01f;
-			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
 				camComp->zHeight += 0.01f;
+			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
+				camComp->zHeight -= 0.01f;
 		}
 
 		if (sf::getLength(velocity) > plyrCtrl->maxSpeed) {
@@ -217,4 +217,7 @@ void PlayerController::renderImGui(){
 		ImGui::Checkbox("Enabled##plyrScrpt", &this->enabled);
 		ImGui::Unindent();
 	}
+}
+void PlayerController::setPlayer(std::shared_ptr<Entity> entity) {
+	this->player = entity;
 }

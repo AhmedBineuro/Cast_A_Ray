@@ -67,7 +67,7 @@ namespace Systems {
 						//cameraX is the x-coordinate in the screen space/ camera space
 						float cameraX = 2 * x / float(windowSize.x) - 1;
 
-						sf::Vector2f currentRay = transformComponent.rotation + cameracomponent.plane * (float)cameraX;
+						sf::Vector2f currentRay = sf::getNormalized(transformComponent.rotation) + cameracomponent.plane * (float)cameraX;
 						RaycastUtils::RayCollisionInfo collision;
 						collision = RaycastUtils::castRay(transformComponent.position, sf::getNormalized(currentRay), currentMap, cameracomponent.renderDistance);
 
@@ -99,8 +99,8 @@ namespace Systems {
 						sf::Color shade = sf::Color(255 * (1 - amount), 255 * (1 - amount), 255 * (1 - amount));
 						textureSlice.setFillColor(shade);
 						canvascomponent.canvas.lock()->draw(textureSlice);
+						canvascomponent.canvas.lock()->display();
 					}
-					canvascomponent.canvas.lock()->display();
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {
@@ -122,6 +122,7 @@ namespace Systems {
 				sprite.sprite.setPosition(transformComponent.position*50.0f);
 				sprite.sprite.setRotation(sf::getRotationAngle(transformComponent.rotation));
 				renderTarget.draw(sprite.sprite, renderStatesComponent.renderStates);
+				renderTarget.display();
 			}
 		}
 		renderTarget.display();

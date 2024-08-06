@@ -12,7 +12,7 @@ public:
 	virtual void onUpdate(float deltaTime) override;
 	virtual void onFixedUpdate(float fixedDeltaTime) override;
 	virtual //Should return the canvas result as a sprite and is called every render cal overridel
-	virtual sf::Sprite onRender() override;
+	virtual sf::Sprite& onRender() override;
 	virtual void onDestroy() override;
 	Entity* createEntity();
 	~Scene2D();
