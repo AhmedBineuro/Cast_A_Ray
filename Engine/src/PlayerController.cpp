@@ -64,9 +64,9 @@ void PlayerController::OnUpdate(float deltaTime) {
 				velocity *= (plyrCtrl->movementMultiplier);
 
 			if (keyStates[Keybinds::LOOK_RIGHT])
-				sf::rotate(plyrTran->rotation, plyrCtrl->turnAngle * deltaTime);
-			else if (keyStates[Keybinds::LOOK_LEFT])
 				sf::rotate(plyrTran->rotation, -plyrCtrl->turnAngle * deltaTime);
+			else if (keyStates[Keybinds::LOOK_LEFT])
+				sf::rotate(plyrTran->rotation, plyrCtrl->turnAngle * deltaTime);
 			if (camComp != nullptr && keyStates[Keybinds::LOOK_UP])
 				camComp->zHeight += 0.01f;
 			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])

@@ -74,22 +74,20 @@ void DDAScene::onFixedUpdate(float fixedDeltaTime) {
 	*/
 }
 sf::Sprite& DDAScene::onRender() {
-	Config& config = Config::getConfig();
-	Settings settings = config.getSettings();
 	bool canvas_valid = this->canvasMap.find(this->currentCanvas) != this->canvasMap.end();
-	if (canvas_valid)
-		this->canvasMap[this->currentCanvas]->clear();
-	Systems::DDARenderSystem::renderWalls(registry, map);
 	if (canvas_valid)
 	{
 		this->canvasMap[this->currentCanvas]->setActive(true);
 	}
+	if (canvas_valid)
+		this->canvasMap[this->currentCanvas]->clear();
+	Systems::DDARenderSystem::renderWalls(registry, map);
 	Systems::EntityScriptSystem::OnRender(registry);
 	if (canvas_valid)
 	{
-		canvasSprite.setTexture(this->canvasMap[this->currentCanvas]->getTexture());
 		this->canvasMap[this->currentCanvas]->draw(canvasSprite);
-		//this->canvasMap[this->currentCanvas]->display();
+		this->canvasMap[this->currentCanvas]->display();
+		canvasSprite.setTexture(this->canvasMap[this->currentCanvas]->getTexture());
 	} 
 	/**
 	* Additional Code Here

@@ -194,7 +194,13 @@ void Application::run() {
 		if (ImGui::Begin("Viewport")){
 			update();
 			render(scene_available);
-			ImGui::Image(canvasSprite);
+			if (scene_available)
+				if(this->sceneList[this->currentScene]->canvasMap.find(this->sceneList[this->currentScene]->currentCanvas)!= this->sceneList[this->currentScene]
+					->canvasMap.end())
+					ImGui::Image(*(this->sceneList[this->currentScene]
+						->canvasMap[this->sceneList[this->currentScene]
+						->currentCanvas].get())
+				);
 			ImGui::End();
 		}
 		ImGui::End();
@@ -213,10 +219,10 @@ void Application::render(bool scene_available) {
 	{
 		canvasSprite=sceneList[currentScene]->onRender();
 		const sf::Texture* t = canvasSprite.getTexture();
-		//if(t!=nullptr)
-		//{
-		//	canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
-		//}
+		if(t!=nullptr)
+		{
+			canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
+		}
 	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
