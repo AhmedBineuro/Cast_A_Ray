@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['m_0',['M',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5a8351cbbb24d61c47f146f414ef825d',1,'sf::Keyboard::Scan::M'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a9718de9940f723c956587dcb90450a0a',1,'sf::Keyboard::M']]],
+  ['m_0',['M',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5a8351cbbb24d61c47f146f414ef825d',1,'sf::Keyboard::Scan::M()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a9718de9940f723c956587dcb90450a0a',1,'sf::Keyboard::M()']]],
   ['m_5fsource_1',['m_source',['../classsf_1_1SoundSource.html#a0223cef4b1c587e6e1e17b4c92c4479c',1,'sf::SoundSource']]],
   ['magenta_2',['Magenta',['../classsf_1_1Color.html#a6fe70d90b65b2163dd066a84ac00426c',1,'sf::Color']]],
   ['magnetometer_3',['Magnetometer',['../classsf_1_1Sensor.html#a687375af3ab77b818fca73735bcaea84ae706bb678bde8d3c370e246ffde6a63d',1,'sf::Sensor']]],
@@ -16,7 +16,7 @@ var searchData=
   ['mediaprevioustrack_13',['MediaPreviousTrack',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ac2ac37264e076dcab002e24e54090dbc',1,'sf::Keyboard::Scan']]],
   ['mediastop_14',['MediaStop',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a6afe82e357291a40a03c85773eae734d',1,'sf::Keyboard::Scan']]],
   ['memoryinputstream_15',['MemoryInputStream',['../classsf_1_1MemoryInputStream.html#a2d78851a69a8956a79872be41bcdfe0e',1,'sf::MemoryInputStream::MemoryInputStream()'],['../classsf_1_1MemoryInputStream.html',1,'sf::MemoryInputStream']]],
-  ['menu_16',['Menu',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ad74c4a46669c3bd59ef93154e4669632',1,'sf::Keyboard::Scan::Menu'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a4aac50ce7c4923f96323fe84d592b139',1,'sf::Keyboard::Menu']]],
+  ['menu_16',['Menu',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ad74c4a46669c3bd59ef93154e4669632',1,'sf::Keyboard::Scan::Menu()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a4aac50ce7c4923f96323fe84d592b139',1,'sf::Keyboard::Menu()']]],
   ['method_17',['Method',['../classsf_1_1Http_1_1Request.html#a620f8bff6f43e1378f321bf53fbf5598',1,'sf::Http::Request']]],
   ['microseconds_18',['microseconds',['../classsf_1_1Time.html#a8a6ae28a1962198a69b92355649c6aa0',1,'sf::Time']]],
   ['middle_19',['Middle',['../classsf_1_1Mouse.html#a4fb128be433f9aafe66bc0c605daaa90a2c353189c4b11cf216d7caddafcc609d',1,'sf::Mouse']]],

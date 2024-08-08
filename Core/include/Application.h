@@ -1,6 +1,8 @@
 #include "Core\include\Scene.h"
 #include "Engine\include\Log.h"
 #include "Core\include\Config.h"
+#include "Engine\include\Systems.h"
+#include "Engine\include\DDAScene.h"
 //#include "imgui.h"
 #include "imgui.h"
 #include "imgui-SFML.h"	
@@ -30,14 +32,13 @@ private:
 	sf::Clock clock;
 	sf::Time deltaTime,fixedDeltaTime,cumulatedTime;
 	sf::RenderWindow window;
-	sf::Sprite canvasSprite;
 	Settings settings;
 
 	std::string appName;
 	sf::Image icon;
 	bool running = false, showSettings = true, keybindPressed = false, showSceneDebug = true;
 	float FPS;
-	//Call update every frame and and run update then check if you can run fixed update
+	//Call update every frame and and run scene update function then check if you can run scene fixed update function
 	void update();
 	void render(bool scene_available);
 	void renderSettings(float &fixedDeltaTimeGUI, Config& config);//The parameters are for the GUI and settings updates

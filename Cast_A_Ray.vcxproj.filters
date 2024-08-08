@@ -75,9 +75,6 @@
     <ClCompile Include="Engine\src\PlayerController.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\Scene2D.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\src\Scenes.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -156,9 +153,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\RaycastUtils.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\include\Scene2D.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\Scenes.h">

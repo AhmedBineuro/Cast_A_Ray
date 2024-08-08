@@ -1,12 +1,12 @@
 var searchData=
 [
   ['b_0',['b',['../classsf_1_1Color.html#a6707aedd0609c8920e12df5d7abc53cb',1,'sf::Color']]],
-  ['b_1',['B',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5a277726531303b8ba5212999e9664cb',1,'sf::Keyboard::Scan::B'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aca3142235e5c4199f0b8b45d8368ef94',1,'sf::Keyboard::B']]],
+  ['b_1',['B',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5a277726531303b8ba5212999e9664cb',1,'sf::Keyboard::Scan::B()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aca3142235e5c4199f0b8b45d8368ef94',1,'sf::Keyboard::B()']]],
   ['back_2',['Back',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ae5c30910d66a7706ec731fff17e552d2',1,'sf::Keyboard::Scan']]],
-  ['backslash_3',['Backslash',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a01ce415ff140d34d25a7bdbbbb785287',1,'sf::Keyboard::Scan::Backslash'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142adbd7d6f90a1009e91acf7bb1dc068512',1,'sf::Keyboard::Backslash']]],
+  ['backslash_3',['Backslash',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a01ce415ff140d34d25a7bdbbbb785287',1,'sf::Keyboard::Scan::Backslash()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142adbd7d6f90a1009e91acf7bb1dc068512',1,'sf::Keyboard::Backslash()']]],
   ['backslash_4',['BackSlash',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a536df84e73859aa44e11e192459470b6',1,'sf::Keyboard']]],
   ['backspace_5',['BackSpace',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a33aeaab900abcd01eebf2fcc4f6d97e2',1,'sf::Keyboard']]],
-  ['backspace_6',['Backspace',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a6621384ae8e5b8f0faf0b879c7813817',1,'sf::Keyboard::Scan::Backspace'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aa7c1581bac0f20164512572e6c60e98e',1,'sf::Keyboard::Backspace']]],
+  ['backspace_6',['Backspace',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a6621384ae8e5b8f0faf0b879c7813817',1,'sf::Keyboard::Scan::Backspace()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aa7c1581bac0f20164512572e6c60e98e',1,'sf::Keyboard::Backspace()']]],
   ['badcommandsequence_7',['BadCommandSequence',['../classsf_1_1Ftp_1_1Response.html#af81738f06b6f571761696291276acb3bad0c7ab07f01c1f7af16a1852650d7c47',1,'sf::Ftp::Response']]],
   ['badgateway_8',['BadGateway',['../classsf_1_1Http_1_1Response.html#a663e071978e30fbbeb20ed045be874d8aad0cbad4cdaf448beb763e86bc1f747c',1,'sf::Http::Response']]],
   ['badrequest_9',['BadRequest',['../classsf_1_1Http_1_1Response.html#a663e071978e30fbbeb20ed045be874d8a3f88a714cf5483ee22f9051e5a3c080a',1,'sf::Http::Response']]],
@@ -23,8 +23,8 @@ var searchData=
   ['bounds_20',['bounds',['../classsf_1_1Glyph.html#a6f3c892093167914adc31e52e5923f4b',1,'sf::Glyph']]],
   ['broadcast_21',['Broadcast',['../classsf_1_1IpAddress.html#aa93d1d57b65d243f2baf804b6035465c',1,'sf::IpAddress']]],
   ['button_22',['Button',['../classsf_1_1Mouse.html#a4fb128be433f9aafe66bc0c605daaa90',1,'sf::Mouse']]],
-  ['button_23',['button',['../structsf_1_1Event_1_1MouseButtonEvent.html#a5f53725aa7b647705486eeb95f723024',1,'sf::Event::MouseButtonEvent::button'],['../structsf_1_1Event_1_1JoystickButtonEvent.html#a6412e698a2f7904c5aa875a0d1b34da4',1,'sf::Event::JoystickButtonEvent::button']]],
-  ['buttoncount_24',['ButtonCount',['../classsf_1_1Joystick.html#aee00dd432eacd8369d279b47c3ab4cc5a2f1b8a0a59f2c12a4775c0e1e69e1816',1,'sf::Joystick::ButtonCount'],['../classsf_1_1Mouse.html#a4fb128be433f9aafe66bc0c605daaa90a52a1d434289774240ddaa22496762402',1,'sf::Mouse::ButtonCount']]],
+  ['button_23',['button',['../structsf_1_1Event_1_1MouseButtonEvent.html#a5f53725aa7b647705486eeb95f723024',1,'sf::Event::MouseButtonEvent::button()'],['../structsf_1_1Event_1_1JoystickButtonEvent.html#a6412e698a2f7904c5aa875a0d1b34da4',1,'sf::Event::JoystickButtonEvent::button()']]],
+  ['buttoncount_24',['ButtonCount',['../classsf_1_1Joystick.html#aee00dd432eacd8369d279b47c3ab4cc5a2f1b8a0a59f2c12a4775c0e1e69e1816',1,'sf::Joystick::ButtonCount()'],['../classsf_1_1Mouse.html#a4fb128be433f9aafe66bc0c605daaa90a52a1d434289774240ddaa22496762402',1,'sf::Mouse::ButtonCount()']]],
   ['bvec2_25',['Bvec2',['../namespacesf_1_1Glsl.html#a59d8cf909c3d71ebf3db057480b464da',1,'sf::Glsl']]],
   ['bvec3_26',['Bvec3',['../namespacesf_1_1Glsl.html#a4166ffc506619b4912d576e6eba2c957',1,'sf::Glsl']]],
   ['bvec4_27',['Bvec4',['../namespacesf_1_1Glsl.html#a8b1f0ac369666c48a9eafc9d3f5618e6',1,'sf::Glsl']]]

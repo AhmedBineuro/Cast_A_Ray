@@ -86,8 +86,11 @@ void PlayerController::OnUpdate(float deltaTime) {
 
 		if (camTran == nullptr)
 			return;
-		camTran->position = plyrTran->position;
-		camTran->rotation = plyrTran->rotation;
+		if(player!=cam)
+		{
+			camTran->position = plyrTran->position;
+			camTran->rotation = plyrTran->rotation;
+		}
 		camComp->setPlaneNormalDirection(camTran->rotation);
 	}
 }

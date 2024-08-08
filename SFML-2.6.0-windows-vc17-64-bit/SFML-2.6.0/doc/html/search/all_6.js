@@ -1,7 +1,7 @@
 var searchData=
 [
   ['g_0',['g',['../classsf_1_1Color.html#a591daf9c3c55dea830c76c962d6ba1a5',1,'sf::Color']]],
-  ['g_1',['G',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a21dc36f8ac9ff44d3c6aca6a66503264',1,'sf::Keyboard::Scan::G'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aafb9e3d7679d88d86afc608d79c251f7',1,'sf::Keyboard::G']]],
+  ['g_1',['G',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a21dc36f8ac9ff44d3c6aca6a66503264',1,'sf::Keyboard::Scan::G()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142aafb9e3d7679d88d86afc608d79c251f7',1,'sf::Keyboard::G()']]],
   ['gainedfocus_2',['GainedFocus',['../classsf_1_1Event.html#af41fa9ed45c02449030699f671331d4aa8c5003ced508499933d540df8a6023ec',1,'sf::Event']]],
   ['gatewaytimeout_3',['GatewayTimeout',['../classsf_1_1Http_1_1Response.html#a663e071978e30fbbeb20ed045be874d8a215935d823ab44694709a184a71353b0',1,'sf::Http::Response']]],
   ['generatemipmap_4',['generateMipmap',['../classsf_1_1RenderTexture.html#a8ca34c8b7e00793c1d3ef4f9a834f8cc',1,'sf::RenderTexture::generateMipmap()'],['../classsf_1_1Texture.html#a7779a75c0324b5faff77602f871710a9',1,'sf::Texture::generateMipmap()']]],
@@ -110,7 +110,7 @@ var searchData=
   ['glyph_107',['Glyph',['../classsf_1_1Glyph.html#ab15cfc37eb7b40a94b3b3aedf934010b',1,'sf::Glyph::Glyph()'],['../classsf_1_1Glyph.html',1,'sf::Glyph']]],
   ['gpupreference_2ehpp_108',['GpuPreference.hpp',['../GpuPreference_8hpp.html',1,'']]],
   ['graphics_20module_109',['Graphics module',['../group__graphics.html',1,'']]],
-  ['grave_110',['Grave',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a813711cd9de71dab611b7155b36880f5',1,'sf::Keyboard::Scan::Grave'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a2da2429e6db8efbf923151f00a9b21e0',1,'sf::Keyboard::Grave']]],
+  ['grave_110',['Grave',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a813711cd9de71dab611b7155b36880f5',1,'sf::Keyboard::Scan::Grave()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a2da2429e6db8efbf923151f00a9b21e0',1,'sf::Keyboard::Grave()']]],
   ['gravity_111',['Gravity',['../classsf_1_1Sensor.html#a687375af3ab77b818fca73735bcaea84afab4d098cc64e791a0c4a9ef6b32db92',1,'sf::Sensor']]],
   ['green_112',['Green',['../classsf_1_1Color.html#a95629b30de8c6856aa7d3afed12eb865',1,'sf::Color']]],
   ['gyroscope_113',['Gyroscope',['../classsf_1_1Sensor.html#a687375af3ab77b818fca73735bcaea84a1c43984aacd29b1fda5356883fb19656',1,'sf::Sensor']]]

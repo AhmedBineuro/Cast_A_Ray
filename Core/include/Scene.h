@@ -18,7 +18,7 @@ public:
     virtual void onUpdate(float deltaTime)=0;
     virtual void onFixedUpdate(float fixedDeltaTime)=0;
     //Should return the canvas result as a sprite and is called every render call
-    virtual sf::Sprite& onRender()=0;
+    virtual void onRender()=0;
     virtual void renderImGui();
     virtual void renderEntitiesImGui();
     virtual void onDestroy()=0;
@@ -42,14 +42,13 @@ public:
 
     template <typename T>
     T* getComponent(entt::entity);
-
-    std::shared_ptr<sf::RenderTexture> canvas;
     std::unordered_map<std::string,std::shared_ptr<sf::RenderTexture>> canvasMap;
     std::string currentCanvas;
     sf::Sprite canvasSprite;
     entt::registry registry;
     unsigned int entity_counter;//This will only count upwards
     std::vector<std::shared_ptr<Entity>>entities;
+    bool canvas_available=false;
 };
 
 //Entity manipulation functions/

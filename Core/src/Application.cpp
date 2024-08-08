@@ -30,7 +30,6 @@ Application::Application() {
 	FPS = 0;
 	showFPS = false;
 	this->sceneList.clear();
-	this->canvasSprite.setPosition(0, 0);
 }
 Application::Application(std::string appName) {
 	this->sceneList.clear();
@@ -63,7 +62,6 @@ Application::Application(std::string appName) {
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
 	showFPS = false;
-	this->canvasSprite.setPosition(0, 0);
 }
 void Application::addScene(std::string name, Scene* scene) {
 	if (currentScene == "")
@@ -164,13 +162,13 @@ void Application::run() {
 		}
 		////////////////////////////////
 		window.clear();
-		//window.draw(canvasSprite);
+		
 		ImGui::SFML::Update(window, deltaTime);
-		//ImGui::SetNextWindowPos(ImVec2(0, 0));
-		//ImGui::SetNextWindowSize(ImVec2(canvasSprite.getTexture()->getSize().x, canvasSprite.getTexture()->getSize().y));
 		ImGui::SetNextWindowSize(ImVec2(config.getDimensions().x, config.getDimensions().y-20)); //The 20 is the size of the main menu bar
 		ImGui::SetNextWindowPos(ImVec2(0, 20));
-		ImGui::Begin("##BASE_WINDOW",nullptr,ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|ImGuiWindowFlags_NoResize);
+		ImGui::Begin("##BASE_WINDOW",nullptr,
+			ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|
+			ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoBackground);
 		if(ImGui::BeginMainMenuBar()){
 			if (ImGui::BeginMenu("File")) {
 				ImGui::MenuItem("New Project");
@@ -194,14 +192,11 @@ void Application::run() {
 		if (ImGui::Begin("Viewport")){
 			update();
 			render(scene_available);
-			if (this->sceneList[this->currentScene]->canvasMap.find(this->sceneList[this->currentScene]->currentCanvas) != this->sceneList[this->currentScene]
-				->canvasMap.end())
+			if (this->sceneList[this->currentScene]->canvas_available)
 			{
-				this->sceneList[this->currentScene]->canvasMap[this->sceneList[this->currentScene]->currentCanvas]->display();
 				ImGui::Image(*(this->sceneList[this->currentScene]
 					->canvasMap[this->sceneList[this->currentScene]
-					->currentCanvas].get())
-				);
+					->currentCanvas].get()));
 			}
 			ImGui::End();
 		}
@@ -219,11 +214,15 @@ void Application::run() {
 void Application::render(bool scene_available) {
 	if (scene_available)
 	{
-		canvasSprite=sceneList[currentScene]->onRender();
-		const sf::Texture* t = canvasSprite.getTexture();
-		if(t!=nullptr)
+		this->sceneList[this->currentScene]->onRender();
+		if(this->sceneList[this->currentScene]->canvas_available)
 		{
-			canvasSprite.setTextureRect(sf::IntRect(0, 0, t->getSize().x, t->getSize().y));
+			/*this->canvasSprite.setTexture(this->sceneList[this->currentScene]
+				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]
+				->getTexture());
+			sf::Vector2u size = this->sceneList[this->currentScene]
+				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]->getSize();
+			canvasSprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));*/
 		}
 	}
 }
@@ -298,7 +297,7 @@ void Application::update() {
 	}
 	//Update scene delta time systems;
 	if (sceneList.find(currentScene) != sceneList.end())
-		if (ImGui::IsWindowFocused())
+		//if (ImGui::IsWindowFocused())
 			sceneList[currentScene]->onUpdate(deltaTime.asSeconds());
 }
 
@@ -314,7 +313,7 @@ void Application::restartWindow() {
 	else
 		window.setFramerateLimit(0);
 	window.clear();
-	window.draw(sceneList[currentScene]->onRender());
+	window.draw(sceneList[currentScene]->canvasSprite);
 	window.display();
 	render(sceneList.find(currentScene) != sceneList.end());
 }

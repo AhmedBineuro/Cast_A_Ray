@@ -52,16 +52,16 @@ namespace Systems {
 				Config& config = Config::getConfig();
 				Resource_Manager& rm = Resource_Manager::getResourceManager();
 				sf::RectangleShape textureSlice(sf::Vector2f(1, 10));
-				int prevFloorTag = RAND_MAX, prevCeilingTag = RAND_MAX, prevWallTag = RAND_MAX;
 				auto view = registry.view<CameraComponent, TransformComponent,CanvasComponent>();
 				for (auto entity : view) {
 					CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
 					CanvasComponent& canvascomponent = registry.get<CanvasComponent>(entity);
-					if (!cameracomponent.enabled || !canvascomponent.canvas.lock())
+					auto canvas = canvascomponent.canvas.lock();
+					if (!cameracomponent.enabled || !canvas)
 						continue;
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
 
-					sf::Vector2u windowSize = canvascomponent.canvas.lock()->getSize();
+					sf::Vector2u windowSize = canvas->getSize();
 					////////////////////Wall Casting////////////////////////////
 					for (int x = 0; x < windowSize.x; x++) {
 						//cameraX is the x-coordinate in the screen space/ camera space
@@ -80,8 +80,8 @@ namespace Systems {
 						else perpDist = collision.distance;
 						//Draw the lines
 						float lineHeight = (windowSize.y) / (perpDist);
-						float drawStart = (-lineHeight + windowSize.y) * cameracomponent.zHeight;
-						float drawEnd = (lineHeight + windowSize.y) * cameracomponent.zHeight;
+						float drawStart = -lineHeight + (windowSize.y * cameracomponent.zHeight);
+						float drawEnd = lineHeight + (windowSize.y * cameracomponent.zHeight);
 						float size = drawEnd - drawStart;
 						std::string textName = currentMap.wallMapping[collision.tag];
 						sf::Texture* text = nullptr;
@@ -90,17 +90,16 @@ namespace Systems {
 						textureSlice.setTexture(text);
 						sf::Vector2u textSize = text->getSize();
 						int texX = textSize.x * collision.u;
-						textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
+						textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, size));
 						if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
 							texX = textSize.x - texX - 1;
 						textureSlice.setPosition(x, drawStart);
 						textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
 						float amount = perpDist / cameracomponent.renderDistance;
-						sf::Color shade = sf::Color(255 * (1 - amount), 255 * (1 - amount), 255 * (1 - amount));
+						sf::Color shade = sf::Color( floor(255.0f * (1.0f - amount)), floor(255.0f * (1.0f - amount)), floor(255.0f * (1.0f - amount)));
 						textureSlice.setFillColor(shade);
-						canvascomponent.canvas.lock()->draw(textureSlice);
+						canvas->draw(textureSlice);
 					}
-					//canvascomponent.canvas.lock()->display();
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {
@@ -122,7 +121,6 @@ namespace Systems {
 				sprite.sprite.setPosition(transformComponent.position*50.0f);
 				sprite.sprite.setRotation(sf::getRotationAngle(transformComponent.rotation));
 				renderTarget.draw(sprite.sprite, renderStatesComponent.renderStates);
-				renderTarget.display();
 			}
 		}
 		renderTarget.display();

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['t_0',['T',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a55bee4759c12cb033659e8d8de796ae9',1,'sf::Keyboard::Scan::T'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a19f59109111fc5271d3581bcd0c43187',1,'sf::Keyboard::T']]],
-  ['tab_1',['Tab',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa724a5e6b812f12b06957717fd78d4a3',1,'sf::Keyboard::Scan::Tab'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a20c552c39c8356b1078f1cfff7936b4a',1,'sf::Keyboard::Tab']]],
+  ['t_0',['T',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a55bee4759c12cb033659e8d8de796ae9',1,'sf::Keyboard::Scan::T()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a19f59109111fc5271d3581bcd0c43187',1,'sf::Keyboard::T()']]],
+  ['tab_1',['Tab',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa724a5e6b812f12b06957717fd78d4a3',1,'sf::Keyboard::Scan::Tab()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a20c552c39c8356b1078f1cfff7936b4a',1,'sf::Keyboard::Tab()']]],
   ['tcp_2',['Tcp',['../classsf_1_1Socket.html#a5d3ff44e56e68f02816bb0fabc34adf8acc02e97e90234b957eaad4dff7f22214',1,'sf::Socket']]],
   ['tcplistener_3',['TcpListener',['../classsf_1_1TcpListener.html',1,'sf::TcpListener'],['../classsf_1_1TcpListener.html#a59a1db5b6f4711a3e57390da2f8d9630',1,'sf::TcpListener::TcpListener()']]],
   ['tcpsocket_4',['TcpSocket',['../classsf_1_1TcpSocket.html',1,'sf::TcpSocket'],['../classsf_1_1TcpSocket.html#a62a9bf81fd7f15fedb29fd1348483236',1,'sf::TcpSocket::TcpSocket()']]],
@@ -10,7 +10,7 @@ var searchData=
   ['texcoords_7',['texCoords',['../classsf_1_1Vertex.html#a9e79bd05818d36c4789751908037097c',1,'sf::Vertex']]],
   ['text_8',['Text',['../classsf_1_1Text.html',1,'sf']]],
   ['text_9',['text',['../classsf_1_1Event.html#a00c7bba6bee892791847ec22440e0a83',1,'sf::Event']]],
-  ['text_10',['Text',['../classsf_1_1Text.html#a614019e0b5c0ed39a99d32483a51f2c5',1,'sf::Text::Text(const String &amp;string, const Font &amp;font, unsigned int characterSize=30)'],['../classsf_1_1Text.html#aff7cab6a92e5948c9d1481cb2d87eb84',1,'sf::Text::Text()'],['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aa1a9979392de58ff11d5b4ab330e6393d',1,'sf::Cursor::Text']]],
+  ['text_10',['Text',['../classsf_1_1Text.html#a614019e0b5c0ed39a99d32483a51f2c5',1,'sf::Text::Text(const String &amp;string, const Font &amp;font, unsigned int characterSize=30)'],['../classsf_1_1Text.html#aff7cab6a92e5948c9d1481cb2d87eb84',1,'sf::Text::Text()'],['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930aa1a9979392de58ff11d5b4ab330e6393d',1,'sf::Cursor::Text()']]],
   ['textentered_11',['TextEntered',['../classsf_1_1Event.html#af41fa9ed45c02449030699f671331d4aa7e09871dc984080ff528e4f7e073e874',1,'sf::Event']]],
   ['textevent_12',['TextEvent',['../structsf_1_1Event_1_1TextEvent.html',1,'sf::Event']]],
   ['texture_13',['Texture',['../classsf_1_1Texture.html',1,'sf']]],
@@ -55,6 +55,6 @@ var searchData=
   ['trianglesfan_52',['TrianglesFan',['../group__graphics.html#gga5ee56ac1339984909610713096283b1ba5338a2c6d922151fe50f235036af8a20',1,'sf']]],
   ['trianglesstrip_53',['TrianglesStrip',['../group__graphics.html#gga5ee56ac1339984909610713096283b1ba66643dbbb24bbacb405973ed80eebae0',1,'sf']]],
   ['trianglestrip_54',['TriangleStrip',['../group__graphics.html#gga5ee56ac1339984909610713096283b1ba05e55fec6d32c2fc8328f94d07f91184',1,'sf']]],
-  ['type_55',['Type',['../classsf_1_1Shader.html#afaa1aa65e5de37b74d047da9def9f9b3',1,'sf::Shader::Type'],['../classsf_1_1Socket.html#a5d3ff44e56e68f02816bb0fabc34adf8',1,'sf::Socket::Type'],['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930a',1,'sf::Cursor::Type'],['../classsf_1_1Sensor.html#a687375af3ab77b818fca73735bcaea84',1,'sf::Sensor::Type']]],
-  ['type_56',['type',['../structsf_1_1Event_1_1SensorEvent.html#abee7d67bf0947fd1138e4466011e2436',1,'sf::Event::SensorEvent::type'],['../classsf_1_1Event.html#adf2f8044f713fd9d6019077b0d1ffe0a',1,'sf::Event::type']]]
+  ['type_55',['Type',['../classsf_1_1Shader.html#afaa1aa65e5de37b74d047da9def9f9b3',1,'sf::Shader::Type()'],['../classsf_1_1Socket.html#a5d3ff44e56e68f02816bb0fabc34adf8',1,'sf::Socket::Type()'],['../classsf_1_1Cursor.html#ab9ab152aec1f8a4955e34ccae08f930a',1,'sf::Cursor::Type()'],['../classsf_1_1Sensor.html#a687375af3ab77b818fca73735bcaea84',1,'sf::Sensor::Type()']]],
+  ['type_56',['type',['../structsf_1_1Event_1_1SensorEvent.html#abee7d67bf0947fd1138e4466011e2436',1,'sf::Event::SensorEvent::type()'],['../classsf_1_1Event.html#adf2f8044f713fd9d6019077b0d1ffe0a',1,'sf::Event::type()']]]
 ];

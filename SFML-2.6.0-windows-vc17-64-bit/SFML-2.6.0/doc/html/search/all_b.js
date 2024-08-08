@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['l_0',['L',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ab6da0281265c57b9570de8be294d73b8',1,'sf::Keyboard::Scan::L'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a5ef1839ffe19b7e9c24f2ca017614ff9',1,'sf::Keyboard::L']]],
-  ['lalt_1',['LAlt',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a9d640314aaa812b4646178409910043d',1,'sf::Keyboard::Scan::LAlt'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a000ecf5145296d7d52b6871c54e6718d',1,'sf::Keyboard::LAlt']]],
+  ['l_0',['L',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ab6da0281265c57b9570de8be294d73b8',1,'sf::Keyboard::Scan::L()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a5ef1839ffe19b7e9c24f2ca017614ff9',1,'sf::Keyboard::L()']]],
+  ['lalt_1',['LAlt',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a9d640314aaa812b4646178409910043d',1,'sf::Keyboard::Scan::LAlt()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a000ecf5145296d7d52b6871c54e6718d',1,'sf::Keyboard::LAlt()']]],
   ['launch_2',['launch',['../classsf_1_1Thread.html#a74f75a9e86e1eb47479496314048b5f6',1,'sf::Thread']]],
   ['launchapplication1_3',['LaunchApplication1',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ac195d6bb66bd43b6c89f70df8ecc7d4d',1,'sf::Keyboard::Scan']]],
   ['launchapplication2_4',['LaunchApplication2',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a7fd8f0dfcbccd3e4c72269f8159b2170',1,'sf::Keyboard::Scan']]],
   ['launchmail_5',['LaunchMail',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875ab91775c7cc9288d35cadc11bc65b6994',1,'sf::Keyboard::Scan']]],
   ['launchmediaselect_6',['LaunchMediaSelect',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a200b5a6f78bebcf697bb4e046c41fe4c',1,'sf::Keyboard::Scan']]],
-  ['lbracket_7',['LBracket',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a3e4bb5cf828df8c4660d323df8589c43',1,'sf::Keyboard::Scan::LBracket'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142afbe21cad5f264d685cf7f25060004184',1,'sf::Keyboard::LBracket']]],
-  ['lcontrol_8',['LControl',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa81bc64b2e4ca7eae223891075a1d754',1,'sf::Keyboard::Scan::LControl'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142acc76c9dec76d8ae806ae9d6515066e53',1,'sf::Keyboard::LControl']]],
-  ['left_9',['Left',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142ac3fe5df11d15b57317c053a2ae13d9a9',1,'sf::Keyboard::Left'],['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a24060c475e1887a28d821b6174df10c9',1,'sf::Keyboard::Scan::Left']]],
+  ['lbracket_7',['LBracket',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a3e4bb5cf828df8c4660d323df8589c43',1,'sf::Keyboard::Scan::LBracket()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142afbe21cad5f264d685cf7f25060004184',1,'sf::Keyboard::LBracket()']]],
+  ['lcontrol_8',['LControl',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875aa81bc64b2e4ca7eae223891075a1d754',1,'sf::Keyboard::Scan::LControl()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142acc76c9dec76d8ae806ae9d6515066e53',1,'sf::Keyboard::LControl()']]],
+  ['left_9',['Left',['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142ac3fe5df11d15b57317c053a2ae13d9a9',1,'sf::Keyboard::Left()'],['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a24060c475e1887a28d821b6174df10c9',1,'sf::Keyboard::Scan::Left()']]],
   ['left_10',['left',['../classsf_1_1Rect.html#aa49960fa465103d9cb7069ceb25c7c32',1,'sf::Rect']]],
   ['left_11',['Left',['../classsf_1_1Mouse.html#a4fb128be433f9aafe66bc0c605daaa90a8bb4856e1ec7f6b6a8605effdfc0eee8',1,'sf::Mouse']]],
   ['length_12',['length',['../structsf_1_1Music_1_1Span.html#a509fdbef69a8fc0f8430ecb7b9e76221',1,'sf::Music::Span']]],
@@ -35,6 +35,6 @@ var searchData=
   ['login_32',['login',['../classsf_1_1Ftp.html#a686262bc377584cd50e52e1576aa3a9b',1,'sf::Ftp::login()'],['../classsf_1_1Ftp.html#a99d8114793c1659e9d51d45cecdcd965',1,'sf::Ftp::login(const std::string &amp;name, const std::string &amp;password)']]],
   ['lostfocus_33',['LostFocus',['../classsf_1_1Event.html#af41fa9ed45c02449030699f671331d4aabd7877b5011a337268357c973e8347bd',1,'sf::Event']]],
   ['lsbdelta_34',['lsbDelta',['../classsf_1_1Glyph.html#ab82761e8995ebd05c03d47ff0e064100',1,'sf::Glyph']]],
-  ['lshift_35',['LShift',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a99aa94c6db970fe2d06d6a0b265084d7',1,'sf::Keyboard::Scan::LShift'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a270db49f76cb4dbe72da36153d3aa45c',1,'sf::Keyboard::LShift']]],
-  ['lsystem_36',['LSystem',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5e1b12c4476475396c6f04eccbbf04f7',1,'sf::Keyboard::Scan::LSystem'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a718171426307a0f5f26b4ae82a322b24',1,'sf::Keyboard::LSystem']]]
+  ['lshift_35',['LShift',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a99aa94c6db970fe2d06d6a0b265084d7',1,'sf::Keyboard::Scan::LShift()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a270db49f76cb4dbe72da36153d3aa45c',1,'sf::Keyboard::LShift()']]],
+  ['lsystem_36',['LSystem',['../structsf_1_1Keyboard_1_1Scan.html#aa42fbf6954d6f81f7606e566c7abe875a5e1b12c4476475396c6f04eccbbf04f7',1,'sf::Keyboard::Scan::LSystem()'],['../classsf_1_1Keyboard.html#acb4cacd7cc5802dec45724cf3314a142a718171426307a0f5f26b4ae82a322b24',1,'sf::Keyboard::LSystem()']]]
 ];
