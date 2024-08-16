@@ -83,20 +83,23 @@ namespace Systems {
 						float drawStart = -lineHeight + (windowSize.y * cameracomponent.zHeight);
 						float drawEnd = lineHeight + (windowSize.y * cameracomponent.zHeight);
 						float size = drawEnd - drawStart;
-						std::string textName = currentMap.wallMapping[collision.tag];
-						sf::Texture* text = nullptr;
-						Graphics_Helper::addTexture(textName);
-						text = Graphics_Helper::TextureCache[textName];
-						textureSlice.setTexture(text);
-						sf::Vector2u textSize = text->getSize();
-						int texX = textSize.x * collision.u;
+						if(!collision.noHit)
+						{
+							std::string textName = currentMap.wallMapping[collision.tag];
+							sf::Texture* text = nullptr;
+							Graphics_Helper::addTexture(textName);
+							text = Graphics_Helper::TextureCache[textName];
+							textureSlice.setTexture(text);
+							sf::Vector2u textSize = text->getSize();
+							int texX = textSize.x * collision.u;
+							textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
+							if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
+								texX = textSize.x - texX - 1;
+						}
 						textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, size));
-						if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
-							texX = textSize.x - texX - 1;
 						textureSlice.setPosition(x, drawStart);
-						textureSlice.setTextureRect(sf::Rect(texX, 0, 1, (int)textSize.y));
-						float amount = perpDist / cameracomponent.renderDistance;
-						sf::Color shade = sf::Color( floor(255.0f * (1.0f - amount)), floor(255.0f * (1.0f - amount)), floor(255.0f * (1.0f - amount)));
+						float amount = floor(sf::lerp(255,0, perpDist / cameracomponent.renderDistance));
+						sf::Color shade = sf::Color( amount, amount, amount);
 						textureSlice.setFillColor(shade);
 						canvas->draw(textureSlice);
 					}

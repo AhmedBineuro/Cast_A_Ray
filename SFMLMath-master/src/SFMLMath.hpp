@@ -257,7 +257,7 @@ namespace sf
         return f;
     }
 
-    inline sf::Vector2f getClamped(sf::Vector2f& v, float min, float max)
+    inline sf::Vector2f getClamped(sf::Vector2f v, float min, float max)
     {
         float mag = getLength(v);
         sf::Vector2f output = sf::getNormalized(v);

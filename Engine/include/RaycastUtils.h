@@ -94,38 +94,29 @@ namespace RaycastUtils {
             tileIndex.x += yStepDirection;
             output.side = 1;
         }
-        if (xDist > renderDistance&& yDist > renderDistance&&!hit) {
-            output.noHit = true;
-            break;
-        }
-        bool xIndex = tileIndex.x >= 0 && tileIndex.x < m.walls.size();
-        bool yIndex = false;
-        if (xIndex)
-        {
-            yIndex = (tileIndex.y >= 0 && tileIndex.y < m.walls[tileIndex.x].size());
-        }
-        if (xIndex && yIndex) {
+        if (tileIndex.x >= 0 && tileIndex.x < m.walls.size() && (tileIndex.y >= 0 && tileIndex.y < m.walls[tileIndex.x].size())) {
             if (std::find(m.ignoreRaycast.begin(), m.ignoreRaycast.end(),m.walls[tileIndex.x][tileIndex.y]) == m.ignoreRaycast.end()) {
                 output.tag = m.walls[tileIndex.x][tileIndex.y];
                 hit = true;
+                break;
             }
         }
-        else {
+        if (renderDistance<=xDist&& renderDistance <= yDist) {
             output.noHit = true;
-            hit = true;
-            output.outOfBounds = true;
+            break;
         }
     }
     output.wallPosition = tileIndex;
     //Get distances and wall coordinates
-    if (output.side) {
+    if (output.side && hit) {
         output.distance = yDist-axisWeightY ;
         output.u = (output.distance * ray.x+ position.x)-originalPosition.x;
     }
-    else {
+    else if(hit){
         output.distance = xDist - axisWeightX;
         output.u = (output.distance * ray.y + position.y)- originalPosition.y;
     }
+    else output.distance = sf::getLength(sf::getClamped(sf::Vector2f(xDist, yDist), 0.0f, renderDistance));
     output.u-=floor(output.u);
     output.u += 1 * (output.u < 0);
 
