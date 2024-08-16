@@ -210,5 +210,81 @@ namespace sf
 
         return vec;
     }
+
+    // ADDED FUNCTION BY AHMED BINEURO
+     //Gets normalized vector pointing at angle
+    inline sf::Vector2f getAbsoluteRotated(float angle)
+    {
+        return sf::Vector2f(cos(degToRad(angle)), sin(degToRad(angle)));
+    }
+
+    inline void clamp(sf::Vector2f& v, float min, float max)
+    {
+        float mag = sf::getLength(v);
+        if (mag > max)
+        {
+            sf::normalize(v);
+            v *= max;
+        }
+        else if (min > mag) {
+            sf::normalize(v);
+            v *= min;
+        }
+    }
+
+    template <typename T>
+    void clamp(T & f, T min, T max)
+    {
+        if (f > max)
+        {
+            f = max;
+        }
+        else if (min > f) {
+            f = min;
+        }
+    }
+
+    template <typename T>
+    T getClamped(T f, T min, T max)
+    {
+        if (f > max)
+        {
+            f = max;
+        }
+        else if (min > f) {
+            f = min;
+        }
+        return f;
+    }
+
+    inline sf::Vector2f getClamped(sf::Vector2f& v, float min, float max)
+    {
+        float mag = getLength(v);
+        sf::Vector2f output = sf::getNormalized(v);
+        if (mag > max)
+        {
+            output *= max;
+        }
+        else if (min > mag) {
+            output *= min;
+        }
+        else output *= mag;
+        return output;
+    }
+
+    inline float lerp(float min, float max, float t)
+    {
+        return min + (max - min) * t;
+    }
+    inline sf::Color mix(sf::Color c1, sf::Color c2, float t)
+    {
+        sf::Color output;
+        output.r = floor(lerp(float(c1.r), float(c2.r), t));
+        output.g = floor(lerp(float(c1.g), float(c2.g), t));
+        output.b = floor(lerp(float(c1.b), float(c2.b), t));
+        output.a = floor(lerp(float(c1.a), float(c2.a), t));
+        return output;
+    }
+
 }
 #endif //PONG_SFMLMATH_HPP
