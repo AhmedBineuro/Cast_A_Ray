@@ -15,16 +15,6 @@ namespace RaycastUtils {
 	};
 	inline RayCollisionInfo castRay(sf::Vector2f position, sf::Vector2f direction, const Map& m,float renderDistance=200.0f){
     RaycastUtils::RayCollisionInfo output;
-    if (position.y > m.walls.size())
-    {
-        output.noHit = true;
-        return output;
-    }
-    else if (position.x > m.walls[(int)position.y].size())
-    {
-        output.noHit = true;
-        return output;
-    }
 	sf::Vector2f ray = direction;
     //Reversed because the array is divided into rows of elements in a 2D matrix 
     sf::Vector2i originalPosition((int)position.x, (int)position.y);
