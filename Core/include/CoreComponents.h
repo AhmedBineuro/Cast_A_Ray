@@ -113,8 +113,8 @@ public:
 
     bool enabled = true;
     float sensitivity = 1.0,
-        maxSpeed = 0.5f,
-        movementMultiplier = 1.0f,
+        maxSpeed = 3.0f,
+        movementMultiplier = 0.5f,
         sprintMultiplier = 2.0f,
         turnAngle = 50.0f;
     ControllableComponent() {

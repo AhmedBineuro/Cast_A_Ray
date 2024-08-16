@@ -36,7 +36,9 @@ public:
 
     //Entity manipulation functions/
     template <typename T>
-    void addComponent(entt::entity,T component);
+    T* addComponent(entt::entity);
+    template <typename T>
+    T* addComponent(entt::entity,T component);
     template <typename T>
     void removeComponent(entt::entity);
 
@@ -53,7 +55,7 @@ public:
 
 //Entity manipulation functions/
 template <typename T>
-void Scene::addComponent(entt::entity  entity, T component) {
+T* Scene::addComponent(entt::entity  entity) {
     int i = 0;
     for (auto ent : this->entities) {
         if (ent->getHandle() == entity)
@@ -61,10 +63,22 @@ void Scene::addComponent(entt::entity  entity, T component) {
         i++;
     }
     if (i == this->entities.size())
-        return;
-    if (!entities[i]->hasComponent<T>())
-        this->entities[i]->addComponent(component);
+        return nullptr;
+    return this->entities[i]->addComponent<T>();
 }
+template <typename T>
+T* Scene::addComponent(entt::entity  entity,T component) {
+    int i = 0;
+    for (auto ent : this->entities) {
+        if (ent->getHandle() == entity)
+            break;
+        i++;
+    }
+    if (i == this->entities.size())
+        return nullptr;
+    return this->entities[i]->addComponent<T>(component);
+}
+
 template <typename T>
 void Scene::removeComponent(entt::entity  entity) {
     int i = 0;

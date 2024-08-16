@@ -1,51 +1,55 @@
 #include "Engine\include\Systems.h"
 namespace Systems {
 
-	void WolfCollisionSystem(entt::registry& registry, Map& currentMap) {
-	auto view = registry.view<ColliderComponent, TransformComponent>();
-		for (auto entity : view) {
-			//Check Collision against map tiles using aabb
-			ColliderComponent& collider = registry.get<ColliderComponent>(entity);
-			TransformComponent& transform = registry.get<TransformComponent>(entity);
-			sf::Vector2f size = collider.border.getSize();
-			if (!collider.enabled)
-				continue;
-			//Check the borders
-			sf::Vector2f corners[4]={
-				sf::Vector2f(transform.position.x , transform.position.y - (size.y / 2.0f)), //Top side
-				sf::Vector2f(transform.position.x , transform.position.y + (size.y / 2.0f)), //Bottom side
-				sf::Vector2f(transform.position.x - (size.y / 2.0f), transform.position.y), //Left side
-				sf::Vector2f(transform.position.x + (size.y / 2.0f), transform.position.y) //Right side
-			};
-			for (int i = 0; i < 4; i++) {
-				if ((int)corners[i].y >= 0 && (int)corners[i].y < currentMap.walls.size() &&
-					(int)corners[i].x >= 0 && (int)corners[i].x < currentMap.walls[(int)corners[i].y].size()) {
+	namespace CollisionSystem {
+		void WolfCollisionSystem(entt::registry& registry, Map& currentMap) {
+			auto view = registry.view<ColliderComponent, TransformComponent>();
+			for (auto entity : view) {
+				//Check Collision against map tiles using aabb
+				ColliderComponent& collider = registry.get<ColliderComponent>(entity);
+				TransformComponent& transform = registry.get<TransformComponent>(entity);
+				sf::Vector2f size = collider.border.getSize();
+				if (!collider.enabled)
+					continue;
+				//Check the borders
+				//TODO Change from sides to corners or something because it is skipping checks
+				sf::Vector2f sides[4] = {
+					sf::Vector2f(transform.position.x , transform.position.y - (size.y / 2.0f)), //Top side
+					sf::Vector2f(transform.position.x , transform.position.y + (size.y / 2.0f)), //Bottom side
+					sf::Vector2f(transform.position.x - (size.x / 2.0f), transform.position.y), //Left side
+					sf::Vector2f(transform.position.x + (size.x / 2.0f), transform.position.y) //Right side
+				};
+				for (int i = 0; i < 4; i++) {
+					if ((int)sides[i].y >= 0 && (int)sides[i].y < currentMap.walls.size() &&
+						(int)sides[i].x >= 0 && (int)sides[i].x < currentMap.walls[(int)sides[i].y].size()) {
 						//If the tile is not in the ignore list then resolve collision
-						auto iterator = std::find(currentMap.ignoreCollision.begin(), currentMap.ignoreCollision.end(), currentMap.walls[(int)corners[i].y][(int)corners[i].x]);
+						auto iterator = std::find(currentMap.ignoreCollision.begin(), currentMap.ignoreCollision.end(), currentMap.walls[(int)sides[i].y][(int)sides[i].x]);
 						if (iterator == currentMap.ignoreCollision.end())
 						{
-							sf::Vector2f offSet(0,0);
+							sf::Vector2f offSet(0, 0);
 							if (i == 0)  //Top Collision
-								offSet.y = round(corners[i].y) - corners[i].y;
+								offSet.y = round(sides[i].y) - sides[i].y;
 							if (i == 1) //Bottom Collision
-								offSet.y = floor(corners[i].y) - corners[i].y;
+								offSet.y = floor(sides[i].y) - sides[i].y;
 							if (i == 2) //Left Collision
-								offSet.x = round(corners[i].x) - corners[i].x;
+								offSet.x = round(sides[i].x) - sides[i].x;
 							if (i == 3) //Right Collision
-								offSet.x = floor(corners[i].x) - corners[i].x;
+								offSet.x = floor(sides[i].x) - sides[i].x;
 
 							transform.position += offSet;
 
-							//Update the corners to the new position
-							corners[0] +=offSet;
-							corners[1] +=offSet;
-							corners[2] +=offSet;
-							corners[3] +=offSet;
+							//Update the sides to the new position
+							sides[0] += offSet;
+							sides[1] += offSet;
+							sides[2] += offSet;
+							sides[3] += offSet;
 						}
+					}
 				}
 			}
 		}
 	}
+	
 	namespace DDARenderSystem {
 			void renderWalls(entt::registry& registry, Map& currentMap)
 			{
@@ -80,9 +84,8 @@ namespace Systems {
 						else perpDist = collision.distance;
 						//Draw the lines
 						float lineHeight = (windowSize.y) / (perpDist);
-						float drawStart = -lineHeight + (windowSize.y * cameracomponent.zHeight);
-						float drawEnd = lineHeight + (windowSize.y * cameracomponent.zHeight);
-						float size = drawEnd - drawStart;
+						float drawStart = -(lineHeight*0.5)+(windowSize.y * cameracomponent.zHeight);
+						float drawEnd = (lineHeight*0.5)+(windowSize.y * cameracomponent.zHeight);
 						if(!collision.noHit)
 						{
 							std::string textName = currentMap.wallMapping[collision.tag];
@@ -96,12 +99,19 @@ namespace Systems {
 							if ((collision.side == 0 && currentRay.x < 0) || (collision.side == 1 && currentRay.y > 0))
 								texX = textSize.x - texX - 1;
 						}
-						textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, size));
+						textureSlice.setSize(sf::Vector2f(textureSlice.getSize().x, lineHeight));
 						textureSlice.setPosition(x, drawStart);
 						float amount = floor(sf::lerp(255,0, perpDist / cameracomponent.renderDistance));
 						sf::Color shade = sf::Color( amount, amount, amount);
 						textureSlice.setFillColor(shade);
 						canvas->draw(textureSlice);
+
+						//Second Story wall rendering
+						textureSlice.setScale(1,-1);
+						textureSlice.setPosition(x, drawEnd+lineHeight);
+						textureSlice.setFillColor(sf::Color(amount,amount,amount,80));
+						canvas->draw(textureSlice);
+						textureSlice.setScale(1, 1);
 					}
 				}
 			}
