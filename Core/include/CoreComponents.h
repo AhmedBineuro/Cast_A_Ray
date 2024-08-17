@@ -10,6 +10,7 @@
 #include "Core\include\Map.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "imgui-knobs.h"
 #include "Core\include\Component.h"
 
 
@@ -37,9 +38,14 @@ public:
             ImGui::Indent();
             ImGui::Text("Position: ");
             ImGui::InputFloat("X##Pos", &position.x);
-            ImGui::InputFloat("Y##Pos", &position.y);
+            ImGui::InputFloat ("Y##Pos", &position.y);
             
-            ImGui::Text("Rotation: ");
+            static float angle = sf::getRotationAngle(rotation);
+            if (ImGuiKnobs::Knob("Rotation:", &angle, 0, 360, 0.5f)) {
+                rotation = sf::getAbsoluteRotated(angle);
+                if (angle == 360)
+                    angle = 0;
+            }
             ImGui::InputFloat("X##Rot", &rotation.x);
             ImGui::InputFloat("Y##Rot", &rotation.y);
             ImGui::Unindent();
@@ -204,7 +210,7 @@ class ColliderComponent : public Component {
 
         sf::FloatRect border;
         bool isTrigger, enabled;
-        ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(1, 1)) {
+        ColliderComponent(sf::Vector2f position = sf::Vector2f(), sf::Vector2f size = sf::Vector2f(0.5, 0.5)) {
             border = sf::FloatRect(position - (size / 2.0f), size);
             isTrigger = false;
             enabled = true;

@@ -2,7 +2,7 @@
 Config Config::config;
 Config::Config() {
 	nlohmann::json data;
-	std::ifstream configFile("./Config.json");
+	std::ifstream configFile("./misc/Config.json");
 	settings.requiresRestart = false;
 	nlohmann::json parsedSettings;
 	if (configFile.is_open()) {
@@ -109,7 +109,7 @@ int Config::getMaxFrameRate() {
 
 
 bool Config::applyChanges() {
-	std::ofstream file("./Config.json");
+	std::ofstream file("./misc/Config.json");
 	if (file.is_open()) {
 		nlohmann::json newSettings;
 		newSettings["Config"];

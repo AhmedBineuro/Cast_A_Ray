@@ -39,10 +39,9 @@ namespace Systems {
 							transform.position += offSet;
 
 							//Update the sides to the new position
-							sides[0] += offSet;
-							sides[1] += offSet;
-							sides[2] += offSet;
-							sides[3] += offSet;
+							
+							for (int j = i + 1; j < 4;j++)
+								sides[j] += offSet;
 						}
 					}
 				}

@@ -35,7 +35,7 @@ public:
 		addComponent(player, ColliderComponent());
 
 		auto trans = getComponent<TransformComponent>(player);
-		//trans->position = sf::Vector2f(7.3, 2.5);
+		trans->position = sf::Vector2f(2, 2);
 		auto intScript = getComponent<IntegratedScriptComponent>(player);
 		intScript->scripts.push_back(std::make_shared<PlayerController>());
 		((PlayerController*)intScript->scripts[0].get())->setPlayer(this->entities[0]);

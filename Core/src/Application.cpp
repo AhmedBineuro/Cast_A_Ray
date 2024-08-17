@@ -23,7 +23,7 @@ Application::Application() {
 		window.setFramerateLimit(0);
 	}
 	
-	if (!icon.loadFromFile("./casta.png"))
+	if (!icon.loadFromFile("./misc/casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -56,7 +56,7 @@ Application::Application(std::string appName) {
 		window.setFramerateLimit(0);
 	}
 	
-	if (!icon.loadFromFile("./casta.png"))
+	if (!icon.loadFromFile("./misc/casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
