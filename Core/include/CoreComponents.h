@@ -33,56 +33,20 @@ public:
         : position(pos), rotation(rot) {
         componentName = "Transform Component";
     }
-    void draw() {
-        if (ImGui::CollapsingHeader("Transform Component")) {
-            ImGui::Indent();
-            ImGui::Text("Position: ");
-            ImGui::InputFloat("X##Pos", &position.x);
-            ImGui::InputFloat ("Y##Pos", &position.y);
-            
-            static float angle = sf::getRotationAngle(rotation);
-            if (ImGuiKnobs::Knob("Rotation:", &angle, 0, 360, 0.5f)) {
-                rotation = sf::getAbsoluteRotated(angle);
-                if (angle == 360)
-                    angle = 0;
-            }
-            ImGui::InputFloat("X##Rot", &rotation.x);
-            ImGui::InputFloat("Y##Rot", &rotation.y);
-            ImGui::Unindent();
-        }
-    };
 };
 
-class IntegratedScriptComponent: public Component {
+class IntegratedScriptComponent :public Component {
 public:
     bool enabled = true;
     std::vector<std::shared_ptr<Actor>> scripts;
-    IntegratedScriptComponent(std::shared_ptr<Actor> script=nullptr){
+    IntegratedScriptComponent(std::shared_ptr<Actor> script = nullptr) {
         if (script != nullptr)
             this->scripts.push_back(std::move(script));
         else scripts.clear();
         componentName = "IntScript Component";
     }
-    void draw() {
-        if (ImGui::CollapsingHeader("Integrated Script Component")) {
-            ImGui::Indent();
-            int i = 0;
-            for(auto script:scripts)
-            {
-                if (ImGui::Button("X")) {
-                    scripts.erase(scripts.begin()+i);
-                    i -= 2;
-                }
-                ImGui::SameLine();
-                script->renderImGui();
-                i++;
-            }
-            ImGui::Checkbox("Enabled##script",&enabled);
-            ImGui::Unindent();
-        }
-    };
 };
-class RenderStatesComponent : public Component {
+class RenderStatesComponent :public Component  {
 public:
 
     bool enabled;
@@ -90,31 +54,18 @@ public:
     RenderStatesComponent() {
         componentName = "RendStates Component";
     }
-    void draw() {
-        if (ImGui::CollapsingHeader("Render States Component")) {
-            ImGui::Indent();
-            ImGui::Checkbox("Enabled##Render", &enabled);
-            ImGui::Unindent();
-        }
-    };
 };
 
-class SpriteComponent : public Component {
+class SpriteComponent :public Component  {
 public:
 
     sf::Sprite sprite;
     SpriteComponent() {
         componentName = "Sprite Component";
     }
-    void draw() {
-        if (ImGui::CollapsingHeader("Sprite Component")) {
-            ImGui::Indent();
-            ImGui::Unindent();
-        }
-    };
 };
 
-class ControllableComponent : public Component {
+class ControllableComponent :public Component  {
 public:
 
     bool enabled = true;
@@ -126,26 +77,9 @@ public:
     ControllableComponent() {
         componentName = "Controllable Component";
     }
-    void draw() {
-        if (ImGui::CollapsingHeader("Controllable Component")) {
-            ImGui::Indent();
-            ImGui::Checkbox("Enabled##Controllable", &enabled);
-
-            ImGui::InputFloat("Max Speed", &maxSpeed);
-
-            ImGui::InputFloat("Movement Multiplier", &movementMultiplier);
-
-            ImGui::InputFloat("Sprint Multiplier", &sprintMultiplier);
-
-            ImGui::InputFloat("Turn angle", &turnAngle);
-            
-            ImGui::InputFloat("Sensitivity", &sensitivity);
-            ImGui::Unindent();
-        }
-    };
 };
 
-class CameraComponent : public Component {
+class CameraComponent :public Component  {
 public:
 
     float FOV;
@@ -158,7 +92,7 @@ public:
         : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
         enabled = true;
         updatePlane();
-        componentName = "CamComponent";
+        componentName = "Camera Component";
     }
     void updatePlane() {
         plane = sf::Vector2f(0, -1);
@@ -167,30 +101,13 @@ public:
         plane *= width;
     }
 
-    void draw() {
-        if (ImGui::CollapsingHeader("Camera Component")) {
-            ImGui::Indent();
-            ImGui::Text("Plane: x:%f , y:%f", plane.x, plane.y);
-            if (ImGui::InputFloat("FOV", &FOV)) {
-                updatePlane();
-            }
-
-            ImGui::InputFloat("Render Distance", &renderDistance);
-
-            ImGui::InputFloat("Vertical Height", &zHeight);
-
-            ImGui::Checkbox("Fisheye", &fisheye);
-
-            ImGui::Checkbox("Enable##Camera", &enabled);
-        }
-    }
         void setPlaneNormalDirection(sf::Vector2f rotation){
             float mag = sf::getLength(plane);
             plane = sf::getNormalized(sf::getRotated(rotation, -90)) * mag;
         }
 };
 
-class MapTagComponent : public Component {
+class MapTagComponent :public Component  {
     public:
         std::string mapName;
         MapTagComponent() {
@@ -198,14 +115,10 @@ class MapTagComponent : public Component {
             mapName = "";
         }
 
-        //void draw() {
-        //    if (ImGui::CollapsingHeader("Map Tag Component")) {
-        //        ImGui::InputText("Map Name", mapName.begin()._Unwrapped(),50);
-        //    }
-        //};
-    };
+        
+};
 
-class ColliderComponent : public Component {
+class ColliderComponent :public Component  {
     public:
 
         sf::FloatRect border;
@@ -216,23 +129,6 @@ class ColliderComponent : public Component {
             enabled = true;
             componentName = "Collider Component";
         }
-
-        void draw() {
-            if (ImGui::CollapsingHeader("Collider Component")) {
-                ImGui::Indent();
-                ImGui::Text("Collider Dimensions:");
-                ImGui::InputFloat("X##width", &border.width);
-                ImGui::InputFloat("Y##height", &border.height);
-
-                ImGui::Text("Collider Position:");
-                ImGui::InputFloat("X##left", &border.left);
-                ImGui::InputFloat("Y##top", &border.top);
-
-                ImGui::Checkbox("Is Trigger", &isTrigger);
-                ImGui::Checkbox("Enabled##Collider", &enabled);
-                ImGui::Unindent();
-            }
-        }
 };
 
 class CanvasComponent :public Component {
@@ -241,31 +137,6 @@ public:
     std::weak_ptr<sf::RenderTexture> canvas;
 
     CanvasComponent(std::string name = "", std::shared_ptr<sf::RenderTexture> canvas = nullptr) :canvasName(name), canvas(std::weak_ptr(canvas)) {
-        this->componentName = "CanvasComponent";
-    }
-    void draw() {
-        if (ImGui::CollapsingHeader("Canvas Component")) {
-            ImGui::Indent();
-            ImGui::Text("Current canvas: %s", 
-                ((this->canvas.lock()) ? this->canvasName.c_str() : "None"));
-            if (ImGui::BeginDragDropTarget()) {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_CANVAS_TRGT_PTR_")) {
-                    Canvas can = *static_cast<const Canvas*>(payload->Data);
-                    std::weak_ptr<sf::RenderTexture> wptr = std::weak_ptr(can.target);
-                    if (!wptr.lock())
-                    {
-                        printf("Bad Texture\n");
-                    }
-                    else {
-                        this->canvas= wptr.lock();
-                        this->canvasName = can.name;
-                    }
-                    ImGui::Text("Target Assigned");
-                    ImGui::EndDragDropTarget();
-                }
-                ImGui::Unindent();
-            }
-            ImGui::Unindent();
-        }
+        this->componentName = "Canvas Component";
     }
 };

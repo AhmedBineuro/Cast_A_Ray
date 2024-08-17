@@ -17,8 +17,8 @@ namespace RaycastUtils {
     RaycastUtils::RayCollisionInfo output;
 	sf::Vector2f ray = direction;
     //Reversed because the array is divided into rows of elements in a 2D matrix 
-    sf::Vector2i originalPosition((int)position.x, (int)position.y);
-    sf::Vector2i tileIndex((int)position.y, (int)position.x); // Will be manipulated
+    sf::Vector2i originalPosition(floor(position.x), floor(position.y));
+    sf::Vector2i tileIndex(floor(position.y), floor(position.x)); // Will be manipulated
 
     /*double axisWeightX = sqrt(1 + (direction.y * direction.y) / (direction.x * direction.x));
     double axisWeightY = sqrt(1 + (direction.x * direction.x) / (direction.y * direction.y));

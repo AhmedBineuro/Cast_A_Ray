@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\src\Application.cpp" />
+    <ClCompile Include="Core\src\CAR_ImGui.cpp" />
     <ClCompile Include="Core\src\Config.cpp" />
     <ClCompile Include="Core\src\Core.cpp" />
     <ClCompile Include="Core\src\Entity.cpp" />
@@ -173,6 +174,7 @@
   <ItemGroup>
     <ClInclude Include="Core\include\Actors.h" />
     <ClInclude Include="Core\include\Application.h" />
+    <ClInclude Include="Core\include\CAR_ImGui.h" />
     <ClInclude Include="Core\include\Components.h" />
     <ClInclude Include="Core\include\Config.h" />
     <ClInclude Include="Core\include\Core.h" />

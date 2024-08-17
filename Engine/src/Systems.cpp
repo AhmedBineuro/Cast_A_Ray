@@ -72,15 +72,12 @@ namespace Systems {
 
 						sf::Vector2f currentRay = sf::getNormalized(transformComponent.rotation) + cameracomponent.plane * (float)cameraX;
 						RaycastUtils::RayCollisionInfo collision;
-						collision = RaycastUtils::castRay(transformComponent.position, sf::getNormalized(currentRay), currentMap, cameracomponent.renderDistance);
+						collision = RaycastUtils::castRay(transformComponent.position, currentRay, currentMap, cameracomponent.renderDistance);
 
 						if (collision.noHit)
 							continue;
-						double angleBetween = cos(sf::degToRad(sf::getAngleBetween(transformComponent.rotation, currentRay)));;
 						double perpDist;
-						if (angleBetween > 0 && !cameracomponent.fisheye)
-							perpDist = collision.distance * angleBetween;
-						else perpDist = collision.distance;
+						perpDist = collision.distance;
 						//Draw the lines
 						float lineHeight = (windowSize.y) / (perpDist);
 						float drawStart = -(lineHeight*0.5)+(windowSize.y * cameracomponent.zHeight);

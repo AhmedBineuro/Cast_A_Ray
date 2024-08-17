@@ -1,4 +1,5 @@
 #include "Core\include\Application.h"
+#include "core\include\CAR_ImGui.h"
 Application::Application() {
 	this->appName = "Cast-A-Ray Application";
 	Config& config = Config::getConfig();
@@ -121,7 +122,10 @@ void Application::run() {
 	float fixedDeltaTimeGUI = config.getFixedDeltaTime(); //For ImGui
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-	io.ConfigDockingWithShift = true;
+	io.ConfigDockingWithShift = false;
+	ImGui::StyleColorsDark();
+	auto style = ImGui::GetStyle();
+
 	while (running) {
 		if (config.RestartRequired()) {
 			config.setRestartRequiredFlag(false);
@@ -145,7 +149,10 @@ void Application::run() {
 			}
 			if (event.type == sf::Event::Resized)
 			{
-				window.setSize(sf::Vector2u(settings.width, settings.height));
+				//window.setSize(sf::Vector2u(settings.width, settings.height));
+				config.setDimensions(window.getSize().x, window.getSize().y);
+				config.applyChanges();
+				settings = config.getSettings();
 				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
@@ -168,7 +175,7 @@ void Application::run() {
 		ImGui::SetNextWindowPos(ImVec2(0, 20));
 		ImGui::Begin("##BASE_WINDOW",nullptr,
 			ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|
-			ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoBackground);
+			ImGuiWindowFlags_NoResize);
 		if(ImGui::BeginMainMenuBar()){
 			if (ImGui::BeginMenu("File")) {
 				ImGui::MenuItem("New Project");
@@ -189,14 +196,15 @@ void Application::run() {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		if (ImGui::Begin("Viewport")){
+		if (ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize)){
 			update();
 			render(scene_available);
 			if (this->sceneList[this->currentScene]->canvas_available)
 			{
-				ImGui::Image(*(this->sceneList[this->currentScene]
+				sf::RenderTexture* text= (this->sceneList[this->currentScene]
 					->canvasMap[this->sceneList[this->currentScene]
-					->currentCanvas].get()));
+					->currentCanvas].get());
+				ImGui::Image(*text);
 			}
 			ImGui::End();
 		}
@@ -209,26 +217,18 @@ void Application::run() {
 		window.display();
 	}
 	ImGui::SFML::Shutdown();
+	config.applyChanges();
 	window.close();
 }
 void Application::render(bool scene_available) {
 	if (scene_available)
 	{
 		this->sceneList[this->currentScene]->onRender();
-		if(this->sceneList[this->currentScene]->canvas_available)
-		{
-			/*this->canvasSprite.setTexture(this->sceneList[this->currentScene]
-				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]
-				->getTexture());
-			sf::Vector2u size = this->sceneList[this->currentScene]
-				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]->getSize();
-			canvasSprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));*/
-		}
 	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings");
+	ImGui::Begin("Settings",nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
@@ -273,7 +273,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::End();
 	if(showSceneDebug)
 	{
-		this->sceneList[currentScene]->renderImGui();
+		ImGui::draw(this->sceneList[currentScene]);
 	}
 }
 
@@ -304,6 +304,7 @@ void Application::update() {
 //Function will restart the window to apply the necessary settings changes
 void Application::restartWindow() {
 	window.close();
+	ImGui::SFML::Shutdown();
 	Config& config = Config::getConfig();
 	this->window.create(sf::VideoMode(settings.width, settings.height), this->appName, settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default, settings.videoSettings);
 	settings.width = window.getSize().x;
@@ -313,7 +314,5 @@ void Application::restartWindow() {
 	else
 		window.setFramerateLimit(0);
 	window.clear();
-	window.draw(sceneList[currentScene]->canvasSprite);
-	window.display();
-	render(sceneList.find(currentScene) != sceneList.end());
+	ImGui::SFML::Init(window);
 }
