@@ -15,7 +15,6 @@ public:
 	}
 	DDAScene(std::string mapName) {
 		this->map = Map(mapName);
-		std::shared_ptr<Entity> cam;
 		this->canvasSprite = sf::Sprite();
 		this->onCreate();
 	}

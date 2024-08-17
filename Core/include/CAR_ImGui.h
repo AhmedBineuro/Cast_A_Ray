@@ -5,6 +5,7 @@
 #include "imgui-SFML.h"
 
 namespace ImGui {
+	/////// COMPONENTS //////
 	void draw(Component*);
 	void draw(TransformComponent*);
 	void draw(IntegratedScriptComponent*);
@@ -15,5 +16,11 @@ namespace ImGui {
 	void draw(MapTagComponent*);
 	void draw(ColliderComponent*);
 	void draw(CanvasComponent*);
+	
+	/////////////////////
+	
+	/////// SCENES //////
 	void draw(Scene*);
+
+	/////////////////////
 };
