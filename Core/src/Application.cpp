@@ -124,7 +124,10 @@ void Application::run() {
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
 	io.ConfigDockingWithShift = false;
 	ImGui::StyleColorsDark();
-	auto style = ImGui::GetStyle();
+
+	TextEditor editor;
+	auto lang = TextEditor::LanguageDefinition::Json();
+	editor.SetLanguageDefinition(lang);
 
 	while (running) {
 		if (config.RestartRequired()) {
@@ -149,10 +152,10 @@ void Application::run() {
 			}
 			if (event.type == sf::Event::Resized)
 			{
-				//window.setSize(sf::Vector2u(settings.width, settings.height));
-				config.setDimensions(window.getSize().x, window.getSize().y);
+				window.setSize(sf::Vector2u(settings.width, settings.height));
+				/*config.setDimensions(window.getSize().x, window.getSize().y);
 				config.applyChanges();
-				settings = config.getSettings();
+				settings = config.getSettings();*/
 				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
 			}
 		}
@@ -171,12 +174,7 @@ void Application::run() {
 		window.clear();
 		
 		ImGui::SFML::Update(window, deltaTime);
-		ImGui::SetNextWindowSize(ImVec2(config.getDimensions().x, config.getDimensions().y-20)); //The 20 is the size of the main menu bar
-		ImGui::SetNextWindowPos(ImVec2(0, 20));
-		ImGui::Begin("##BASE_WINDOW",nullptr,
-			ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|
-			ImGuiWindowFlags_NoResize);
-		if(ImGui::BeginMainMenuBar()){
+		if (ImGui::BeginMainMenuBar()) {
 			if (ImGui::BeginMenu("File")) {
 				ImGui::MenuItem("New Project");
 				ImGui::MenuItem("Open Project");
@@ -196,8 +194,9 @@ void Application::run() {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		if (ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize)){
-			update();
+		if (ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_AlwaysAutoResize)){
+			if(ImGui::IsWindowFocused())
+				update();
 			render(scene_available);
 			if (this->sceneList[this->currentScene]->canvas_available)
 			{
@@ -207,8 +206,13 @@ void Application::run() {
 				ImGui::Image(*text);
 			}
 			ImGui::End();
+			if(showTextEditor)
+			{
+				editor.SetImGuiChildIgnored(true);
+				editor.Render("TextEditor");
+			}
 		}
-		ImGui::End();
+
 		if(showSettings)
 		{
 			renderSettings(fixedDeltaTimeGUI, config);
@@ -228,7 +232,7 @@ void Application::render(bool scene_available) {
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings",nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Settings",nullptr);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
@@ -239,10 +243,10 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	if (settings.capFrameRate)
 		ImGui::InputInt("Max frame rate", &settings.maxFrameRate);
 	int tempArray[2] = { settings.width,settings.height };
-	if (ImGui::InputInt2("Window dimensions", tempArray)) {
+	/*if (*/ImGui::InputInt2("Window dimensions", tempArray);/*) {
 		settings.width = tempArray[0];
 		settings.height = tempArray[1];
-	}
+	}*/
 	int tempArray2[2] = { settings.renderResolution.x,settings.renderResolution.y};
 	if (ImGui::InputInt2("Render Resolution", tempArray2)) {
 		settings.renderResolution.x = tempArray2[0];
@@ -270,6 +274,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
 		}
 	}
+	ImGui::Checkbox("Show Text Editor", &this->showTextEditor);
 	ImGui::End();
 	if(showSceneDebug)
 	{

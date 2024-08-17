@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -94,7 +94,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -158,6 +158,10 @@
     <ClCompile Include="Engine\src\PlayerController.cpp" />
     <ClCompile Include="Engine\src\Scenes.cpp" />
     <ClCompile Include="Engine\src\Systems.cpp" />
+    <ClCompile Include="libs\ImGuiColorTextEdit\ImGuiDebugPanel.cpp" />
+    <ClCompile Include="libs\ImGuiColorTextEdit\LanguageDefinitions.cpp" />
+    <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp" />
+    <ClCompile Include="libs\ImGuiColorTextEdit\UnitTests.cpp" />
     <ClCompile Include="libs\imgui\imgui-knobs.cpp" />
     <ClCompile Include="libs\imgui\imgui-SFML.cpp" />
     <ClCompile Include="libs\imgui\imgui.cpp" />
@@ -194,6 +198,7 @@
     <ClInclude Include="Engine\include\Scenes.h" />
     <ClInclude Include="Engine\include\Systems.h" />
     <ClInclude Include="Engine\include\Tile.h" />
+    <ClInclude Include="libs\ImGuiColorTextEdit\TextEditor.h" />
     <ClInclude Include="libs\imgui\imconfig-SFML.h" />
     <ClInclude Include="libs\imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui-knobs.h" />

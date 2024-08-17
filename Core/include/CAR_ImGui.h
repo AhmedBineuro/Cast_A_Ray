@@ -3,6 +3,11 @@
 #include "Scene.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+/**
+* @brief A namespace that helps render ImGui elements for egine classes and components
+* @note Call these when rendering the ImGui GUI for the editor/engine
+*/
+
 
 namespace ImGui {
 	/////// COMPONENTS //////

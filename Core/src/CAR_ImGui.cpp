@@ -168,7 +168,7 @@ namespace ImGui {
 	}
 	void draw(Scene* s) {
 		//Scene Settings
-		ImGui::Begin("Scene Properites", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize);
+		ImGui::Begin("Scene Properites", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		std::set<std::string> names;
 		names.clear();
 		for (auto name = s->canvasMap.begin(); name != s->canvasMap.end(); name++)
@@ -307,7 +307,7 @@ namespace ImGui {
 		ImGui::End();
 			
 		//Entity Settings
-		ImGui::Begin("Entity Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize);
+		ImGui::Begin("Entity Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		if (ImGui::Button("Add Entity")) {
 			s->addEntity();
 		}

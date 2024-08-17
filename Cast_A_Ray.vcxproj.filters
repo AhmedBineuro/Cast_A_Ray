@@ -90,6 +90,18 @@
     <ClCompile Include="Core\src\CAR_ImGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="libs\ImGuiColorTextEdit\ImGuiDebugPanel.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\ImGuiColorTextEdit\LanguageDefinitions.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\ImGuiColorTextEdit\TextEditor.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\ImGuiColorTextEdit\UnitTests.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\imgui\imconfig.h">
@@ -187,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="Core\include\CAR_ImGui.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuiColorTextEdit\TextEditor.h">
+      <Filter>Header Files\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
