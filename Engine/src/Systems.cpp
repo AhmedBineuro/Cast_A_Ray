@@ -78,6 +78,12 @@ namespace Systems {
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
 
 					sf::Vector2u windowSize = canvas->getSize();
+					static sf::Image floorNceil;
+					static sf::Texture floorsText;
+					if (floorNceil.getSize().x != windowSize.x && floorNceil.getSize().y != windowSize.y)
+					{
+						floorNceil.create(windowSize.x, windowSize.y);
+					}
 					////////////////////Wall Casting////////////////////////////
 					skybox[0].position = sf::Vector2f(0,0);
 					skybox[1].position = sf::Vector2f(windowSize.x, 0);
@@ -124,13 +130,53 @@ namespace Systems {
 						textureSlice.setFillColor(shade);
 						canvas->draw(textureSlice);
 
+						//Floor Rendering
+						sf::Vector2f newRay = sf::getNormalized(currentRay);
+						float distToPlane = sf::getLength(transformComponent.rotation);
+						for (int y = drawEnd + 1; y < windowSize.y; y++) {
+							float normalizedY = float(y) / float(windowSize.y);
+							float distToCollision = cameracomponent.zHeight * (distToPlane / (normalizedY - cameracomponent.zHeight));
+							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
+							sf::Vector2f tilePosition = sf::floor(floorPosition);
+							sf::Vector2f uv = floorPosition - tilePosition;
+							int colorDecider = tilePosition.x + tilePosition.y;
+							sf::Color c;
+							/*if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
+								int tag = currentMap.floors[floorPosition.y][floorPosition.x];
+								static sf::Image& im=rm.getImage(currentMap.floorMapping[tag]);
+								if(&im!= &rm.getImage(currentMap.floorMapping[tag]))
+									im = rm.getImage(currentMap.floorMapping[tag]);
+								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im.getSize().x), 
+									floor(uv.y * im.getSize().y));
+								c = im.getPixel(textIndex.x, textIndex.y);
+							}
+							else {*/
+								if (int(tilePosition.x + tilePosition.y)%2)
+									c = sf::Color(0,0,0,80);
+								else c = sf::Color(140, 200, 140,80);
+							//}
+							c += shade;
+							floorNceil.setPixel(x, y, c);
+						}
+
+
+
 						//Second Story wall rendering
-						textureSlice.setScale(1,-1);
+						/*textureSlice.setScale(1,-1);
 						textureSlice.setPosition(x, drawEnd+lineHeight);
 						textureSlice.setFillColor(sf::Color(amount,amount,amount,80));
 						canvas->draw(textureSlice);
-						textureSlice.setScale(1, 1);
+						textureSlice.setScale(1, 1);*/
 					}
+					floorNceil.createMaskFromColor(sf::Color::Black);
+					//sf::Sprite floors=sf::Sprite();
+					//floors.setPosition(0, 0);
+					//floors.setScale(0.5, 0.5);
+					//floorsText.loadFromImage(floorNceil);
+					//floors.setTexture(floorsText);
+					//canvas->draw(floors);
+					/*std::string result= floorNceil.saveToFile("./misc/Floors.png")?"Yes\n":"No\n";*/
+					floorNceil.saveToFile("./misc/Floors.png");
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {

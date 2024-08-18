@@ -48,5 +48,5 @@ private:
 	const char* antiAlias_labels[5] = { "0","2","4","8","15" };
 	const int antiAlias_values[5] = { 0,2,4,8,15 };
 	int currentAntiAlias = 0;
-	bool showFPS;
+	bool showFPS=true;
 };

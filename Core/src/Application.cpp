@@ -147,7 +147,6 @@ void Application::run() {
 			}
 			if (event.type == sf::Event::Closed)
 			{
-				window.close();
 				running = false;
 			}
 			if (event.type == sf::Event::Resized)

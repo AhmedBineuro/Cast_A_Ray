@@ -211,7 +211,9 @@ namespace sf
         return vec;
     }
 
-    // ADDED FUNCTION BY AHMED BINEURO
+    // ADDED FUNCTION BY AHMED BINEURO//////////////////////////
+    
+    
      //Gets normalized vector pointing at angle in degrees
     inline sf::Vector2f getAbsoluteRotated(float angle)
     {
@@ -279,12 +281,16 @@ namespace sf
     inline sf::Color mix(sf::Color c1, sf::Color c2, float t)
     {
         sf::Color output;
-        output.r = floor(lerp(float(c1.r), float(c2.r), t));
-        output.g = floor(lerp(float(c1.g), float(c2.g), t));
-        output.b = floor(lerp(float(c1.b), float(c2.b), t));
-        output.a = floor(lerp(float(c1.a), float(c2.a), t));
+        output.r = std::floor(lerp(float(c1.r), float(c2.r), t));
+        output.g = std::floor(lerp(float(c1.g), float(c2.g), t));
+        output.b = std::floor(lerp(float(c1.b), float(c2.b), t));
+        output.a = std::floor(lerp(float(c1.a), float(c2.a), t));
         return output;
     }
 
+    inline sf::Vector2f floor(sf::Vector2f& vec) {
+        return sf::Vector2f(std::floor(vec.x), std::floor(vec.y));
+    }
+    ///////////////// END OF FUNCTOINS ADDED BY AHMED BINEURO/////////////////
 }
 #endif //PONG_SFMLMATH_HPP
