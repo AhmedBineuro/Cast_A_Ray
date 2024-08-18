@@ -55,6 +55,19 @@ namespace Systems {
 				Config& config = Config::getConfig();
 				Resource_Manager& rm = Resource_Manager::getResourceManager();
 				sf::RectangleShape textureSlice(sf::Vector2f(1, 10));
+				sf::VertexArray skybox=sf::VertexArray(sf::Quads,8);
+				sf::Color top = sf::Color(190, 190, 226);
+				sf::Color mid = sf::Color(100, 100, 100);
+				sf::Color bot = sf::Color::Black;
+				skybox[0].color = top;
+				skybox[1].color = top;
+				skybox[2].color = mid;
+				skybox[3].color = mid;
+				skybox[4].color = mid;
+				skybox[5].color = mid;
+				skybox[6].color = bot;
+				skybox[7].color = bot;
+
 				auto view = registry.view<CameraComponent, TransformComponent,CanvasComponent>();
 				for (auto entity : view) {
 					CameraComponent& cameracomponent = registry.get<CameraComponent>(entity);
@@ -66,6 +79,15 @@ namespace Systems {
 
 					sf::Vector2u windowSize = canvas->getSize();
 					////////////////////Wall Casting////////////////////////////
+					skybox[0].position = sf::Vector2f(0,0);
+					skybox[1].position = sf::Vector2f(windowSize.x, 0);
+					skybox[2].position = sf::Vector2f(windowSize.x, windowSize.y * cameracomponent.zHeight);
+					skybox[3].position = sf::Vector2f(0, windowSize.y * cameracomponent.zHeight);
+					skybox[4].position = sf::Vector2f(0, windowSize.y * cameracomponent.zHeight);
+					skybox[5].position = sf::Vector2f(windowSize.x, windowSize.y * cameracomponent.zHeight);
+					skybox[6].position = sf::Vector2f(windowSize.x, windowSize.y);
+					skybox[7].position = sf::Vector2f(0, windowSize.y);
+					canvas->draw(skybox);
 					for (int x = 0; x < windowSize.x; x++) {
 						//cameraX is the x-coordinate in the screen space/ camera space
 						float cameraX = 2 * x / float(windowSize.x) - 1;

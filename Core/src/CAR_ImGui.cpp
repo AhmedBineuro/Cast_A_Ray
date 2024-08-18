@@ -110,7 +110,6 @@ namespace ImGui {
 
 			ImGui::InputFloat("Vertical Height", &c->zHeight);
 			ImGui::PopItemWidth();
-			ImGui::Checkbox("Fisheye", &c->fisheye);
 
 			ImGui::Checkbox("Enable##Camera", &c->enabled);
 		}

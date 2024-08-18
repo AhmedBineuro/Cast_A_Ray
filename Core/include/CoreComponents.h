@@ -86,7 +86,7 @@ public:
     float renderDistance;
     sf::Vector2f plane;
     float zHeight;
-    bool enabled, fisheye = false;
+    bool enabled;
 
     CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float zHeight = 0.5f)
         : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
