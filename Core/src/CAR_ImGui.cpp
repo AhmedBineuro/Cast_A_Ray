@@ -15,7 +15,7 @@ namespace ImGui {
 			ImGui::draw((SpriteComponent*)c);
 		}
 		else if (!name.compare("Controllable Component")) {
-			ImGui::draw((ColliderComponent*)c);
+			ImGui::draw((ControllableComponent*)c);
 		}
 		else if (!name.compare("Camera Component")) {
 			ImGui::draw((CameraComponent*)c);
@@ -400,8 +400,44 @@ namespace ImGui {
 				if (ImGui::Button("apply##name")) {
 					entity->setName(entity->buffer);
 				}
-				for (auto component : *(entity->getComponentList()))
+				for (auto component : *(entity->getComponentList()))	
+				{
+					std::string name = component->componentName;
+					std::string delID = "X##delComp" + name;
+					if (ImGui::Button(delID.c_str())){
+						printf("Name: %s\n", name.c_str());
+						if (!name.compare("Transform Component")) {
+							entity->removeComponent<TransformComponent>();
+						}
+						else if (!name.compare("IntScript Component")) {
+							entity->removeComponent<IntegratedScriptComponent>();
+						}
+						else if (!name.compare("RendStates Component")) {
+							entity->removeComponent<RenderStatesComponent>();
+						}
+						else if (!name.compare("Sprite Component")) {
+							entity->removeComponent<SpriteComponent>();
+						}
+						else if (!name.compare("Controllable Component")) {
+							entity->removeComponent<ControllableComponent>();
+						}
+						else if (!name.compare("Camera Component")) {
+							entity->removeComponent<CameraComponent>();
+						}
+						else if (!name.compare("MapTag Component")) {
+							entity->removeComponent<MapTagComponent>();
+						}
+						else if (!name.compare("Collider Component")) {
+							entity->removeComponent<ColliderComponent>();
+						}
+						else if (!name.compare("Canvas Component")) {
+							entity->removeComponent<CanvasComponent>();
+						}
+						break;
+					}
+					ImGui::SameLine();
 					ImGui::draw(component);
+				}
 				ImGui::Unindent();
 			}
 			ImGui::PopID();

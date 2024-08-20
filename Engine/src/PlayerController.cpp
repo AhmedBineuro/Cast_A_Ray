@@ -104,7 +104,7 @@ void PlayerController::OnEventLoop(sf::Event event) {
 	{
 		ControllableComponent* plyrCtrl = player.lock()->getComponent<ControllableComponent>();
 		TransformComponent* plyrTran = player.lock()->getComponent<TransformComponent>();
-		if (plyrCtrl->enabled)
+		if (plyrTran&& plyrCtrl&&plyrCtrl->enabled)
 		{
 			sf::Vector2f forward = plyrTran->rotation * plyrCtrl->maxSpeed;
 			sf::Vector2f right = plyrTran->rotation * plyrCtrl->maxSpeed;

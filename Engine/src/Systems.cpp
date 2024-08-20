@@ -80,7 +80,7 @@ namespace Systems {
 					sf::Vector2u windowSize = canvas->getSize();
 					sf::Image floorNceil;
 					sf::Texture floorsText;
-					floorNceil.create(windowSize.x, windowSize.y);
+					floorNceil.create(windowSize.x, windowSize.y,sf::Color::Transparent);
 					
 					////////////////////Wall Casting////////////////////////////
 					skybox[0].position = sf::Vector2f(0,0);
@@ -99,17 +99,13 @@ namespace Systems {
 						sf::Vector2f currentRay = sf::getNormalized(transformComponent.rotation) + cameracomponent.plane * (float)cameraX;
 						RaycastUtils::RayCollisionInfo collision;
 						collision = RaycastUtils::castRay(transformComponent.position, currentRay, currentMap, cameracomponent.renderDistance);
-						float lineHeight;
-						double perpDist;
+						float lineHeight = 0;
+						double perpDist= cameracomponent.renderDistance;
 						if (!collision.noHit)
 						{
 							perpDist = collision.distance;
 							//Draw the lines
 							lineHeight = (windowSize.y) / (perpDist);
-						}
-						else {
-							perpDist = 0;
-							lineHeight = 0;
 						}
 						float drawStart = -(lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
 						float drawEnd= (lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
@@ -144,30 +140,34 @@ namespace Systems {
 							sf::Vector2f uv = floorPosition - tilePosition;
 							int colorDecider = tilePosition.x + tilePosition.y;
 							sf::Color c;
-							/*if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
+							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
 								int tag = currentMap.floors[floorPosition.y][floorPosition.x];
-								static sf::Image& im=rm.getImage(currentMap.floorMapping[tag]);
-								if(&im!= &rm.getImage(currentMap.floorMapping[tag]))
-									im = rm.getImage(currentMap.floorMapping[tag]);
+								sf::Image& im=rm.getImage(currentMap.floorMapping[tag]);
 								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im.getSize().x), 
 									floor(uv.y * im.getSize().y));
 								c = im.getPixel(textIndex.x, textIndex.y);
 							}
-							else {*/
+							else {
+								//Tiled 
+									/*if (int(abs(tilePosition.x) + abs(tilePosition.y))%2)
+										c = sf::Color(0,0,0,80);
+									else c = sf::Color(140, 200, 140,80);*/
 
-							//Tiled 
-								/*if (int(abs(tilePosition.x) + abs(tilePosition.y))%2)
+								//c = sf::Color(floor(255 * uv.x), floor(255 * uv.y), 255);
+								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
 									c = sf::Color(0,0,0,80);
-								else c = sf::Color(140, 200, 140,80);*/
-							//}
-
-							c = sf::Color(floor(255 * uv.x), floor(255 * uv.y), 255);
-							c += shade;
+								else c = sf::Color(255, 255, 255, 80);
+							}
+							float shadeR = sf::lerp(c.r, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
+							float shadeG = sf::lerp(c.g, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
+							float shadeB = sf::lerp(c.b, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
+							c = sf::Color(shadeR, shadeG, shadeB);
 							floorNceil.setPixel(x, y, c);
+							floorNceil.setPixel(x,round((1.0f-normalizedY)*float(windowSize.y)), c);
 						}
 
 					}
-					floorNceil.createMaskFromColor(sf::Color::Black);
+					//floorNceil.createMaskFromColor(sf::Color::Black);
 					sf::Sprite floors=sf::Sprite();
 					floors.setPosition(0, 0);
 					floorsText.loadFromImage(floorNceil);

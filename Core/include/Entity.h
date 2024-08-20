@@ -40,9 +40,9 @@ public:
 
     template<typename T>
     void replaceComponent(T component);
-
+    
     template<typename T>
-    void removeComponent(T component);
+    void removeComponent();
 
     //Still don't know what to do with this
     void setChild(std::shared_ptr<Entity> entity);
@@ -103,7 +103,7 @@ void Entity::replaceComponent(T component) {
     return;
 }
 template <typename T>
-void Entity::removeComponent(T component) {
+void Entity::removeComponent() {
     if (hasComponent<T>()) {
         this->components.erase(getComponent<T>());
         registry->remove<T>(handle);
