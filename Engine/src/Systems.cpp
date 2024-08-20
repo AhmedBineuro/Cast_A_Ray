@@ -78,12 +78,10 @@ namespace Systems {
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
 
 					sf::Vector2u windowSize = canvas->getSize();
-					static sf::Image floorNceil;
-					static sf::Texture floorsText;
-					if (floorNceil.getSize().x != windowSize.x && floorNceil.getSize().y != windowSize.y)
-					{
-						floorNceil.create(windowSize.x, windowSize.y);
-					}
+					sf::Image floorNceil;
+					sf::Texture floorsText;
+					floorNceil.create(windowSize.x, windowSize.y);
+					
 					////////////////////Wall Casting////////////////////////////
 					skybox[0].position = sf::Vector2f(0,0);
 					skybox[1].position = sf::Vector2f(windowSize.x, 0);
@@ -101,15 +99,20 @@ namespace Systems {
 						sf::Vector2f currentRay = sf::getNormalized(transformComponent.rotation) + cameracomponent.plane * (float)cameraX;
 						RaycastUtils::RayCollisionInfo collision;
 						collision = RaycastUtils::castRay(transformComponent.position, currentRay, currentMap, cameracomponent.renderDistance);
-
-						if (collision.noHit)
-							continue;
+						float lineHeight;
 						double perpDist;
-						perpDist = collision.distance;
-						//Draw the lines
-						float lineHeight = (windowSize.y) / (perpDist);
-						float drawStart = -(lineHeight*0.5)+(windowSize.y * cameracomponent.zHeight);
-						float drawEnd = (lineHeight*0.5)+(windowSize.y * cameracomponent.zHeight);
+						if (!collision.noHit)
+						{
+							perpDist = collision.distance;
+							//Draw the lines
+							lineHeight = (windowSize.y) / (perpDist);
+						}
+						else {
+							perpDist = 0;
+							lineHeight = 0;
+						}
+						float drawStart = -(lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
+						float drawEnd= (lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
 						if(!collision.noHit)
 						{
 							std::string textName = currentMap.wallMapping[collision.tag];
@@ -151,32 +154,27 @@ namespace Systems {
 								c = im.getPixel(textIndex.x, textIndex.y);
 							}
 							else {*/
-								if (int(tilePosition.x + tilePosition.y)%2)
+
+							//Tiled 
+								/*if (int(abs(tilePosition.x) + abs(tilePosition.y))%2)
 									c = sf::Color(0,0,0,80);
-								else c = sf::Color(140, 200, 140,80);
+								else c = sf::Color(140, 200, 140,80);*/
 							//}
+
+							c = sf::Color(floor(255 * uv.x), floor(255 * uv.y), 255);
 							c += shade;
 							floorNceil.setPixel(x, y, c);
 						}
 
-
-
-						//Second Story wall rendering
-						/*textureSlice.setScale(1,-1);
-						textureSlice.setPosition(x, drawEnd+lineHeight);
-						textureSlice.setFillColor(sf::Color(amount,amount,amount,80));
-						canvas->draw(textureSlice);
-						textureSlice.setScale(1, 1);*/
 					}
 					floorNceil.createMaskFromColor(sf::Color::Black);
-					//sf::Sprite floors=sf::Sprite();
-					//floors.setPosition(0, 0);
-					//floors.setScale(0.5, 0.5);
-					//floorsText.loadFromImage(floorNceil);
-					//floors.setTexture(floorsText);
-					//canvas->draw(floors);
-					/*std::string result= floorNceil.saveToFile("./misc/Floors.png")?"Yes\n":"No\n";*/
-					floorNceil.saveToFile("./misc/Floors.png");
+					sf::Sprite floors=sf::Sprite();
+					floors.setPosition(0, 0);
+					floorsText.loadFromImage(floorNceil);
+					floors.setTexture(floorsText);
+					
+					canvas->draw(floors);
+					//canvas->getTexture().copyToImage(); // Figure out why taking this out causes the screen to go white but still responsive
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {

@@ -29,7 +29,7 @@ Application::Application() {
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
-	showFPS = false;
+	showFPS = true;
 	this->sceneList.clear();
 }
 Application::Application(std::string appName) {
@@ -62,7 +62,7 @@ Application::Application(std::string appName) {
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
-	showFPS = false;
+	showFPS = true;
 }
 void Application::addScene(std::string name, Scene* scene) {
 	if (currentScene == "")
@@ -203,6 +203,7 @@ void Application::run() {
 					->canvasMap[this->sceneList[this->currentScene]
 					->currentCanvas].get());
 				ImGui::Image(*text);
+				//window.draw(this->sceneList[this->currentScene]->canvasSprite);
 			}
 			ImGui::End();
 			if(showTextEditor)
@@ -218,6 +219,7 @@ void Application::run() {
 		}
 		ImGui::SFML::Render(window);
 		window.display();
+		printf("FPS: %f\n", FPS);
 	}
 	ImGui::SFML::Shutdown();
 	config.applyChanges();
