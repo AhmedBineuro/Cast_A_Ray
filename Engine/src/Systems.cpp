@@ -135,7 +135,7 @@ namespace Systems {
 						for (int y = drawEnd+1; y < windowSize.y; y++) {
 							float normalizedYFloor = float(y) / float(windowSize.y);
 							//@TODO Replace 0.5f with the actual player's vertical position
-							float distToCollision = 0.5f* (distToPlane / (normalizedYFloor - cameracomponent.zHeight));
+							float distToCollision = abs(0.5f* (distToPlane / (normalizedYFloor - cameracomponent.zHeight)));
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition-tilePosition;
@@ -178,10 +178,7 @@ namespace Systems {
 									c = sf::Color(0, 0, 0, 80);
 								else c = sf::Color(255, 255, 255, 80);
 							}
-							float shadeR = sf::lerp(c.r, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
-							float shadeG = sf::lerp(c.g, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
-							float shadeB = sf::lerp(c.b, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
-							c = sf::Color(shadeR, shadeG, shadeB);
+							c = sf::mix(c, sf::Color::Black, sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f), false);
 							if (x >= 0 && x < floorNceil.getSize().x
 								&& y >= 0 && y < floorNceil.getSize().y)
 								floorNceil.setPixel(x, y, c);
