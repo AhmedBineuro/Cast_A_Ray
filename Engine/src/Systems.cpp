@@ -174,7 +174,6 @@ namespace Systems {
 					floors.setTexture(floorsText);
 					
 					canvas->draw(floors);
-					//canvas->getTexture().copyToImage(); // Figure out why taking this out causes the screen to go white but still responsive
 				}
 			}
 			void renderFloors(entt::registry& registry, Map& currentMap) {

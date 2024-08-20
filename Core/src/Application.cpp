@@ -219,7 +219,6 @@ void Application::run() {
 		}
 		ImGui::SFML::Render(window);
 		window.display();
-		printf("FPS: %f\n", FPS);
 	}
 	ImGui::SFML::Shutdown();
 	config.applyChanges();

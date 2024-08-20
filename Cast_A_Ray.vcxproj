@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs/json-develop\single_include;$(ProjectDir)libs/entt-master\src\entt;$(ProjectDir)libs/SFML-2.6.0-windows-vc17-64-bit\SFML-2.6.0\include;$(ProjectDir)libs/imgui\;$(ProjectDir)libs/SFMLMath-master\src;$(ProjectDir)bin/;$(ProjectDir);$(ProjectDir)libs\ImGuiColorTextEdit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -221,6 +221,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
+    <None Include="bin\openal32.dll" />
+    <None Include="bin\sfml-audio-2.dll" />
+    <None Include="bin\sfml-audio-d-2.dll" />
+    <None Include="bin\sfml-graphics-2.dll" />
+    <None Include="bin\sfml-graphics-d-2.dll" />
+    <None Include="bin\sfml-network-2.dll" />
+    <None Include="bin\sfml-network-d-2.dll" />
+    <None Include="bin\sfml-system-2.dll" />
+    <None Include="bin\sfml-system-d-2.dll" />
+    <None Include="bin\sfml-window-2.dll" />
+    <None Include="bin\sfml-window-d-2.dll" />
+    <None Include="bin\tgui-d.dll" />
+    <None Include="bin\tgui.dll" />
     <None Include="misc\Config.json" />
     <None Include="Core\src\Config.json" />
   </ItemGroup>
