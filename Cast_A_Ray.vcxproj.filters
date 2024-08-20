@@ -31,9 +31,6 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{c4671e8d-d68c-4532-a909-7e410ec9ae77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="dlls">
-      <UniqueIdentifier>{323f1017-1cee-49ec-a243-5c411991c596}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libs\imgui\imgui.cpp">
@@ -226,44 +223,5 @@
     <None Include="misc\Config.json" />
     <None Include="Core\src\Config.json" />
     <None Include=".gitattributes" />
-    <None Include="bin\openal32.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-audio-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-audio-d-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-graphics-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-graphics-d-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-network-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-network-d-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-system-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-system-d-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-window-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\sfml-window-d-2.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\tgui.dll">
-      <Filter>dlls</Filter>
-    </None>
-    <None Include="bin\tgui-d.dll">
-      <Filter>dlls</Filter>
-    </None>
   </ItemGroup>
 </Project>
