@@ -107,8 +107,8 @@ namespace Systems {
 							//Draw the lines
 							lineHeight = (windowSize.y) / (perpDist);
 						}
-						float drawStart = -(lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
-						float drawEnd= (lineHeight * 0.5) + (windowSize.y * cameracomponent.zHeight);
+						float drawStart = -(lineHeight * 0.5f) + (windowSize.y * cameracomponent.zHeight);
+						float drawEnd= (lineHeight * 0.5f) + (windowSize.y * cameracomponent.zHeight);
 						if(!collision.noHit)
 						{
 							std::string textName = currentMap.wallMapping[collision.tag];
@@ -129,45 +129,65 @@ namespace Systems {
 						textureSlice.setFillColor(shade);
 						canvas->draw(textureSlice);
 
-						//Floor Rendering
 						sf::Vector2f newRay = sf::getNormalized(currentRay);
 						float distToPlane = sf::getLength(transformComponent.rotation);
-						for (int y = drawEnd + 1; y < windowSize.y; y++) {
+						//Floor Rendering
+						for (int y = drawEnd+1; y < windowSize.y; y++) {
+							float normalizedYFloor = float(y) / float(windowSize.y);
+							//@TODO Replace 0.5f with the actual player's vertical position
+							float distToCollision = 0.5f* (distToPlane / (normalizedYFloor - cameracomponent.zHeight));
+							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
+							sf::Vector2f tilePosition = sf::floor(floorPosition);
+							sf::Vector2f uv = floorPosition-tilePosition;
+							sf::Color c1;
+							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
+								int tag = currentMap.floors[floorPosition.y][floorPosition.x];
+								sf::Image& imF=rm.getImage(currentMap.floorMapping[tag]);
+								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * imF.getSize().x), 
+									floor(uv.y * imF.getSize().y));
+								c1 = imF.getPixel(textIndex.x, textIndex.y);
+							}
+							else {
+								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
+									c1 = sf::Color(0,0,0,80);
+								else c1 = sf::Color(255, 255, 255, 80);
+							}
+							c1 = sf::mix(c1, sf::Color::Black, sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f), false);
+							if(x>=0&&x<floorNceil.getSize().x
+								&& y >= 0 && y < floorNceil.getSize().y)
+								floorNceil.setPixel(x, y, c1);
+						}
+						//Ceil Rendering
+						for (int y = 0; y < drawStart; y++) {
 							float normalizedY = float(y) / float(windowSize.y);
-							float distToCollision = cameracomponent.zHeight * (distToPlane / (normalizedY - cameracomponent.zHeight));
+							//@TODO Replace 0.5f with the actual player's vertical position
+							float distToCollision = abs(0.5f * (distToPlane / (normalizedY - cameracomponent.zHeight)));
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition - tilePosition;
-							int colorDecider = tilePosition.x + tilePosition.y;
 							sf::Color c;
-							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
-								int tag = currentMap.floors[floorPosition.y][floorPosition.x];
-								sf::Image& im=rm.getImage(currentMap.floorMapping[tag]);
-								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im.getSize().x), 
+							if (tilePosition.y >= 0 && tilePosition.y < currentMap.ceilings.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.ceilings[floorPosition.y].size()) {
+								int tag = currentMap.ceilings[floorPosition.y][floorPosition.x];
+								sf::Image& im = rm.getImage(currentMap.ceilingMapping[tag]);
+								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im.getSize().x),
 									floor(uv.y * im.getSize().y));
 								c = im.getPixel(textIndex.x, textIndex.y);
 							}
 							else {
-								//Tiled 
-									/*if (int(abs(tilePosition.x) + abs(tilePosition.y))%2)
-										c = sf::Color(0,0,0,80);
-									else c = sf::Color(140, 200, 140,80);*/
-
-								//c = sf::Color(floor(255 * uv.x), floor(255 * uv.y), 255);
 								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
-									c = sf::Color(0,0,0,80);
+									c = sf::Color(0, 0, 0, 80);
 								else c = sf::Color(255, 255, 255, 80);
 							}
 							float shadeR = sf::lerp(c.r, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
 							float shadeG = sf::lerp(c.g, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
 							float shadeB = sf::lerp(c.b, 0, (sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f)));
 							c = sf::Color(shadeR, shadeG, shadeB);
-							floorNceil.setPixel(x, y, c);
-							floorNceil.setPixel(x,round((1.0f-normalizedY)*float(windowSize.y)), c);
+							if (x >= 0 && x < floorNceil.getSize().x
+								&& y >= 0 && y < floorNceil.getSize().y)
+								floorNceil.setPixel(x, y, c);
 						}
 
 					}
-					//floorNceil.createMaskFromColor(sf::Color::Black);
 					sf::Sprite floors=sf::Sprite();
 					floors.setPosition(0, 0);
 					floorsText.loadFromImage(floorNceil);

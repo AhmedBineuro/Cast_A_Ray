@@ -278,18 +278,22 @@ namespace sf
     {
         return min + (max - min) * t;
     }
-    inline sf::Color mix(sf::Color c1, sf::Color c2, float t)
+    inline sf::Color mix(sf::Color c1, sf::Color c2, float t,bool blend_alpha)
     {
         sf::Color output;
         output.r = std::floor(lerp(float(c1.r), float(c2.r), t));
         output.g = std::floor(lerp(float(c1.g), float(c2.g), t));
         output.b = std::floor(lerp(float(c1.b), float(c2.b), t));
-        output.a = std::floor(lerp(float(c1.a), float(c2.a), t));
+        if(blend_alpha)
+            output.a = std::floor(lerp(float(c1.a), float(c2.a), t));
         return output;
     }
 
     inline sf::Vector2f floor(sf::Vector2f& vec) {
         return sf::Vector2f(std::floor(vec.x), std::floor(vec.y));
+    }
+    inline sf::Vector2f ceil(sf::Vector2f& vec) {
+        return sf::Vector2f(std::ceil(vec.x), std::ceil(vec.y));
     }
     ///////////////// END OF FUNCTOINS ADDED BY AHMED BINEURO/////////////////
 }
