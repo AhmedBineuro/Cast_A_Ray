@@ -13,9 +13,12 @@
 
 ## What is it?
 
-- Cast-A-Ray is a game engine built to create games that utilize a [DDA renderer](https://en.wikipedia.org/wiki/Ray_casting) similar to how [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D). The engine hopes to integrate the classical rendering style in a more modern setting and give it capabilities that similar to a modern game engine. The project is currently maintained by one person and that is me but hopefully in the future I will get some assisstance developing and refining  the engine.  
+- Cast-A-Ray is a game engine built to create games that utilize a [DDA renderer](https://en.wikipedia.org/wiki/Ray_casting) similar to how [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D). The engine hopes to integrate the classical rendering style in a more modern setting and give it capabilities that similar to a modern game engine. The project is currently maintained by one person and that is me but hopefully in the future I will get some assisstance developing and refining  the engine.
+- Future engine updates will be uploaded over on [YouTube](https://www.youtube.com/channel/UCXIKU9kHYKOm27ZqwLc2n7w) and hopefully they will be less sparse than before.  
 
 ## Current State
+
+- First off before we talk about the engine itself I have to give a huge warning **THE DOCUMENTATION IN THE REPO IS VERY OUT OF DATE DO NOT CONSULT AT ALL** and now that _that_ is out of the way we can talk about the engine!
 
 - The engine currently has a simple editor and viewport interface that allows the user to dynamically create, edit, and delete entities and their components. Speaking of which, the engine exposes an entity component system through a simple `Entity` class that allows the user to create very flexible entities and tweak them easily. Moving on to the viewport, the viewport currently showcases a scene's 'main' texture which can be selected in the interface.
 
@@ -51,3 +54,4 @@
 - [ ] Implement 360 sprite
 - [ ] Implement skybox
 - [ ] Update Documentation (It is severely out of date)
+- [ ] Add pictures, videos, and gifs of the engine here!
