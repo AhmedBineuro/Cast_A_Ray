@@ -13,7 +13,7 @@
 #include "imgui-knobs.h"
 #include "Core\include\Component.h"
 
-
+extern class Entity;
 
 /*
 * @brief Canvas helper struct to assist drag and drop behaviours for assigning canvases
@@ -29,6 +29,7 @@ class TransformComponent:public Component {
 public:
     sf::Vector2f position;
     sf::Vector2f rotation;
+    float zLocation=0.5f;
     TransformComponent(const sf::Vector2f& pos=sf::Vector2f(0,0), const sf::Vector2f& rot = sf::Vector2f(1.f, 0.f))
         : position(pos), rotation(rot) {
         componentName = "Transform Component";
@@ -74,6 +75,7 @@ public:
         movementMultiplier = 0.5f,
         sprintMultiplier = 2.0f,
         turnAngle = 50.0f;
+    std::weak_ptr<Entity> test;
     ControllableComponent() {
         componentName = "Controllable Component";
     }
@@ -85,11 +87,11 @@ public:
     float FOV;
     float renderDistance;
     sf::Vector2f plane;
-    float zHeight;
+    float tilt;
     bool enabled;
 
-    CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float zHeight = 0.5f)
-        : FOV(fov), renderDistance(renderDistance), zHeight(zHeight) {
+    CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float tilt = 0.5f)
+        : FOV(fov), renderDistance(renderDistance), tilt(tilt) {
         enabled = true;
         updatePlane();
         componentName = "Camera Component";

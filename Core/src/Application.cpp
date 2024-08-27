@@ -152,22 +152,8 @@ void Application::run() {
 			if (event.type == sf::Event::Resized)
 			{
 				window.setSize(sf::Vector2u(settings.width, settings.height));
-				/*config.setDimensions(window.getSize().x, window.getSize().y);
-				config.applyChanges();
-				settings = config.getSettings();*/
-				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
+				config.setDimensions(settings.width, settings.height);
 			}
-		}
-		//////// CTRL+\ FOR SETTINGS
-		bool keysArePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Backslash) && (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl));
-		if (keysArePressed && (!keybindPressed))
-		{
-			keybindPressed = true;
-			showSettings = !showSettings;
-		}
-		else if (!keysArePressed) {
-			keybindPressed = false;
 		}
 		////////////////////////////////
 		window.clear();
@@ -203,7 +189,7 @@ void Application::run() {
 					->canvasMap[this->sceneList[this->currentScene]
 					->currentCanvas].get());
 				ImGui::Image(*text);
-				//window.draw(this->sceneList[this->currentScene]->canvasSprite);
+				window.draw(this->sceneList[this->currentScene]->canvasSprite);
 			}
 			ImGui::End();
 			if(showTextEditor)
@@ -242,11 +228,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::Checkbox("Show FPS", &(this->showFPS));
 	if (settings.capFrameRate)
 		ImGui::InputInt("Max frame rate", &settings.maxFrameRate);
-	int tempArray[2] = { settings.width,settings.height };
-	/*if (*/ImGui::InputInt2("Window dimensions", tempArray);/*) {
-		settings.width = tempArray[0];
-		settings.height = tempArray[1];
-	}*/
+	ImGui::Text("Window dimensions %d, %d", settings.width, settings.height);
 	int tempArray2[2] = { settings.renderResolution.x,settings.renderResolution.y};
 	if (ImGui::InputInt2("Render Resolution", tempArray2)) {
 		settings.renderResolution.x = tempArray2[0];

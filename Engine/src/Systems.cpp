@@ -85,10 +85,10 @@ namespace Systems {
 					////////////////////Wall Casting////////////////////////////
 					skybox[0].position = sf::Vector2f(0,0);
 					skybox[1].position = sf::Vector2f(windowSize.x, 0);
-					skybox[2].position = sf::Vector2f(windowSize.x, windowSize.y * cameracomponent.zHeight);
-					skybox[3].position = sf::Vector2f(0, windowSize.y * cameracomponent.zHeight);
-					skybox[4].position = sf::Vector2f(0, windowSize.y * cameracomponent.zHeight);
-					skybox[5].position = sf::Vector2f(windowSize.x, windowSize.y * cameracomponent.zHeight);
+					skybox[2].position = sf::Vector2f(windowSize.x, windowSize.y * cameracomponent.tilt);
+					skybox[3].position = sf::Vector2f(0, windowSize.y * cameracomponent.tilt);
+					skybox[4].position = sf::Vector2f(0, windowSize.y * cameracomponent.tilt);
+					skybox[5].position = sf::Vector2f(windowSize.x, windowSize.y * (cameracomponent.tilt));
 					skybox[6].position = sf::Vector2f(windowSize.x, windowSize.y);
 					skybox[7].position = sf::Vector2f(0, windowSize.y);
 					canvas->draw(skybox);
@@ -107,8 +107,8 @@ namespace Systems {
 							//Draw the lines
 							lineHeight = (windowSize.y) / (perpDist);
 						}
-						float drawStart = -(lineHeight * 0.5f) + (windowSize.y * cameracomponent.zHeight);
-						float drawEnd= (lineHeight * 0.5f) + (windowSize.y * cameracomponent.zHeight);
+						float drawStart = -(lineHeight * (1.0f - transformComponent.zLocation)) + (windowSize.y * cameracomponent.tilt);
+						float drawEnd= (lineHeight * transformComponent.zLocation) + (windowSize.y * cameracomponent.tilt);
 						if(!collision.noHit)
 						{
 							std::string textName = currentMap.wallMapping[collision.tag];
@@ -128,14 +128,17 @@ namespace Systems {
 						sf::Color shade = sf::Color( amount, amount, amount);
 						textureSlice.setFillColor(shade);
 						canvas->draw(textureSlice);
-
 						sf::Vector2f newRay = sf::getNormalized(currentRay);
 						float distToPlane = sf::getLength(transformComponent.rotation);
-						//Floor Rendering
+						////Floor Rendering
+						if (drawEnd >= windowSize.y)
+							drawEnd = windowSize.y * cameracomponent.tilt;
 						for (int y = drawEnd+1; y < windowSize.y; y++) {
 							float normalizedYFloor = float(y) / float(windowSize.y);
-							//@TODO Replace 0.5f with the actual player's vertical position
-							float distToCollision = abs(0.5f* (distToPlane / (normalizedYFloor - cameracomponent.zHeight)));
+							//@TODO Replace 0+zLocation with the player's vertical distance relative to the floor of that tile
+							if (0.0 + transformComponent.zLocation < 0.0)
+								break;
+							float distToCollision = abs(transformComponent.zLocation * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition-tilePosition;
@@ -158,10 +161,14 @@ namespace Systems {
 								floorNceil.setPixel(x, y, c1);
 						}
 						//Ceil Rendering
+						if (drawStart >= windowSize.y)
+							drawStart = windowSize.y * cameracomponent.tilt;
 						for (int y = 0; y < drawStart; y++) {
 							float normalizedY = float(y) / float(windowSize.y);
-							//@TODO Replace 0.5f with the actual player's vertical position
-							float distToCollision = abs(0.5f * (distToPlane / (normalizedY - cameracomponent.zHeight)));
+							//@TODO Replace zLocation with the player's vertical distance relative to the floor of that tile
+							if ((8.0f - transformComponent.zLocation) < 0.0)
+								break;
+							float distToCollision = abs((8.0f - transformComponent.zLocation) * (distToPlane / (normalizedY - cameracomponent.tilt)));
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition - tilePosition;

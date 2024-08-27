@@ -108,7 +108,7 @@ namespace ImGui {
 
 			ImGui::InputFloat("Render Distance", &c->renderDistance);
 
-			ImGui::InputFloat("Vertical Height", &c->zHeight);
+			ImGui::InputFloat("Vertical Height", &c->tilt);
 			ImGui::PopItemWidth();
 
 			ImGui::Checkbox("Enable##Camera", &c->enabled);
@@ -337,7 +337,6 @@ namespace ImGui {
 				if (ImGui::Button("Add Component##addComponent")) {
 					ImGui::OpenPopup("Component_List");
 				}
-
 				//Menu to add the components on the fly
 				if (ImGui::BeginPopup("Component_List")) {
 					if (ImGui::MenuItem("Transform Component")) {
