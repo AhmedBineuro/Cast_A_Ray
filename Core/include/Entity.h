@@ -22,7 +22,9 @@ public:
     * design
     */
     template<typename T>
-    void addComponent(T component);
+    T* addComponent(T component);
+    template<typename T>
+    T* addComponent();
     
     /**
     * @brief Function to get a pointer component
@@ -32,14 +34,15 @@ public:
     template<typename T>
     T* getComponent();
 
+
     template<typename T>
     bool hasComponent();
 
     template<typename T>
     void replaceComponent(T component);
-
+    
     template<typename T>
-    void removeComponent(T component);
+    void removeComponent();
 
     //Still don't know what to do with this
     void setChild(std::shared_ptr<Entity> entity);
@@ -63,8 +66,24 @@ protected:
     std::set<Component*> components;
 };
 template <typename T>
-void Entity::addComponent(T component) {
-    components.insert(&(registry->emplace<T>(handle, component)));
+T* Entity::addComponent(T component) {
+    if (!hasComponent<T>())
+    {
+        T* comp = &(registry->emplace<T>(handle, component));
+        components.insert(comp);
+        return comp;
+    }
+    return getComponent<T>();
+}
+template <typename T>
+T* Entity::addComponent() {
+    if (!hasComponent<T>())
+    {
+        T* comp = &(registry->emplace<T>(handle));
+        components.insert(comp);
+        return comp;
+    }
+    return getComponent<T>();
 }
 
 template <typename T>
@@ -84,7 +103,7 @@ void Entity::replaceComponent(T component) {
     return;
 }
 template <typename T>
-void Entity::removeComponent(T component) {
+void Entity::removeComponent() {
     if (hasComponent<T>()) {
         this->components.erase(getComponent<T>());
         registry->remove<T>(handle);

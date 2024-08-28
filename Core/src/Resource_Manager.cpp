@@ -2,7 +2,7 @@
 Resource_Manager Resource_Manager::m_singleton;
 Resource_Manager::Resource_Manager() {
 	std::shared_ptr<sf::Texture> defaultTexture = std::make_shared<sf::Texture>();
-	if (!defaultTexture->loadFromFile("./no_text.png")) {
+	if (!defaultTexture->loadFromFile("./misc/no_text.png")) {
 		throw std::runtime_error("Failed to load default texture.");
 	}
 	// Store the default texture in the textureMap with a key like "default" or "default_texture".
@@ -10,20 +10,15 @@ Resource_Manager::Resource_Manager() {
 	// Store the default font in the fontMap with a key like "default" or "default_font".
 	std::shared_ptr<sf::Font> defaultFont = std::make_shared<sf::Font>();
 	//Little easter egg/debug image
-	if (!defaultFont->loadFromFile("./CourierPrime-Regular.ttf")) {
+	if (!defaultFont->loadFromFile("./misc/CourierPrime-Regular.ttf")) {
 		throw std::runtime_error("Failed to load default font.");
 	}
 	this->fontMap["DEF_LOG"] = Font_Container{defaultFont};
 	std::shared_ptr<sf::Image> defaultImage= std::make_shared<sf::Image>();
-	if (!defaultImage->loadFromFile("./no_text.png")) {
+	if (!defaultImage->loadFromFile("./misc/no_text.png")) {
 		throw std::runtime_error("Failed to load default image.");
 	}
 	this->imageMap["DEF_IMG"] = Image_Container{ defaultImage };
-	ResourceLoadingInfo rli;
-	rli.name = "PlayerSprite";
-	rli.type = "texture";
-	rli.URL = "./Player.png";
-	this->loadResource(rli);
 }
 Resource_Manager& Resource_Manager::getResourceManager() {
 	static Resource_Manager m_singleton;

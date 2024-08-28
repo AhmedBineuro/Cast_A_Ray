@@ -46,7 +46,10 @@ void PlayerController::OnUpdate(float deltaTime) {
 			sf::Vector2f right = plyrTran->rotation * plyrCtrl->maxSpeed;
 			right = sf::getRotated(right, -90);
 			if (keyStates[Keybinds::FORWARDS])
+			{
 				velocity += forward;
+				printf("Moving Forward\n");
+			}
 			else if (keyStates[Keybinds::BACKWARDS])
 				velocity += (forward * -1.0f);
 
@@ -54,6 +57,10 @@ void PlayerController::OnUpdate(float deltaTime) {
 				velocity += right;
 			else if (keyStates[Keybinds::LEFT])
 				velocity += (right * -1.0f);
+			if (keyStates[Keybinds::UP])
+				plyrTran->zLocation += plyrCtrl->maxSpeed * deltaTime;
+			else if (keyStates[Keybinds::DOWN])
+				plyrTran->zLocation -= plyrCtrl->maxSpeed * deltaTime;
 
 			// TODO: fix running not working
 			if (keyStates[Keybinds::SPRINT])
@@ -68,9 +75,9 @@ void PlayerController::OnUpdate(float deltaTime) {
 			else if (keyStates[Keybinds::LOOK_LEFT])
 				sf::rotate(plyrTran->rotation, plyrCtrl->turnAngle * deltaTime);
 			if (camComp != nullptr && keyStates[Keybinds::LOOK_UP])
-				camComp->zHeight += 0.01f;
+				camComp->tilt += 0.01f;
 			else if (camComp != nullptr && keyStates[Keybinds::LOOK_DOWN])
-				camComp->zHeight -= 0.01f;
+				camComp->tilt -= 0.01f;
 		}
 
 		if (sf::getLength(velocity) > plyrCtrl->maxSpeed) {
@@ -104,7 +111,7 @@ void PlayerController::OnEventLoop(sf::Event event) {
 	{
 		ControllableComponent* plyrCtrl = player.lock()->getComponent<ControllableComponent>();
 		TransformComponent* plyrTran = player.lock()->getComponent<TransformComponent>();
-		if (plyrCtrl->enabled)
+		if (plyrTran&& plyrCtrl&&plyrCtrl->enabled)
 		{
 			sf::Vector2f forward = plyrTran->rotation * plyrCtrl->maxSpeed;
 			sf::Vector2f right = plyrTran->rotation * plyrCtrl->maxSpeed;
@@ -120,6 +127,11 @@ void PlayerController::OnEventLoop(sf::Event event) {
 					keyStates[Keybinds::RIGHT] = true;
 				else if (event.key.code == keyBinds[Keybinds::LEFT])
 					keyStates[Keybinds::LEFT] = true;
+
+				if (event.key.code == keyBinds[Keybinds::UP])
+					keyStates[Keybinds::UP] = true;
+				else if (event.key.code == keyBinds[Keybinds::DOWN])
+					keyStates[Keybinds::DOWN] = true;
 
 				if (event.key.code == keyBinds[Keybinds::LOOK_RIGHT])
 					keyStates[Keybinds::LOOK_RIGHT] = true;
@@ -148,6 +160,11 @@ void PlayerController::OnEventLoop(sf::Event event) {
 					keyStates[Keybinds::RIGHT] = false;
 				else if (event.key.code == keyBinds[Keybinds::LEFT])
 					keyStates[Keybinds::LEFT] = false;
+
+				if (event.key.code == keyBinds[Keybinds::UP])
+					keyStates[Keybinds::UP] = false;
+				else if (event.key.code == keyBinds[Keybinds::DOWN])
+					keyStates[Keybinds::DOWN] = false;
 
 				if (event.key.code == keyBinds[Keybinds::LOOK_RIGHT])
 					keyStates[Keybinds::LOOK_RIGHT] = false;

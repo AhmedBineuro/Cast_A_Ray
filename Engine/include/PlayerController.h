@@ -2,7 +2,7 @@
 #include "Core\include\Core.h"
 #include "Engine\include\Actor.h"
 #include "Core\include\Entity.h"
-#define AVAILABLE_KEYS 9
+#define AVAILABLE_KEYS 11
 //Add more controls into the enum
 enum Keybinds
 {
@@ -10,6 +10,8 @@ enum Keybinds
     BACKWARDS,
     LEFT,
     RIGHT,
+    UP,
+    DOWN,
     LOOK_RIGHT,
     LOOK_LEFT,
     LOOK_UP,
@@ -44,6 +46,8 @@ protected:
         sf::Keyboard::S,
         sf::Keyboard::A,
         sf::Keyboard::D,
+        sf::Keyboard::Space,
+        sf::Keyboard::LControl,
         sf::Keyboard::Right,
         sf::Keyboard::Left,
         sf::Keyboard::Up,

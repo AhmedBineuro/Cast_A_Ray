@@ -3,6 +3,7 @@
 #include "Core\include\Config.h"
 #include "Engine\include\Systems.h"
 #include "Engine\include\DDAScene.h"
+#include "TextEditor.h"
 //#include "imgui.h"
 #include "imgui.h"
 #include "imgui-SFML.h"	
@@ -36,7 +37,7 @@ private:
 
 	std::string appName;
 	sf::Image icon;
-	bool running = false, showSettings = true, keybindPressed = false, showSceneDebug = true;
+	bool running = false, showSettings = true, keybindPressed = false, showSceneDebug = true,showTextEditor;
 	float FPS;
 	//Call update every frame and and run scene update function then check if you can run scene fixed update function
 	void update();
@@ -47,5 +48,5 @@ private:
 	const char* antiAlias_labels[5] = { "0","2","4","8","15" };
 	const int antiAlias_values[5] = { 0,2,4,8,15 };
 	int currentAntiAlias = 0;
-	bool showFPS;
+	bool showFPS=true;
 };

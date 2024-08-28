@@ -1,4 +1,5 @@
 #include "Core\include\Application.h"
+#include "core\include\CAR_ImGui.h"
 Application::Application() {
 	this->appName = "Cast-A-Ray Application";
 	Config& config = Config::getConfig();
@@ -23,12 +24,12 @@ Application::Application() {
 		window.setFramerateLimit(0);
 	}
 	
-	if (!icon.loadFromFile("./casta.png"))
+	if (!icon.loadFromFile("./misc/casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
-	showFPS = false;
+	showFPS = true;
 	this->sceneList.clear();
 }
 Application::Application(std::string appName) {
@@ -56,12 +57,12 @@ Application::Application(std::string appName) {
 		window.setFramerateLimit(0);
 	}
 	
-	if (!icon.loadFromFile("./casta.png"))
+	if (!icon.loadFromFile("./misc/casta.png"))
 		std::cout << "Failed to load window icon" << std::endl;
 	else
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	FPS = 0;
-	showFPS = false;
+	showFPS = true;
 }
 void Application::addScene(std::string name, Scene* scene) {
 	if (currentScene == "")
@@ -121,7 +122,13 @@ void Application::run() {
 	float fixedDeltaTimeGUI = config.getFixedDeltaTime(); //For ImGui
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-	io.ConfigDockingWithShift = true;
+	io.ConfigDockingWithShift = false;
+	ImGui::StyleColorsDark();
+
+	TextEditor editor;
+	auto lang = TextEditor::LanguageDefinition::Json();
+	editor.SetLanguageDefinition(lang);
+
 	while (running) {
 		if (config.RestartRequired()) {
 			config.setRestartRequiredFlag(false);
@@ -140,37 +147,19 @@ void Application::run() {
 			}
 			if (event.type == sf::Event::Closed)
 			{
-				window.close();
 				running = false;
 			}
 			if (event.type == sf::Event::Resized)
 			{
 				window.setSize(sf::Vector2u(settings.width, settings.height));
-				//canvas.create((unsigned int)(settings.width),(unsigned int)(settings.height));
+				config.setDimensions(settings.width, settings.height);
 			}
-		}
-		//////// CTRL+\ FOR SETTINGS
-		bool keysArePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Backslash) && (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::RControl));
-		if (keysArePressed && (!keybindPressed))
-		{
-			keybindPressed = true;
-			showSettings = !showSettings;
-		}
-		else if (!keysArePressed) {
-			keybindPressed = false;
 		}
 		////////////////////////////////
 		window.clear();
 		
 		ImGui::SFML::Update(window, deltaTime);
-		ImVec2 displaySize = ImGui::GetContentRegionAvail();
-		ImGui::SetNextWindowSize(displaySize); //The 20 is the size of the main menu bar
-		ImGui::SetNextWindowPos(ImVec2(0, 20));
-		ImGui::Begin("##BASE_WINDOW",nullptr,
-			ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|
-			ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoBackground);
-		if(ImGui::BeginMainMenuBar()){
+		if (ImGui::BeginMainMenuBar()) {
 			if (ImGui::BeginMenu("File")) {
 				ImGui::MenuItem("New Project");
 				ImGui::MenuItem("Open Project");
@@ -190,18 +179,26 @@ void Application::run() {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		if (ImGui::Begin("Viewport")){
-			update();
+		if (ImGui::Begin("Viewport", nullptr, ImGuiWindowFlags_AlwaysAutoResize)){
+			if(ImGui::IsWindowFocused())
+				update();
 			render(scene_available);
 			if (this->sceneList[this->currentScene]->canvas_available)
 			{
-				ImGui::Image(*(this->sceneList[this->currentScene]
+				sf::RenderTexture* text= (this->sceneList[this->currentScene]
 					->canvasMap[this->sceneList[this->currentScene]
-					->currentCanvas].get()));
+					->currentCanvas].get());
+				ImGui::Image(*text);
+				window.draw(this->sceneList[this->currentScene]->canvasSprite);
 			}
 			ImGui::End();
+			if(showTextEditor)
+			{
+				editor.SetImGuiChildIgnored(true);
+				editor.Render("TextEditor");
+			}
 		}
-		ImGui::End();
+
 		if(showSettings)
 		{
 			renderSettings(fixedDeltaTimeGUI, config);
@@ -210,26 +207,18 @@ void Application::run() {
 		window.display();
 	}
 	ImGui::SFML::Shutdown();
+	config.applyChanges();
 	window.close();
 }
 void Application::render(bool scene_available) {
 	if (scene_available)
 	{
 		this->sceneList[this->currentScene]->onRender();
-		if(this->sceneList[this->currentScene]->canvas_available)
-		{
-			/*this->canvasSprite.setTexture(this->sceneList[this->currentScene]
-				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]
-				->getTexture());
-			sf::Vector2u size = this->sceneList[this->currentScene]
-				->canvasMap[this->sceneList[this->currentScene]->currentCanvas]->getSize();
-			canvasSprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));*/
-		}
 	}
 }
 void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	// This is all just to render the settings widget//
-	ImGui::Begin("Settings");
+	ImGui::Begin("Settings",nullptr);
 	if (showFPS) {
 		ImGui::Text((std::string("FPS: ") + std::to_string(FPS)).c_str());
 	}
@@ -239,11 +228,7 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 	ImGui::Checkbox("Show FPS", &(this->showFPS));
 	if (settings.capFrameRate)
 		ImGui::InputInt("Max frame rate", &settings.maxFrameRate);
-	int tempArray[2] = { settings.width,settings.height };
-	if (ImGui::InputInt2("Window dimensions", tempArray)) {
-		settings.width = tempArray[0];
-		settings.height = tempArray[1];
-	}
+	ImGui::Text("Window dimensions %d, %d", settings.width, settings.height);
 	int tempArray2[2] = { settings.renderResolution.x,settings.renderResolution.y};
 	if (ImGui::InputInt2("Render Resolution", tempArray2)) {
 		settings.renderResolution.x = tempArray2[0];
@@ -271,10 +256,11 @@ void Application::renderSettings(float &fixedDeltaTimeGUI,Config& config) {
 			this->fixedDeltaTime = sf::seconds(fixedDeltaTimeGUI);
 		}
 	}
+	ImGui::Checkbox("Show Text Editor", &this->showTextEditor);
 	ImGui::End();
 	if(showSceneDebug)
 	{
-		this->sceneList[currentScene]->renderImGui();
+		ImGui::draw(this->sceneList[currentScene]);
 	}
 }
 
@@ -305,6 +291,7 @@ void Application::update() {
 //Function will restart the window to apply the necessary settings changes
 void Application::restartWindow() {
 	window.close();
+	ImGui::SFML::Shutdown();
 	Config& config = Config::getConfig();
 	this->window.create(sf::VideoMode(settings.width, settings.height), this->appName, settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default, settings.videoSettings);
 	settings.width = window.getSize().x;
@@ -314,7 +301,5 @@ void Application::restartWindow() {
 	else
 		window.setFramerateLimit(0);
 	window.clear();
-	window.draw(sceneList[currentScene]->canvasSprite);
-	window.display();
-	render(sceneList.find(currentScene) != sceneList.end());
+	ImGui::SFML::Init(window);
 }

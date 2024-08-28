@@ -15,7 +15,6 @@ public:
 	}
 	DDAScene(std::string mapName) {
 		this->map = Map(mapName);
-		std::shared_ptr<Entity> cam;
 		this->canvasSprite = sf::Sprite();
 		this->onCreate();
 	}
@@ -35,7 +34,7 @@ public:
 		addComponent(player, ColliderComponent());
 
 		auto trans = getComponent<TransformComponent>(player);
-		trans->position = sf::Vector2f(7.3, 2.5);
+		trans->position = sf::Vector2f(2, 2);
 		auto intScript = getComponent<IntegratedScriptComponent>(player);
 		intScript->scripts.push_back(std::make_shared<PlayerController>());
 		((PlayerController*)intScript->scripts[0].get())->setPlayer(this->entities[0]);
@@ -45,12 +44,13 @@ public:
 		can->canvas = this->canvasMap[this->currentCanvas];
 		auto camComp = getComponent<CameraComponent>(player);
 
+
 	}
 	void onUpdate(float deltaTime) override{
 		Config& config = Config::getConfig();
 		this->canvas_available = (this->canvasMap.find(this->currentCanvas) != this->canvasMap.end());
 		Systems::EntityScriptSystem::OnUpdate(deltaTime, registry);
-		Systems::WolfCollisionSystem(registry, map);
+		Systems::CollisionSystem::WolfCollisionSystem(registry, map);
 		/**
 		* Additional Code Here
 		*/
