@@ -164,7 +164,8 @@ void Application::run() {
 		window.clear();
 		
 		ImGui::SFML::Update(window, deltaTime);
-		ImGui::SetNextWindowSize(ImVec2(config.getDimensions().x, config.getDimensions().y-20)); //The 20 is the size of the main menu bar
+		ImVec2 displaySize = ImGui::GetContentRegionAvail();
+		ImGui::SetNextWindowSize(displaySize); //The 20 is the size of the main menu bar
 		ImGui::SetNextWindowPos(ImVec2(0, 20));
 		ImGui::Begin("##BASE_WINDOW",nullptr,
 			ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoBringToFrontOnFocus|
