@@ -126,12 +126,10 @@ namespace Systems {
 						textureSlice.setPosition(x, drawStart);
 						float amount = floor(sf::lerp(255,0, perpDist / cameracomponent.renderDistance));
 						sf::Color shade = sf::Color( amount, amount, amount);
-						textureSlice.setFillColor(shade);
-						canvas->draw(textureSlice);
 						sf::Vector2f newRay = sf::getNormalized(currentRay);
 						float distToPlane = sf::getLength(transformComponent.rotation);
 						////Floor Rendering
-						if (drawEnd >= windowSize.y)
+						if (drawStart >= windowSize.y)
 							drawEnd = windowSize.y * cameracomponent.tilt;
 						for (int y = drawEnd+1; y < windowSize.y; y++) {
 							float normalizedYFloor = float(y) / float(windowSize.y);
@@ -191,6 +189,8 @@ namespace Systems {
 								floorNceil.setPixel(x, y, c);
 						}
 
+						textureSlice.setFillColor(shade);
+						canvas->draw(textureSlice);
 					}
 					sf::Sprite floors=sf::Sprite();
 					floors.setPosition(0, 0);
