@@ -12,7 +12,7 @@ namespace Systems {
 	};
 	namespace DDARenderSystem {
 		void renderWalls(entt::registry& registry, Map& currentMap);
-		void renderFloors(entt::registry& registry, Map& currentMap);
+		void renderBillBoards(entt::registry& registry, Map& currentMap);
 	};
 	void RenderSystem2D(entt::registry& registry, sf::RenderTexture& renderTarget);
 	namespace EntityScriptSystem {

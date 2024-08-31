@@ -193,9 +193,14 @@ namespace Systems {
 					canvas->draw(floors);
 				}
 			}
-			void renderFloors(entt::registry& registry, Map& currentMap) {
-			 //Tutorial at:
-			 // https://permadi.com/1996/05/ray-casting-tutorial-11/
+			void renderBillBoards(entt::registry& registry, Map& currentMap) {
+				// First get the cone of vision by getting the left most and right most rays
+				// Get the entities with the billboard component and sort them according 
+				// to the squared distance of the current entity
+				// If the dot product (of both the rightmost and leftmost direction vectors) 
+				// against the direction vector towards the entity is -ve then the entity is out of vision cone
+				// Else add to the drawing queue with their distance
+				// After populating the drawing queue, scale and draw the sprites
 			}
 	}
 
