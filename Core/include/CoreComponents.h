@@ -88,6 +88,7 @@ public:
     float renderDistance;
     sf::Vector2f plane;
     float tilt;
+    std::vector<float> z_buffer;
     bool enabled;
 
     CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float tilt = 0.5f)
