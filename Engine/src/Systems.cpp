@@ -134,18 +134,23 @@ namespace Systems {
 						for (int y = 0; y < windowSize.y; y++) {
 							float normalizedYFloor = float(y) / float(windowSize.y);
 							//@TODO Replace 0+zLocation with the player's vertical distance relative to the floor of that tile
+
+							//If we are below the floor or above the ceiling don't render
 							if (transformComponent.zLocation < floorHeight || CeilHeight - transformComponent.zLocation<=0)
 								break;
+							//Get the distance to the floor or ceiling depending on which pixel are we drawing
 							float distToCollision;
 							if (y < windowSize.y * cameracomponent.tilt) 
-								distToCollision = abs((CeilHeight - transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt))); //Change 8.0 with ceiling z height
+								distToCollision = abs((CeilHeight - transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
 							else 
-								distToCollision = abs((floorHeight + transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt))); //Change 0.0 with floor z height
-							if (distToCollision > perpDist) continue;
+								distToCollision = abs((floorHeight + transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
+							//Don't draw after the distance we got from the collision to avoid drawing on walls
+							if (distToCollision > perpDist&&!(y<drawStart|| y >drawEnd)) continue;
+							
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition-tilePosition;
-							sf::Color c1;
+							sf::Color c;
 							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
 								int tag;
 								sf::Image* im;
@@ -159,17 +164,17 @@ namespace Systems {
 								}
 								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im->getSize().x), 
 									floor(uv.y * im->getSize().y));
-								c1 = im->getPixel(textIndex.x, textIndex.y);
+								c = im->getPixel(textIndex.x, textIndex.y);
 							}
 							else {
 								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
-									c1 = sf::Color(0,0,0,80);
-								else c1 = sf::Color(255, 255, 255, 80);
+									c = sf::Color(0,0,0,80);
+								else c = sf::Color(255, 255, 255, 80);
 							}
-							c1 = sf::mix(c1, sf::Color::Black, sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f), false);
+							c = sf::mix(c, sf::Color::Black, sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f), false);
 							if(x>=0&&x<floorNceil.getSize().x
 								&& y >= 0 && y < floorNceil.getSize().y)
-								floorNceil.setPixel(x, y, c1);
+								floorNceil.setPixel(x, y, c);
 						}
 
 						textureSlice.setFillColor(shade);
