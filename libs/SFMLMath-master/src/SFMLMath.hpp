@@ -295,6 +295,11 @@ namespace sf
     inline sf::Vector2f ceil(sf::Vector2f& vec) {
         return sf::Vector2f(std::ceil(vec.x), std::ceil(vec.y));
     }
+
+    template <typename T>
+    inline T dot(sf::Vector2<T> v1, sf::Vector2<T> v2) {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
     ///////////////// END OF FUNCTOINS ADDED BY AHMED BINEURO/////////////////
 }
 #endif //PONG_SFMLMATH_HPP

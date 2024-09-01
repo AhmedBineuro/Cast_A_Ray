@@ -191,9 +191,10 @@ namespace Systems {
 					floorsText.loadFromImage(floorNceil);
 					floors.setTexture(floorsText);
 					canvas->draw(floors);
+					renderBillBoards(registry);
 				}
 			}
-			void renderBillBoards(entt::registry& registry, Map& currentMap) {
+			void renderBillBoards(entt::registry& registry) {
 				// First get the cone of vision by getting the left most and right most rays
 				// Get the entities with the billboard component and sort them according 
 				// to the squared distance of the current entity
@@ -201,6 +202,56 @@ namespace Systems {
 				// against the direction vector towards the entity is -ve then the entity is out of vision cone
 				// Else add to the drawing queue with their distance
 				// After populating the drawing queue, scale and draw the sprites
+				
+				auto camerasView = registry.view<CameraComponent, TransformComponent, CanvasComponent>();
+				auto billBoardsView = registry.view<TransformComponent, BillBoardComponent>();
+				for (auto entity : camerasView) {
+					TransformComponent camTran = registry.get<TransformComponent>(entity);
+					CanvasComponent& camCanv = registry.get<CanvasComponent>(entity);
+					CameraComponent camCam = registry.get<CameraComponent>(entity);
+					std::shared_ptr<sf::RenderTexture> canvas = camCanv.canvas.lock();
+					if (!canvas || !camCam.enabled)
+						continue;
+					for (auto billEntity : billBoardsView) {
+						TransformComponent billTran = registry.get<TransformComponent>(billEntity);
+						BillBoardComponent billBill = registry.get<BillBoardComponent>(billEntity);
+
+						sf::Vector2f dirToBill = billTran.position - camTran.position;
+						sf::Vector2f leftMostRay = camTran.rotation - (camCam.plane);
+						sf::Vector2f rightMostRay = camTran.rotation + (camCam.plane);
+						
+						bool inSight = (sf::dot(leftMostRay, dirToBill) >= 0.0) && (sf::dot(rightMostRay, dirToBill) >= 0.0);
+						sf::Vector2u windowSize = canvas->getSize();
+						if (inSight)
+						{
+							//Figure out where on the plane it is to find the x Coordinate
+							float magnitude = sf::getLength(dirToBill);
+							const sf::Texture* spriteText=billBill.sprite.getTexture();
+							if (magnitude > camCam.renderDistance || !spriteText)
+								continue;
+							
+							float planeProgress =sf::getLength(sf::normalize(dirToBill) - sf::getNormalized(leftMostRay));
+							float normalizeProgess = planeProgress / (sf::getLength(camCam.plane)*2.0f);
+							int xPos = round(float(windowSize.x) * normalizeProgess);
+
+							float spriteHeight = float(windowSize.y) / magnitude;
+							sf::Vector2u textSize = spriteText->getSize();
+							float scale = spriteHeight / float(textSize.y);
+							if (xPos<0 || xPos>windowSize.x)
+							{
+								continue;
+							}
+							if (camCam.z_buffer[xPos] <= magnitude)
+							{
+								printf("Drawing! xPos=%d\n",xPos);
+								billBill.sprite.setScale(scale, scale);
+								canvas->draw(billBill.sprite);
+							}
+
+						}
+					}
+					canvas->display();
+				}
 			}
 	}
 

@@ -143,3 +143,9 @@ public:
         this->componentName = "Canvas Component";
     }
 };
+class BillBoardComponent :public Component {
+public:
+    float height;
+    sf::Sprite sprite;
+    bool enabled;
+};
