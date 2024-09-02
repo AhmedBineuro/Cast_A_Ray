@@ -78,6 +78,11 @@ namespace Systems {
 					TransformComponent& transformComponent = registry.get<TransformComponent>(entity);
 
 					sf::Vector2u windowSize = canvas->getSize();
+					if (cameracomponent.z_buffer.size() != windowSize.x)
+					{
+						cameracomponent.z_buffer.clear();
+						cameracomponent.z_buffer.resize(windowSize.x);
+					}
 					sf::Image floorNceil;
 					sf::Texture floorsText;
 					floorNceil.create(windowSize.x, windowSize.y,sf::Color::Transparent);
@@ -128,55 +133,47 @@ namespace Systems {
 						sf::Color shade = sf::Color( amount, amount, amount);
 						sf::Vector2f newRay = sf::getNormalized(currentRay);
 						float distToPlane = sf::getLength(transformComponent.rotation);
+						cameracomponent.z_buffer[x] = perpDist;
+						textureSlice.setFillColor(shade);
+						canvas->draw(textureSlice);
+						
 						////Floor Rendering
-						if (drawStart >= windowSize.y)
-							drawEnd = windowSize.y * cameracomponent.tilt;
-						for (int y = drawEnd+1; y < windowSize.y; y++) {
+						float floorHeight = 0.0f;
+						float CeilHeight = 8.0f;
+						for (int y = 0; y < windowSize.y; y++) {
 							float normalizedYFloor = float(y) / float(windowSize.y);
 							//@TODO Replace 0+zLocation with the player's vertical distance relative to the floor of that tile
-							if (0.0 + transformComponent.zLocation < 0.0)
+
+							//If we are below the floor or above the ceiling don't render
+							if (transformComponent.zLocation < floorHeight || CeilHeight - transformComponent.zLocation <= 0)
 								break;
-							float distToCollision = abs(transformComponent.zLocation * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
-							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
-							sf::Vector2f tilePosition = sf::floor(floorPosition);
-							sf::Vector2f uv = floorPosition-tilePosition;
-							sf::Color c1;
-							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
-								int tag = currentMap.floors[floorPosition.y][floorPosition.x];
-								sf::Image& imF=rm.getImage(currentMap.floorMapping[tag]);
-								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * imF.getSize().x), 
-									floor(uv.y * imF.getSize().y));
-								c1 = imF.getPixel(textIndex.x, textIndex.y);
-							}
-							else {
-								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
-									c1 = sf::Color(0,0,0,80);
-								else c1 = sf::Color(255, 255, 255, 80);
-							}
-							c1 = sf::mix(c1, sf::Color::Black, sf::getClamped(distToCollision / cameracomponent.renderDistance, 0.0f, 1.0f), false);
-							if(x>=0&&x<floorNceil.getSize().x
-								&& y >= 0 && y < floorNceil.getSize().y)
-								floorNceil.setPixel(x, y, c1);
-						}
-						//Ceil Rendering
-						if (drawStart >= windowSize.y)
-							drawStart = windowSize.y * cameracomponent.tilt;
-						for (int y = 0; y < drawStart; y++) {
-							float normalizedY = float(y) / float(windowSize.y);
-							//@TODO Replace zLocation with the player's vertical distance relative to the floor of that tile
-							if ((8.0f - transformComponent.zLocation) < 0.0)
-								break;
-							float distToCollision = abs((8.0f - transformComponent.zLocation) * (distToPlane / (normalizedY - cameracomponent.tilt)));
+							//Get the distance to the floor or ceiling depending on which pixel are we drawing
+							float distToCollision;
+							if (y < windowSize.y * cameracomponent.tilt)
+								distToCollision = abs((CeilHeight - transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
+							else
+								distToCollision = abs((floorHeight + transformComponent.zLocation) * (distToPlane / (normalizedYFloor - cameracomponent.tilt)));
+							//Don't draw after the distance we got from the collision to avoid drawing on walls
+							if (distToCollision > perpDist && !(y<drawStart || y >drawEnd)) continue;
+
 							sf::Vector2f floorPosition = transformComponent.position + (newRay * distToCollision);
 							sf::Vector2f tilePosition = sf::floor(floorPosition);
 							sf::Vector2f uv = floorPosition - tilePosition;
 							sf::Color c;
-							if (tilePosition.y >= 0 && tilePosition.y < currentMap.ceilings.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.ceilings[floorPosition.y].size()) {
-								int tag = currentMap.ceilings[floorPosition.y][floorPosition.x];
-								sf::Image& im = rm.getImage(currentMap.ceilingMapping[tag]);
-								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im.getSize().x),
-									floor(uv.y * im.getSize().y));
-								c = im.getPixel(textIndex.x, textIndex.y);
+							if (tilePosition.y >= 0 && tilePosition.y < currentMap.floors.size() && tilePosition.x >= 0 && tilePosition.x < currentMap.floors[floorPosition.y].size()) {
+								int tag;
+								sf::Image* im;
+								if (y < windowSize.y * cameracomponent.tilt) {
+									tag = currentMap.ceilings[floorPosition.y][floorPosition.x];
+									im = &rm.getImage(currentMap.ceilingMapping[tag]);
+								}
+								else {
+									tag = currentMap.floors[floorPosition.y][floorPosition.x];
+									im = &rm.getImage(currentMap.floorMapping[tag]);
+								}
+								sf::Vector2i textIndex = sf::Vector2i(floor(uv.x * im->getSize().x),
+									floor(uv.y * im->getSize().y));
+								c = im->getPixel(textIndex.x, textIndex.y);
 							}
 							else {
 								if (uv.x < 0.02f || uv.x>0.98f || uv.y < 0.02f || uv.y>0.98f)
@@ -188,21 +185,73 @@ namespace Systems {
 								&& y >= 0 && y < floorNceil.getSize().y)
 								floorNceil.setPixel(x, y, c);
 						}
-
-						textureSlice.setFillColor(shade);
-						canvas->draw(textureSlice);
 					}
 					sf::Sprite floors=sf::Sprite();
 					floors.setPosition(0, 0);
 					floorsText.loadFromImage(floorNceil);
 					floors.setTexture(floorsText);
-					
 					canvas->draw(floors);
+					renderBillBoards(registry);
 				}
 			}
-			void renderFloors(entt::registry& registry, Map& currentMap) {
-			 //Tutorial at:
-			 // https://permadi.com/1996/05/ray-casting-tutorial-11/
+			void renderBillBoards(entt::registry& registry) {
+				// First get the cone of vision by getting the left most and right most rays
+				// Get the entities with the billboard component and sort them according 
+				// to the squared distance of the current entity
+				// If the dot product (of both the rightmost and leftmost direction vectors) 
+				// against the direction vector towards the entity is -ve then the entity is out of vision cone
+				// Else add to the drawing queue with their distance
+				// After populating the drawing queue, scale and draw the sprites
+				
+				auto camerasView = registry.view<CameraComponent, TransformComponent, CanvasComponent>();
+				auto billBoardsView = registry.view<TransformComponent, BillBoardComponent>();
+				for (auto entity : camerasView) {
+					TransformComponent camTran = registry.get<TransformComponent>(entity);
+					CanvasComponent& camCanv = registry.get<CanvasComponent>(entity);
+					CameraComponent camCam = registry.get<CameraComponent>(entity);
+					std::shared_ptr<sf::RenderTexture> canvas = camCanv.canvas.lock();
+					if (!canvas || !camCam.enabled)
+						continue;
+					for (auto billEntity : billBoardsView) {
+						TransformComponent billTran = registry.get<TransformComponent>(billEntity);
+						BillBoardComponent billBill = registry.get<BillBoardComponent>(billEntity);
+
+						sf::Vector2f dirToBill = billTran.position - camTran.position;
+						sf::Vector2f leftMostRay = camTran.rotation - (camCam.plane);
+						sf::Vector2f rightMostRay = camTran.rotation + (camCam.plane);
+						
+						bool inSight = (sf::dot(leftMostRay, dirToBill) >= 0.0) && (sf::dot(rightMostRay, dirToBill) >= 0.0);
+						sf::Vector2u windowSize = canvas->getSize();
+						if (inSight)
+						{
+							//Figure out where on the plane it is to find the x Coordinate
+							float magnitude = sf::getLength(dirToBill);
+							const sf::Texture* spriteText=billBill.sprite.getTexture();
+							if (magnitude > camCam.renderDistance || !spriteText)
+								continue;
+							
+							float planeProgress =sf::getLength(sf::normalize(dirToBill) - sf::getNormalized(leftMostRay));
+							float normalizeProgess = planeProgress / (sf::getLength(camCam.plane)*2.0f);
+							int xPos = round(float(windowSize.x) * normalizeProgess);
+
+							float spriteHeight = float(windowSize.y) / magnitude;
+							sf::Vector2u textSize = spriteText->getSize();
+							float scale = spriteHeight / float(textSize.y);
+							if (xPos<0 || xPos>windowSize.x)
+							{
+								continue;
+							}
+							if (camCam.z_buffer[xPos] <= magnitude)
+							{
+								printf("Drawing! xPos=%d\n",xPos);
+								billBill.sprite.setScale(scale, scale);
+								canvas->draw(billBill.sprite);
+							}
+
+						}
+					}
+					canvas->display();
+				}
 			}
 	}
 

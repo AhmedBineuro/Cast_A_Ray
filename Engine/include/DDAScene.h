@@ -33,6 +33,14 @@ public:
 		addComponent(player, CanvasComponent());
 		addComponent(player, ColliderComponent());
 
+		entt::entity bill = addEntity();
+		auto tranBil = addComponent(bill, TransformComponent());
+		auto billBil = addComponent(bill, BillBoardComponent());
+		tranBil->position = sf::Vector2f(8, 2);
+		billBil->height = 300;
+		Resource_Manager& rm = Resource_Manager::getResourceManager();
+		sf::Texture& text = rm.getTexture("Casta");
+		billBil->sprite.setTexture(text);
 		auto trans = getComponent<TransformComponent>(player);
 		trans->position = sf::Vector2f(2, 2);
 		auto intScript = getComponent<IntegratedScriptComponent>(player);

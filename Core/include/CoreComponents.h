@@ -88,6 +88,7 @@ public:
     float renderDistance;
     sf::Vector2f plane;
     float tilt;
+    std::vector<float> z_buffer;
     bool enabled;
 
     CameraComponent(float fov = 35.0f, float renderDistance = 10.0f, float tilt = 0.5f)
@@ -141,4 +142,10 @@ public:
     CanvasComponent(std::string name = "", std::shared_ptr<sf::RenderTexture> canvas = nullptr) :canvasName(name), canvas(std::weak_ptr(canvas)) {
         this->componentName = "Canvas Component";
     }
+};
+class BillBoardComponent :public Component {
+public:
+    float height;
+    sf::Sprite sprite;
+    bool enabled;
 };
