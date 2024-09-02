@@ -191,8 +191,8 @@ namespace Systems {
 					floorsText.loadFromImage(floorNceil);
 					floors.setTexture(floorsText);
 					canvas->draw(floors);
-					renderBillBoards(registry);
 				}
+					renderBillBoards(registry);
 			}
 			void renderBillBoards(entt::registry& registry) {
 				// First get the cone of vision by getting the left most and right most rays

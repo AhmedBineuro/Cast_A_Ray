@@ -5,7 +5,7 @@
 #include "Core/include/Application.h"
 #include "imgui.h"
 //For Release WINDOWS
-#include <windows.h>
+//#include <windows.h>
 
 
 Application *MainApplication;
@@ -17,46 +17,46 @@ bool switchScenes(std::string sceneName) {
 }
 
 //For Debug
-//int main(){
-//    srand(time(NULL));
-//    Application mainApp("PlayGround");
-//    MainApplication = &mainApp;
-//    mainApp.setWindowIcon("./misc/cubelogo.png");
-//    Resource_Manager& rm = Resource_Manager::getResourceManager();
-//    ResourceLoadingInfo rli;
-//    rli.name = "Casta";
-//    rli.type = "texture";
-//    rli.URL = "./misc/casta.png";
-//    rm.loadResource(rli);
-//    rli.name = "PlayerSprite";
-//    rli.URL = "./misc/Player.png";
-//    rm.loadResource(rli);
-//    DDAScene p1("PlayGround");
-//    mainApp.addScene("WolfScene", &p1);
-//    mainApp.run();
-//    return 0;
-//}
-
-
-//For Release WINDOWS
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+int main(){
     srand(time(NULL));
     Application mainApp("PlayGround");
     MainApplication = &mainApp;
-    mainApp.setWindowIcon("./cubelogo.png");
+    mainApp.setWindowIcon("./misc/cubelogo.png");
     Resource_Manager& rm = Resource_Manager::getResourceManager();
     ResourceLoadingInfo rli;
     rli.name = "Casta";
     rli.type = "texture";
-    rli.URL = "./casta.png";
+    rli.URL = "./misc/casta.png";
     rm.loadResource(rli);
     rli.name = "PlayerSprite";
-    rli.URL = "./Player.png";
+    rli.URL = "./misc/Player.png";
     rm.loadResource(rli);
     DDAScene p1("PlayGround");
     mainApp.addScene("WolfScene", &p1);
     mainApp.run();
     return 0;
 }
+
+
+//For Release WINDOWS
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+//    srand(time(NULL));
+//    Application mainApp("PlayGround");
+//    MainApplication = &mainApp;
+//    mainApp.setWindowIcon("./cubelogo.png");
+//    Resource_Manager& rm = Resource_Manager::getResourceManager();
+//    ResourceLoadingInfo rli;
+//    rli.name = "Casta";
+//    rli.type = "texture";
+//    rli.URL = "./casta.png";
+//    rm.loadResource(rli);
+//    rli.name = "PlayerSprite";
+//    rli.URL = "./Player.png";
+//    rm.loadResource(rli);
+//    DDAScene p1("PlayGround");
+//    mainApp.addScene("WolfScene", &p1);
+//    mainApp.run();
+//    return 0;
+//}
 
 
